@@ -1,6 +1,18 @@
 body {
-    background-color: orange;
+    background-color: white;
     color: white;
     text-align: center;
-    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 100px;
+}
+.content {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: yellow;
+    border-radius: 50px;
+    color: black;
+}
+.content h1 {
+    color: red;
 }
