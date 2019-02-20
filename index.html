@@ -2,11 +2,14 @@
 
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="main.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/backdrop.css">
+        <link rel="stylesheet" type="text/css" href="css/icon-link.css">
         <script src="scripts.js"></script>
         <script src="backdrop.js"></script>
         <script>
             function start() {
+                animate_profile_snapshot();
                 fix_heights();
                 start_backdrop();
             }
@@ -20,21 +23,21 @@
         <div id="backdrop"></div>
         <br />
         <br />
-        <div class="Profile-Snapshot">
+        <div class="Profile-Snapshot" id="snapshot">
             <!--  This is the container for the actual image  -->
             <div class="Profile-Snapshot-Image-Container">
                     <!--  This is the actual image  -->
                     <div class="Profile-Snapshot-Image">
                     </div>
             </div>
-            <div class="Profile-Snapshot" id="label">
-                <div class="Profile-Snapshot" id="name">Jared Massa</div>
-                <div class="Profile-Snapshot" id="subtitle">Student in Computer Science</div>
+            <div class="Profile-Snapshot-label">
+                <div class="Profile-Snapshot-label" id="name">Jared Massa</div>
+                <div class="Profile-Snapshot-label" id="subtitle">Student in Computer Science</div>
             </div>
         </div>
         <br />
         <div class="Icon-Link-Container">
-            <a href="https://github.com/slamdewey" target="_blank">
+            <a href="https://github.com/slamdewey" id="git" target="_blank">
                 <div class="Icon-Link" id="git"></div>
             </a>
             <a href="https://www.linkedin.com/in/jared-massa/" target="_blank">
@@ -59,7 +62,7 @@
                     <div class="Link-Cover" id="Resume-span">
                     </div>
                     <div class="Link-Reveal" id="Resume-Reveal" style="height: 0px">
-                        Résumé
+                        R&eacute;sum&eacute;
                     </div>
             </div>
         </a>

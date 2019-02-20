@@ -1,0 +1,48 @@
+/**************************************************************************************
+    Icon Link CSS
+***************************************************************************************/
+.Icon-Link-Container {
+    margin-top: 30px;
+}
+.Icon-Link-Container a {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.Icon-Link {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    mix-blend-mode: overlay;
+    transition: filter 0.2s ease;
+}
+.Icon-Link:hover {
+    filter: brightness(150%);
+}
+
+.Icon-Link-Container a#git {
+    border-radius: 50%;
+}
+.Icon-Link#git {
+    border-radius: 50%;
+    background-image: url("../img/github.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.Icon-Link#git:hover {filter:invert(35%);}
+
+.Icon-Link#linkedin {
+    background-image: url("../img/linkedin_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}
+.Icon-Link#gmail {
+    background-image: url("../img//gmail.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}

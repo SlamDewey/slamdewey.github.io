@@ -3,6 +3,11 @@
     --Profile-Snapshot-Background: #FF7900;
     --Profile-Snapshot-Title: rgb(250, 235, 220);
     --Profile-Snapshot-Subtitle: #ecd9c7;
+
+    --button-background: #000000;
+    --Project-fade:#7e7e00;
+    --Resume-fade:#720000;
+    --Info-fade:#004c4e;
     --Project-Reveal:#cccc17;
     --Resume-Reveal: #c91b1b;
     --Info-Reveal: #269fa3;
@@ -11,10 +16,10 @@
     --Info-Reveal-Text: white;
 
     --label-min-width: 150px;
-    --image-min-width: 250px;
-    --image-min-height: 350px;
-    --profile-min-width: add(var(--label-min-width), var(--image-min-width));
-    --button-min-width: sub(var(--profile-min-width), 50);
+    --image-min-width: 200px;
+    --image-min-height: 300px;
+    --profile-min-width: 400px;
+    --button-min-width: div(var(--profile-min-width), 2.2);
 }
 
 /***************************************************************************************
@@ -53,42 +58,63 @@ a {
     display: inline-flex;
     background-image: linear-gradient(50deg, var(--Profile-Snapshot-Background), #ceb029);
     margin: auto;
-    width: 50%;
-    min-width: 410px;
-    text-shadow: 1px 1px var(--body-background);
+    width: var(--profile-min-width);
+    min-width: var(--profile-min-width);
+    transition: width 2s ease, text-shadow 3s ease-in;
+    -moz-transition: width 2s ease, text-shadow 3s ease-in;
+    -ms-transition: width 2s ease, text-shadow 3s ease-in;
+    -o-transition: width 2s ease, text-shadow 3s ease-in;
+    -webkit-transition: width 2s ease, text-shadow 3s ease-in;
 }
 .Profile-Snapshot-Image-Container {
     border: 8px solid white;
     overflow: hidden;
     min-width: var(--image-min-width);
     min-height: var(--image-min-height);
+    max-width: var(--image-min-width);
+    max-height: var(--image-min-height);
+    
+    width: 30%;
+    float: left;
 }
 .Profile-Snapshot-Image {
-    width: 250px;
-    height: 350px;
-    background-image: url("img/headshot.jpg");
+    width:var(--image-min-width);
+    height: var(--image-min-height);
+    background-image: url("../img/headshot.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
 }
 
-.Profile-Snapshot#label {
+.Profile-Snapshot-label {
     width: 60%;
+    margin:auto;
+    float: left;
     min-width: var(--label-min-width);
     background-image:none;
     display:table-column;
+    transition: color 3s ease;
+    -moz-transition: color 3s ease;
+    -ms-transition: color 3s ease;
+    -o-transition: color 3s ease;
+    -webkit-transition: color 3s ease;
 }
-.Profile-Snapshot#name {
-    background-image:none;
-    min-width: var(--label-min-width);
+
+.Profile-Snapshot-label#name {
+    width: 80%;
+    margin-left: 10%;
     font-size: 50px;
-    margin: none;
-    color: var(--Profile-Snapshot-Title);
+    text-align: center;
+    min-width: var(--label-min-width);
+    color: transparent;
+    background-image:none;
 }
-.Profile-Snapshot#subtitle {
+.Profile-Snapshot-label#subtitle {
+    width: 80%;
+    margin-left: 10%;
     background-image:none;
     min-width: var(--label-min-width);
-    color: var(--Profile-Snapshot-Subtitle);
+    color: transparent;
     font-size: 20px;
     margin: none;
 }
@@ -97,47 +123,6 @@ img {
     max-width: 100%;
     max-height: 100%;
 }
-/**************************************************************************************
-    Icon Link CSS
-***************************************************************************************/
-
-.Icon-Link {
-    margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    mix-blend-mode: overlay;
-    transition: filter 0.2s ease;
-}
-.Icon-Link:hover {
-    filter: brightness(150%);
-}
-
-.Icon-Link#git {
-    border-radius: 50%;
-    background-image: url("img/github.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-.Icon-Link#git:hover {filter:invert(75%);}
-
-.Icon-Link#linkedin {
-    background-image: url("img/linkedin_logo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-}
-.Icon-Link#gmail {
-    background-image: url("img/gmail.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-}
 
 /**************************************************************************************
     Basis for large button div link CSS
@@ -145,7 +130,6 @@ img {
 .Link-Container {
     min-width: var(--button-min-width);
     display: inline-block;
-    background-color: darkslategray;
     width: 25%;
     overflow: hidden;
     text-align: center;
@@ -162,19 +146,31 @@ img {
     margin-bottom: 10px;
 
     transition: height 0.3s ease-out;
+    -moz-transition: height 0.3s ease-out;
+    -ms-transition: height 0.3s ease-out;
+    -o-transition: height 0.3s ease-out;
+    -webkit-transition: height 0.3s ease-out;
 }
 .Link-Reveal {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 30px;
     margin: 0;
+    
     transition: height 0.3s ease-out;
+    -moz-transition: height 0.3s ease-out;
+    -ms-transition: height 0.3s ease-out;
+    -o-transition: height 0.3s ease-out;
+    -webkit-transition: height 0.3s ease-out;
 }
 /***************************************************************************************
     Project Divs
 ***************************************************************************************/
+.Link-Container#Project {
+    background-image: radial-gradient(var(--button-background), var(--Project-fade));
+}
 .Link-Cover#Project-span {
-    background-image: url("img/project.svg");
+    background-image: url("../img/project.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -185,8 +181,11 @@ img {
 /***************************************************************************************
     Resume Divs
 ***************************************************************************************/
+.Link-Container#Resume {
+    background-image: radial-gradient(var(--button-background), var(--Resume-fade));
+}
 .Link-Cover#Resume-span {
-    background-image: url("img/document.svg");
+    background-image: url("../img/document.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -197,62 +196,15 @@ img {
 /***************************************************************************************
     Info Divs
 ***************************************************************************************/
+.Link-Container#Info {
+    background-image: radial-gradient(var(--button-background), var(--Info-fade));
+}
 .Link-Cover#Info-span {
-    background-image: url("img/info.svg");
+    background-image: url("../img/info.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
 .Link-Reveal#Info-Reveal {
     background-color: var(--Info-Reveal);
     color: var(--Info-Reveal-Text);
-}
-
-/***************************************************************************************
-    Creative Background CSS
-***************************************************************************************/
-
-#backdrop {
-    position: absolute;
-    z-index: -1;
-}
-
-.snowflake {
-    position: absolute;
-    display: block;
-    position: absolute;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    background-image: -webkit-radial-gradient(
-        center,
-        circle farthest-corner,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-image: -moz-radial-gradient(
-        center,
-        circle farthest-corner,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-image: -ms-radial-gradient(
-        center,
-        circle farthest-corner,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    background-image: radial-gradient(
-        center,
-        circle farthest-corner,
-        rgba(255, 255, 255, 1) 40%,
-        rgba(255, 255, 255, 0) 100%
-    );
 }

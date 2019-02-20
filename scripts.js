@@ -13,6 +13,19 @@ function fix_heights() {
     }
 }
 
+function animate_profile_snapshot() {
+    check_for_edge();
+    document.getElementById("snapshot").setAttribute(
+        "style", "width: 50%; text-shadow: 1px 1px var(--body-background);");
+    document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Title);");
+    document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Subtitle);");
+}
+
+function check_for_edge() {
+    if (window.navigator.userAgent.indexOf("Edge") > -1)
+        alert("Warning: Microsoft Edge has trouble with CSS image transitions, please use Chrome, Firefox, or even IE for a better experience.");
+}
+
 /************************************************************************************************
     button controls:
 

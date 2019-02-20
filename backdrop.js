@@ -1,9 +1,10 @@
 
 var backdrop;
+var size_constant = 0.99;
 
 function set_bounds() {
     backdrop.setAttribute(
-        "style", "height: " + (window.innerHeight) + "px; width: " + (window.innerWidth) + "px;"
+        "style", "height: " + (window.innerHeight * size_constant) + "px; width: " + (window.innerWidth * size_constant) + "px;"
     );
 }
 
@@ -31,24 +32,24 @@ var Snowflake = (function() {
 
     Snowflake.prototype.move = function() {
         if (this.hit) {
-            if (Math.random() > 0.995) this.melt = true;
+            if (Math.random() > 1) this.melt = true;
         } else {
             this.x += this.vx + Math.min(Math.max(wind, -10), 10);
             this.y += this.vy;
         }
 
         // Wrap the snowflake to within the bounds of the page
-        if (this.x > window.innerWidth + this.size) {
-            this.x -= window.innerWidth + this.size;
+        if (this.x > window.innerWidth * size_constant - this.size) {
+            this.x = this.size;
         }
 
-        if (this.x < -this.size) {
-            this.x += window.innerWidth + this.size;
+        if (this.x < 0) {
+            this.x = window.innerWidth * size_constant - this.size;
         }
 
-        if (this.y > window.innerHeight + this.size) {
-            this.x = Math.random() * window.innerWidth;
-            this.y -= window.innerHeight + this.size * 2;
+        if (this.y > window.innerHeight * size_constant  - this.size) {
+            this.x = Math.random() * window.innerWidth * size_constant;
+            this.y -= window.innerHeight * size_constant + this.size * 2;
             this.melt = false;
         }
 
@@ -77,35 +78,39 @@ var Snowflake = (function() {
         flakes = [];
 
         for (var i = flakesTotal; i--; ) {
-            var size = (Math.random() + 0.2) * 12 + 1;
+            var size = (Math.random() + 0.2) * 50 + 1;
             var flake = new Snowflake(
                 size,
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerHeight,
+                Math.random() * window.innerWidth * size_constant,
+                Math.random() * window.innerHeight * size_constant,
                 Math.random() - 0.5,
-                size * 0.3
+                20 / size
             );
             container.appendChild(flake.div);
             flakes.push(flake);
         }
     
-    container.onmousemove = function(event) {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-        wind = (mouseX - window.innerWidth / 2) / window.innerWidth * 6;
-    };
-
-      container.ontouchstart = function(event) {
-          mouseX = event.targetTouches[0].clientX;
-          mouseY = event.targetTouches[0].clientY;
-          event.preventDefault();
-    };
-
-    window.ondeviceorientation = function(event) {
-        if (event) {
-            wind = event.gamma / 10;
+        window.onmousemove = function(event) {
+            mouseX = event.clientX;
+            mouseY = event.clientY;
+            wind = (mouseX - window.innerWidth / 2) / window.innerWidth * 6;
+        };
+        window.onmouseout = function(event) {
+            mouseX = -100;
+            mouseY = -100;
         }
-    };
+
+        container.ontouchstart = function(event) {
+            mouseX = event.targetTouches[0].clientX;
+            mouseY = event.targetTouches[0].clientY;
+            event.preventDefault();
+        };
+
+        window.ondeviceorientation = function(event) {
+            if (event) {
+                wind = event.gamma / 10;
+            }
+        };
     
     update();
     };
