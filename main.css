@@ -1,17 +1,142 @@
+:root {
+    --body-background: #2a2a2a;
+    --Profile-Snapshot-Background: #e07c00;
+    --Profile-Snapshot-Title: red;
+    --Profile-Snapshot-Subtitle: white;
+    --Project-Reveal:#cccc17;
+    --Resume-Reveal: #c91b1b;
+    --Info-Reveal: #269fa3;
+    --Project-Reveal-Text: white;
+    --Resume-Reveal-Text: white;
+    --Info-Reveal-Text: white;
+}
+
 body {
-    background-color: #454545;
+    background-color:var(--body-background);
     text-align: center;
-    margin-left: 20%;
-    margin-right: 20%;
     margin-top: 100px;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
-.content {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background-color: yellow;
-    border-radius: 50px;
-    color: black;
+
+/***************************************************************************************
+    Profile Snapshot CSS
+***************************************************************************************/
+.Profile-Snapshot {
+    display: inline-block;
+    background-color: var(--Profile-Snapshot-Background);
+    color: var(--Profile-Snapshot-Subtitle);
+    margin: auto;
+    width: 70%;
 }
-.content h1 {
-    color: red;
+.Profile-Snapshot#image {
+    width: 20%;
+    border-radius: 25%;
+    border: 8px solid white;
+    background-color:white;
+    float: left;
+    vertical-align: middle;
+    overflow: hidden;
+}
+.Profile-Snapshot#image img {
+    transform: scale(1.75) translateY(15%);
+    transition: 3s ease;
+    width: 80%;
+}
+
+.Profile-Snapshot#image:hover > img {
+    transform: scale(0.1);
+}
+
+.Profile-Snapshot#label {
+    width: 70%;
+    float: right;
+}
+.Profile-Snapshot#name {
+    font-size: 100px;
+    margin: none;
+    color: var(--Profile-Snapshot-Title);
+}
+.Profile-Snapshot#subtitle {
+    font-size: 30px;
+    margin: none;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+/**************************************************************************************
+    Constant Link CSS
+***************************************************************************************/
+.Link-Container {
+    display: inline-block;
+    background-color: darkslategray;
+    width: 25%;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    padding: 20px;
+    margin: 20px;
+}
+.Link-Cover {
+    width: 100%;
+    
+    text-align:center;
+    display: inline-block;
+    overflow: hidden;
+    margin-bottom: 10px;
+
+    transition: height 0.5s ease-out;
+}
+.Link-Reveal {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    transition: height 0.5s ease-out;
+}
+/***************************************************************************************
+    Project Divs
+***************************************************************************************/
+.Link-Cover#Project-span {
+    background-image: url("img/project.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.Link-Reveal#Project-Reveal {
+    background-color: var(--Project-Reveal);
+    color: var(--Project-Reveal-Text);
+}
+/***************************************************************************************
+    Resume Divs
+***************************************************************************************/
+.Link-Cover#Resume-span {
+    background-image: url("img/document.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.Link-Reveal#Resume-Reveal {
+    background-color: var(--Resume-Reveal);
+    color: var(--Resume-Reveal-Text);
+}
+/***************************************************************************************
+    Info Divs
+***************************************************************************************/
+.Link-Cover#Info-span {
+    background-image: url("img/info.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.Link-Reveal#Info-Reveal {
+    background-color: var(--Info-Reveal);
+    color: var(--Info-Reveal-Text);
 }
