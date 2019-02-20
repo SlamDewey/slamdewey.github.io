@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/backdrop.css">
         <link rel="stylesheet" type="text/css" href="css/icon-link.css">
         <script src="scripts.js"></script>
-        <script src="backdrop.js"></script>
         <script>
             function start() {
+                if (check_for_bad_browser())  {destroy_content(); return}
                 animate_profile_snapshot();
                 fix_heights();
-                start_backdrop();
             }
         </script>
 
@@ -20,7 +20,8 @@
     </head>
 
     <body onload="start()" onresize="fix_heights(), set_bounds()">
-        <div id="backdrop"></div>
+        <canvas id="backdrop"></canvas>
+        <script src="backdrop.js"></script>
         <br />
         <br />
         <div class="Profile-Snapshot" id="snapshot">

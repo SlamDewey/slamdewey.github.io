@@ -14,16 +14,24 @@ function fix_heights() {
 }
 
 function animate_profile_snapshot() {
-    check_for_edge();
     document.getElementById("snapshot").setAttribute(
         "style", "width: 50%; text-shadow: 1px 1px var(--body-background);");
     document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Title);");
     document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Subtitle);");
 }
 
-function check_for_edge() {
-    if (window.navigator.userAgent.indexOf("Edge") > -1)
-        alert("Warning: Microsoft Edge has trouble with CSS image transitions, please use Chrome, Firefox, or even IE for a better experience.");
+function check_for_bad_browser() {
+    if (window.navigator.userAgent.indexOf("Edge") > -1 || (!!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g))) {
+        alert("Warning: Microsoft Edge and Internet Explorer have trouble with CSS images, please use Chrome or Firefox to see this site correctly.");
+        return true;
+    }
+    return false;
+}
+
+function destroy_content() {
+    var body = document.getElementsByTagName('body');
+    body[0].parentElement.removeChild(body[0]);
+    document.write("<!DOCTYPE html> <html><body><h1>You must use a more capable browser to view this site.</h1></body></html>");
 }
 
 /************************************************************************************************

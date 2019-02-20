@@ -4,27 +4,7 @@
 
 #backdrop {
     position: absolute;
-    z-index: -1;
-}
+    left: 0;
+    z-index: -3;
 
-.snowflake {
-    position: absolute;
-    display: block;
-    position: absolute;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-    
-    background-image: url("../img/head_only.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
 }
