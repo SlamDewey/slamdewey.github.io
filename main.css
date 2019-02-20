@@ -26,14 +26,18 @@ body {
 
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     
-    overflow: hidden;
-
     user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+a {
+    margin:none;
+    border:none;
+    color: transparent;
+    text-decoration: none;
 }
 .bottom {
     margin-top: 30px;
@@ -69,6 +73,7 @@ body {
 }
 
 .Profile-Snapshot#label {
+    width: 60%;
     min-width: var(--label-min-width);
     background-image:none;
     display:table-column;
@@ -93,7 +98,49 @@ img {
     max-height: 100%;
 }
 /**************************************************************************************
-    Base Link CSS
+    Icon Link CSS
+***************************************************************************************/
+
+.Icon-Link {
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    mix-blend-mode: overlay;
+    transition: filter 0.2s ease;
+}
+.Icon-Link:hover {
+    filter: brightness(150%);
+}
+
+.Icon-Link#git {
+    border-radius: 50%;
+    background-image: url("img/github.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.Icon-Link#git:hover {filter:invert(75%);}
+
+.Icon-Link#linkedin {
+    background-image: url("img/linkedin_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}
+.Icon-Link#gmail {
+    background-image: url("img/gmail.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}
+
+/**************************************************************************************
+    Basis for large button div link CSS
 ***************************************************************************************/
 .Link-Container {
     min-width: var(--button-min-width);

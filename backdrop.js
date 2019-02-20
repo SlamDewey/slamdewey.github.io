@@ -3,7 +3,7 @@ var backdrop;
 
 function set_bounds() {
     backdrop.setAttribute(
-        "style", "height: " + (window.innerHeight - 100) + "px; width: " + window.innerWidth - 100 + "px;"
+        "style", "height: " + (window.innerHeight) + "px; width: " + (window.innerWidth) + "px;"
     );
 }
 
@@ -118,6 +118,6 @@ function start_backdrop() {
     backdrop = document.getElementById("backdrop");
     set_bounds();
     setTimeout(function() {
-        Snowflake.init(document.getElementById('backdrop'));
+        Snowflake.init(backdrop);
     }, 500);
 }
