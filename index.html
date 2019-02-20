@@ -4,14 +4,27 @@
     <head>
         <link rel="stylesheet" type="text/css" href="main.css">
         <script src="scripts.js"></script>
+        <script src="backdrop.js"></script>
+        <script>
+            function start() {
+                fix_heights();
+                start_backdrop();
+            }
+        </script>
 
         <title>Jared Massa : Home Page</title>
+
     </head>
 
-    <body onload="fix_heights()" onresize="fix_heights()">
+    <body onload="start()" onresize="fix_heights()">
+        <div id="backdrop"></div>
+        <br />
         <div class="Profile-Snapshot">
-            <div class="Profile-Snapshot" id="image" >
-                <img src="img/headshot.jpg" />
+            <!--  This is the container for the actual image  -->
+            <div class="Profile-Snapshot-Image-Container">
+                    <!--  This is the actual image  -->
+                    <div class="Profile-Snapshot-Image">
+                    </div>
             </div>
             <div class="Profile-Snapshot" id="label">
                 <div class="Profile-Snapshot" id="name">Jared Massa</div>
@@ -19,26 +32,35 @@
             </div>
         </div>
         <br />
-        <div class="Link-Container" id="Project" onmouseout="button_hide('Project')" onmouseover="button_reveal('Project')" href="#">
-            <div class="Link-Cover" id="Project-span">
+        <a href="#">
+            <div class="Link-Container" id="Project" onmouseout="button_hide('Project')" onmouseover="button_reveal('Project')" href="#">
+                <div class="Link-Cover" id="Project-span">
+                </div>
+                <div class="Link-Reveal" id="Project-Reveal" style="height: 0px">
+                    Projects
+                </div>
             </div>
-            <div class="Link-Reveal" id="Project-Reveal" style="height: 0px">
-                Projects
+        </a>
+        <a href="files/Resume.pdf" target="_blank">
+            <div class="Link-Container" id="Resume" onmouseout="button_hide('Resume')" onmouseover="button_reveal('Resume')">
+                    <div class="Link-Cover" id="Resume-span">
+                    </div>
+                    <div class="Link-Reveal" id="Resume-Reveal" style="height: 0px">
+                        Resume
+                    </div>
             </div>
-        </div>
-        <div class="Link-Container" id="Resume" onmouseout="button_hide('Resume')" onmouseover="button_reveal('Resume')" href="#">
-                <div class="Link-Cover" id="Resume-span">
-                </div>
-                <div class="Link-Reveal" id="Resume-Reveal" style="height: 0px">
-                    Resume
-                </div>
-        </div>
-        <div class="Link-Container" id="Info" onmouseout="button_hide('Info')" onmouseover="button_reveal('Info')" href="#">
-                <div class="Link-Cover" id="Info-span">
-                </div>
-                <div class="Link-Reveal" id="Info-Reveal" style="height: 0px">
-                    About Me
-                </div>
+        </a>
+        <a href="#">
+            <div class="Link-Container" id="Info" onmouseout="button_hide('Info')" onmouseover="button_reveal('Info')" href="#">
+                    <div class="Link-Cover" id="Info-span">
+                    </div>
+                    <div class="Link-Reveal" id="Info-Reveal" style="height: 0px">
+                        About Me
+                    </div>
+            </div>
+        </a>
+        <div class="bottom">
+            Copyright &copy;2019 Jared Massa
         </div>
     </body>
 </html>

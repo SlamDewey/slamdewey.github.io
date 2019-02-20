@@ -1,22 +1,32 @@
 :root {
     --body-background: #2a2a2a;
-    --Profile-Snapshot-Background: #e07c00;
-    --Profile-Snapshot-Title: red;
-    --Profile-Snapshot-Subtitle: white;
+    --Profile-Snapshot-Background: #FF7900;
+    --Profile-Snapshot-Title: rgb(250, 235, 220);
+    --Profile-Snapshot-Subtitle: #ecd9c7;
     --Project-Reveal:#cccc17;
     --Resume-Reveal: #c91b1b;
     --Info-Reveal: #269fa3;
     --Project-Reveal-Text: white;
     --Resume-Reveal-Text: white;
     --Info-Reveal-Text: white;
+
+    --label-min-width: 150px;
+    --image-min-width: 250px;
+    --image-min-height: 350px;
+    --profile-min-width: add(var(--label-min-width), var(--image-min-width));
+    --button-min-width: sub(var(--profile-min-width), 50);
 }
 
+/***************************************************************************************
+    Main Body CSS
+***************************************************************************************/
 body {
     background-color:var(--body-background);
     text-align: center;
-    margin-top: 100px;
-    padding-left: 10%;
-    padding-right: 10%;
+
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+    overflow: hidden;
 
     user-select: none;
     -webkit-touch-callout: none;
@@ -25,47 +35,56 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+.bottom {
+    margin-top: 30px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    color: gray;
+}
 
 /***************************************************************************************
     Profile Snapshot CSS
 ***************************************************************************************/
 .Profile-Snapshot {
-    display: inline-block;
-    background-color: var(--Profile-Snapshot-Background);
-    color: var(--Profile-Snapshot-Subtitle);
+    display: inline-flex;
+    background-image: linear-gradient(50deg, var(--Profile-Snapshot-Background), #ceb029);
     margin: auto;
-    width: 70%;
+    width: 50%;
+    min-width: 410px;
+    text-shadow: 1px 1px var(--body-background);
 }
-.Profile-Snapshot#image {
-    width: 20%;
-    border-radius: 25%;
+.Profile-Snapshot-Image-Container {
     border: 8px solid white;
-    background-color:white;
-    float: left;
-    vertical-align: middle;
     overflow: hidden;
+    min-width: var(--image-min-width);
+    min-height: var(--image-min-height);
 }
-.Profile-Snapshot#image img {
-    transform: scale(1.75) translateY(15%);
-    transition: 3s ease;
-    width: 80%;
-}
-
-.Profile-Snapshot#image:hover > img {
-    transform: scale(0.1);
+.Profile-Snapshot-Image {
+    width: 250px;
+    height: 350px;
+    background-image: url("img/headshot.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .Profile-Snapshot#label {
-    width: 70%;
-    float: right;
+    min-width: var(--label-min-width);
+    background-image:none;
+    display:table-column;
 }
 .Profile-Snapshot#name {
-    font-size: 100px;
+    background-image:none;
+    min-width: var(--label-min-width);
+    font-size: 50px;
     margin: none;
     color: var(--Profile-Snapshot-Title);
 }
 .Profile-Snapshot#subtitle {
-    font-size: 30px;
+    background-image:none;
+    min-width: var(--label-min-width);
+    color: var(--Profile-Snapshot-Subtitle);
+    font-size: 20px;
     margin: none;
 }
 
@@ -74,9 +93,10 @@ img {
     max-height: 100%;
 }
 /**************************************************************************************
-    Constant Link CSS
+    Base Link CSS
 ***************************************************************************************/
 .Link-Container {
+    min-width: var(--button-min-width);
     display: inline-block;
     background-color: darkslategray;
     width: 25%;
@@ -84,7 +104,7 @@ img {
     text-align: center;
     cursor: pointer;
     padding: 20px;
-    margin: 20px;
+    margin-top: 20px;
 }
 .Link-Cover {
     width: 100%;
@@ -94,15 +114,14 @@ img {
     overflow: hidden;
     margin-bottom: 10px;
 
-    transition: height 0.5s ease-out;
+    transition: height 0.3s ease-out;
 }
 .Link-Reveal {
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    transition: height 0.5s ease-out;
+    transition: height 0.3s ease-out;
 }
 /***************************************************************************************
     Project Divs
@@ -139,4 +158,54 @@ img {
 .Link-Reveal#Info-Reveal {
     background-color: var(--Info-Reveal);
     color: var(--Info-Reveal-Text);
+}
+
+/***************************************************************************************
+    Creative Background CSS
+***************************************************************************************/
+
+#backdrop {
+    position: absolute;
+    z-index: -1;
+}
+
+.snowflake {
+    position: absolute;
+    display: block;
+    position: absolute;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-image: -webkit-radial-gradient(
+        center,
+        circle farthest-corner,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-image: -moz-radial-gradient(
+        center,
+        circle farthest-corner,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-image: -ms-radial-gradient(
+        center,
+        circle farthest-corner,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    background-image: radial-gradient(
+        center,
+        circle farthest-corner,
+        rgba(255, 255, 255, 1) 40%,
+        rgba(255, 255, 255, 0) 100%
+    );
 }

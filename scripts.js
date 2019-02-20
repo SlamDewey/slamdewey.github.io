@@ -1,9 +1,7 @@
-var btn_height = 200;
-function fix_heights() {
-    //center profile label
-    var image = document.getElementById('image'), label = document.getElementById('label');
-    label.setAttribute("style", "padding-top: " + (image.offsetHeight / 2 - label.offsetHeight / 2) + "px;");
+var btn_height;
 
+//update heights of the buttons on page load and on page resize.
+function fix_heights() {
     //recalculate window size and therefore button heights
     btn_height = window.innerHeight * 0.25;
     var link_containers = document.getElementsByClassName("Link-Container");
@@ -13,9 +11,18 @@ function fix_heights() {
         //close buttons again in case they were open
         button_hide(link_containers[i].id);
     }
-    console.log("function was called");
 }
 
+/************************************************************************************************
+    button controls:
+
+@param id the id of the div.Link-Container  These functions manipulate the content based on
+a standard format of:
+    div.Link-Container#id
+        div.Link-Cover#id-span
+        div.Link-Reveal#id-Reveal
+
+************************************************************************************************/
 function button_reveal(id) {
     var elements = document.getElementById(id).getElementsByTagName("div");
     elements[0].setAttribute("style", "height: " + (btn_height - 50) + "px;");
