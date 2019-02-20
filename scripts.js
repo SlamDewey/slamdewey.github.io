@@ -13,12 +13,13 @@ function fix_heights() {
         //close buttons again in case they were open
         button_hide(link_containers[i].id);
     }
+    console.log("function was called");
 }
 
 function button_reveal(id) {
     var elements = document.getElementById(id).getElementsByTagName("div");
-    elements[0].setAttribute("style", "height: " + btn_height / 4 * 3 + "px;");
-    elements[1].setAttribute("style", "height: " + btn_height / 4 + "px;");
+    elements[0].setAttribute("style", "height: " + (btn_height - 50) + "px;");
+    elements[1].setAttribute("style", "height: " + 50 + "px;");
 }
 function button_hide(id) {
     var elements = document.getElementById(id).getElementsByTagName("div");
