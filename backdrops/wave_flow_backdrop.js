@@ -36,7 +36,7 @@ function const_init() {
  *  Constants
  ********************************************/
 const Configs = {
-    backgroundColor: '#2a2a2a',
+backgroundColor: '#2a2a2a',
     particleNum: 1000,
     step: 5,
     base: 1000,
