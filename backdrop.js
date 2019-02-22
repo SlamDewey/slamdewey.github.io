@@ -1,14 +1,13 @@
-
 function set_bounds() {
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
 }
 var canvas = document.querySelector('canvas');
 set_bounds();
+document.addEventListener('resize', set_bounds);
 var c = canvas.getContext('2d');
-
-var NUM_SETTINGS = 1;
-var backdrop_setting = (Math.floor(Math.random() * NUM_SETTINGS));
 
 function play_with_this_backdrop() {
     var body = document.getElementsByTagName('body');
@@ -22,6 +21,7 @@ function play_with_this_backdrop() {
             "<body onload=\"set_bounds()\" onresize=\"set_bounds()\" style=\"font-family:calibri;background-color:#2a2a2a;margin:0;\">\n" +
                 "<canvas id=\"backdrop\"></canvas>\n" +
                 "<script src=\"backdrop.js\"></script>\n" +
+                "<script src=\"simplex-noise.js\"></script>" +
                 "<a href=\"index.html\" style=\"text-decoration:none\">" +
                     "<div style=\"display:inline-flex;float:left;font-size:30px;color:#999795;width:80px;margin:auto;background-color:darkblue;padding:30px;\">< Back</div>" +
                 "</a>" +
@@ -29,10 +29,17 @@ function play_with_this_backdrop() {
         "</html>");
 }
 
+function random_range(min, max) {
+    return Math.round((Math.random() * (max - min)) + min);
+}
+
+var NUM_SETTINGS = 3;
+var backdrop_setting = random_range(1, NUM_SETTINGS);
+
 /**************************************************************************************
  *  Bouncing Circles Backdrop
  **************************************************************************************/
-if (backdrop_setting == 0) {
+if (backdrop_setting == 1) {
     var circles = [];
     var mouse = {
         x: undefined,
@@ -124,10 +131,267 @@ if (backdrop_setting == 0) {
     update();
 }
 /**************************************************************************************
- *  Other Backdrop code
+ *  Particle Backdrop code
  **************************************************************************************/
-else if (backdrop_setting == 2) console.log("this isn't suppossed to happen yet...");
+else if (backdrop_setting == 2) {
+    
+    //constants
+    const NUM_PARTICLES = 500;
+    const MIN_RADIUS = 2;
+    const MAX_RADIUS = 10;
+    const MOVE_CONSTANT = 0.01;
+    const colors = [
+        '#7c7c7c',
+        '#696969',
+        '#595959',
+        '#353535',
+    ];
+
+    //variables
+    var mouse = {
+        x: 0,
+        y: 0
+    };
+    var particles = [];
+    
+    //listeners
+    window.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    //objects
+    function Particle(x, y, radius, color) {
+        this.startX = x;
+        this.startY = y;
+        this.x = x;
+        this.y = y; 
+        this.radius = radius;
+        this.color = color;
+
+        this.draw = function() {
+            c.beginPath();
+            c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            c.fillStyle = colors[this.color];
+            c.fill();
+        }
+        this.tick = function() {
+
+            this.x = this.startX - (mouse.x - this.startX) * (this.radius * this.radius / MAX_RADIUS) * MOVE_CONSTANT;
+            this.y = this.startY - (mouse.y - this.startY) * (this.radius * this.radius / MAX_RADIUS) * MOVE_CONSTANT;
+
+            if (this.x + this.radius > innerWidth || this.x - this.radius < 0) return;
+            if (this.y + this.radius > innerHeight || this.y - this.radius < 0) return;
+            this.draw();
+        }
+    }
+
+
+    function update() {
+        window.requestAnimationFrame(update);
+        c.clearRect(0, 0, innerWidth, innerHeight);
+        for (var i in particles) {
+            particles[i].tick();
+        }
+    }
+    function init() {
+        for (var i = 0; i < NUM_PARTICLES; i++) {
+            radius = random_range(MIN_RADIUS, MAX_RADIUS);
+            particles.push(
+                new Particle(
+                        random_range(0, innerWidth),
+                        random_range(0, innerHeight),
+                        radius,
+                        Math.floor((1 - (radius / MAX_RADIUS)) * colors.length)
+                        )
+            );
+        }
+        particles.sort(function(a, b){return a.radius - b.radius});
+
+    }
+    init();
+    update();
+}
  /**************************************************************************************
- *  Other Backdrop code
+ *  Wave Backdrop code
  **************************************************************************************/
-else if (backdrop_setting == 3) console.log("this isn't suppossed to happen yet...");
+else if (backdrop_setting == 3) {
+
+    /**
+     * requestAnimationFrame
+     */
+    window.requestAnimationFrame = (function(){
+        return  window.requestAnimationFrame       ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame    ||
+                window.oRequestAnimationFrame      ||
+                window.msRequestAnimationFrame     ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+    })();
+
+
+    // Configs
+
+    var Configs = {
+        backgroundColor: '#2a2a2a',
+        particleNum: 1000,
+        step: 5,
+        base: 1000,
+        zInc: 0.001
+    };
+
+
+    // Vars
+
+    var canvas,
+        context,
+        screenWidth,
+        screenHeight,
+        centerX,
+        centerY,
+        particles = [],
+        hueBase = 0,
+        simplexNoise,
+        zoff = 0,
+        gui;
+
+
+    // Initialize
+
+    function init() {
+        canvas = document.getElementById('backdrop');
+
+        window.addEventListener('resize', onWindowResize, false);
+        onWindowResize(null);
+
+        for (var i = 0, len = Configs.particleNum; i < len; i++) {
+            initParticle((particles[i] = new Particle()));
+        }
+
+        simplexNoise = new SimplexNoise();
+
+        canvas.addEventListener('click', onCanvasClick, false);
+
+        update();
+    }
+
+
+    // Event listeners
+
+    function onWindowResize(e) {
+        screenWidth  = canvas.width  = window.innerWidth;
+        screenHeight = canvas.height = window.innerHeight;
+
+        centerX = screenWidth / 2;
+        centerY = screenHeight / 2;
+
+        context = canvas.getContext('2d');
+        context.lineWidth = 0.3;
+        context.lineCap = context.lineJoin = 'round';
+    }
+
+    function onCanvasClick(e) {
+        context.save();
+        context.globalAlpha = 0.8;
+        context.fillStyle = Configs.backgroundColor;
+        context.fillRect(0, 0, screenWidth, screenHeight);
+        context.restore();
+        
+        simplexNoise = new SimplexNoise();
+    }
+
+
+    // Functions
+
+    function getNoise(x, y, z) {
+        var octaves = 4,
+            fallout = 0.5,
+            amp = 1, f = 1, sum = 0,
+            i;
+
+        for (i = 0; i < octaves; ++i) {
+            amp *= fallout;
+            sum += amp * (simplexNoise.noise3D(x * f, y * f, z * f) + 1) * 0.5;
+            f *= 2;
+        }
+
+        return sum;
+    }
+
+    function initParticle(p) {
+        p.x = p.pastX = screenWidth * Math.random();
+        p.y = p.pastY = screenHeight * Math.random();
+        p.color.h = hueBase + Math.atan2(centerY - p.y, centerX - p.x) * 180 / Math.PI;
+        p.color.s = 1;
+        p.color.l = 0.5;
+        p.color.a = 0;
+    }
+
+
+    // Update
+    var count = 0;
+    function update() {
+        var step = Configs.step,
+        base = Configs.base,
+        i, p, angle;
+        
+        for (i = 0, len = particles.length; i < len; i++) {
+            p = particles[i];
+            
+            p.pastX = p.x;
+            p.pastY = p.y;
+            
+            angle = Math.PI * 6 * getNoise(p.x / base * 1.75, p.y / base * 1.75, zoff);
+            p.x += Math.cos(angle) * step;
+            p.y += Math.sin(angle) * step;
+            
+            if (p.color.a < 1) p.color.a += 0.003;
+            
+            context.beginPath();
+            context.strokeStyle = p.color.toString();
+            context.moveTo(p.pastX, p.pastY);
+            context.lineTo(p.x, p.y);
+            context.stroke();
+            
+            if (p.x < 0 || p.x > screenWidth || p.y < 0 || p.y > screenHeight) {
+                initParticle(p);
+            }
+        }
+        
+        hueBase += 0.1;
+        zoff += Configs.zInc;
+        if (count > 60 * 10) return;
+        count++;
+        requestAnimationFrame(update);
+    }
+
+
+    /**
+     * HSLA
+     */
+    function HSLA(h, s, l, a) {
+        this.h = h || 0;
+        this.s = s || 0;
+        this.l = l || 0;
+        this.a = a || 0;
+    }
+
+    HSLA.prototype.toString = function() {
+        return 'hsla(' + this.h + ',' + (this.s * 100) + '%,' + (this.l * 100) + '%,' + this.a + ')';
+    }
+
+    /**
+     * Particle
+     */
+    function Particle(x, y, color) {
+        this.x = x || 0;
+        this.y = y || 0;
+        this.color = color || new HSLA();
+        this.pastX = this.x;
+        this.pastY = this.y;
+    }
+
+    init();
+}

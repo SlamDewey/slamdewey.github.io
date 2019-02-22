@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/backdrop.css">
         <link rel="stylesheet" type="text/css" href="css/icon-link.css">
         <script src="scripts.js"></script>
+        <script src="simplex-noise.js"></script>
         <script>
             function start() {
                 if (check_for_bad_browser())  {destroy_content(); return}
@@ -19,7 +20,7 @@
 
     </head>
 
-    <body onload="start()" onresize="fix_heights(), set_bounds()">
+    <body onload="start(), set_bounds()" onresize="fix_heights(), set_bounds()">
         <canvas id="backdrop"></canvas>
         <script src="backdrop.js"></script>
         <br />
