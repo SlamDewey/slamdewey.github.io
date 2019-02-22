@@ -86,8 +86,8 @@ var qtree;
 var circles = [];
 var dictionary = {};
 var mouse = {
-    x: undefined,
-    y: undefined
+    x: 0,
+    y: 0
 }
 
 /********************************************
