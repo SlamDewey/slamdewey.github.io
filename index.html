@@ -3,11 +3,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/backdrop.css">
         <link rel="stylesheet" type="text/css" href="css/icon-link.css">
-        <script src="scripts.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
         <script src="simplex-noise.js"></script>
+        <script src="scripts.js"></script>
         <script>
             function start() {
                 if (check_for_bad_browser())  {destroy_content(); return}
@@ -20,7 +22,7 @@
 
     </head>
 
-    <body onload="start(), set_bounds()" onresize="fix_heights(), set_bounds()">
+    <body onload="start()" onresize="fix_heights()" id="parent">
         <canvas id="backdrop"></canvas>
         <script src="backdrop.js"></script>
         <br />
@@ -45,7 +47,7 @@
             <a href="https://www.linkedin.com/in/jared-massa/" target="_blank">
                 <div class="Icon-Link" id="linkedin"></div>
             </a>
-            <a href="mailto:mr.jaredmassa@gmail.com?Subject=Greetings%20Jared!&body=First%20off%20I%27d%20just%20like%20to%20say%20what%20an%20awesome%20job%20you%20did%20on%20your%20website!%20%20But%20let%27s%20get%20to%20the%20point:%20">
+            <a id="gmail" href="mailto:mr.jaredmassa@gmail.com?Subject=Greetings%20Jared!&body=First%20off%20I%27d%20just%20like%20to%20say%20what%20an%20awesome%20job%20you%20did%20on%20your%20website!%20%20But%20let%27s%20get%20to%20the%20point:%20">
                 <div class="Icon-Link" id="gmail"></div>
             </a>
         </div>

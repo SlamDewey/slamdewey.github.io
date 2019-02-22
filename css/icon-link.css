@@ -1,23 +1,37 @@
+:root {
+    --mid-fade: #ff8b1ea6;
+}
+
 /**************************************************************************************
     Icon Link CSS
 ***************************************************************************************/
 .Icon-Link-Container {
+    position: relative;
+    width: 30%;
+    min-width: 255px;
+    margin-left: 35%;
+    margin-right: 35%;
     margin-top: 30px;
+    background-image: linear-gradient(90deg, transparent,var(--mid-fade),var(--mid-fade), transparent);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .Icon-Link-Container a {
-    display: inline-block;
+    display: inline-flex;
     margin-left: 10px;
     margin-right: 10px;
 }
 .Icon-Link {
     width: 50px;
     height: 50px;
-    display: inline-block;
-    mix-blend-mode: overlay;
-    transition: filter 0.2s ease;
+    transition: box-shadow 0.2s ease, background 0.2s ease;
 }
 .Icon-Link:hover {
-    filter: brightness(150%);
+    box-shadow: 5px 10px 30px black;
+    background-color: hsla(0, 0%, 100%, 0.747);
 }
 
 .Icon-Link-Container a#git {
@@ -28,21 +42,21 @@
     background-image: url("../img/github.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
 }
-.Icon-Link#git:hover {filter:invert(35%);}
 
 .Icon-Link#linkedin {
+    border-radius: 5px;
     background-image: url("../img/linkedin_logo.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
-
+    background-size: cover;
 }
 .Icon-Link#gmail {
-    background-image: url("../img//gmail.png");
+    border-radius: 4px;
+    height: 38px;
+    background-image: url("../img/gmail.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-
 }
