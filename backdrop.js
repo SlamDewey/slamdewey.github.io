@@ -1,5 +1,5 @@
 const backdrops = [
-    'starry_night',
+    'expandable_ball_pit',
     'wave_flow',
     'graph_theory'
 ];
