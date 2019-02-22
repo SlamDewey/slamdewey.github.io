@@ -50,7 +50,7 @@ a {
     text-decoration: none;
 }
 .bottom {
-    margin-top: 30px;
+    margin-top: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 10px;
     color: #CCCCCC;
@@ -140,7 +140,6 @@ img {
     text-align: center;
     cursor: pointer;
     padding: 20px;
-    margin-top: 20px;
 }
 .Link-Cover {
     width: 100%;

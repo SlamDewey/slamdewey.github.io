@@ -49,7 +49,7 @@ var mouse = {
     x: 0,
     y: 0
 };
-var particles = [];
+var particles;
 
 
 /********************************************
@@ -96,6 +96,7 @@ function Particle(x, y, radius, color) {
  ********************************************/
 function init() {
     const_init();
+    particles = [];
 
     for (var i = 0; i < NUM_PARTICLES; i++) {
         radius = random_range(MIN_RADIUS, MAX_RADIUS);

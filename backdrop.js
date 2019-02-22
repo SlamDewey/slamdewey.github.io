@@ -13,13 +13,18 @@ function pick_random_backdrop() {
     backdrop = backdrops[Math.floor(Math.random() * backdrops.length)];
 }
 
-function load_script(script) {
+function load_script(script, async) {
     var script_element = document.createElement('script');
     script_element.src = script;
+    script_element.async = async;
     document.querySelector('head').appendChild(script_element);
 }
 function load_backdrop(backdrop) {
-    load_script("backdrops/" + backdrop + "_backdrop.js");
+    if (backdrop == 'wave_flow') {
+        /* LOAD DEPENDENCY */
+        load_script("javascript_dependencies/simplex-noise.js", true);
+    }
+    load_script("backdrops/" + backdrop + "_backdrop.js", false);
 }
 
 function play_with_this_backdrop() {
