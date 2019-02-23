@@ -1,7 +1,7 @@
 const backdrops = [
     'expandable_ball_pit',
+    'graph_theory',
     'wave_flow',
-    'graph_theory'
 ];
 
 var backdrop;
