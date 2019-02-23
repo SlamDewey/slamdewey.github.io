@@ -203,6 +203,10 @@ function toggle_tree_demo() {
     }
 }
 function toggle_pan() {
+    if (DEMO_QUAD_TREE) {
+        alert('You must first diable the quad tree graphic before enabling Panning');
+        return;
+    }
     PAN = !PAN;
 }
 function gen_circle() {
