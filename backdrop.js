@@ -1,7 +1,7 @@
 const backdrops = [
-    'expandable_ball_pit',
-    'graph_theory',
-    'wave_flow',
+    //'expandable_ball_pit',
+    //'wave_flow',
+    'quad_demo'
 ];
 
 var backdrop;
@@ -21,10 +21,10 @@ function load_script(script, async) {
 }
 function load_backdrop(backdrop) {
     /* LOAD DEPENDENCIES */
-    if (backdrop == 'wave_flow') {
+    if (backdrop === 'wave_flow') {
         load_script("javascript_dependencies/simplex-noise.js", true);
     }
-    if (backdrop == 'graph_theory') {
+    if (backdrop === 'graph_theory' || backdrop === 'quad_demo') {
         load_script("javascript_dependencies/spacial/AABB.js", true);
         load_script("javascript_dependencies/spacial/QuadTree.js", true);
     }
@@ -37,6 +37,8 @@ function play_with_this_backdrop() {
     "<a href=\"index.html\" style=\"text-decoration:none\">" +
         "<div class=\"backdrop-back\">< Reload</div>" +
     "</a>");
+
+    load_backdrop_speciic_content();
 }
 
 pick_random_backdrop();

@@ -31,7 +31,6 @@
     SOFTWARE.
 */
 
-
 /**************************************************************************************
  *  Backdrop Header
  **************************************************************************************/
@@ -54,22 +53,36 @@ function const_init() {
     set_bounds();
     c = canvas.getContext('2d');
 }
+function load_backdrop_speciic_content() {
+    $("#parent").append(
+        "<div class=\"option-selection-button\" onclick=\"toggle_mouse_demo()\">Toggle Mouse Range Demo" +
+            "<span class=\"tooltiptext\">Adds bounds around the mouse and queries the tree for its contents</span>" +
+        "</div>" +
+        "<div class=\"option-selection-button\" onclick=\"toggle_tree_demo()\">Toggle Quad Tree Demo" +
+            "<span class=\"tooltiptext\">Shows the leaf breakdown of the quad tree</span>" +
+        "</div>" +
+        "<div class=\"option-selection-button\" onclick=\"toggle_pan()\">Toggle Panning" +
+            "<span class=\"tooltiptext\">Panning uses the mouse position and ball radius to determine draw location</span>" +
+        "</div>" +
+        "<div class=\"option-selection-button\" onclick=\"init()\">Re-Initialize Backdrop</div>"
+        );
+}
 
 
 /**************************************************************************************
- *  "Graph Theory" Backdrop Code
+ *  Bouncing Circles Backdrop
  **************************************************************************************/
 
  
 /********************************************
  *  Constants
  ********************************************/
-const PAN_CONSTANT = 0.01;
-const NUM_BALLS = 150;
-const RAD_MIN = 2;
-const RAD_MAX = 8;
-const RANGE = 125;
-const MAX_VEL = 5;
+const PAN_CONSTANT = 0.05;
+const NUM_BALLS = 500;
+const RAD_MAX = 5;
+const RAD_MIN = 3;
+const RANGE = 80;
+const MAX_VEL = 3;
 const COLORS = [
     '#a3a3a3',
     '#7c7c7c',
@@ -78,80 +91,82 @@ const COLORS = [
     '#070707'
 ];
 
-
 /********************************************
  *  Variables
  ********************************************/
-var qtree;              //quad tree
-var circles = [];       //to store the balls
-var dictionary = {};    //to store keys when we check ball pairs
-var mouse = {           //for mouse input and 'camera' panning
+var circles = [];
+var mouse = {
     x: 0,
-    y: 0
-}
-var attach_to = "eachother";
+    y: 0,
+    vx: 0,
+    vy: 0
+};
+var mousedown = false;
+var qtree;
+var mouse_range = 50;
+var dictionary = {};    //to store keys when we check ball pairs
 
+var DEMO_QUAD_TREE = false;
+var DEMO_MOUSE_RANGE = false;
+var PAN = true;
 
 /********************************************
  *  Window Listeners
  ********************************************/
 window.addEventListener('mousemove', function(event) {
+    mouse.vx = ((event.x - mouse.x) / 4) % MAX_VEL;
+    mouse.vy = ((event.y - mouse.y) / 4) % MAX_VEL;
     mouse.x = event.x;
     mouse.y = event.y;
 }, false);
-window.addEventListener('resize', init, false);
-window.addEventListener('onkeypress', function(event) {
-    var keynum;
-    if(window.event) { // IE
-        keynum = e.keyCode;
-    } else if(e.which){ // Netscape/Firefox/Opera
-        keynum = e.which;
-    }
-    alert('You pressed: ' + String.fromCharCode(keynum));
+window.addEventListener('mousedown', function(event) {
+    mousedown = true;
 }, false);
-
+window.addEventListener('mouseup', function(event) {
+    mousedown = false;
+}, false);
+window.addEventListener('mousewheel', function(event) {
+    if (DEMO_MOUSE_RANGE) mouse_range += Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail))) * 2;
+}, false);
+window.addEventListener('resize', init, false);
 
 
 /********************************************
- *  Objects (but really this is a struct factory)
+ *  Objects
  ********************************************/
 function Circle(x, y, radius, vx, vy, color, id) {
-    //position, movement, and drawing variables
     this.x = x;
-    this.y = y;
+    this.y = y; 
+    this.radius = radius;
     this.vx = vx;
     this.vy = vy;
     this.drawx = x;
     this.drawy = y;
     this.color = color;
-
-    //information variables
-    this.radius = radius;
-    this.bounds = new AABB(x, y, radius, radius);
     this.id = id;
-    
+    this.bounds = new AABB(x, y, radius, radius);
+    this.targeted = false;
 
-    //this is pretty self explanitory
+    this.setTargeted = function(val) {this.targeted = val};
+
     this.draw = function() {
         c.beginPath();
         c.arc(this.drawx, this.drawy, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = COLORS[color];
+        c.fillStyle = this.targeted ? 'red' : COLORS[color];
         c.fill();
     }
-    //update the position of the object and check if still within bounds.
     this.tick = function() {
-        //check if we need to bounce, and do so if appropriate
         if (this.x + this.radius > innerWidth) this.vx = -Math.abs(this.vx);
         else if (this.x - this.radius < 0) this.vx = Math.abs(this.vx);
         if (this.y + this.radius > innerHeight) this.vy = -Math.abs(this.vy);
         else if (this.y - this.radius < 0) this.vy = Math.abs(this.vy);
-        //update position
         this.x += this.vx;
         this.y += this.vy;
-        if (attach_to == "eachother") {
-            //this is a special variable for drawing a relative position of this object.
-            //it it used to create a sort of 'pan' effect on the screen.  Change PAN_CONSTANT experimentally
-            //or change this    ↓ to be a + if you'd like the 'camera' to pan WITH the mouse instead
+        if (mousedown && Math.abs(mouse.x - this.x) < mouse_range && Math.abs(mouse.y - this.y) < mouse_range) {
+            this.vx = mouse.vx;
+            this.vy = mouse.vy;
+        }
+        if (PAN) {
             this.drawx = this.x - (mouse.x - this.x) * (this.radius * this.radius / RAD_MAX) * PAN_CONSTANT;
             this.drawy = this.y - (mouse.y - this.y) * (this.radius * this.radius / RAD_MAX) * PAN_CONSTANT;
         }
@@ -160,10 +175,7 @@ function Circle(x, y, radius, vx, vy, color, id) {
             this.drawy = this.y;
         }
     }
-    // a toString() for debugging purposes of the circle struct
-    this.toString = function() {return "Circle: (", + this.x + ", " + this.y + ")";}
 }
-
 
 /********************************************
  *  Functions
@@ -172,7 +184,38 @@ function key(id1, id2) {
     if (id1 < id2) return id1 + "," + id2;
     return id2 + "," + id1;
 }
-
+function toggle_mouse_demo() {
+    DEMO_MOUSE_RANGE = !DEMO_MOUSE_RANGE;
+    if (DEMO_MOUSE_RANGE)
+        alert('Mouse Range Demo is now active:\n1. Use the scrollwheel to resize the selection box\n2. Click to drag contents of selection box');
+    if (PAN)
+        alert('Note: You have Panning enabled, so the range will highlight objects that appear to be outside the boundary, however, '+
+            'these objects only appear this way.  The Panning augments their draw-location.');
+}
+function toggle_tree_demo() {
+    if (PAN) {
+        alert('You must toggle Panning before enabling the Quad Tree Demonstration');
+    }
+    DEMO_QUAD_TREE = !DEMO_QUAD_TREE;
+    if (DEMO_QUAD_TREE) {
+        alert('Quad Tree Demo is now active:\nGreen Rectangles represent the bounds of a QuadTree Leaf');
+    }
+}
+function toggle_pan() {
+    PAN = !PAN;
+}
+function gen_circle() {
+    var radius = random_range(RAD_MIN, RAD_MAX);
+    circles.push(new Circle(
+        random_range(radius, innerWidth - radius),
+        random_range(radius, innerHeight - radius),
+        radius,
+        (Math.random() - 0.5) * MAX_VEL,
+        (Math.random() - 0.5) * MAX_VEL,
+        Math.floor((Math.random() * COLORS.length)),
+        circles.length
+    ));
+}
 
 /********************************************
  *  Init and Update
@@ -180,106 +223,75 @@ function key(id1, id2) {
 function init() {
     const_init();
 
-    //this function may be called more than once so:
-    if (qtree == null)
-        qtree = new QuadTree(new AABB(innerWidth / 2, innerHeight / 2, innerWidth, innerHeight));
-    else {
-        qtree.reset();
-        dictionary = {};
-        circles = [];
-    }
-    //generate objects (balls)
-    var radius;
-    for (var i = 0; i < NUM_BALLS; i++) {
-        radius = random_range(RAD_MIN, RAD_MAX);
-        circles.push(
-            new Circle(
-                random_range(radius, innerWidth - radius),  // centerpoint X
-                random_range(radius, innerHeight - radius), // centerpoint Y
-                radius,                                     // radius
-                (Math.random() - 0.5) * 3,                  // velocity X
-                (Math.random() - 0.5) * 3,                  // velocity Y
-                random_range(0, COLORS.length - 1),         // color index
-                i                                           // id
-        ));
-    }
+    qtree = new QuadTree(new AABB(innerWidth / 2, innerHeight / 2, innerWidth / 2, innerHeight / 2), 1);
+    circles = [];
 }
 
 function update() {
     window.requestAnimationFrame(update);
     c.clearRect(0, 0, innerWidth, innerHeight);
 
-    //update balls
+    if (circles.length < NUM_BALLS) gen_circle();
+
     for (var i = 0; i < circles.length; i++) {
-        //tick object
         circles[i].tick();
-        //insert in quad tree
         qtree.insert(circles[i]);
     }
-
-    var bounds;
-    if (attach_to == "eachother") {
-        //query quad tree for ball connections, and draw them (for each ball)
-        for (var i in circles) {
-            //generate the bounds around this circle we might want to draw lines to
-            bounds = new AABB(circles[i].x, circles[i].y, RANGE, RANGE);
-            //create emtpy members array
-            var members = [];
-            //pass members array into quad tree method
-            qtree.getObjectsInBounds(bounds, members);
-            for (var j in members) {
-                //if these two circles are the same, move on
-                if (circles[i] == members[j]) continue;
-                //if we've already checked this pair of objects, move on
-                if (dictionary[key(circles[i].id, members[j].id)]) continue;
-                //otherwise add this pair of objects to the list
-                dictionary[key(circles[i].id, members[j].id)] = true;
-                //and measure the distance between them (var d)
-                var dx = (circles[i].x - members[j].x),
-                    dy = (circles[i].y - members[j].y),
-                    d;
-                    d = Math.sqrt(dx * dx + dy * dy);
-                //if d is within a circular range, draw a line
-                if (d < RANGE) {
-                    c.strokeStyle = COLORS[2];
-                    c.beginPath();
-                    c.moveTo(circles[i].drawx, circles[i].drawy);
-                    c.lineTo(members[j].drawx, members[j].drawy);
-                    c.stroke();
-                }
-            }
+    if (DEMO_MOUSE_RANGE) {
+        var m = [];
+        qtree.getObjectsInBounds(new AABB(mouse.x, mouse.y, mouse_range, mouse_range), m);
+        for (var i in m) {
+            m[i].setTargeted(true);
         }
     }
-    else {
-        bounds = new AABB(mouse.x, mouse.y, RANGE, RANGE);
+
+    for (var i in circles) {
+        bounds = new AABB(circles[i].x, circles[i].y, RANGE, RANGE);
         var members = [];
         qtree.getObjectsInBounds(bounds, members);
         for (var j in members) {
-            //and measure the distance between them (var d)
-            var dx = (mouse.x - members[j].x),
-                dy = (mouse.y - members[j].y),
-                d;
-            d = Math.sqrt(dx * dx + dy * dy);
-            //if d is within a circular range, draw a line
-            if (d < RANGE * 2) {
-                c.strokeStyle = COLORS[2];
-                c.beginPath();
-                c.moveTo(mouse.x, mouse.y);
-                c.lineTo(members[j].drawx, members[j].drawy);
-                c.stroke();
-            }
+            if (circles[i] == members[j]) continue;
+            if (dictionary[key(circles[i].id, members[j].id)]) continue;
+            dictionary[key(circles[i].id, members[j].id)] = true;
+
+            c.beginPath();
+            c.strokeStyle = COLORS[2];
+            c.lineWidth = "1";
+            c.moveTo(circles[i].drawx, circles[i].drawy);
+            c.lineTo(members[j].drawx, members[j].drawy);
+            c.stroke();
         }
     }
-    //finally...
     for (var i in circles) {
-        //then draw circles overtop of the lines
         circles[i].draw();
+        circles[i].setTargeted(false);
     }
-    //reset key dictionary and quad tree
+    if (DEMO_QUAD_TREE)
+        drawQuad(qtree);
+    if (DEMO_MOUSE_RANGE) {
+        c.beginPath();
+        c.strokeStyle = 'red';
+        c.rect(mouse.x - mouse_range, mouse.y - mouse_range, mouse_range * 2, mouse_range * 2);
+        c.stroke();
+    }
+
     dictionary = {};
     qtree.reset();
 }
-//ensure correct animation frames on all browsers
+function drawQuad(tree) {
+    var bounds = tree.bounds;
+    c.beginPath();
+    c.lineWidth = "1";
+    c.strokeStyle = 'green';
+    c.rect(bounds.centerX - bounds.hWidth, bounds.centerY - bounds.hHeight, bounds.hWidth * 2, bounds.hHeight * 2);
+    c.stroke();
+    if (tree.divided) {
+        drawQuad(tree.nw);
+        drawQuad(tree.ne);
+        drawQuad(tree.sw);
+        drawQuad(tree.se);
+    }
+}
 window.requestAnimationFrame = (function(){
     return  window.requestAnimationFrame       ||
             window.webkitRequestAnimationFrame ||

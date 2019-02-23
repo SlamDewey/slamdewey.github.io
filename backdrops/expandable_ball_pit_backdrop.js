@@ -20,6 +20,7 @@ function const_init() {
     set_bounds();
     c = canvas.getContext('2d');
 }
+function load_backdrop_speciic_content() {}
 
 
 /**************************************************************************************

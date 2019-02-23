@@ -8,12 +8,6 @@
     z-index: -3;
 }
 .backdrop-back {
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     color:white;
     text-shadow: 2px 2px gray;
     background-color:#FF7900;
@@ -26,4 +20,40 @@
     width:120px;
     margin:auto;
     padding:30px;
+}
+
+.option-selection-button {
+    position: relative;
+    background-color: lightsalmon;
+    cursor: pointer;    
+    float:left;
+    width:200px;
+    margin:auto;
+    padding:10px;
+    font-size:15px;
+    text-align: center;
+}
+.option-selection-button:hover {
+    background-color: hsl(17, 53%, 63%);
+}
+.option-selection-button:active {
+    background-color: rgb(138, 84, 63);
+}
+.option-selection-button .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    z-index: 1;
+}
+.option-selection-button:hover .tooltiptext {
+    visibility: visible;
 }

@@ -1,4 +1,14 @@
 /**************************************************************************************
+ *  Wave Flow Backdrop
+ * 
+ *  Nearly All of the following code was written by Akimitsu Hamamuro.
+ * 
+ *  I simply reorganized it and added a few details to let it work on my site (the way I wanted)
+ * 
+ *  Demonstration URL: https://codepen.io/akm2/pen/nImoa
+ **************************************************************************************/
+
+/**************************************************************************************
  *  Backdrop Header
  **************************************************************************************/
 var canvas, c;
@@ -20,17 +30,8 @@ function const_init() {
     set_bounds();
     c = canvas.getContext('2d');
 }
+function load_backdrop_speciic_content() {}
 
-
-/**************************************************************************************
- *  Wave Flow Backdrop
- * 
- *  Nearly All of the following code was written by Akimitsu Hamamuro.
- * 
- *  I simply reorganized it and added a few details to let it work on my site (the way I wanted)
- * 
- *  Demonstration URL: https://codepen.io/akm2/pen/nImoa
- **************************************************************************************/
 
 /********************************************
  *  Constants

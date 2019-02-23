@@ -41,14 +41,12 @@
         (x, y) such that 'objectName.x' and 'objectName.y' are a defined number.
 */
 
-const CAPACITY = 3;
-
 class QuadTree {
 
     /*
         @param bounds   the AABB bounds of this tree node
     */
-    constructor(bounds) {
+    constructor(bounds, capacity) {
         this.bounds = bounds;
         this.members = [];
         this.nw = null;
@@ -56,6 +54,7 @@ class QuadTree {
         this.sw = null;
         this.se = null;
         this.divided = false;
+        this.CAPACITY = capacity;
     }
     
     /*
@@ -66,10 +65,10 @@ class QuadTree {
         var nHWidth = bounds.hWidth / 2,
 		    nHHeight = bounds.hHeight/ 2;
 
-        this.nw = new QuadTree(new AABB(bounds.centerX - nHWidth, bounds.centerY + nHHeight, nHWidth, nHHeight));
-		this.ne = new QuadTree(new AABB(bounds.centerX + nHWidth, bounds.centerY + nHHeight, nHWidth, nHHeight));
-		this.sw = new QuadTree(new AABB(bounds.centerX - nHWidth, bounds.centerY - nHHeight, nHWidth, nHHeight));
-		this.se = new QuadTree(new AABB(bounds.centerX + nHWidth, bounds.centerY - nHHeight, nHWidth, nHHeight));
+        this.nw = new QuadTree(new AABB(bounds.centerX - nHWidth, bounds.centerY + nHHeight, nHWidth, nHHeight), this.CAPACITY);
+		this.ne = new QuadTree(new AABB(bounds.centerX + nHWidth, bounds.centerY + nHHeight, nHWidth, nHHeight), this.CAPACITY);
+		this.sw = new QuadTree(new AABB(bounds.centerX - nHWidth, bounds.centerY - nHHeight, nHWidth, nHHeight), this.CAPACITY);
+		this.se = new QuadTree(new AABB(bounds.centerX + nHWidth, bounds.centerY - nHHeight, nHWidth, nHHeight), this.CAPACITY);
         this.divided = true;
     }
 
@@ -82,7 +81,7 @@ class QuadTree {
     insert(obj) {
         if (!this.bounds.contains(obj.x, obj.y))
             return false;
-        if (this.members.length < CAPACITY) {
+        if (this.members.length < this.CAPACITY) {
             this.members.push(obj);
             return true;
         }
