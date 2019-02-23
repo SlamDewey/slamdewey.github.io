@@ -3,17 +3,75 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="../img/favicon.ico" type="image/x-icon" />
         <link rel="stylesheet" type="text/css" href="../css/projects.css">
+        <link rel="stylesheet" type="text/css" href="../css/left_content.css">
+        <script src="tab_manager.js"></script>
         <title>Jared Massa : Projects</title>
+
     </head>
-    <body>
-        <div class="left-tab-container">
-            <button class="accordion-title" id="java">Title</button>
-            <div class="accordion-content" id="java">Content</div>
+    <body onresize="set_container_height()">
+        <div class="left-tab-container" id="left-container">
+            <a href="../index.html">
+                <div class="back-button">
+                    Return to Home
+                </div>
+            </a>
+            <div class="page-title" onclick="display_content(event, 'default')">
+                Projects
+            </div>
+
+            <button class="title-button">Java Projects</button>
+            <div class="accordion-content">
+                <button class="title-button" onclick="display_content(event, 'game_engine')">2D Game Engine</button>
+            </div>
+
+            <button class="title-button">Web Development Projects</button>
+            <div class="accordion-content">
+                <button class="title-button" onclick="display_content(event, 'this_website')">This website</button>
+                <button class="title-button" onclick="display_content(event, 'h4i_kiva')">H4I: Kiva</button>
+            </div>
+
+            <button class="title-button">Sample Title Here</button>
+            <div class="accordion-content">
+            </div>
+
         </div>
-        <iframe id="project-snapshot">
+        <div class="content" id="default" style="display: block">
+            <h1 style="text-align: center">Default Page!</h1>
+            (I am still working on this, but the sidebar looks good huh?)
+        </div>
+        <div class="content" id="game_engine">
+            butts
+        </div>
+        <div class="content" id="this_website">
+            not butts?
+        </div>
+        </div>
+
+        <script>
+            //onload script
+            function set_container_height() {
+                document.getElementById('left-container').setAttribute(
+                    "style", "height: " + window.innerHeight + "px"
+                );
+            }
+            var acc = document.getElementsByClassName("title-button");
+            var i;
             
-        </iframe>
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener('mousedown', function() {
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                    panel.style.maxHeight = null;
+                    this.setAttribute("style", "border-bottom: none;padding-bottom:18px;");
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                    this.setAttribute("style", "border-bottom: 3px solid #272727;padding-bottom:15px;");
+                } 
+                });
+            }
+            set_container_height();
+        </script>
     </body>
 </html>

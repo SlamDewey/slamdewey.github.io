@@ -24,7 +24,7 @@ function load_backdrop(backdrop) {
     if (backdrop === 'wave_flow') {
         load_script("javascript_dependencies/simplex-noise.js", true);
     }
-    if (backdrop === 'graph_theory' || backdrop === 'quad_demo') {
+    if (backdrop === 'quad_demo') {
         load_script("javascript_dependencies/spacial/AABB.js", true);
         load_script("javascript_dependencies/spacial/QuadTree.js", true);
     }

@@ -42,6 +42,7 @@ body {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    overflow-x: hidden;
 }
 a {
     margin:none;
@@ -50,6 +51,7 @@ a {
     text-decoration: none;
 }
 .bottom {
+    width: auto;
     margin-top: 10px;
     font-family: 'Courier New', Courier, monospace;
     font-size: 10px;
@@ -65,11 +67,11 @@ a {
     margin: auto;
     width: var(--profile-min-width);
     min-width: var(--profile-min-width);
-    transition: width 2s ease, text-shadow 3s ease-in;
-    -moz-transition: width 2s ease, text-shadow 3s ease-in;
-    -ms-transition: width 2s ease, text-shadow 3s ease-in;
-    -o-transition: width 2s ease, text-shadow 3s ease-in;
-    -webkit-transition: width 2s ease, text-shadow 3s ease-in;
+    transition: width 1s ease;
+    -moz-transition: width 1s ease;
+    -ms-transition: width 1s ease;
+    -o-transition: width 1s ease;
+    -webkit-transition: width 1s ease;
 }
 .Profile-Snapshot-Image-Container {
     border: 8px solid white;
@@ -90,9 +92,9 @@ a {
     background-position: center;
     background-size: cover;
 }
-
 .Profile-Snapshot-label {
-    width: 60%;
+    text-align: left;
+    width: 100%;
     margin:auto;
     float: left;
     min-width: var(--label-min-width);
@@ -103,27 +105,22 @@ a {
     -ms-transition: color 3s ease;
     -o-transition: color 3s ease;
     -webkit-transition: color 3s ease;
+    margin-left: 5%;
 }
-
 .Profile-Snapshot-label#name {
-    width: 80%;
-    margin-left: 10%;
     font-size: 50px;
-    text-align: center;
     min-width: var(--label-min-width);
     color: transparent;
     background-image:none;
 }
 .Profile-Snapshot-label#subtitle {
     width: 80%;
-    margin-left: 10%;
     background-image:none;
     min-width: var(--label-min-width);
     color: transparent;
     font-size: 20px;
     margin: none;
 }
-
 img {
     max-width: 100%;
     max-height: 100%;

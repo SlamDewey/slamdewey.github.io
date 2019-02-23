@@ -1,17 +1,32 @@
 :root {
+    --body-background: #2a2a2a;
 
-}
-.accordion-title {
-    border: none;
+    --back-button-background:#ff9100;
+    --back-button-hover:hsl(34, 100%, 44%);
 
-}
-.accordion-content {
-    max-height: 0;
+    --left-container-background:hsl(0, 0%, 22%);
+    --left-container-border-color:white;
 
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-    -moz-transition: max-height 0.5s ease;
-    -ms-transition: max-height 0.5s ease;
-    -o-transition: max-height 0.5s ease;
-    -webkit-transition: max-height 0.5s ease;
+    --title-button-background:#444;
+    --title-button-color:white;
+    --title-button-hover:#222;
 }
+body, html {
+    position: relative;
+    margin: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color:var(--body-background);
+}
+a {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin: 0;
+    width: 100%;
+    background-color: blue;
+    display: none;
+}
+.content h1 {margin: 0}

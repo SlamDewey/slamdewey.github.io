@@ -14,15 +14,20 @@ function fix_heights() {
 }
 
 function animate_profile_snapshot() {
-    document.getElementById("snapshot").setAttribute(
-        "style", "width: 50%; text-shadow: 1px 1px var(--body-background);");
-    document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Title);");
-    document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Subtitle);");
+    document.getElementById("snapshot").setAttribute("style", "width: 30%;");
+    setTimeout(function() {
+        document.getElementById("name").setAttribute("style", "color: var(--Profile-Snapshot-Title);");
+        document.getElementById("subtitle").setAttribute("style", "color: var(--Profile-Snapshot-Subtitle);");
+    }, 1000);
 }
 
 function check_for_bad_browser() {
-    if (window.navigator.userAgent.indexOf("Edge") > -1 || (!!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g))) {
-        alert("Warning: Microsoft Edge and Internet Explorer have trouble with CSS images, please use Chrome or Firefox to see this site correctly.");
+    if (window.navigator.userAgent.indexOf("Edge") > -1) {
+        alert('Note: Microsfot Edge cannot handle image animations in CSS.\nYou may experience minor visual glitches' +
+        ' when viewing images.');
+        return false;
+    }
+    if ((!!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g))) {
         return true;
     }
     return false;
@@ -31,7 +36,12 @@ function check_for_bad_browser() {
 function destroy_content() {
     var body = document.getElementsByTagName('body');
     body[0].parentElement.removeChild(body[0]);
-    document.write("<!DOCTYPE html> <html><body><h1>You must use a more capable browser to view this site.</h1></body></html>");
+    document.write("<!DOCTYPE html> <html><body><h1>" +
+                    "I'm sorry but this site relies heavily on advanced JavaScript and CSS " +
+                    "animations that are not supported in your current browser." + 
+                    "<br />" +
+                    "I recommend browsing in Chrome, Firefox, or Edge (if you must)." + 
+                    "</h1></body></html>");
 }
 
 /************************************************************************************************
