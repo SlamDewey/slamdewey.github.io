@@ -195,6 +195,7 @@ function toggle_mouse_demo() {
 function toggle_tree_demo() {
     if (PAN) {
         alert('You must toggle Panning before enabling the Quad Tree Demonstration');
+        return;
     }
     DEMO_QUAD_TREE = !DEMO_QUAD_TREE;
     if (DEMO_QUAD_TREE) {
