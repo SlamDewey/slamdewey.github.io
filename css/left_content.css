@@ -48,7 +48,7 @@
     -o-transition: background 0.4s ease;
     -webkit-transition: background 0.4s ease;
 }
-.title-button:hover, .title-button.active {
+.title-button:hover, .title-button.active, .content-display-button:hover, .content-display-button.active {
     background-color: var(--title-button-hover);
 }
 .accordion-content {
@@ -65,4 +65,20 @@
     -ms-transition: max-height 0.5s ease;
     -o-transition: max-height 0.5s ease;
     -webkit-transition: max-height 0.5s ease;
+}
+.content-display-button {
+    background-color: var(--title-button-background);
+    color: var(--title-button-color);
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: background 0.4s;
+    -moz-transition: background 0.4s ease;
+    -ms-transition: background 0.4s ease;
+    -o-transition: background 0.4s ease;
+    -webkit-transition: background 0.4s ease;
 }

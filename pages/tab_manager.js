@@ -4,7 +4,7 @@ function display_content(evt, id) {
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
-    tablinks = document.getElementsByClassName("title-button");
+    tablinks = document.getElementsByClassName("content-display-button");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }

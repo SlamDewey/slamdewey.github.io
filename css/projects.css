@@ -24,9 +24,38 @@ a {
 }
 
 .content {
-    margin: 0;
-    width: 100%;
-    background-color: blue;
+    color: #b8b8b8;
     display: none;
+    float: right;
+    margin: 0;
+    width: 80%;
+    overflow-y: auto;
 }
-.content h1 {margin: 0}
+.content-title {
+    color: hsl(0, 0%, 87%);
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.content-subtitle {
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: hsl(0, 0%, 81%);
+}
+.content-body {
+    margin-top: 30px;
+    font-size: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 50px;
+}
+.content-img {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: 5px solid white;
+    float: right;
+    margin: 30px;
+}
