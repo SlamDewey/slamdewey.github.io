@@ -21,11 +21,11 @@ function load_script(script, async) {
 function load_backdrop(title) {
     /* LOAD DEPENDENCIES */
     if (title === 'wave_flow') {
-        load_script("javascript_dependencies/simplex-noise.js", true);
+        load_script("javascript_dependencies/simplex-noise.js", false);
     }
     if (title === 'Collision Detection Graph' || title === 'Bubbling Ball Pit') {
-        load_script("javascript_dependencies/spacial/AABB.js", true);
-        load_script("javascript_dependencies/spacial/QuadTree.js", true);
+        load_script("javascript_dependencies/spacial/AABB.js", false);
+        load_script("javascript_dependencies/spacial/QuadTree.js", false);
     }
     load_script("backdrops/" + title + "_backdrop.js", true);
 }
