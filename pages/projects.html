@@ -250,6 +250,12 @@
             </div>
             <div class="content-body">
                 <p>
+                    First I think its important to mention all of the animated background on this site were written 
+                    in JavaScript entirely by me, and include MIT licenses crediting myself as an author.  
+                    If you wish to reuse the backdrop or any of the JS code, it is all available on the GitHub 
+                    repository for this site (linked above).
+                </p>
+                <p>
                     This website is a project which began in early February of 2019, inspired by my work in the Temple 
                     Hack4Impact chapter and from websites of my peers.  Somewhere around the beginning of the year I 
                     had concretely decided I wanted to create a website to show off my favorite projects, resume, and etc. 
@@ -269,36 +275,34 @@
                     Yes this is just a screenshot of VSCode with my code in it!
                 </div>
                 <p>
-                    Before talking too much about the backdrop I'd like to mention the structure of JavaScript happening 
+                    Before talking too much about the backdrops I'd like to mention the structure of JavaScript happening 
                     behind the scenes when you load up the site.  A combination of 'scripts.js' and 'backdrop.js' are used to 
                     dynamically build and animate the webpage based on your browsing window size.  I spent quite an 
                     amount of time fiddling with CSS to perfect the animations, and simply ended up using JavaScript 
-                    anyway for its reliability.  Anyway, the 'backdrop.js' file will choose a random backdrop (from an array of 
+                    anyway for its reliability.  The 'backdrop.js' file will choose a random backdrop (from an array of 
                     predefined backdrops) load the necessary extra JavaScript files.  This includes any necessary 
                     dependencies (loaded from the 'javascript_dependencies' folder). 
                 </p>
                 <p>
-                    The backdrop itself is an example of a QuadTree (as listed in one of the toggle menus).  This is a special 
+                    The backdrops themselves are examples of a QuadTrees, used in 2D collision detection.  This is a special 
                     type of recursive tree structure commonly used for organizing ranges of object density throughout a 
                     space.  This tree is especially useful in object collision detection, as we can query the tree in O(logn) time 
-                    for a set of objects in a given range (rather than the traditional O(n) time).  You can read more about the 
+                    for a set of objects in a given range (rather than the traditional O(n) time for an array of objects).  You can 
+                    read more about the 
                     efficiency on Wikipedia, but essentially this bring a collision detection algorithm down from O(n^2) to 
-                    O(nlogn) and is the reason I can efficiently draw lines between all objects within a specified range of all 
-                    others (why you see constellations floating in the background).  So really the backdrop is an example of 
-                    a collision detection method, and one that I have experience with, being that I used this before in my 
-                    Java 2D Game Engine project (read more about this under Java Projects > 2D Game Engine).  The code for the 
+                    O(nlogn). This is the reason I can efficiently draw lines between balls, and bubble them based on distance to mouse.  
+                    So really the backdrop is an example of 
+                    a collision detection method, and one that I have experience with. I used this before in my 
+                    Java 2D Game Engine project (read more about this under Java Projects > 2D Game Engine).  
+                </p>
+                <p>
+                    The code for the 
                     backdrop, QuadTree, and components used in the QuadTree (AABB) are available open source in this 
                     website's repository (Use the GitHub icon at the top of the page).
-                    Note: QuadTree.js and AABB.js are in the 'javascript_dependencies' folder. 
-                    However, rather than talk about QuadTree's the whole time I also want to mention some of the features 
-                    I used in making the backdrop.  You'll notice a 'panning' effect when you move your mouse across the 
-                    screen, where it appears like most particles move in the opposite direction your mouse is moving.  This 
-                    was originally implemented in another JavaScript example somewhere on the internet by forging each 
-                    particle with a 'layer_id' that determined how much it was affected by the mouse movement if at all.  
-                    Honestly, I thought this idea to be quite stupid, but really enjoyed the visual effect, so instead I just 
-                    based the particles movement on the radius of the particle.  This way particles with larger radii would 
-                    move further along the screen (and would give depth because things appearing to be closer where 
-                    translated an apparent further distance). 
+                    Note: QuadTree.js and AABB.js are in the 'javascript_dependencies' folder.
+                </p>
+                <p>
+                    I encourage anybody who has read this far to check out the JavaScript code and fiddle with it yourself.
                 </p>
             </div>
         </div>

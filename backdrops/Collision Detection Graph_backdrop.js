@@ -152,7 +152,6 @@ function Circle(x, y, radius, vx, vy, color, id) {
     this.drawy = y;
     this.color = color;
     this.id = id;
-    this.bounds = new AABB(x, y, radius, radius);
     this.targeted = false;
 
     this.setTargeted = function(val) {this.targeted = val};

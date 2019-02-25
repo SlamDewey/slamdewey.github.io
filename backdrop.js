@@ -23,11 +23,11 @@ function load_backdrop(title) {
     if (title === 'wave_flow') {
         load_script("javascript_dependencies/simplex-noise.js", true);
     }
-    if (title === 'Collision Detection Graph') {
+    if (title === 'Collision Detection Graph' || title === 'Bubbling Ball Pit') {
         load_script("javascript_dependencies/spacial/AABB.js", true);
         load_script("javascript_dependencies/spacial/QuadTree.js", true);
     }
-    load_script("backdrops/" + title + "_backdrop.js", false);
+    load_script("backdrops/" + title + "_backdrop.js", true);
 }
 function display_backdrop_title() {
     document.getElementById('backdrop_name').innerHTML = "This Backdrop is called: " + backdrop;
