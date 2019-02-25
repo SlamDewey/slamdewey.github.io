@@ -1,0 +1,38 @@
+Multide was a software study done for my high school senior thesis project.  The study was in creating a 
+software capable of hosting live file editing between many clients.  This is where both the name and 
+logo come from; Multide being multi-personal IDE, and the logo is a symbol representing many 
+connections interweaving at one point.  This project was a successful proof of concept thanks to support 
+of the Springfield Township High School Library and Technology Department.  I must specifically thank 
+their leniency as they let me confiscate an old (scheduled for destruction) desktop and install my own 
+software on it (this was the server), and without this allowance the project wouldn't have gotten near 
+it's final state.  This all being said the project was never more than a software proof of concept, so 
+although the concept was proven, the software is not complete (not really an IDE, nor an easily usable 
+text-editor).  I'll now briefly mention the main sections of the project.
+Essentially, this program ran a server which acted like a connection hub for up to 10 clients.  This hub 
+really acted as a sort of echoing bridge.  I say this because when a client would broadcast that it updated 
+the open file, the server would broadcast to all connected clients the new information.  Although this is 
+probably quite easy to imagine, it is not as easy to implement.  Specifically deciding how much data the 
+client needed to send to the server to represent all the changes it made.  The most reliable method I 
+was able to implement was to send the entire file in each broadcast message.  Why would I do 
+something so crazy? (you may ask) ' Well the original idea I had was to send specifically the line 
+numbers that changed, but I quickly ran into problems when two clients would change similar lines at 
+similar times.  For instance, if client1 deletes line 4 of his file, his file becomes one line shorter and all of 
+the line data from client2's file is instantly invalid.  This also ruined my idea of sending a range of data 
+around the detected change.  Unfortunately, I didn't have enough time on the actual programming 
+portion of this project to determine a more accurate and efficient method for sending data, but I would 
+imagine a realistic solution simply requires creating a standard format for stating which lines changed, 
+and how they changed.  I also assume it should be easy enough to create line numbers that are relative 
+to major sections of the file (this is for code after all, so if a function is edited, we can assume the edit 
+happened after the function header, right?).   Anyway, I couldn't implement this as correctly as I 
+would've wished, but after all it was just a proof of concept.
+You likely will now have two strong opinions about this project (if you've even read this far) and I would 
+predict they are quite polarizing.  Either you think this is a genius idea, or quite stupid and will never 
+work.  To those who don't already think this idea was genius, I'd like to mention an upcoming website 
+(as of 2019) at https://repl.it/.  This fantastic website (that used to allow you to simply write code online 
+for free) has added a new feature known as 'Multiplayer Mode'.  This is an exact example of the concept 
+I proved in this senior thesis, allowing many users to edit the same program simultaneously by 
+communication through a hub.  I do plan to return to this project and at least create a fully functional 
+version of the software.  Why?  There are still benefits to creating this as a desktop software, and not 
+cloud-based (like repl).  The only problem with having 'Multiplayer' on repl is the limitation of the site 
+itself.  You can only create and run programs that print to console.  Therefore, there is still a possibility 
+for this software to be widely usable.

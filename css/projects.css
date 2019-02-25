@@ -1,8 +1,8 @@
 :root {
     --body-background: #2a2a2a;
 
-    --back-button-background:#ff9100;
-    --back-button-hover:hsl(34, 100%, 44%);
+    --back-button-background:hsl(34, 99%, 45%);
+    --back-button-hover:rgb(206, 117, 0);
 
     --left-container-background:hsl(0, 0%, 22%);
     --left-container-border-color:white;
@@ -51,11 +51,46 @@ a {
     padding-right: 10%;
     padding-bottom: 50px;
 }
+.content-body a, .content-body a:visited  {
+    color: orange;
+}
+.content-body a:hover {
+    color: red;
+}
+.content-vid {
+    background-color: #161616;
+    border: 5px solid #020202;
+    display: block;
+    float: right;
+    margin: 15px;
+    padding: 10px;
+    max-width: 560px;
+}
+.content-img-container {
+    background-color: #161616;
+    border: 5px solid #020202;
+    display: block;
+    float: right;
+    margin: 15px;
+    padding: 10px;
+    max-width: 562px;
+}
 .content-img {
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
-    border: 5px solid white;
+    border: 1px solid white;
     float: right;
+    display: block;
     margin: 30px;
+}
+.content-img#dev {
+    background-image: url('../img/wow_this_is_a_picture_of_me_developing_this_site.png');
+}
+.content-img#multide {
+    background-image: url('../img/multide_logo.png');
+}
+img {
+    max-height: 100%;
+    max-width: 100%;
 }

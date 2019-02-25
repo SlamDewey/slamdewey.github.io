@@ -21,7 +21,7 @@
 
     </head>
 
-    <body onload="start()" onresize="fix_heights()" id="parent">
+    <body onload="start(), display_backdrop_title()" onresize="fix_heights()" id="parent">
         <canvas id="backdrop"></canvas>
         <script src="backdrop.js"></script>
         <br />
@@ -78,11 +78,13 @@
                     </div>
             </div>
         </a>
+        <div style="color:#CCCCCC;font-size: 20px;margin-bottom:10px;">
+            <div style="font-size:15px;margin:0;padding:0;display:inline-block;"id="backdrop_name"></div>
+            <u style="display:block;cursor:pointer" onclick="play_with_this_backdrop()">Click here to play with this backdrop</u>
+            <div style="font-size:15px;margin:0;padding:0;display:inline-block;"id="backdrop_detail"></div>
+        </div>
         <div class="bottom">
             Copyright &copy;2019 Jared Massa
-        </div>
-        <div style="color:#CCCCCC;font-size: 20px;margin-bottom:10px;">
-            <u style="cursor:pointer" onclick="play_with_this_backdrop()">Click here to play with this backdrop</u>
         </div>
     </body>
 </html>

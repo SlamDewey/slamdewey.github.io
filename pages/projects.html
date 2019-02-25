@@ -11,7 +11,7 @@
         <title>Jared Massa : Projects</title>
 
     </head>
-    <body onload="set_container_height()" onresize="set_container_height()">
+    <body onresize="set_container_height()">
         <div class="left-tab-container" id="left-container">
             <a href="../index.html">
                 <div class="back-button">
@@ -39,10 +39,22 @@
             </div>
 
         </div>
-        <div class="content" id="default" style="display: block">
+
+        <div class="content" id="default" style="display:block;">
             <div class="content-title">Welcome to the Projects Page!</div>
-            <div style="text-align: center;font-size:30px;">
-                Use the series of tabs located on the left of the screen to navigate through some of my favorite projects.
+            <div style="margin:auto;width:80%;text-align:center;font-size:30px;">
+                <br />
+                <p>
+                    If you have any questions about this project or any of my others feel free to email me with the link provided below.
+                </p>
+                Otherwise, use the series of tabs located on the left of the screen to navigate through some of my favorite 
+                (and generally most notable) projects.
+            </div>
+            <br />
+            <div class="Icon-Link-Container">
+                    <a id="gmail" href="mailto:mr.jaredmassa@gmail.com?Subject=Greetings%20Jared!&body=First%20off%20I%27d%20just%20like%20to%20say%20what%20an%20awesome%20job%20you%20did%20on%20your%20website!%20%20But%20let%27s%20get%20to%20the%20point:%20">
+                        <div class="Icon-Link" id="gmail"></div>
+                    </a>
             </div>
         </div>
         <div class="content" id="game_engine">
@@ -58,11 +70,22 @@
                     scratch in Java.  Let's just say it was a success.
                     The engine is broken up into two main sections: The Physics Engine, and The Graphics Engine.
                     <br />
-                    I'll go into detail about both below, but first a quick video introduction:
+                    I'll go into detail about both below, but first consider watching the video demonstration and reading its description.
                     <br />
-                    <p>
-                        <iframe width="640" height="360" src="https://www.youtube.com/embed/WWz4vQ6KWdI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                    </p>
+                    <div class="content-vid">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/pQE8OTQ-INg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                        <br />
+                        This video shows the execution of the example code written for this engine (Check GitHub Repo "/exa").
+                        The textures and sounds used in this demonstration are a mixture of MS Paint Textures and an image
+                        of my brothers face from when he was younger...  Despite the textures, notice the features:
+                        <br />
+                        <a href="https://github.com/SlamDewey/2d_game_engine/blob/4caad9c74f924aaa2d88e42889ee071e6ca57bd2/exa/src/resources/TexturedModels.java#L16" target="_blank">Animated Player Texture</a>,
+                        <a href="https://github.com/SlamDewey/2d_game_engine/blob/4caad9c74f924aaa2d88e42889ee071e6ca57bd2/exa/src/entities/Coin.java#L25" target="_blank">onDelete() functions</a>,
+                        <a href="https://github.com/SlamDewey/2d_game_engine/blob/4caad9c74f924aaa2d88e42889ee071e6ca57bd2/exa/src/entities/Ball.java#L23" target="_blank">onCollision() functions</a>,
+                        <a href="https://github.com/SlamDewey/2d_game_engine/blob/4caad9c74f924aaa2d88e42889ee071e6ca57bd2/exa/src/game/Platformer.java#L25" target="_blank">Virtual Zoom</a>,
+                        <a href="https://github.com/SlamDewey/2d_game_engine/blob/4caad9c74f924aaa2d88e42889ee071e6ca57bd2/exa/src/game/Platformer.java#L49" target="_blank">Camera Focus on Object</a>,
+                        and more!
+                    </div>
                     </p>
                     First off, I'd like to talk about the physics engine, as I liked this part of the project much more (it was 
                     WAY easier to debug).  The Physics Engine (and all of its classes) is/are stored in the 'src/components' 
@@ -157,25 +180,149 @@
                     
             </div>
         </div>
+        <div class="content" id="multide">
+            <div class="content-title">MultIDE Project</div>
+            <div class="Icon-Link-Container">
+                <a href="https://github.com/MultIDE/multideproject" id="git" target="_blank">
+                    <div class="Icon-Link" id="git"></div>
+                </a>
+            </div>
+            <div class="content-body">
+                <p>
+                    Multide was a software study done for my high school senior thesis project.  The study was in creating a 
+                    software capable of hosting live file editing between many clients.  This is where both the name and 
+                    logo come from; Multide being multi-personal IDE, and the logo is a symbol representing many 
+                    connections interweaving at one point.  This project was a successful proof of concept thanks to support 
+                    of the Springfield Township High School Library and Technology Department.  I must specifically thank 
+                    their leniency as they let me confiscate an old (scheduled for destruction) desktop and install my own 
+                    software on it (this was the server), and without this allowance the project wouldn't have gotten near 
+                    it's final state.  This all being said the project was never more than a software proof of concept, so 
+                    although the concept was proven, the software is not complete (not really an IDE, nor an easily usable 
+                    text-editor).  I'll now briefly mention the main sections of the project.
+                </p>
+                <div class="content-img-container" style="width:200px">
+                        <div class="content-img" id="multide" style="width:200px;height:200px;margin:0;padding:0;">
+                        </div>
+                        <br />
+                        The original logo for this project! Made in a High School art class!
+                    </div>
+                <p>
+                    Essentially, this program ran a server which acted like a connection hub for up to 10 clients.  This hub 
+                    really acted as a sort of echoing bridge.  I say this because when a client would broadcast that it updated 
+                    the open file, the server would broadcast to all connected clients the new information.  Although this is 
+                    probably quite easy to imagine, it is not as easy to implement.  Specifically deciding how much data the 
+                    client needed to send to the server to represent all the changes it made.  The most reliable method I 
+                    was able to implement was to send the entire file in each broadcast message.  Why would I do 
+                    something so crazy? (you may ask) ' Well the original idea I had was to send specifically the line 
+                    numbers that changed, but I quickly ran into problems when two clients would change similar lines at 
+                    similar times.  For instance, if client1 deletes line 4 of his file, his file becomes one line shorter and all of 
+                    the line data from client2's file is instantly invalid.  This also ruined my idea of sending a range of data 
+                    around the detected change.  Unfortunately, I didn't have enough time on the actual programming 
+                    portion of this project to determine a more accurate and efficient method for sending data, but I would 
+                    imagine a realistic solution simply requires creating a standard format for stating which lines changed, 
+                    and how they changed.  I also assume it should be easy enough to create line numbers that are relative 
+                    to major sections of the file (this is for code after all, so if a function is edited, we can assume the edit 
+                    happened after the function header, right?).   Anyway, I couldn't implement this as correctly as I 
+                    would've wished, but after all it was just a proof of concept.
+                </p>
+                <p>
+                    You likely will now have two strong opinions about this project (if you've even read this far) and I would 
+                    predict they are quite polarizing.  Either you think this is a genius idea, or quite stupid and will never 
+                    work.  To those who don't already think this idea was genius, I'd like to mention an upcoming website 
+                    (as of 2019) at <a href="https://repl.it/" target="_blank">repl.it</a>  This fantastic website (that used to allow you to simply write code online 
+                    for free) has added a new feature known as 'Multiplayer Mode'.  This is an exact example of the concept 
+                    I proved in this senior thesis, allowing many users to edit the same program simultaneously by 
+                    communication through a hub.  I do plan to return to this project and at least create a fully functional 
+                    version of the software.  Why?  There are still benefits to creating this as a desktop software, and not 
+                    cloud-based (like repl).  The only problem with having 'Multiplayer' on repl is the limitation of the site 
+                    itself.  You can only create and run programs that print to console.  Therefore, there is still a possibility 
+                    for this software to be widely usable.
+                </p> 
+            </div>
+        </div>
         <div class="content" id="this_website">
-            not butts?
+            <div class="content-title">The website you're on RIGHT NOW!</div>
+            <div class="Icon-Link-Container">
+                <a href="https://github.com/SlamDewey/slamdewey.github.io/" id="git" target="_blank">
+                    <div class="Icon-Link" id="git"></div>
+                </a>
+            </div>
+            <div class="content-body">
+                <p>
+                    This website is a project which began in early February of 2019, inspired by my work in the Temple 
+                    Hack4Impact chapter and from websites of my peers.  Somewhere around the beginning of the year I 
+                    had concretely decided I wanted to create a website to show off my favorite projects, resume, and etc. 
+                    for job recruiting (because lets be honest who else really wants to read all this junk) and after 
+                    discovering you can host a site essentially for free through GitHub, I began programming.  This site is 
+                    open-source and uses some create JavaScript to show off (quickly and visually) some of my 
+                    programming skill.  You may have noticed the background of the home page for this site is interactive.  
+                    Sure, dragging those interconnected balls around the screen sure is fun, but there also exists a tiny link 
+                    at the bottom of the site to 'Play with the backdrop'.  This deletes all the content from the page (except 
+                    the HTML5 Canvas element I'm drawing to) and creates a series of buttons to control features in the 
+                    backdrop for a more entertaining session of 'playing with bouncing balls on Jared Massa's website'.  
+                </p>
+                <div class="content-img-container">
+                    <div class="content-img" id="dev" style="width:560px;height:315px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    Yes this is just a screenshot of VSCode with my code in it!
+                </div>
+                <p>
+                    Before talking too much about the backdrop I'd like to mention the structure of JavaScript happening 
+                    behind the scenes when you load up the site.  A combination of 'scripts.js' and 'backdrop.js' are used to 
+                    dynamically build and animate the webpage based on your browsing window size.  I spent quite an 
+                    amount of time fiddling with CSS to perfect the animations, and simply ended up using JavaScript 
+                    anyway for its reliability.  Anyway, the 'backdrop.js' file will choose a random backdrop (from an array of 
+                    predefined backdrops) load the necessary extra JavaScript files.  This includes any necessary 
+                    dependencies (loaded from the 'javascript_dependencies' folder). 
+                </p>
+                <p>
+                    The backdrop itself is an example of a QuadTree (as listed in one of the toggle menus).  This is a special 
+                    type of recursive tree structure commonly used for organizing ranges of object density throughout a 
+                    space.  This tree is especially useful in object collision detection, as we can query the tree in O(logn) time 
+                    for a set of objects in a given range (rather than the traditional O(n) time).  You can read more about the 
+                    efficiency on Wikipedia, but essentially this bring a collision detection algorithm down from O(n^2) to 
+                    O(nlogn) and is the reason I can efficiently draw lines between all objects within a specified range of all 
+                    others (why you see constellations floating in the background).  So really the backdrop is an example of 
+                    a collision detection method, and one that I have experience with, being that I used this before in my 
+                    Java 2D Game Engine project (read more about this under Java Projects > 2D Game Engine).  The code for the 
+                    backdrop, QuadTree, and components used in the QuadTree (AABB) are available open source in this 
+                    website's repository (Use the GitHub icon at the top of the page).
+                    Note: QuadTree.js and AABB.js are in the 'javascript_dependencies' folder. 
+                    However, rather than talk about QuadTree's the whole time I also want to mention some of the features 
+                    I used in making the backdrop.  You'll notice a 'panning' effect when you move your mouse across the 
+                    screen, where it appears like most particles move in the opposite direction your mouse is moving.  This 
+                    was originally implemented in another JavaScript example somewhere on the internet by forging each 
+                    particle with a 'layer_id' that determined how much it was affected by the mouse movement if at all.  
+                    Honestly, I thought this idea to be quite stupid, but really enjoyed the visual effect, so instead I just 
+                    based the particles movement on the radius of the particle.  This way particles with larger radii would 
+                    move further along the screen (and would give depth because things appearing to be closer where 
+                    translated an apparent further distance). 
+                </p>
+            </div>
         </div>
-        </div>
+        <div class="content" id="this_website">
+            <div class="content-title">FPV Racing Drone</div>
 
+            <div class="content-body">
+
+            </div>
+        </div>
         <script>
-            //onload script
             function set_container_height() {
                 document.getElementById('left-container').setAttribute(
                     "style", "height: " + window.innerHeight + "px;"
                 );
                 var contents = document.getElementsByClassName('content');
-                for (var i in contents) {
-                    if (contents[i].id == 'default') continue;
+                for (var i = 0; i < contents.length; i++) {
+                    var block = contents[i].style.getPropertyValue('display') == 'block';
                     contents[i].setAttribute(
-                        "style", "max-height: " + window.innerHeight + "px;"
+                        "style", "max-height: " + window.innerHeight + "px;" + (block ? 'display:block;' : '')
                     );
                 }
             }
+                    
+            //onload script
             var acc = document.getElementsByClassName("title-button");
             var i;
             

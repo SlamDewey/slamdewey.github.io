@@ -1,7 +1,6 @@
 const backdrops = [
-    //'expandable_ball_pit',
-    //'wave_flow',
-    'quad_demo'
+    'Bubbling Ball Pit',
+    'Collision Detection Graph'
 ];
 
 var backdrop;
@@ -19,16 +18,20 @@ function load_script(script, async) {
     script_element.async = async;
     document.querySelector('head').appendChild(script_element);
 }
-function load_backdrop(backdrop) {
+function load_backdrop(title) {
     /* LOAD DEPENDENCIES */
-    if (backdrop === 'wave_flow') {
+    if (title === 'wave_flow') {
         load_script("javascript_dependencies/simplex-noise.js", true);
     }
-    if (backdrop === 'quad_demo') {
+    if (title === 'Collision Detection Graph') {
         load_script("javascript_dependencies/spacial/AABB.js", true);
         load_script("javascript_dependencies/spacial/QuadTree.js", true);
     }
-    load_script("backdrops/" + backdrop + "_backdrop.js", false);
+    load_script("backdrops/" + title + "_backdrop.js", false);
+}
+function display_backdrop_title() {
+    document.getElementById('backdrop_name').innerHTML = "This Backdrop is called: " + backdrop;
+    document.getElementById('backdrop_detail').innerHTML = "Don't like this backdrop? Refresh for a random one!\tThere are currently " + backdrops.length + " backdrops!";
 }
 
 function play_with_this_backdrop() {
