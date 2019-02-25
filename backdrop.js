@@ -27,7 +27,7 @@ function load_backdrop(title) {
         load_script("javascript_dependencies/spacial/AABB.js", false);
         load_script("javascript_dependencies/spacial/QuadTree.js", false);
     }
-    load_script("backdrops/" + title + "_backdrop.js", true);
+    load_script("backdrops/" + title + "_backdrop.js", false);
 }
 function display_backdrop_title() {
     document.getElementById('backdrop_name').innerHTML = "This Backdrop is called: " + backdrop;
