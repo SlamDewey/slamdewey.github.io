@@ -175,8 +175,8 @@ function init() {
             (Math.random() * (innerWidth - radius * 2) + radius),
             (Math.random() * (innerHeight - radius * 2) + radius),
             radius,
-            (Math.random() - 0.5) * 3,
-            (Math.random() - 0.5) * 3,
+            (Math.random() - 0.5) * RELAXED_VEL,
+            (Math.random() - 0.5) * RELAXED_VEL,
             Math.floor((Math.random() * COLORS.length))
         ));
     }
