@@ -28,19 +28,18 @@ a {
 
 .content {
     position: absolute;
+    left: 300px;
     right: 0px;
     color: #b8b8b8;
     display: none;
     padding:none;
     margin: none;
-    max-width: 80%;
-    min-width: 0px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 .content-title {
-    text-indent: 0px;
     position: relative;
+    text-indent: 0px;
     color: hsl(0, 0%, 87%);
     font-size: 40px;
     text-align: center;
@@ -49,8 +48,8 @@ a {
     width: 100%;
 }
 .content-subtitle {
-    text-indent: 0px;
     position: relative;
+    text-indent: 0px;
     font-size: 30px;
     margin-bottom: 30px;
     margin-top: 30px;

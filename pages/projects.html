@@ -323,33 +323,76 @@
         <div class="content" id="drone">
             <div class="content-title">FPV Racing Drone</div>
             <div class="content-body">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLkEUrmNTP07v6br1fFKTGDhzzWniIhQql" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="content-img-container" style="width:200px">
-                    <div class="content-img" id="jar_dro" style="width:200px;height:200px;margin:0;padding:0;">
+                <div class="content-vid" style="max-width:315px;font-size:16px;">
+                    <iframe width="315" height="560" src="https://www.youtube.com/embed/videoseries?list=PLkEUrmNTP07v6br1fFKTGDhzzWniIhQql" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <br />
+                    This is a short playlist of 3 videos of me piloting this drone around. The first video is just me trying to balance the drone in the day's windy conditions.
+                    The second video is the drone accelerating at maximum throttle straight up. Finally the third video is an attempt to show how strong the propeller's are
+                    on this drone.  It was flown over a kiddie pool and you can see how the water reacted.  Once again it was quite hard to balance it over the pool with so
+                    much wind.
+                    <br />
+                    Thanks to my brother, Joey Massa, for being my cameraman for all these shots!
+                </div>
+                <!--BR-->
+                <div class="content-img-container" style="float:left;width:250px;font-size:16px;">
+                    <div class="content-img" id="first_drone" style="width:250px;height:150px;margin:0;padding:0;">
                     </div>
                     <br />
-                    The original logo for this project! Made in a High School art class!
+                    This is my first attempt at a drone, built with an aluminium frame, no camera, electrical tape, and spraypaint!
+                    <br />
+                    <a href="../img/drone/first_drone.jpg" target="_blank">View Original</a>
                 </div>
-                <div class="content-img-container" style="width:200px">
-                    <div class="content-img" id="flygif" style="width:200px;height:200px;margin:0;padding:0;">
+                This was a project I did over the summer of 2017, inspired by hobbyists and videos found on YouTube.  To build a drone, like the simple one shown as my first
+                attempt, you really don't need to know a whole lot.  You need basic understanding of the following: circuit design, serial communication, radio communication,
+                angular momentum, and some general flight knowledge (like how to represent an object with 3D Euler angles).  Even if that sounds like a lot, you shouldn't let
+                it scare you.  I highly encourage anybody who has even read this far into this article to search for professional drone builder's and pilots and be amazed!
+                <br />
+                <p>
+                    Anyway, as you may have guessed, I am not a professional pilot - nor builder.  On my first model, I specifically set out to build a drone for as cheap as
+                    possible.  The total cost was around $65 dollars, however some of the parts took around 3-4 weeks to ship from china...  Also when I ran into trouble with
+                    my '5 dollar a piece' ESC's, the only way to reprogram them was to learn the serial communication protocol for the ESC and have my arduino directly pipe 
+                    the data into it with a 5V signal line.  But this still worked!  Although I don't have any videos of it flying on my website, there is still a 
+                    <a href="https://www.facebook.com/joe.massa.50/videos/10209552696193933/" target="_blank">video of the very first test flight</a> hosted on my Dad's Facebook.
+                    If you watch the video I'd like to point out: The screaming noise you hear is because the propellers I chose to use were literally bending with the force
+                    from the motors.  This caused them to wobble whilst rotating and created that terrible whine at high rotation speeds.  It's only featured in the video for a
+                    brief moment, but it still sends chills down my spine.
+                </p>
+                <div class="content-img-container" style="float:left;width:250px;font-size:16px;">
+                    <div class="content-img" id="banking" style="width:250px;height:200px;margin:0;padding:0;">
                     </div>
                     <br />
-                    The original logo for this project! Made in a High School art class!
+                    This is an image of the drone banking on a turn.  I've also labeled all major components of the drone in this image.
+                    <br />
+                    <a href="../img/drone/banking.jpg" target="_blank">View Original</a>
                 </div>
-                <div class="content-img-container" style="width:200px">
-                    <div class="content-img" id="first_drone" style="width:200px;height:200px;margin:0;padding:0;">
+                <br />
+                <p>
+                    Since those dark times with aluminium frames and electrical tape holding everything together, I've since upgraded to a professional carbon fibre frame,
+                    high speed and efficiency racing motors, high speed (multi-color!) propellers, an upgraded flight controller, and a camera and video transmitter for FPV
+                    applications!
+                    So check out some of the featured images and videos and hopefully I'll inspire some of whoever even reads these articles to make a drone yourself!
+                </p>
+                <div class="content-img-container" style="float:left;width:250px;font-size:16px;">
+                    <div class="content-img" id="jar_dro" style="width:250px;height:300px;margin:0;padding:0;">
                     </div>
                     <br />
-                    The original logo for this project! Made in a High School art class!
+                    This is me trying to hover my drone on this windy day.  <i>Just look at that concentration!</i>
+                    <br />
+                    <a href="../img/drone/jar_dro.gif" target="_blank">View Original</a>
                 </div>
-                <div class="content-img-container" style="width:200px">
-                    <div class="content-img" id="banking" style="width:200px;height:200px;margin:0;padding:0;">
+                <!--BR-->
+                <div class="content-img-container" style="float:left;width:250px;font-size:16px;">
+                    <div class="content-img" id="flygif" style="width:250px;height:300px;margin:0;padding:0;">
                     </div>
                     <br />
-                    The original logo for this project! Made in a High School art class!
+                    A short gif of the drone hovering.
+                    <br />
+                    <a href="../img/drone/flygif.gif" target="_blank">View Original</a>
                 </div>
+                <!--BR-->
             </div>
         </div>
+
         <script>
             function set_container_height() {
                 document.getElementById('left-container').setAttribute(
