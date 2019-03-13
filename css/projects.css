@@ -14,42 +14,56 @@
 body, html {
     position: relative;
     margin: 0;
+    padding:0;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     background-color:var(--body-background);
+    overflow: hidden;
 }
 a {
+    position: relative;
     text-decoration: none;
     margin: 0;
     padding: 0;
 }
 
 .content {
+    position: absolute;
+    right: 0px;
     color: #b8b8b8;
     display: none;
-    float: right;
-    margin: 0;
-    width: 80%;
+    padding:none;
+    margin: none;
+    max-width: 80%;
+    min-width: 0px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .content-title {
+    text-indent: 0px;
+    position: relative;
     color: hsl(0, 0%, 87%);
     font-size: 40px;
     text-align: center;
     margin-bottom: 30px;
     margin-top: 30px;
+    width: 100%;
 }
 .content-subtitle {
+    text-indent: 0px;
+    position: relative;
     font-size: 30px;
     margin-bottom: 30px;
     margin-top: 30px;
     color: hsl(0, 0%, 81%);
 }
 .content-body {
+    position: relative;
+    text-indent: 50px;
     margin-top: 30px;
+    margin-left: 7%;
+    margin-right: 10%;
     font-size: 20px;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 .content-body a, .content-body a:visited  {
     color: orange;
@@ -58,6 +72,8 @@ a {
     color: red;
 }
 .content-vid {
+    text-indent: 0px;
+    position: relative;
     background-color: #161616;
     border: 5px solid #020202;
     display: block;
@@ -67,6 +83,7 @@ a {
     max-width: 560px;
 }
 .content-img-container {
+    position: relative;
     background-color: #161616;
     border: 5px solid #020202;
     display: block;
@@ -76,6 +93,7 @@ a {
     max-width: 562px;
 }
 .content-img {
+    position: relative;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -89,6 +107,18 @@ a {
 }
 .content-img#multide {
     background-image: url('../img/multide_logo.png');
+}
+.content-img#jar_dro {
+    background-image: url('../img/drone/jar_dro.gif');
+}
+.content-img#flygif {
+    background-image: url('../img/drone/flygif.gif');
+}
+.content-img#first_drone {
+    background-image: url('../img/drone/first_drone.jpg');
+}
+.content-img#banking {
+    background-image: url('../img/drone/banking.jpg');
 }
 img {
     max-height: 100%;

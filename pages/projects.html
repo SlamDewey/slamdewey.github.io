@@ -43,7 +43,7 @@
 
         </div>
 
-        <div class="content" id="default" style="display:block;">
+        <div class="content" id="default" style="display:inline-block;">
             <div class="content-title">Welcome to the Projects Page!</div>
             <div style="margin:auto;width:80%;text-align:center;font-size:30px;">
                 <br />
@@ -323,7 +323,31 @@
         <div class="content" id="drone">
             <div class="content-title">FPV Racing Drone</div>
             <div class="content-body">
-                Description, images, and videos to come soon. (after i make take/record them...)
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLkEUrmNTP07v6br1fFKTGDhzzWniIhQql" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="content-img-container" style="width:200px">
+                    <div class="content-img" id="jar_dro" style="width:200px;height:200px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    The original logo for this project! Made in a High School art class!
+                </div>
+                <div class="content-img-container" style="width:200px">
+                    <div class="content-img" id="flygif" style="width:200px;height:200px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    The original logo for this project! Made in a High School art class!
+                </div>
+                <div class="content-img-container" style="width:200px">
+                    <div class="content-img" id="first_drone" style="width:200px;height:200px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    The original logo for this project! Made in a High School art class!
+                </div>
+                <div class="content-img-container" style="width:200px">
+                    <div class="content-img" id="banking" style="width:200px;height:200px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    The original logo for this project! Made in a High School art class!
+                </div>
             </div>
         </div>
         <script>
@@ -333,9 +357,10 @@
                 );
                 var contents = document.getElementsByClassName('content');
                 for (var i = 0; i < contents.length; i++) {
-                    var block = contents[i].style.getPropertyValue('display') == 'block';
+                    var block = contents[i].style.getPropertyValue('display') == 'inline-block';
                     contents[i].setAttribute(
-                        "style", "max-height: " + window.innerHeight + "px;" + (block ? 'display:block;' : '')
+                        "style", "max-height: " + window.innerHeight + "px;" 
+                        + (block ? 'display:inline-block;' : '')
                     );
                 }
             }

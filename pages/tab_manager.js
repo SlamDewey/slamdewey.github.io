@@ -8,6 +8,9 @@ function display_content(evt, id) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(id).style.display = "block";
-    evt.currentTarget.className += " active";
+    var cont = document.getElementById(id)
+    if (cont != null) cont.style.display = "inline-block";
+    
+    if (!evt.currentTarget.className.includes("active"))
+        evt.currentTarget.className += " active";
 }
