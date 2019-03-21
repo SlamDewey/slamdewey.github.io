@@ -43,9 +43,11 @@
 
 class QuadTree {
 
-    /*
-        @param bounds   the AABB bounds of this tree node
-    */
+    /**
+     * Create a new QuadTree with a given bounds and capacity per leaf
+     * @param bounds   the AABB bounds of this tree node
+     * @param capacity the maximum capacity each leaf will store (default 3)
+     */
     constructor(bounds, capacity) {
         this.bounds = bounds;
         this.members = [];
@@ -54,12 +56,12 @@ class QuadTree {
         this.sw = null;
         this.se = null;
         this.divided = false;
-        this.CAPACITY = capacity;
+        this.CAPACITY = (capacity) ? capacity : 3;
     }
     
-    /*
-        This tree is at capacity, so divide into four children
-    */
+    /**
+     * Instantiate the children of this QuadTree
+     */
     subdivide() {
         let bounds = this.bounds;
         var nHWidth = bounds.hWidth / 2,
@@ -72,12 +74,12 @@ class QuadTree {
         this.divided = true;
     }
 
-    /*
-        Adds the specified object into the tree
-
-        @param obj  the object to be tracked
-        @param obj_bounds   the AABB bounds of this object (should be a member of the object)
-    */
+    /**
+     * Adds the specified object into the tree
+     * @param obj  the object to be tracked
+     * @param obj_bounds   the AABB bounds of this object (should be a member of the object)
+     * @returns true if the object was inserted into this quadtree, or one of this tree's children, false otherwise.
+     */
     insert(obj) {
         if (!this.bounds.contains(obj.x, obj.y))
             return false;
@@ -85,9 +87,8 @@ class QuadTree {
             this.members.push(obj);
             return true;
         }
-        if (!this.divided){
+        if (!this.divided)
             this.subdivide();
-        }
         if (this.nw.insert(obj)) return true;
         if (this.ne.insert(obj)) return true;
         if (this.sw.insert(obj)) return true;
@@ -95,26 +96,26 @@ class QuadTree {
         return false;
     }
 
-    /*
-        reset this quad tree and delete children
-    */
+    /**
+     * Reset this quad tree and delete children
+     */
     reset() {
         this.nw = this.ne = this.se = this.se = null;
         this.divided = false;
         this.members = [];
     }
-    /*
-        get all objects inside of the specified bounds
 
-        @param bounds   bounds to check
-        @param mems     an originally empty array to be filled with the local group
-    */
+    /**
+     * get all objects inside of the specified bounds
+     * @param bounds bounds to check
+     * @param mems   an originally empty array to be filled with the local group
+     * @returns      an array of all objects found within the bounds.
+     */
     getObjectsInBounds(bounds, mems) {
         if (!this.bounds.intersects(bounds)) return mems;
-        for (var i in this.members) {
+        for (var i in this.members)
             if (bounds.contains(this.members[i].x, this.members[i].y))
                 mems.push(this.members[i]);
-        }
         if (!this.divided) return mems;
         this.nw.getObjectsInBounds(bounds, mems);
         this.ne.getObjectsInBounds(bounds, mems);

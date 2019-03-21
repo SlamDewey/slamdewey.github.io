@@ -28,25 +28,24 @@
  */
 
  class AABB {
-    /*
-        A constructor for rectangular AABBs
-
-        @param x        the center left x coordinate
-        @param y        the center left y coordinate
-        @param hWidth   half the width of this rectangular
-        @param hHeight  half the height of this rectangular
-    */
+    /**
+     * A constructor for rectangular AABBs
+     * @param x        the center left x coordinate
+     * @param y        the center left y coordinate
+     * @param hWidth   half the width of this rectangular
+     * @param hHeight  half the height of this rectangular
+     */
     constructor(x, y, hWidth, hHeight) {
         this.centerX = x;
         this.centerY = y;
         this.hWidth = hWidth;
         this.hHeight = hHeight;
     }
-    /*
-        Determins if a given coordinate is contained in this AABB
-
-        @param x the x coordinate
-        @param y the y coordinate
+    /**
+    * Determines if a given coordinate is contained in this AABB
+    * @param x the x coordinate
+    * @param y the y coordinate
+    * @returns true if point is contained, false otherwise
     */
     contains(x, y) {
         return (x <= this.centerX + this.hWidth &&
@@ -55,10 +54,10 @@
                 y >= this.centerY - this.hHeight );
     }
 
-    /*
-        Determins if this AABB intersects another
-
-        @param other    the other AABB to be checked against
+    /**
+    * Determins if this AABB intersects another
+    * @param other    the other AABB to be checked against
+    * @returns true if intersecting, false otherwise.
     */
     intersects(other){
         return !(	this.centerX + this.hWidth    <= other.centerX - other.hWidth     ||
@@ -67,8 +66,9 @@
                     this.centerY - this.hHeight   >= other.centerY + other.hHeight    );
     }
 
-    /*
-        A toString for debugging purposes
+    /**
+    * A toString for debugging purposes
+    * @returns a string representation of this AABB.
     */
    toString() {
        return ("Center: (" + this.centerX + ", " + this.centerY + ")\t|\thWidth: " + this.hWidth + ", hHeight: " + this.hHeight);
