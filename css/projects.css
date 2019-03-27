@@ -119,6 +119,9 @@ a {
 .content-img#banking {
     background-image: url('../img/drone/banking.jpg');
 }
+.content-img#w-c {
+    background-image: url('../img/weather-clock.png');
+}
 img {
     max-height: 100%;
     max-width: 100%;

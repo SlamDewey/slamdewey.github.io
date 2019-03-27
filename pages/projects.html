@@ -32,6 +32,7 @@
             <button class="title-button">Web Development Projects</button>
             <div class="accordion-content">
                 <button class="content-display-button" onclick="display_content(event, 'this_website')">This website</button>
+                <button class="content-display-button" onclick="display_content(event, 'weather-clock')">Weather Clock</button>
                 <button class="content-display-button" onclick="display_content(event, 'h4i_kiva')">H4I: Kiva</button>
             </div>
 
@@ -392,7 +393,42 @@
                 <!--BR-->
             </div>
         </div>
-
+        <div class="content" id="weather-clock">
+            <div class="content-title">Weather Clock App</div>
+            <div class="Icon-Link-Container">
+                <a href="https://github.com/SlamDewey/weather-clock/" id="git" target="_blank">
+                    <div class="Icon-Link" id="git"></div>
+                </a>
+            </div>
+            <div class="content-body">
+                <p>
+                    First off let's just say you can 
+                    <a href="https://slamdewey.github.io/weather-clock" target="_blank">view a live hosting of this project here.</a>
+                    I made this project using React.js, and essentially it just gets your system time and weather at your current location
+                    and displays this data in a nice format.  The idea behind this project was really to create a proof of concept for the
+                    face of an alarm clock, but to create it as a web app.  Soon to follow will be experiments with settings up a simple
+                    computer to request this webpage and display it on a designated small monitor as if the entire system was simply an 
+                    alarm clock. (and as if the page was hard-coded into the computer).
+                </p>
+                <div class="content-img-container" style="float:left;width:450px;font-size:16px;">
+                    <div class="content-img" id="w-c" style="width:450px;height:300px;margin:0;padding:0;">
+                    </div>
+                    <br />
+                    A screenshot of the Weather Clock in action.
+                    <br />
+                    <a href="../img/weather-clock.png" target="_blank">View Original</a>
+                </div>
+                <p>
+                    The page itself was built in React.js (as mentioned) and uses cookies to keep your display settings constant.  If for
+                    some reason you don't trust my app, and you don't let it know your location, it will assume you live in Philadelphia
+                    and just display the weather for there.
+                </p>
+                <p>
+                    Otherwise this was a pretty simple project and really requires no more information other than what is mentioned in
+                    the github README.md, so I hope you enjoy the pretty clock!
+                </p>
+            </div>
+        </div>
         <script>
             function set_container_height() {
                 document.getElementById('left-container').setAttribute(
