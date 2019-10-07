@@ -1,6 +1,7 @@
 const backdrops = [
     'Bubbling Ball Pit',
-    'Collision Detection Graph'
+    'Collision Detection Graph',
+    'Wave Flow'
 ];
 
 var backdrop;
@@ -20,7 +21,7 @@ function load_script(script, async) {
 }
 function load_backdrop(title) {
     /* LOAD DEPENDENCIES */
-    if (title === 'wave_flow') {
+    if (title === 'Wave Flow') {
         load_script("javascript_dependencies/simplex-noise.js", false);
     }
     if (title === 'Collision Detection Graph' || title === 'Bubbling Ball Pit') {
