@@ -71,7 +71,7 @@ var simplex;
 var imgdata, data;
 var width;
 var height;
-var t;
+var t = 0;
 /********************************************
  *  Objects
  ********************************************/
@@ -79,16 +79,14 @@ var t;
 /********************************************
  *  Functions
  ********************************************/
-function map(x, oMin, oMax, nMin, nMax) {
-    
-}
+
 /********************************************
  *  Init and Update
  ********************************************/
 function init() {
     const_init();
-    width = canvas.width / 4;
-    height = canvas.height / 4;
+    width = canvas.width / 5;
+    height = canvas.height / 5;
     imgdata = c.getImageData(0, 0, width, height);
     data = imgdata.data;
     simplex = new SimplexNoise();
@@ -97,17 +95,20 @@ function init() {
 function update() {
     window.requestAnimationFrame(update);
 
-    var divisor = 20;
-    var radii = [50, 10, 15];
+    var divisor = 100;
+    var radii = [50, 30, 15];
 
     for (var y = 0; y < height; y++) {
         for (var x = 0; x < width; x++) {
-            var xLoc = map(Math.cos(t), -1, 1, 0, 50);
-            var yLoc = map(Math.sin(t), -1, 1, 0, 50);
-            var r = simplex.noise2D(xLoc, yLoc);
-            data[(x + y * width) * 4 + 0] = r * 255;
-            data[(x + y * width) * 4 + 1] = r * 255;
-            data[(x + y * width) * 4 + 2] = r * 255;
+            var colors = [];
+            for (var i = 0; i < radii.length; i++) {
+                var xLoc = Math.sin(t) * radii[i] + x / divisor;
+                var yLoc = Math.cos(t) * radii[i] + y / divisor;
+                colors[i] = simplex.noise2D(xLoc, yLoc);
+            }
+            data[(x + y * width) * 4 + 0] = colors[0] * 255;
+            data[(x + y * width) * 4 + 1] = colors[1] * 255;
+            data[(x + y * width) * 4 + 2] = colors[2] * 255;
             data[(x + y * width) * 4 + 3] = 255;
         }
     }
@@ -117,7 +118,7 @@ function update() {
         data[(x + y * width) * 4 + 2] = r * 255;
         data[(x + y * width) * 4 + 3] = 255;
     */
-    t += 1;
+    t += 0.0001;
     c.putImageData(imgdata, 0, 0);
 }
 

@@ -1,7 +1,7 @@
 const backdrops = [
     'Bubbling Ball Pit',
-    'Collision Detection Graph',
-    'Wave Flow'
+    'Collision Detection Graph'
+    //'Wave Flow'
 ];
 
 var backdrop;
