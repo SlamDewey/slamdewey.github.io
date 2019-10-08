@@ -72,21 +72,33 @@ var imgdata, data;
 var width;
 var height;
 var t = 0;
+var xOffset = 0, yOffset = 0;
+var divisor = 1;
+var scale = 20;
 /********************************************
- *  Objects
+ *  Window Listeners
  ********************************************/
+window.addEventListener('mousewheel', function(event) {
+    divisor += Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail))) * 2
+    if (divisor < 1) divisor = 1;
+}, false);
 
 /********************************************
  *  Functions
  ********************************************/
-
+var rgbToHex = function (rgb) { 
+    var hex = Number(rgb).toString(16);
+    if (hex.length < 2)
+        hex = "0" + hex;
+    return hex;
+};
 /********************************************
  *  Init and Update
  ********************************************/
 function init() {
     const_init();
-    width = canvas.width / 5;
-    height = canvas.height / 5;
+    width = canvas.width / scale;
+    height = canvas.height / scale;
     imgdata = c.getImageData(0, 0, width, height);
     data = imgdata.data;
     simplex = new SimplexNoise();
@@ -94,32 +106,22 @@ function init() {
 
 function update() {
     window.requestAnimationFrame(update);
-
-    var divisor = 100;
-    var radii = [50, 30, 15];
-
+    var radii = [5, 10, 15];
     for (var y = 0; y < height; y++) {
         for (var x = 0; x < width; x++) {
-            var colors = [];
+            var color = ['#'];
             for (var i = 0; i < radii.length; i++) {
-                var xLoc = Math.sin(t) * radii[i] + x / divisor;
-                var yLoc = Math.cos(t) * radii[i] + y / divisor;
-                colors[i] = simplex.noise2D(xLoc, yLoc);
+                var xLoc = Math.sin(t) * radii[i] + (x + xOffset) / divisor;
+                var yLoc = Math.cos(t) * radii[i] + (y + yOffset) / divisor;
+                var co = Math.round(simplex.noise2D(xLoc, yLoc) * 255);
+                if (co < 40) co = 0;
+                color += rgbToHex(co);
             }
-            data[(x + y * width) * 4 + 0] = colors[0] * 255;
-            data[(x + y * width) * 4 + 1] = colors[1] * 255;
-            data[(x + y * width) * 4 + 2] = colors[2] * 255;
-            data[(x + y * width) * 4 + 3] = 255;
+            c.fillStyle = color;
+            c.fillRect(x * scale, y * scale, scale, scale);
         }
     }
-    /*
-        data[(x + y * width) * 4 + 0] = r * 255;
-        data[(x + y * width) * 4 + 1] = r * 255;
-        data[(x + y * width) * 4 + 2] = r * 255;
-        data[(x + y * width) * 4 + 3] = 255;
-    */
-    t += 0.0001;
-    c.putImageData(imgdata, 0, 0);
+    t += 0.0003;
 }
 
 window.requestAnimationFrame = (function(){
