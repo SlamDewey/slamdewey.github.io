@@ -1,16 +1,32 @@
 .big_img {
     width: 100%;
-    background-image: url("../../assets/img/astrophotography/andromeda_rising.JPG");
+    background-image: url("../../assets/img/astrophotography/IMG_5114e2.JPG");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
 }
-.header {
+.text {
     color: white;
-    font-size: 105px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+}
+
+h1 {
+    font-weight: normal;
+    font-size: 105px;
+    padding: 0;
+    margin: 0;
+}
+h2 {
+    font-weight: normal;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
 }
