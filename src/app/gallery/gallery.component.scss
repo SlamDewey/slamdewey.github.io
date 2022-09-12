@@ -1,3 +1,12 @@
-.test {
+.container {
     color: white;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+img {
+    width: 100px;
+    height: 100px;
 }

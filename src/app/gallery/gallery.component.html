@@ -1,5 +1,5 @@
 <app-site-header></app-site-header>
 
-<div class="test">
-  Gallery Works
+<div class="container">
+  <img *ngFor="let image of imageSet['birds']" src="{{'../' + this.imageDataJSON.path + 'birds/' + image.filename}}">
 </div>
