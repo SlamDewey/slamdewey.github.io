@@ -1,5 +1,10 @@
 <app-site-header></app-site-header>
 
 <div class="container">
-  <img *ngFor="let image of imageSet['birds']" src="{{'../' + this.imageDataJSON.path + 'birds/' + image.filename}}">
+  <lightgallery [settings]="this.settings" [onBeforeSlide]="this.onBeforeSlide">
+    <a *ngFor="let image of imageSet['dogs']" [attr.data-src]="'../' + image.img_src"
+      [attr.href]="'../' + image.img_src">
+      <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
+    </a>
+  </lightgallery>
 </div>

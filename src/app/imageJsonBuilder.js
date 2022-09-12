@@ -9,12 +9,13 @@ if (images === undefined) {
 }
 
 var new_images = {}
-new_images.path = images.path;
+new_images.img_path = images.img_path;
+new_images.placeholder_path = images.placeholder_path;
 new_images.directories = images.directories;
 new_images.img = {};
 
 images.directories.forEach(folder => {
-  var filenames = fs.readdirSync(images.path + folder + "/");
+  var filenames = fs.readdirSync(images.img_path + folder + "/");
   filenames.forEach(filename => {
     // create empty image set
     var imageSet = [];
@@ -40,6 +41,8 @@ images.directories.forEach(folder => {
         // create new entry data
         imgEntry = {
           "filename": filename,
+          "img_src": images.img_path + folder + '/' + filename,
+          "placeholder_src": images.placeholder_path + folder + '/' + filename,
           "caption": ""
         }
       }

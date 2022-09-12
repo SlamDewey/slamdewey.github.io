@@ -10,6 +10,13 @@ MIT
 @angular/router
 MIT
 
+lightgallery
+GPLv3
+
+lightgallery/angular
+
+lightgallery/plugins/zoom
+
 rxjs
 Apache-2.0
                                Apache License

@@ -1,12 +1,18 @@
 .container {
     color: white;
-    width: 100%;
-    max-width: 100%;
+    width: 1240px;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
+    margin-top: 5vh;
 }
 
-img {
-    width: 100px;
-    height: 100px;
+.container a {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.container img {
+    width: 300px;
+    height: auto;
 }
