@@ -42,7 +42,7 @@ images.directories.forEach(folder => {
         imgEntry = {
           "filename": filename,
           "img_src": images.img_path + folder + '/' + filename,
-          "placeholder_src": images.placeholder_path + folder + '/' + filename,
+          "placeholder_src": images.placeholder_path + folder + '/' + filename.replace('.jpg', '.JPG'),
           "caption": ""
         }
       }

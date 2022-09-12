@@ -2,7 +2,7 @@
 
 <div class="container">
   <lightgallery [settings]="this.settings" [onBeforeSlide]="this.onBeforeSlide">
-    <a *ngFor="let image of imageSet['dogs']" [attr.data-src]="'../' + image.img_src"
+    <a *ngFor="let image of imageSet['astrophotography']" [attr.data-src]="'../' + image.img_src"
       [attr.href]="'../' + image.img_src">
       <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
     </a>
