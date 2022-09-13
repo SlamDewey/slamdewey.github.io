@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { SharedModule } from './shared/shared.module';
-import { LightgalleryModule } from 'lightgallery/angular';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { LightgalleryModule } from 'lightgallery/angular';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
-    LightgalleryModule
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

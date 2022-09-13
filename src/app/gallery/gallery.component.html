@@ -1,10 +1,21 @@
 <app-site-header></app-site-header>
 
-<div class="container">
-  <lightgallery [settings]="this.settings" [onBeforeSlide]="this.onBeforeSlide">
-    <a *ngFor="let image of imageSet['astrophotography']" [attr.data-src]="'../' + image.img_src"
-      [attr.href]="'../' + image.img_src">
-      <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
-    </a>
-  </lightgallery>
+<div class="gallery">
+  <a *ngFor="let image of imageSet['maine_2022']" (click)="this.setCurrentImage('../' + image.img_src);this.openModal()"
+    [attr.data-src]="'../' + image.img_src" [attr.target]="'_blank'">
+    <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
+    <div class="imageHoverData">
+      {{image.filename}}
+    </div>
+  </a>
+</div>
+
+<div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
+  (mousedown)="this.onModalMouseDown($event)" (mouseup)="this.onModalMouseUp($event)"
+  (mousemove)="this.onModalMouseMove($event)">
+  <span class="close cursor" (click)="this.closeModal()">&times;</span>
+  <div class="modal-content"
+    [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
+    <img [attr.src]="this.currentImage.src" />
+  </div>
 </div>
