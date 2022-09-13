@@ -1,0 +1,40 @@
+:root {
+  --default-tab-color: blue;
+  --selected-tab-highlight-color: red;
+}
+
+.header-container {
+  width: 100%;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 5vh;
+}
+
+.nav-buttons-container {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-button {
+  width: 25%;
+  height: 3vh;
+  background-color: blue;
+  border-bottom: 1vh solid blue;
+  border-top: 1vh solid blue;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-button.active {
+  border-bottom: 1vh solid green;
+}
+
+.nav-button:hover {
+  border-bottom: 1vh solid red;
+}
