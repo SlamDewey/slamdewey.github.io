@@ -10,6 +10,8 @@ export class GalleryComponent implements OnInit {
 
   imageDataJSON = (imageDataJSONraw as any).default;
   imageSet = this.imageDataJSON.img;
+  imageFolders: string[] = Object.keys(this.imageSet);
+  currentImageFolder: string = this.imageFolders[0];
   isModalOpen: boolean = false;
   screenSize = {
     width: 0,
@@ -39,6 +41,10 @@ export class GalleryComponent implements OnInit {
   onResize($event: Event) {
     this.screenSize.width = window.innerWidth;
     this.screenSize.height = window.innerHeight;
+  }
+
+  onFolderSelect(newFolder: string) {
+    this.currentImageFolder = newFolder;
   }
 
   setCurrentImage(src: string, title?: string, caption?: string) {

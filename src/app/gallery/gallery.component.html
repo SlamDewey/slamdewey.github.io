@@ -1,13 +1,23 @@
 <app-site-header></app-site-header>
 
-<div class="gallery">
-  <a *ngFor="let image of imageSet['maine_2022']" (click)="this.setCurrentImage('../' + image.img_src);this.openModal()"
-    [attr.data-src]="'../' + image.img_src" [attr.target]="'_blank'">
-    <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
-    <div class="imageHoverData">
-      {{image.filename}}
-    </div>
-  </a>
+<div class="galleryFolderSelector">
+  <label for="alt">Choose Image Folder: </label>
+  <select #imagefolder name="alt" (change)="this.onFolderSelect(imagefolder.value)">
+    <option *ngFor="let folder of imageFolders" [attr.value]="folder">{{folder}}</option>
+  </select>
+</div>
+
+<div class="galleryContainer">
+  <div class="gallery">
+    <a *ngFor="let image of imageSet[this.currentImageFolder]"
+      (click)="this.setCurrentImage('../' + image.img_src);this.openModal()" [attr.data-src]="'../' + image.img_src"
+      [attr.target]="'_blank'">
+      <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
+      <div class="imageHoverData">
+        {{image.filename}}
+      </div>
+    </a>
+  </div>
 </div>
 
 <div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
