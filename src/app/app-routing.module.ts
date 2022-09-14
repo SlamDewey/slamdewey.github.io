@@ -11,6 +11,11 @@ const routes: Routes = [
   {
     path: 'gallery',
     component: GalleryComponent
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: HomeComponent
   }
 ];
 
