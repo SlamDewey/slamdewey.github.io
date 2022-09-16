@@ -14,79 +14,92 @@
         "filename": "andromeda_rising.JPG",
         "img_src": "../assets/img/astrophotography/andromeda_rising.JPG",
         "placeholder_src": "../assets/placeholder/astrophotography/andromeda_rising.JPG",
-        "caption": ""
+        "title": "Andromeda Rising",
+        "caption": "An image of the andromeda galaxy rising with the night sky over some powerlines"
       },
       {
         "filename": "enhanced_nebula.jpg",
         "img_src": "../assets/img/astrophotography/enhanced_nebula.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/enhanced_nebula.JPG",
-        "caption": ""
+        "title": "N. A. Nebula",
+        "caption": "The North America Nebula with permeating starlight dimmed and enhanced contrast in the nebulosity"
       },
       {
         "filename": "enhanced_stars.jpg",
         "img_src": "../assets/img/astrophotography/enhanced_stars.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/enhanced_stars.JPG",
-        "caption": ""
+        "title": "N. A. Nebula",
+        "caption": "A natural starlight image of the North America Nebula; little enhancement done after image stacking."
       },
       {
         "filename": "IMG_4948e2.jpg",
         "img_src": "../assets/img/astrophotography/IMG_4948e2.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4948e2.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "A dim Milky Way galaxy at twilight with a shooting star"
       },
       {
         "filename": "IMG_4949e.JPG",
         "img_src": "../assets/img/astrophotography/IMG_4949e.JPG",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4949e.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "A longer exposure of a twilight Milky Way core with another shooting star guest appearance"
       },
       {
         "filename": "IMG_4957.JPG",
         "img_src": "../assets/img/astrophotography/IMG_4957.JPG",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4957.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Unedited long exposure of milky way"
       },
       {
         "filename": "IMG_4963e.jpg",
         "img_src": "../assets/img/astrophotography/IMG_4963e.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4963e.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "A contrast-boosted long exposure Milky Way core shot"
       },
       {
         "filename": "IMG_4966e.jpg",
         "img_src": "../assets/img/astrophotography/IMG_4966e.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4966e.JPG",
-        "caption": ""
+        "title": "Nebulae & Sagittarius",
+        "caption": "A beautiful post-processed Milky Way core shot with focus on major star clouds and nebulae"
       },
       {
         "filename": "IMG_4967.jpg",
         "img_src": "../assets/img/astrophotography/IMG_4967.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4967.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "A unedited long exposure shot of the Cygnus region of the Milky Way"
       },
       {
         "filename": "IMG_5038e.jpg",
         "img_src": "../assets/img/astrophotography/IMG_5038e.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_5038e.JPG",
-        "caption": ""
+        "title": "Milky Way Galaxy over Carney Island",
+        "caption": "A post-processed long exposure of the Milky Way galaxy gleaming over Carney Island, Maine.  Shot on Causeway Beach"
       },
       {
         "filename": "IMG_5114e2.jpg",
         "img_src": "../assets/img/astrophotography/IMG_5114e2.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_5114e2.JPG",
-        "caption": ""
+        "title": "Milky Way & Scopius",
+        "caption": "Post processed image of the Milky Way galaxy core and Scorpius constellation.  Prominently featuring Anteres & M4"
       },
       {
         "filename": "IMG_5115.jpg",
         "img_src": "../assets/img/astrophotography/IMG_5115.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_5115.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Unedited image of a stretch of the Milky Way galaxy"
       },
       {
         "filename": "processed_and_cropped.jpg",
         "img_src": "../assets/img/astrophotography/processed_and_cropped.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
-        "caption": ""
+        "title": "Andromeda Galaxy",
+        "caption": "A 1.5 hour long integration time exposure of the Andromeda Galaxy"
       }
     ],
     "birds": [
@@ -94,67 +107,78 @@
         "filename": "IMG_2035-1.jpg",
         "img_src": "../assets/img/birds/IMG_2035-1.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2035-1.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_2111.jpg",
         "img_src": "../assets/img/birds/IMG_2111.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2111.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Blue Jay"
       },
       {
         "filename": "IMG_2127.jpg",
         "img_src": "../assets/img/birds/IMG_2127.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2127.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Robin perched in pine tree"
       },
       {
         "filename": "IMG_2131.jpg",
         "img_src": "../assets/img/birds/IMG_2131.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2131.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "mid squawk"
       },
       {
         "filename": "IMG_2136.jpg",
         "img_src": "../assets/img/birds/IMG_2136.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2136.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_2148.jpg",
         "img_src": "../assets/img/birds/IMG_2148.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2148.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "An invasive bird species"
       },
       {
         "filename": "IMG_2158.jpg",
         "img_src": "../assets/img/birds/IMG_2158.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2158.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "The invader posing proudly"
       },
       {
         "filename": "IMG_2163.jpg",
         "img_src": "../assets/img/birds/IMG_2163.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2163.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "An old robin"
       },
       {
         "filename": "IMG_2164.jpg",
         "img_src": "../assets/img/birds/IMG_2164.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2164.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_2172c.jpg",
         "img_src": "../assets/img/birds/IMG_2172c.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2172c.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "A local hawk"
       },
       {
         "filename": "IMG_2316.jpg",
         "img_src": "../assets/img/birds/IMG_2316.jpg",
         "placeholder_src": "../assets/placeholder/birds/IMG_2316.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Red Feathered Finch"
       }
     ],
     "dogs": [
@@ -162,73 +186,85 @@
         "filename": "IMG_0729.jpg",
         "img_src": "../assets/img/dogs/IMG_0729.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0729.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie"
       },
       {
         "filename": "IMG_0730.jpg",
         "img_src": "../assets/img/dogs/IMG_0730.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0730.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie"
       },
       {
         "filename": "IMG_0743.jpg",
         "img_src": "../assets/img/dogs/IMG_0743.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0743.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Ginger"
       },
       {
         "filename": "IMG_0747.jpg",
         "img_src": "../assets/img/dogs/IMG_0747.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0747.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Ginger"
       },
       {
         "filename": "IMG_0753.jpg",
         "img_src": "../assets/img/dogs/IMG_0753.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0753.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie & Ginger"
       },
       {
         "filename": "IMG_0771.jpg",
         "img_src": "../assets/img/dogs/IMG_0771.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0771.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie on alert"
       },
       {
         "filename": "IMG_0776.jpg",
         "img_src": "../assets/img/dogs/IMG_0776.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0776.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie"
       },
       {
         "filename": "IMG_0778.jpg",
         "img_src": "../assets/img/dogs/IMG_0778.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0778.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Ginger rotating"
       },
       {
         "filename": "IMG_0779.jpg",
         "img_src": "../assets/img/dogs/IMG_0779.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0779.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mid roll"
       },
       {
         "filename": "IMG_0786.jpg",
         "img_src": "../assets/img/dogs/IMG_0786.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0786.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie relaxing"
       },
       {
         "filename": "IMG_0798.jpg",
         "img_src": "../assets/img/dogs/IMG_0798.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0798.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Mollie skulking"
       },
       {
         "filename": "IMG_0804.jpg",
         "img_src": "../assets/img/dogs/IMG_0804.jpg",
         "placeholder_src": "../assets/placeholder/dogs/IMG_0804.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Ginger being paranoid"
       }
     ],
     "maine_2022": [
@@ -236,156 +272,182 @@
         "filename": "IMG_4914.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4914.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4914.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_4915.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4915.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4915.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_4921.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4921.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4921.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "The Cabin"
       },
       {
         "filename": "IMG_4927.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4927.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4927.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_4929.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4929.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4929.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_4936.JPG",
         "img_src": "../assets/img/maine_2022/IMG_4936.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_4936.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5039.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5039.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5039.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5041.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5041.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5041.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5053.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5053.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5053.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5056.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5056.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5056.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5059.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5059.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5059.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5063.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5063.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5063.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5071.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5071.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5071.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5084.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5084.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5084.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5088.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5088.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5088.JPG",
-        "caption": ""
+        "title": "",
+        "caption": "Long exposure shot of the ocean brushing waves onto a rocky beach"
       },
       {
         "filename": "IMG_5089.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5089.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5089.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5090.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5090.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5090.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5141.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5141.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5141.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5142.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5142.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5142.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5143.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5143.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5143.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5358.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5358.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5358.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5360.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5360.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5360.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5370.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5370.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5370.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5377.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5377.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5377.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5381.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5381.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5381.JPG",
+        "title": "",
         "caption": ""
       },
       {
         "filename": "IMG_5392.JPG",
         "img_src": "../assets/img/maine_2022/IMG_5392.JPG",
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5392.JPG",
+        "title": "",
         "caption": ""
       }
     ]

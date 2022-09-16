@@ -1,9 +1,11 @@
 $color-white: white;
 $color-gray: gray;
+$color-black: black;
 
 .gallery-component-container {
   color: $color-white;
-  margin-top: 10rem;
+  margin-top: 4rem;
+  margin-bottom: 10rem;
 }
 
 .gallery-folder-selector {
@@ -28,6 +30,7 @@ $color-gray: gray;
     display: flex;
     justify-content: center;
     width: 300px;
+    max-height: 200px;
 
     &:hover {
       box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
@@ -43,11 +46,26 @@ $color-gray: gray;
 
     & .image-hover-data {
       position: absolute;
-      display: flex;
-      font-size: 30px;
-      width: 300px;
-      height: 200px;
-      justify-content: space-around;
+
+      & h1 {
+        font-weight: 700;
+        font-size: 30px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: .25rem;
+      }
+
+      & p {
+        font-weight: 500;
+        font-size: 20px;
+        padding-left: .5rem;
+        padding-right: .5rem;
+      }
+
+      max-height: 200px;
+      max-width: 300px;
+
+      overflow: wrap;
 
       transition: all .2s;
       opacity: 0;
@@ -64,21 +82,18 @@ $color-gray: gray;
   }
 }
 
-
-/*
-    Modal shit
-*/
 .modal {
-  display: flex;
   position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
+  z-index: 1;
   width: 100%;
   height: 100%;
 
-  background-color: black;
+  display: flex;
   cursor: grab;
+
+  background-color: $color-black;
   overflow: hidden;
 
   .modal-content {
@@ -93,8 +108,6 @@ $color-gray: gray;
   }
 }
 
-
-/* The Close Button */
 .close {
   position: absolute;
   top: 1rem;

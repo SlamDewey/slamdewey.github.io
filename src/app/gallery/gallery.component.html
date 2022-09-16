@@ -15,7 +15,8 @@
         [attr.target]="'_blank'">
         <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
         <div class="image-hover-data">
-          {{image.filename}}
+          <h1>{{image.title}}</h1>
+          <p>{{image.caption}}</p>
         </div>
       </a>
     </div>
