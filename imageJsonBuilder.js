@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { exit } = require('process');
-var images = require("./images.json");
+var images = require("./src/app/images.json");
 
 // does images.json exist?
 if (images === undefined) {
@@ -15,7 +15,7 @@ new_images.directories = images.directories;
 new_images.img = {};
 
 images.directories.forEach(folder => {
-  var filenames = fs.readdirSync(images.img_path + folder + "/");
+  var filenames = fs.readdirSync('./src/assets/img/' + folder + "/");
   filenames.forEach(filename => {
     // create empty image set
     var imageSet = [];
@@ -43,6 +43,7 @@ images.directories.forEach(folder => {
           "filename": filename,
           "img_src": images.img_path + folder + '/' + filename,
           "placeholder_src": images.placeholder_path + folder + '/' + filename.replace('.jpg', '.JPG'),
+          "title": "",
           "caption": ""
         }
       }
@@ -54,7 +55,7 @@ images.directories.forEach(folder => {
   });
 });
 
-fs.writeFileSync('./images.json', JSON.stringify(new_images), err => {
+fs.writeFileSync('./src/app/images.json', JSON.stringify(new_images), err => {
   if (err)
     console.error(err);
 });

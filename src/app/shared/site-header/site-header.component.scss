@@ -22,7 +22,6 @@ $header-size: 5rem;
 
   user-select: none;
 
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: 600;
   font-size: 40px;
 }
@@ -132,7 +131,7 @@ $header-size: 5rem;
     height: $header-size;
     z-index: 0;
     position: absolute;
-    transform: scale(1);
+    transform: scale(1.1);
     transform-origin: 50% 50%;
     transition: all .45s;
 
@@ -141,7 +140,6 @@ $header-size: 5rem;
       fill: $color-black;
     }
   }
-
 
   &:hover,
   &:active,
