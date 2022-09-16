@@ -1,94 +1,90 @@
-.galleryFolderSelector {
+$color-white: white;
+$color-gray: gray;
+
+.gallery-component-container {
+  color: $color-white;
   margin-top: 10rem;
-  width: 100%;
+}
+
+.gallery-folder-selector {
   display: flex;
   justify-content: center;
-  color: white;
   font-size: 22px;
 }
 
-.galleryContainer {
-  width: 100%;
+.gallery-container {
   display: flex;
   justify-content: center;
 }
 
 .gallery {
-  color: white;
-  max-width: 1240px;
-  height: auto;
+  margin-top: 5rem;
+
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  justify-content: space-evenly;
-  align-items: center;
-  position: relative;
-  margin-top: 5vh;
+  grid-template-columns: repeat(3, 1fr);
+
+  & a {
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    width: 300px;
+
+    &:hover {
+      box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
+    }
+
+    &:hover .image-hover-data {
+      opacity: 1;
+    }
+
+    &:hover img {
+      opacity: .3;
+    }
+
+    & .image-hover-data {
+      position: absolute;
+      display: flex;
+      font-size: 30px;
+      width: 300px;
+      height: 200px;
+      justify-content: space-around;
+
+      transition: all .2s;
+      opacity: 0;
+    }
+  }
+
+  & img {
+    max-width: 300px;
+    height: auto;
+    max-height: 200px;
+
+    transition: all .2s;
+    opacity: 1;
+  }
 }
 
-.gallery a {
-  margin: 5px;
-  display: flex;
-  justify-content: center;
-  width: 300px;
-}
-
-.gallery a .imageHoverData {
-  position: absolute;
-  display: flex;
-  color: white;
-  opacity: 0;
-  font-size: 30px;
-  width: 300px;
-  height: 200px;
-  justify-content: space-around;
-  transition: .2s ease;
-}
-
-.gallery a:hover .imageHoverData {
-  opacity: 1;
-}
-
-.gallery a:hover img {
-  opacity: 0.3;
-}
-
-.gallery a:hover {
-  box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
-}
-
-.gallery img {
-  max-width: 300px;
-  height: auto;
-  max-height: 200px;
-  opacity: 1;
-  transition: .2s ease;
-  backface-visibility: hidden;
-}
 
 /*
     Modal shit
 */
 .modal {
-  display: block;
+  display: flex;
   position: fixed;
   z-index: 1;
-  padding-top: 40px;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
+
   background-color: black;
-  transform-origin: center center;
-  transform: scale(1) translate(0px, 0px);
   cursor: grab;
   overflow: hidden;
 
-
   .modal-content {
-    position: relative;
     margin: auto;
-    max-width: 1200px;
-    height: auto;
+
+    max-width: 70%;
     max-height: 100vh;
 
     img {
@@ -97,24 +93,21 @@
   }
 }
 
-.cursor {
-  cursor: pointer;
-}
 
 /* The Close Button */
 .close {
-  color: white;
   position: absolute;
-  top: 10px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
+  top: 1rem;
+  right: 2rem;
   z-index: 2;
-}
 
-.close:hover,
-.close:focus {
-  color: #999;
-  text-decoration: none;
+  font-size: 60px;
+  font-weight: bold;
   cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $color-gray;
+  }
 }

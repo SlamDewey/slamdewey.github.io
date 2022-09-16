@@ -1,1 +1,393 @@
-{"img_path":"../assets/img/","placeholder_path":"../assets/placeholder/","directories":["astrophotography","backpacking","birds","dogs","maine_2022"],"img":{"astrophotography":[{"filename":"andromeda_rising.JPG","img_src":"../assets/img/astrophotography/andromeda_rising.JPG","placeholder_src":"../assets/placeholder/astrophotography/andromeda_rising.JPG","caption":""},{"filename":"enhanced_nebula.jpg","img_src":"../assets/img/astrophotography/enhanced_nebula.jpg","placeholder_src":"../assets/placeholder/astrophotography/enhanced_nebula.JPG","caption":""},{"filename":"enhanced_stars.jpg","img_src":"../assets/img/astrophotography/enhanced_stars.jpg","placeholder_src":"../assets/placeholder/astrophotography/enhanced_stars.JPG","caption":""},{"filename":"IMG_4948e2.jpg","img_src":"../assets/img/astrophotography/IMG_4948e2.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_4948e2.JPG","caption":""},{"filename":"IMG_4949e.JPG","img_src":"../assets/img/astrophotography/IMG_4949e.JPG","placeholder_src":"../assets/placeholder/astrophotography/IMG_4949e.JPG","caption":""},{"filename":"IMG_4957.JPG","img_src":"../assets/img/astrophotography/IMG_4957.JPG","placeholder_src":"../assets/placeholder/astrophotography/IMG_4957.JPG","caption":""},{"filename":"IMG_4963e.jpg","img_src":"../assets/img/astrophotography/IMG_4963e.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_4963e.JPG","caption":""},{"filename":"IMG_4966e.jpg","img_src":"../assets/img/astrophotography/IMG_4966e.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_4966e.JPG","caption":""},{"filename":"IMG_4967.jpg","img_src":"../assets/img/astrophotography/IMG_4967.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_4967.JPG","caption":""},{"filename":"IMG_5038e.jpg","img_src":"../assets/img/astrophotography/IMG_5038e.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_5038e.JPG","caption":""},{"filename":"IMG_5114e2.jpg","img_src":"../assets/img/astrophotography/IMG_5114e2.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_5114e2.JPG","caption":""},{"filename":"IMG_5115.jpg","img_src":"../assets/img/astrophotography/IMG_5115.jpg","placeholder_src":"../assets/placeholder/astrophotography/IMG_5115.JPG","caption":""},{"filename":"processed_and_cropped.jpg","img_src":"../assets/img/astrophotography/processed_and_cropped.jpg","placeholder_src":"../assets/placeholder/astrophotography/processed_and_cropped.JPG","caption":""}],"birds":[{"filename":"IMG_2035-1.jpg","img_src":"../assets/img/birds/IMG_2035-1.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2035-1.JPG","caption":""},{"filename":"IMG_2111.jpg","img_src":"../assets/img/birds/IMG_2111.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2111.JPG","caption":""},{"filename":"IMG_2127.jpg","img_src":"../assets/img/birds/IMG_2127.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2127.JPG","caption":""},{"filename":"IMG_2131.jpg","img_src":"../assets/img/birds/IMG_2131.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2131.JPG","caption":""},{"filename":"IMG_2136.jpg","img_src":"../assets/img/birds/IMG_2136.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2136.JPG","caption":""},{"filename":"IMG_2148.jpg","img_src":"../assets/img/birds/IMG_2148.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2148.JPG","caption":""},{"filename":"IMG_2158.jpg","img_src":"../assets/img/birds/IMG_2158.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2158.JPG","caption":""},{"filename":"IMG_2163.jpg","img_src":"../assets/img/birds/IMG_2163.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2163.JPG","caption":""},{"filename":"IMG_2164.jpg","img_src":"../assets/img/birds/IMG_2164.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2164.JPG","caption":""},{"filename":"IMG_2172c.jpg","img_src":"../assets/img/birds/IMG_2172c.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2172c.JPG","caption":""},{"filename":"IMG_2316.jpg","img_src":"../assets/img/birds/IMG_2316.jpg","placeholder_src":"../assets/placeholder/birds/IMG_2316.JPG","caption":""}],"dogs":[{"filename":"IMG_0729.jpg","img_src":"../assets/img/dogs/IMG_0729.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0729.JPG","caption":""},{"filename":"IMG_0730.jpg","img_src":"../assets/img/dogs/IMG_0730.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0730.JPG","caption":""},{"filename":"IMG_0743.jpg","img_src":"../assets/img/dogs/IMG_0743.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0743.JPG","caption":""},{"filename":"IMG_0747.jpg","img_src":"../assets/img/dogs/IMG_0747.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0747.JPG","caption":""},{"filename":"IMG_0753.jpg","img_src":"../assets/img/dogs/IMG_0753.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0753.JPG","caption":""},{"filename":"IMG_0771.jpg","img_src":"../assets/img/dogs/IMG_0771.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0771.JPG","caption":""},{"filename":"IMG_0776.jpg","img_src":"../assets/img/dogs/IMG_0776.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0776.JPG","caption":""},{"filename":"IMG_0778.jpg","img_src":"../assets/img/dogs/IMG_0778.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0778.JPG","caption":""},{"filename":"IMG_0779.jpg","img_src":"../assets/img/dogs/IMG_0779.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0779.JPG","caption":""},{"filename":"IMG_0786.jpg","img_src":"../assets/img/dogs/IMG_0786.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0786.JPG","caption":""},{"filename":"IMG_0798.jpg","img_src":"../assets/img/dogs/IMG_0798.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0798.JPG","caption":""},{"filename":"IMG_0804.jpg","img_src":"../assets/img/dogs/IMG_0804.jpg","placeholder_src":"../assets/placeholder/dogs/IMG_0804.JPG","caption":""}],"maine_2022":[{"filename":"IMG_4914.JPG","img_src":"../assets/img/maine_2022/IMG_4914.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4914.JPG","caption":""},{"filename":"IMG_4915.JPG","img_src":"../assets/img/maine_2022/IMG_4915.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4915.JPG","caption":""},{"filename":"IMG_4921.JPG","img_src":"../assets/img/maine_2022/IMG_4921.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4921.JPG","caption":""},{"filename":"IMG_4927.JPG","img_src":"../assets/img/maine_2022/IMG_4927.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4927.JPG","caption":""},{"filename":"IMG_4929.JPG","img_src":"../assets/img/maine_2022/IMG_4929.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4929.JPG","caption":""},{"filename":"IMG_4936.JPG","img_src":"../assets/img/maine_2022/IMG_4936.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_4936.JPG","caption":""},{"filename":"IMG_5039.JPG","img_src":"../assets/img/maine_2022/IMG_5039.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5039.JPG","caption":""},{"filename":"IMG_5041.JPG","img_src":"../assets/img/maine_2022/IMG_5041.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5041.JPG","caption":""},{"filename":"IMG_5053.JPG","img_src":"../assets/img/maine_2022/IMG_5053.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5053.JPG","caption":""},{"filename":"IMG_5056.JPG","img_src":"../assets/img/maine_2022/IMG_5056.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5056.JPG","caption":""},{"filename":"IMG_5059.JPG","img_src":"../assets/img/maine_2022/IMG_5059.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5059.JPG","caption":""},{"filename":"IMG_5063.JPG","img_src":"../assets/img/maine_2022/IMG_5063.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5063.JPG","caption":""},{"filename":"IMG_5071.JPG","img_src":"../assets/img/maine_2022/IMG_5071.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5071.JPG","caption":""},{"filename":"IMG_5084.JPG","img_src":"../assets/img/maine_2022/IMG_5084.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5084.JPG","caption":""},{"filename":"IMG_5088.JPG","img_src":"../assets/img/maine_2022/IMG_5088.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5088.JPG","caption":""},{"filename":"IMG_5089.JPG","img_src":"../assets/img/maine_2022/IMG_5089.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5089.JPG","caption":""},{"filename":"IMG_5090.JPG","img_src":"../assets/img/maine_2022/IMG_5090.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5090.JPG","caption":""},{"filename":"IMG_5141.JPG","img_src":"../assets/img/maine_2022/IMG_5141.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5141.JPG","caption":""},{"filename":"IMG_5142.JPG","img_src":"../assets/img/maine_2022/IMG_5142.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5142.JPG","caption":""},{"filename":"IMG_5143.JPG","img_src":"../assets/img/maine_2022/IMG_5143.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5143.JPG","caption":""},{"filename":"IMG_5358.JPG","img_src":"../assets/img/maine_2022/IMG_5358.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5358.JPG","caption":""},{"filename":"IMG_5360.JPG","img_src":"../assets/img/maine_2022/IMG_5360.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5360.JPG","caption":""},{"filename":"IMG_5370.JPG","img_src":"../assets/img/maine_2022/IMG_5370.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5370.JPG","caption":""},{"filename":"IMG_5377.JPG","img_src":"../assets/img/maine_2022/IMG_5377.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5377.JPG","caption":""},{"filename":"IMG_5381.JPG","img_src":"../assets/img/maine_2022/IMG_5381.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5381.JPG","caption":""},{"filename":"IMG_5392.JPG","img_src":"../assets/img/maine_2022/IMG_5392.JPG","placeholder_src":"../assets/placeholder/maine_2022/IMG_5392.JPG","caption":""}]}}
+{
+  "img_path": "../assets/img/",
+  "placeholder_path": "../assets/placeholder/",
+  "directories": [
+    "astrophotography",
+    "backpacking",
+    "birds",
+    "dogs",
+    "maine_2022"
+  ],
+  "img": {
+    "astrophotography": [
+      {
+        "filename": "andromeda_rising.JPG",
+        "img_src": "../assets/img/astrophotography/andromeda_rising.JPG",
+        "placeholder_src": "../assets/placeholder/astrophotography/andromeda_rising.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "enhanced_nebula.jpg",
+        "img_src": "../assets/img/astrophotography/enhanced_nebula.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/enhanced_nebula.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "enhanced_stars.jpg",
+        "img_src": "../assets/img/astrophotography/enhanced_stars.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/enhanced_stars.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4948e2.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_4948e2.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4948e2.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4949e.JPG",
+        "img_src": "../assets/img/astrophotography/IMG_4949e.JPG",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4949e.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4957.JPG",
+        "img_src": "../assets/img/astrophotography/IMG_4957.JPG",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4957.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4963e.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_4963e.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4963e.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4966e.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_4966e.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4966e.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4967.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_4967.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4967.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5038e.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_5038e.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5038e.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5114e2.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_5114e2.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5114e2.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5115.jpg",
+        "img_src": "../assets/img/astrophotography/IMG_5115.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5115.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "processed_and_cropped.jpg",
+        "img_src": "../assets/img/astrophotography/processed_and_cropped.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
+        "caption": ""
+      }
+    ],
+    "birds": [
+      {
+        "filename": "IMG_2035-1.jpg",
+        "img_src": "../assets/img/birds/IMG_2035-1.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2035-1.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2111.jpg",
+        "img_src": "../assets/img/birds/IMG_2111.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2111.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2127.jpg",
+        "img_src": "../assets/img/birds/IMG_2127.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2127.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2131.jpg",
+        "img_src": "../assets/img/birds/IMG_2131.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2131.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2136.jpg",
+        "img_src": "../assets/img/birds/IMG_2136.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2136.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2148.jpg",
+        "img_src": "../assets/img/birds/IMG_2148.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2148.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2158.jpg",
+        "img_src": "../assets/img/birds/IMG_2158.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2158.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2163.jpg",
+        "img_src": "../assets/img/birds/IMG_2163.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2163.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2164.jpg",
+        "img_src": "../assets/img/birds/IMG_2164.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2164.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2172c.jpg",
+        "img_src": "../assets/img/birds/IMG_2172c.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2172c.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_2316.jpg",
+        "img_src": "../assets/img/birds/IMG_2316.jpg",
+        "placeholder_src": "../assets/placeholder/birds/IMG_2316.JPG",
+        "caption": ""
+      }
+    ],
+    "dogs": [
+      {
+        "filename": "IMG_0729.jpg",
+        "img_src": "../assets/img/dogs/IMG_0729.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0729.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0730.jpg",
+        "img_src": "../assets/img/dogs/IMG_0730.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0730.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0743.jpg",
+        "img_src": "../assets/img/dogs/IMG_0743.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0743.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0747.jpg",
+        "img_src": "../assets/img/dogs/IMG_0747.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0747.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0753.jpg",
+        "img_src": "../assets/img/dogs/IMG_0753.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0753.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0771.jpg",
+        "img_src": "../assets/img/dogs/IMG_0771.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0771.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0776.jpg",
+        "img_src": "../assets/img/dogs/IMG_0776.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0776.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0778.jpg",
+        "img_src": "../assets/img/dogs/IMG_0778.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0778.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0779.jpg",
+        "img_src": "../assets/img/dogs/IMG_0779.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0779.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0786.jpg",
+        "img_src": "../assets/img/dogs/IMG_0786.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0786.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0798.jpg",
+        "img_src": "../assets/img/dogs/IMG_0798.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0798.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_0804.jpg",
+        "img_src": "../assets/img/dogs/IMG_0804.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0804.JPG",
+        "caption": ""
+      }
+    ],
+    "maine_2022": [
+      {
+        "filename": "IMG_4914.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4914.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4914.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4915.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4915.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4915.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4921.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4921.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4921.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4927.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4927.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4927.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4929.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4929.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4929.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_4936.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_4936.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4936.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5039.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5039.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5039.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5041.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5041.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5041.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5053.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5053.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5053.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5056.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5056.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5056.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5059.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5059.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5059.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5063.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5063.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5063.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5071.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5071.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5071.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5084.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5084.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5084.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5088.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5088.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5088.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5089.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5089.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5089.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5090.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5090.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5090.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5141.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5141.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5141.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5142.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5142.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5142.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5143.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5143.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5143.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5358.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5358.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5358.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5360.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5360.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5360.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5370.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5370.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5370.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5377.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5377.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5377.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5381.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5381.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5381.JPG",
+        "caption": ""
+      },
+      {
+        "filename": "IMG_5392.JPG",
+        "img_src": "../assets/img/maine_2022/IMG_5392.JPG",
+        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5392.JPG",
+        "caption": ""
+      }
+    ]
+  }
+}

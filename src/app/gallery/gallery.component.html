@@ -1,31 +1,33 @@
 <app-site-header></app-site-header>
 
-<div class="galleryFolderSelector">
-  <label for="alt">Choose Image Folder: </label>
-  <select #imagefolder name="alt" (change)="this.onFolderSelect(imagefolder.value)">
-    <option *ngFor="let folder of imageFolders" [attr.value]="folder">{{folder}}</option>
-  </select>
-</div>
-
-<div class="galleryContainer">
-  <div class="gallery">
-    <a *ngFor="let image of imageSet[this.currentImageFolder]"
-      (click)="this.setCurrentImage('../' + image.img_src);this.openModal()" [attr.data-src]="'../' + image.img_src"
-      [attr.target]="'_blank'">
-      <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
-      <div class="imageHoverData">
-        {{image.filename}}
-      </div>
-    </a>
+<div class="gallery-component-container">
+  <div class="gallery-folder-selector">
+    <label for="alt">Choose Image Folder: </label>
+    <select #imagefolder name="alt" (change)="this.onFolderSelect(imagefolder.value)">
+      <option *ngFor="let folder of imageFolders" [attr.value]="folder">{{folder}}</option>
+    </select>
   </div>
-</div>
 
-<div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
-  (mousedown)="this.onModalMouseDown($event)" (mouseup)="this.onModalMouseUp($event)"
-  (mousemove)="this.onModalMouseMove($event)">
-  <span class="close cursor" (click)="this.closeModal()">&times;</span>
-  <div class="modal-content"
-    [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
-    <img [attr.src]="this.currentImage.src" />
+  <div class="gallery-container">
+    <div class="gallery">
+      <a *ngFor="let image of imageSet[this.currentImageFolder]"
+        (click)="this.setCurrentImage('../' + image.img_src);this.openModal()" [attr.data-src]="'../' + image.img_src"
+        [attr.target]="'_blank'">
+        <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
+        <div class="image-hover-data">
+          {{image.filename}}
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
+    (mousedown)="this.onModalMouseDown($event)" (mouseup)="this.onModalMouseUp($event)"
+    (mousemove)="this.onModalMouseMove($event)">
+    <span class="close" (click)="this.closeModal()">&times;</span>
+    <div class="modal-content"
+      [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
+      <img [attr.src]="this.currentImage.src" />
+    </div>
   </div>
 </div>
