@@ -1,9 +1,11 @@
-$logo-primary: white;
-$logo-secondary: #942911;
+@import url('../../../styles.scss');
 
-$icon-color: #FAF0CA;
+$logo-primary: var(--highlight-color);
+$logo-secondary: var(--secondary-color);
+$logo-text-highlight: var(--primary-color);
+
+$icon-color: var(--highlight-color);
 $icon-color-hover: white;
-$color-orange: #fa7921;
 
 $background-color: transparent;
 //$background-color: transparent;
@@ -12,7 +14,6 @@ $header-size: 4.5vw;
 $min-header-size: 4rem;
 
 .header-container {
-  background-color: var(--main-bg-color);
   position: fixed;
   z-index: 1;
   top: 0;
@@ -165,7 +166,7 @@ $min-header-size: 4rem;
   &:active,
   &:focus {
     & .website-logo {
-      color: $color-orange;
+      color: $logo-text-highlight;
       transition: all .45s;
     }
 
