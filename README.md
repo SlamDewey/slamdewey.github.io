@@ -1,7 +1,7 @@
-# [slamdewey.github.io] (https://slamdewey.github.io/)
-This is the repository for Jared Massa's (@slamdewey) Personal website, written using the Angular CLI.
+# slamdewey.github.io
+This is the repository for Jared Massa's (@SlamDewey) Personal website, written using the Angular CLI.
 
-This `readme.md` will be expanded as the site progresses in development.
+This `README.md` will be expanded as the site progresses in development.
 
 ## Project Structure
 The site presented here is quite simple and uses the standard component based structure of Angular applications.
