@@ -34,12 +34,12 @@ This copy/paste workaround means that one way or another, we always end up on th
 
 The rest of the `.bat` file is for simply pushing the changes up to github on my `dev` branch (`master` branch is protected).
 The only steps left for me to move a build into the production enviornment are to open (and merge) a pull request from `dev` -> `master`.
-Then the master branch goes through an automatic build & deploy sequence, viewable in the (Action Tab)[https://github.com/SlamDewey/slamdewey.github.io/actions] of this repo.
+Then the master branch goes through an automatic build & deploy sequence, viewable in the [Action Tab](https://github.com/SlamDewey/slamdewey.github.io/actions) of this repo.
 
 ### imageJsonBuilder.js
 The images located in the gallery on this site are stored locally, in the `docs/assets/` folder in this repository, and there is a little chunk
 of data stored about every single image.  For instance, each image has a 300px by 200px placeholder version which is used as a preview display, and 
-each image has text/caption information associated with it.  This data is stored in (src/app/images.json)[https://github.com/SlamDewey/slamdewey.github.io/blob/dev/src/app/images.json] and this text/caption data is edited manually.  Therefore, to add new image sets, I wrote (imageJsonBuilder.js)[https://github.com/SlamDewey/slamdewey.github.io/blob/dev/imageJsonBuilder.js].
+each image has text/caption information associated with it.  This data is stored in [src/app/images.json](https://github.com/SlamDewey/slamdewey.github.io/blob/dev/src/app/images.json) and this text/caption data is edited manually.  Therefore, to add new image sets, I wrote [imageJsonBuilder.js](https://github.com/SlamDewey/slamdewey.github.io/blob/dev/imageJsonBuilder.js).
 
 This script reads the old `images.json` file, copies over old content and either overwrites or simply adds in new content as appropriate. 
 
