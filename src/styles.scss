@@ -1,15 +1,27 @@
+:root {
+  /* color palette */
+  --primary-color: #FA7921;
+  --secondary-color: #942911;
+  --tertiary-color: #0D3B66;
+  --highlight-color: #FAF0CA;
+  --complimentary-color: #B0A3D4;
+
+  /* links */
+  --link-color: var(--secondary-color);
+  --link-hover-color: var(--tertiary-color);
+
+  /* body */
+  --background-color: var(--primary-color);
+}
+
 $color-white: #fff9f4;
 $color-black: #1b120a;
 
-$link-color: #942911;
-$link-hover-color: #0D3B66;
-
-$background-color: #FA7921;
-
+html,
 body {
   margin: 0;
   padding: 0;
-  background-color: $background-color;
+  background-color: var(--background-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 300;
 }
@@ -17,11 +29,11 @@ body {
 a {
   cursor: pointer;
   font-weight: normal;
-  color: $link-color;
+  color: var(--link-color);
 
   &:hover,
   &:active,
   &:focus {
-    color: $link-hover-color;
+    color: var(--link-hover-color);
   }
 }

@@ -1,27 +1,23 @@
-# Website
+# [slamdewey.github.io] (https://slamdewey.github.io/)
+This is the repository for Jared Massa's (@slamdewey) Personal website, written using the Angular CLI.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+This `readme.md` will be expanded as the site progresses in development.
 
-## Development server
+## Project Structure
+The site presented here is quite simple and uses the standard component based structure of Angular applications.
+The Angular Router is used to display different components as pages, however all pages feature the [site-header](https://github.com/SlamDewey/slamdewey.github.io/tree/master/src/app/shared/site-header) component as a side navigation bar.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+The three main pages of the site are the:
+ - [Home Page](https://github.com/SlamDewey/slamdewey.github.io/tree/master/src/app/home)
+ - [Hobbies & Projects Page](https://github.com/SlamDewey/slamdewey.github.io/tree/master/src/app/projects)
+ - [Gallery Page](https://github.com/SlamDewey/slamdewey.github.io/tree/master/src/app/gallery)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Color Palette
+This site uses a 5 color palette for styling.  You may see this in `styles.css` or below:
+ - primary:     `#FA7921`
+ - secondary:   `#942911`
+ - tertiary:    `#0D3B66`
+ - highlight:   `#FAF0CA`
+ - compliment:  `#B0A3D4`
