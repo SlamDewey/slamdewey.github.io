@@ -1,6 +1,14 @@
 <app-site-header></app-site-header>
 
 <div class="gallery-component-container">
+  <div class="gallery-help-text">
+    <i>
+      <h1>
+        Some images are very large!
+      </h1>
+      They may take some time to load when enlarged, but after they are loaded you may zoom with the mouse scroll wheel.
+    </i>
+  </div>
   <div class="gallery-folder-selector">
     <label for="alt">Choose Image Folder: </label>
     <select #imagefolder name="alt" (change)="this.onFolderSelect(imagefolder.value)">
@@ -25,7 +33,11 @@
   <div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
     (mousedown)="this.onModalMouseDown($event)" (mouseup)="this.onModalMouseUp($event)"
     (mousemove)="this.onModalMouseMove($event)">
-    <span class="close" (click)="this.closeModal()">&times;</span>
+    <div class="modal-controls">
+      <span class="modal-control-button" (click)="this.zoomOut()">-</span>
+      <span class="modal-control-button" (click)="this.zoomIn()">+</span>
+      <span class="modal-control-button" (click)="this.closeModal()">&times;</span>
+    </div>
     <div class="modal-content"
       [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
       <img [attr.src]="this.currentImage.src" />
