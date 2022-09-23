@@ -4,9 +4,27 @@ $color-black: black;
 
 .gallery-component-container {
   color: $color-white;
-  margin-top: 4rem;
-  margin-bottom: 10rem;
+  padding-top: 4rem;
+  padding-bottom: 10rem;
+  margin-left: 10rem;
+  margin-right: 10rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
+
+.gallery-help-text {
+  font-size: 1.5rem;
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+
+  & h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+}
+
 
 .gallery-folder-selector {
   display: flex;
@@ -98,6 +116,36 @@ $color-black: black;
   background-color: $color-black;
   overflow: hidden;
 
+  .modal-controls {
+    z-index: 2;
+    position: fixed;
+    display: flex;
+    justify-content: right;
+    width: 100%;
+
+    .modal-control-button {
+
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+
+      margin-left: 2rem;
+      margin-right: 2rem;
+
+      font-size: 60px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $color-gray;
+      }
+    }
+  }
+
+
   .modal-content {
     margin: auto;
 
@@ -108,21 +156,5 @@ $color-black: black;
       max-width: 100%;
     }
   }
-}
 
-.close {
-  position: absolute;
-  top: 1rem;
-  right: 2rem;
-  z-index: 2;
-
-  font-size: 60px;
-  font-weight: bold;
-  cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus {
-    color: $color-gray;
-  }
 }

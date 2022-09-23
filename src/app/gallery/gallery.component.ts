@@ -69,16 +69,22 @@ export class GalleryComponent implements OnInit {
     };
   }
 
-  onModalWheel(e: WheelEvent) {
-    e.preventDefault();
-    var xs = (e.clientX - this.zoomOptions.pointX) / this.zoomOptions.scale;
-    var ys = (e.clientY - this.zoomOptions.pointY) / this.zoomOptions.scale;
-    var delta = e.deltaY;
-    (delta < 0) ? (this.zoomOptions.scale *= 1.2) : (this.zoomOptions.scale /= 1.2);
-    //this.zoomOptions.pointX = e.clientX - xs * this.zoomOptions.scale;
-    //this.zoomOptions.pointY = e.clientY - ys * this.zoomOptions.scale;
+  public zoomIn(): void {
+    this.zoomOptions.scale *= 1.2;
+    this.zoomOptions.pointX *= 1.2;
+    this.zoomOptions.pointY *= 1.2;
   }
-  onModalMouseDown(e: MouseEvent) {
+  public zoomOut(): void {
+    this.zoomOptions.scale /= 1.2;
+    this.zoomOptions.pointX /= 1.2;
+    this.zoomOptions.pointY /= 1.2;
+  }
+
+  public onModalWheel(e: WheelEvent): void {
+    e.preventDefault();
+    (e.deltaY < 0) ? this.zoomIn() : this.zoomOut();
+  }
+  public onModalMouseDown(e: MouseEvent): void {
     e.preventDefault();
     this.zoomOptions.start = {
       x: e.clientX - this.zoomOptions.pointX,
@@ -86,11 +92,11 @@ export class GalleryComponent implements OnInit {
     };
     this.zoomOptions.panning = true;
   }
-  onModalMouseUp(e: MouseEvent) {
+  public onModalMouseUp(e: MouseEvent): void {
     e.preventDefault();
     this.zoomOptions.panning = false;
   }
-  onModalMouseMove(e: MouseEvent) {
+  public onModalMouseMove(e: MouseEvent): void {
     e.preventDefault();
     if (!this.zoomOptions.panning)
       return;
