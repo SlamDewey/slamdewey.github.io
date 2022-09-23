@@ -1,0 +1,22 @@
+$color-white: white;
+$color-gray: gray;
+$color-black: black;
+
+.projects-component-container {
+  color: $color-white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.temp-header {
+  font-size: 100px;
+  margin: 5rem;
+}
+
+.continue-anyway {
+  font-size: 40px;
+  margin: 2rem;
+}
