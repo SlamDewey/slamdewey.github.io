@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as imageDataJSONraw from '../images.json';
 
 @Component({
@@ -30,18 +31,14 @@ export class GalleryComponent implements OnInit {
     start: { x: 0, y: 0 }
   };
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.screenSize.width = window.innerWidth;
-    this.screenSize.height = window.innerHeight;
+    this.route.queryParams.subscribe(params => {
+      this.currentImageFolder = params['folder'];
+    });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize($event: Event) {
-    this.screenSize.width = window.innerWidth;
-    this.screenSize.height = window.innerHeight;
-  }
 
   onFolderSelect(newFolder: string) {
     this.currentImageFolder = newFolder;
