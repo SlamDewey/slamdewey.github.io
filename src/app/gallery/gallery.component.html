@@ -10,10 +10,12 @@
     </i>
   </div>
   <div class="gallery-folder-selector">
-    <label for="alt">Choose Image Folder: </label>
-    <select #imagefolder name="alt" (change)="this.onFolderSelect(imagefolder.value)">
-      <option *ngFor="let folder of imageFolders" [attr.value]="folder">{{folder}}</option>
-    </select>
+    <div class="dropdown">
+      <div class="dropdown-body">Select Folder</div>
+      <div class="dropdown-content">
+        <a *ngFor="let folder of imageFolders" href="/gallery?folder={{folder}}">{{folder}}</a>
+      </div>
+    </div>
   </div>
 
   <div class="gallery-container">
