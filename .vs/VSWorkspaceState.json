@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\gallery",
+    "\\src\\app\\home",
+    "\\src\\app\\projects",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\backdrop",
+    "\\src\\app\\shared\\site-header"
+  ],
+  "SelectedNode": "\\src\\app\\projects\\projects.component.ts",
+  "PreviewInSolutionExplorer": false
+}

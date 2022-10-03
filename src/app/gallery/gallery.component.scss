@@ -5,6 +5,7 @@ $color-gray: gray;
 $color-black: black;
 
 .gallery-component-container {
+  z-index: 1;
   color: $color-white;
   padding-top: 4rem;
   padding-bottom: 10rem;
@@ -16,6 +17,7 @@ $color-black: black;
 }
 
 .gallery-help-text {
+  z-index: 1;
   font-size: 1.5rem;
   margin-bottom: 5rem;
   display: flex;
@@ -28,6 +30,7 @@ $color-black: black;
 }
 
 .gallery-folder-selector {
+  z-index: 2;
   display: flex;
   justify-content: center;
   font-size: 22px;
@@ -70,7 +73,6 @@ $color-black: black;
       position: absolute;
       background-color: var(--highlight-color);
       box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 1);
-      z-index: 1;
 
       & a {
         padding: 1rem 1rem;
@@ -89,6 +91,7 @@ $color-black: black;
 }
 
 .gallery-container {
+  z-index: 1;
   display: flex;
   justify-content: center;
 }
@@ -116,14 +119,17 @@ $color-black: black;
     }
 
     &:hover img {
-      opacity: .3;
+      opacity: .5;
     }
 
     & .image-hover-data {
       position: absolute;
+
+      height: 200px;
+      width: 300px;
+
       max-height: 200px;
       max-width: 300px;
-
       overflow: wrap;
 
       transition: all .2s;
@@ -162,7 +168,7 @@ $color-black: black;
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 100%;
 
@@ -178,7 +184,7 @@ $color-black: black;
   }
 
   .modal-controls {
-    z-index: 2;
+    z-index: 3;
     position: fixed;
     display: flex;
     justify-content: right;
@@ -206,6 +212,29 @@ $color-black: black;
     }
   }
 
+  .spinner {
+    z-index: 10;
+    position: absolute;
+    left: 47.5vw;
+    top: 40vh;
+
+    border: 16px solid var(--highlight-color);
+    border-radius: 50%;
+    border-top: 16px solid var(--primary-color);
+    width: 5vw;
+    height: 5vw;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
   .modal-content {
     margin: auto;
@@ -217,5 +246,4 @@ $color-black: black;
       max-width: 100%;
     }
   }
-
 }

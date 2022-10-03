@@ -13,7 +13,7 @@ import { ProjectsComponent } from './projects/projects.component';
     AppComponent,
     HomeComponent,
     GalleryComponent,
-    ProjectsComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
