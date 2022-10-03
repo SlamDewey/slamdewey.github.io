@@ -1,6 +1,7 @@
 <app-site-header></app-site-header>
+<backdrop [backdrop]="bgAnimation" [shouldPauseAnimation]="isModalOpen"></backdrop>
 
-<div class="gallery-component-container">
+<div class="gallery-component-container" (style)="isModalOpen ? 'overflow:hidden;' : 'overflow: auto;'">
   <div class="gallery-help-text">
     <i>
       <h1>
@@ -21,8 +22,8 @@
   <div class="gallery-container">
     <div class="gallery">
       <a *ngFor="let image of imageSet[this.currentImageFolder]"
-        (click)="this.setCurrentImage('../' + image.img_src);this.openModal()" [attr.data-src]="'../' + image.img_src"
-        [attr.target]="'_blank'">
+        (click)="this.setCurrentImage('../' + image.img_src, '../' + image.placeholder_src);this.openModal()"
+        [attr.data-src]="'../' + image.img_src" [attr.target]="'_blank'">
         <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
         <div class="image-hover-data">
           <h1>{{image.title}}</h1>
@@ -40,9 +41,10 @@
       <span class="modal-control-button" (click)="this.zoomIn()">+</span>
       <span class="modal-control-button" (click)="this.closeModal()">&times;</span>
     </div>
+    <div *ngIf="this.shouldDisplaySpinner" class="spinner"></div>
     <div class="modal-content"
       [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
-      <img [attr.src]="this.currentImage.src" />
+      <img loading="lazy" (load)="this.checkIfImageLoadingComplete($event)" [attr.src]="this.currentImage.src" />
     </div>
   </div>
 </div>

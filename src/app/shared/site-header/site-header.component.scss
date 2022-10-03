@@ -22,7 +22,8 @@ $min-header-size: 4rem;
   min-width: $min-header-size;
   height: 100vh;
 
-  background-color: $background-color;
+  //background-color: $background-color;
+  background-image: linear-gradient(to right, var(--primary-color), $background-color);
 
   display: flex;
   align-items: flex-start;

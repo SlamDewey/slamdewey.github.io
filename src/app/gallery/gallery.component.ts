@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as imageDataJSONraw from '../images.json';
+import { Backdrop } from '../shared/backdrop/backdrop';
+import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 
 @Component({
   selector: 'app-gallery',
@@ -9,21 +11,27 @@ import * as imageDataJSONraw from '../images.json';
 })
 export class GalleryComponent implements OnInit {
 
-  imageDataJSON = (imageDataJSONraw as any).default;
-  imageSet = this.imageDataJSON.img;
-  imageFolders: string[] = Object.keys(this.imageSet);
-  currentImageFolder: string = this.imageFolders[0];
-  isModalOpen: boolean = false;
-  screenSize = {
+  public bgAnimation: Backdrop = new BallPitAnimatedBackground();
+
+  public imageDataJSON = (imageDataJSONraw as any).default;
+  public imageSet = this.imageDataJSON.img;
+  public imageFolders: string[] = Object.keys(this.imageSet);
+  public currentImageFolder: string = this.imageFolders[0];
+
+  public shouldDisplaySpinner: boolean = false;
+  public isModalOpen: boolean = false;
+
+  public screenSize = {
     width: 0,
     height: 0
   };
-  currentImage = {
+  public currentImage = {
     title: "",
     caption: "",
-    src: ""
+    src: "",
+    placeholder_src: ""
   }
-  zoomOptions = {
+  public zoomOptions = {
     scale: 1,
     panning: false,
     pointX: 0,
@@ -39,24 +47,39 @@ export class GalleryComponent implements OnInit {
     });
   }
 
-
-  onFolderSelect(newFolder: string) {
+  public onFolderSelect(newFolder: string) {
     this.currentImageFolder = newFolder;
   }
 
-  setCurrentImage(src: string, title?: string, caption?: string) {
+  public setCurrentImage(src: string, placeholder_src: string, title?: string, caption?: string) {
     this.currentImage.src = src;
+    this.currentImage.placeholder_src = placeholder_src;
     if (title !== undefined)
       this.currentImage.title = title;
     if (caption !== undefined)
       this.currentImage.caption = caption;
   }
 
-  openModal(): void {
-    this.isModalOpen = true;
+  public checkIfImageLoadingComplete(event: Event) {
+    const element: any = event.target;
+    if (!element || !(element instanceof HTMLImageElement))
+      return;
+    const imgElement: HTMLImageElement = element;
+    if (imgElement.complete && imgElement.naturalWidth !== 0)
+      this.onImageLoad();
   }
-  closeModal(): void {
+
+  public onImageLoad() {
+    this.shouldDisplaySpinner = false;
+  }
+
+  public openModal(): void {
+    this.isModalOpen = true;
+    this.shouldDisplaySpinner = true;
+  }
+  public closeModal(): void {
     this.isModalOpen = false;
+    this.shouldDisplaySpinner = false;
     this.zoomOptions = {
       scale: 1,
       panning: false,

@@ -1,5 +1,6 @@
-import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Backdrop } from '../shared/backdrop/backdrop';
+import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  public bgAnimation: Backdrop = new BallPitAnimatedBackground();
+
   constructor() { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
 }
