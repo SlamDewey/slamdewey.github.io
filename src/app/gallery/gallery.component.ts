@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import * as imageDataJSONraw from '../images.json';
 import { Backdrop } from '../shared/backdrop/backdrop';
@@ -39,12 +40,17 @@ export class GalleryComponent implements OnInit {
     start: { x: 0, y: 0 }
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private titleService: Title) {
+    this.titleService.setTitle('Gallery');
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.currentImageFolder = params['folder'];
     });
+    if (this.currentImageFolder)
+      this.titleService.setTitle(this.currentImageFolder + " | Gallery");
   }
 
   public onFolderSelect(newFolder: string) {
