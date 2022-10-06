@@ -1,10 +1,11 @@
-import { HostListener, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { Backdrop } from './backdrop';
 
 @Component({
   selector: 'backdrop',
   templateUrl: './backdrop.component.html',
-  styleUrls: ['./backdrop.component.scss']
+  styleUrls: ['./backdrop.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BackdropComponent implements OnInit {
 
@@ -21,9 +22,14 @@ export class BackdropComponent implements OnInit {
 
   private canvasElement: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
+  private renderInterval: any;
 
   constructor() { }
   ngOnInit(): void { }
+
+  ngOnDestroy() {
+    clearInterval(this.renderInterval);
+  }
 
   ngAfterViewInit(): void {
     // disable right click on canvas
@@ -45,6 +51,8 @@ export class BackdropComponent implements OnInit {
       this.bgAnimation.width = this.InternalCanvasRenderSize.X = entries[0].target.clientWidth;
       this.bgAnimation.height = this.InternalCanvasRenderSize.Y = Math.max(entries[0].target.clientHeight, window.innerHeight);
 
+      this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
+      this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
       this.bgAnimation.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
     });
 
@@ -52,7 +60,7 @@ export class BackdropComponent implements OnInit {
 
     this.bgAnimation.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
 
-    setInterval(() => { this.renderLoop() }, this.RefreshRateMS);
+    this.renderInterval = setInterval(() => { this.renderLoop() }, this.RefreshRateMS);
   }
 
   public clear(): void {

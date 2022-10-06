@@ -10,9 +10,9 @@ const MAX_RADIUS = 25;
 const MAX_GROW_MULTIPLIER = 3;
 const MAX_SPAWN_VELOCITY = 20;
 const MAX_GROW_RANGE = 300;
-const MIN_GROW_RANGE = 10;
+const MIN_GROW_RANGE = 30;
 
-function getRandomRange(min: number, max: number) {
+function randomRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 function lerp(start: number, end: number, percentage: number) {
@@ -50,7 +50,7 @@ class Circle {
       this.radiusMultiplier = MAX_GROW_MULTIPLIER;
     else {
       const distanceAsPercentage = (MAX_GROW_RANGE - length) / (MAX_GROW_RANGE - MIN_GROW_RANGE);
-      this.radiusMultiplier = lerp(1, MAX_GROW_MULTIPLIER, distanceAsPercentage * distanceAsPercentage);
+      this.radiusMultiplier = lerp(1, MAX_GROW_MULTIPLIER, distanceAsPercentage * distanceAsPercentage * distanceAsPercentage);
       if (this.radiusMultiplier < 1)
         console.log('err')
     }
@@ -72,22 +72,17 @@ export class BallPitAnimatedBackground extends Backdrop {
     this.circles = [];
     const NUM_CIRCLES = Math.round((this.width * this.height) / CIRCLE_SPAWN_DENSITY);
     for (var i = 0; i < NUM_CIRCLES; i++) {
-      const radius = getRandomRange(MIN_RADIUS, MAX_RADIUS);
-      const xSpawn = getRandomRange(0, this.width);
-      const ySpawn = getRandomRange(0, this.height);
-      const xSpawnVel = getRandomRange(-MAX_SPAWN_VELOCITY, MAX_SPAWN_VELOCITY);
-      const ySpawnVel = getRandomRange(-MAX_SPAWN_VELOCITY, MAX_SPAWN_VELOCITY);
+      const radius = randomRange(MIN_RADIUS, MAX_RADIUS);
+      const xSpawn = randomRange(0, this.width);
+      const ySpawn = randomRange(0, this.height);
+      const xSpawnVel = randomRange(-MAX_SPAWN_VELOCITY, MAX_SPAWN_VELOCITY);
+      const ySpawnVel = randomRange(-MAX_SPAWN_VELOCITY, MAX_SPAWN_VELOCITY);
 
       this.circles.push(new Circle(xSpawn, ySpawn, xSpawnVel, ySpawnVel, radius, i % COLORS.length));
     }
   }
 
-  tickNum = 0;
-
   update(deltaTime: number): void {
-    this.tickNum++;
-    let circs_in_range = 0;
-
     this.circles.forEach(circle => {
       circle.update(deltaTime, this.mousePosition);
       if ((circle.position.x <= 0 && circle.velocity.x < 0) ||
@@ -96,13 +91,7 @@ export class BallPitAnimatedBackground extends Backdrop {
       if ((circle.position.y <= 0 && circle.velocity.y < 0) ||
         (circle.position.y >= this.height && circle.velocity.y > 0))
         circle.velocity.y = -circle.velocity.y;
-
-      if (circle.position.x > 0 && circle.position.y > 0 && circle.position.x < this.width && circle.position.y < this.height)
-        circs_in_range++;
     });
-
-    if (this.tickNum % 10 === 0)
-      console.log(circs_in_range);
   }
   draw(deltaTime: number): void {
     this.circles.forEach(circle => {
