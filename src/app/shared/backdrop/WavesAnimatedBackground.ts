@@ -6,10 +6,14 @@ const noise3D = createNoise3D(alea('seed'));
 
 export class Waves extends Backdrop {
   public config = {
-    bgColor: '#000000',
-    // https://www.colourlovers.com/palette/577622/One_Sixty-Eight
     colorSchema: [
-      '#fb8537',
+      'black',
+      'blue',
+      'red',
+    ]
+    /**
+    colorSchema: [
+      '#FA7921',
       '#fb9550',
       '#EC8743',
       '#D67330',
@@ -17,12 +21,11 @@ export class Waves extends Backdrop {
       '#EE7B2E',
       '#DD6E25',
       '#E48749'
-    ],
-    numOfLayers: 8
+    ]
+     */
   }
 
   public timestamp = 0;
-  public fpsHistory = [];
 
   public wCenterX: number;
   public wCenterY: number;
@@ -41,13 +44,13 @@ export class Waves extends Backdrop {
 
   private getLayers() {
     const layers = [];
-    let currColorId = 0;
+    const numLayers = this.config.colorSchema.length;
 
-    for (let lid = 0; lid <= this.config.numOfLayers; lid++, currColorId = (currColorId + 1) % this.config.colorSchema.length) {
+    for (let lid = 0; lid <= numLayers; lid++) {
       layers.push({
         id: lid, // used for noise offset
-        progress: 1 - (lid / this.config.numOfLayers),
-        color: this.config.colorSchema[currColorId]
+        progress: 1 - (lid / numLayers),
+        color: this.config.colorSchema[lid]
       });
     }
     return layers;
@@ -65,10 +68,10 @@ export class Waves extends Backdrop {
     ctx.rotate(Math.sin(this.angle));
 
     ctx.beginPath();
-    ctx.moveTo(-this.wHypot / 2, this.wHypot / 2 - (this.wHypot * layer.progress));
+    ctx.moveTo(-this.wHypot / 2, (this.wHypot / 2) - (this.wHypot * layer.progress));
     ctx.lineTo(-this.wHypot / 2, this.wHypot / 2);
     ctx.lineTo(this.wHypot / 2, this.wHypot / 2);
-    ctx.lineTo(this.wHypot / 2, this.wHypot / 2 - (this.wHypot * layer.progress));
+    ctx.lineTo(this.wHypot / 2, (this.wHypot / 2) - (this.wHypot * layer.progress));
 
     for (let sid = 1; sid <= segmentCount; sid++) {
       const n = noise3D(sid * noiseZoom, sid * noiseZoom, layer.id + this.timestamp);
@@ -87,32 +90,25 @@ export class Waves extends Backdrop {
     const prevTimestamp = this.timestamp * 5000
 
     if (this) {
-      let shiftNeeded = false
-      this.timestamp = deltaTime / 5000
+      let shiftNeeded = false;
+      this.timestamp = deltaTime / 5000;
 
       this.layers.forEach(layer => {
         layer.progress += deltaTime / 20;
 
-        if (layer.progress > 1 + (1 / (this.layers.length - 1))) {
-          layer.progress = 0
-          shiftNeeded = true
+        if (layer.progress > 1 + (1 / (this.layers.length))) {
+          layer.progress = 0;
+          shiftNeeded = true;
         }
       })
 
       if (shiftNeeded) {
-        let layer = this.layers.shift();
-        if (layer !== undefined)
-          this.layers.push(layer);
+        this.layers.push(this.layers.shift() ?? { id: 0, progress: 0, color: 'black' });
       }
     }
   }
 
   draw(deltaTime: number) {
-    this.ctx.save();
-    this.ctx.fillStyle = this.config.bgColor;
-    this.ctx.fillRect(0, 0, this.width, this.height);
-    this.ctx.restore();
-
     this.layers.forEach(layer => this.drawLayer(this.ctx, layer))
   }
 }

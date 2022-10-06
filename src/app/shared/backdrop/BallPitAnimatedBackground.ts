@@ -10,7 +10,7 @@ const MAX_RADIUS = 25;
 const MAX_GROW_MULTIPLIER = 3;
 const MAX_SPAWN_VELOCITY = 20;
 const MAX_GROW_RANGE = 300;
-const MIN_GROW_RANGE = 10;
+const MIN_GROW_RANGE = 30;
 
 function randomRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
@@ -50,7 +50,7 @@ class Circle {
       this.radiusMultiplier = MAX_GROW_MULTIPLIER;
     else {
       const distanceAsPercentage = (MAX_GROW_RANGE - length) / (MAX_GROW_RANGE - MIN_GROW_RANGE);
-      this.radiusMultiplier = lerp(1, MAX_GROW_MULTIPLIER, distanceAsPercentage * distanceAsPercentage);
+      this.radiusMultiplier = lerp(1, MAX_GROW_MULTIPLIER, distanceAsPercentage * distanceAsPercentage * distanceAsPercentage);
       if (this.radiusMultiplier < 1)
         console.log('err')
     }
