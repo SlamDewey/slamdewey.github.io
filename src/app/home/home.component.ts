@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Backdrop } from '../shared/backdrop/backdrop';
 import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
-//import { Waves } from '../shared/backdrop/WavesAnimatedBackground';
+import { Waves } from '../shared/backdrop/WavesAnimatedBackground';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBac
 })
 export class HomeComponent implements OnInit {
 
-  public bgAnimation: Backdrop = new BallPitAnimatedBackground();
+  public bgAnimation: Backdrop = new Waves();
 
   constructor(private titleService: Title) {
     this.titleService.setTitle('Jared Massa | Software Engineer');
