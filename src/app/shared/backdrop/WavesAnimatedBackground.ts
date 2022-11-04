@@ -7,14 +7,14 @@ const noise3D = createNoise3D(alea('seed'));
 export class Waves extends Backdrop {
   public config = {
     colorSchema: [
-      'black',
-      'blue',
-      'red',
-    ]
-    /**
-    colorSchema: [
-      '#FA7921',
-      '#fb9550',
+      '#fb9f5f',
+      '#EC8743',
+      '#D67330',
+      '#FF9249',
+      '#EE7B2E',
+      '#DD6E25',
+      '#E48749',
+      '#fb9f5f',
       '#EC8743',
       '#D67330',
       '#FF9249',
@@ -22,7 +22,6 @@ export class Waves extends Backdrop {
       '#DD6E25',
       '#E48749'
     ]
-     */
   }
 
   public timestamp = 0;
@@ -32,24 +31,24 @@ export class Waves extends Backdrop {
   public wHypot: number;
   public wMin: number;
 
-  public angle: number = Math.PI * 0.25;
+  public angle: number = Math.PI / 4;
   public layers = this.getLayers();
 
   protected init(): void {
-    this.wCenterX = this.width / 2;
-    this.wCenterY = this.height / 2;
-    this.wHypot = Math.hypot(this.width, this.height);
-    this.wMin = Math.min(this.width, this.height);
+    this.wCenterX = this.width;
+    this.wCenterY = this.height;
+    this.wHypot = Math.hypot(this.width * 2, this.height * 2);
+    this.wMin = Math.min(this.width * 2, this.height * 2);
   }
 
   private getLayers() {
     const layers = [];
     const numLayers = this.config.colorSchema.length;
 
-    for (let lid = 0; lid <= numLayers; lid++) {
+    for (let lid = 0; lid < numLayers; lid++) {
       layers.push({
         id: lid, // used for noise offset
-        progress: 1 - (lid / numLayers),
+        progress: 1 - (lid / (numLayers - 1)),
         color: this.config.colorSchema[lid]
       });
     }
@@ -73,7 +72,7 @@ export class Waves extends Backdrop {
     ctx.lineTo(this.wHypot / 2, this.wHypot / 2);
     ctx.lineTo(this.wHypot / 2, (this.wHypot / 2) - (this.wHypot * layer.progress));
 
-    for (let sid = 1; sid <= segmentCount; sid++) {
+    for (let sid = 0; sid <= segmentCount; sid++) {
       const n = noise3D(sid * noiseZoom, sid * noiseZoom, layer.id + this.timestamp);
       const heightOffset = n * waveAmplitude;
 
@@ -87,23 +86,21 @@ export class Waves extends Backdrop {
   }
 
   update(deltaTime: number) {
-    const prevTimestamp = this.timestamp * 5000
-
     if (this) {
       let shiftNeeded = false;
       this.timestamp = deltaTime / 5000;
 
       this.layers.forEach(layer => {
-        layer.progress += deltaTime / 20;
+        layer.progress += deltaTime / 50;
 
-        if (layer.progress > 1 + (1 / (this.layers.length))) {
+        if (layer.progress > 1 + (1 / this.layers.length)) {
           layer.progress = 0;
           shiftNeeded = true;
         }
       })
 
       if (shiftNeeded) {
-        this.layers.push(this.layers.shift() ?? { id: 0, progress: 0, color: 'black' });
+        this.layers.push(this.layers.shift() ?? { id: 0, progress: 0, color: 'green' });
       }
     }
   }
