@@ -21,7 +21,7 @@ export class BackdropComponent implements OnInit {
   };
 
   private canvasElement: HTMLCanvasElement;
-  private ctx: CanvasRenderingContext2D;
+  private ctx: RenderingContext;
   private renderInterval: any;
 
   constructor() { }
@@ -36,9 +36,9 @@ export class BackdropComponent implements OnInit {
     this.bgCanvas.nativeElement.addEventListener('contextmenu', (e: Event) => { e.preventDefault(); });
 
     this.canvasElement = this.bgCanvas.nativeElement;
-    const context = this.canvasElement.getContext('2d');
+    const context = this.canvasElement.getContext(this.bgAnimation.contextString());
 
-    if (!context || !(context instanceof CanvasRenderingContext2D)) {
+    if (!context) {
       throw new Error('Failed to get 2D context of Canvas');
     }
 
@@ -48,12 +48,12 @@ export class BackdropComponent implements OnInit {
     this.InternalCanvasRenderSize.Y = Math.max(document.documentElement.scrollHeight, window.innerHeight);
 
     const resizeObserver = new ResizeObserver(entries => {
-      this.bgAnimation.width = this.InternalCanvasRenderSize.X = entries[0].target.clientWidth;
-      this.bgAnimation.height = this.InternalCanvasRenderSize.Y = Math.max(entries[0].target.clientHeight, window.innerHeight);
+      this.InternalCanvasRenderSize.X = entries[0].target.clientWidth;
+      this.InternalCanvasRenderSize.Y = Math.max(entries[0].target.clientHeight, window.innerHeight);
 
       this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
       this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
-      this.bgAnimation.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
+      this.bgAnimation.initialize(this.ctx as CanvasRenderingContext2D, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
     });
 
     resizeObserver.observe(document.body);
@@ -63,14 +63,10 @@ export class BackdropComponent implements OnInit {
     this.renderInterval = setInterval(() => { this.renderLoop() }, this.RefreshRateMS);
   }
 
-  public clear(): void {
-    this.ctx.clearRect(0, 0, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
-  }
-
   public renderLoop(): void {
     if (this.shouldPauseAnimation)
       return;
-    this.clear();
+    this.bgAnimation.clear();
     this.bgAnimation.tick();
   }
 }
