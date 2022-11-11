@@ -1,0 +1,18 @@
+$color-white: white;
+$color-black: black;
+
+.backdroptest-component-container {
+  z-index: 1;
+  color: $color-white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}
+
+.temp-header {
+  z-index: 1;
+  font-size: 100px;
+  margin: 5rem;
+}

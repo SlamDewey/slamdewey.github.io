@@ -64,7 +64,7 @@ export class Waves extends Backdrop {
 
     ctx.save();
     ctx.translate(this.wCenterX, this.wCenterY);
-    ctx.rotate(Math.sin(this.angle));
+    ctx.rotate(this.angle);
 
     ctx.beginPath();
     ctx.moveTo(-this.wHypot / 2, (this.wHypot / 2) - (this.wHypot * layer.progress));
