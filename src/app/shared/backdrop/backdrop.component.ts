@@ -14,7 +14,7 @@ export class BackdropComponent implements OnInit {
   @Input('backdrop') bgAnimation: Backdrop;
   @Input('shouldPauseAnimation') shouldPauseAnimation: boolean;
 
-  public RefreshRateMS = 1000 / 60;
+  public RefreshRateMS = 1000 / 90;
   public InternalCanvasRenderSize = {
     X: document.documentElement.scrollWidth,
     Y: Math.max(document.documentElement.scrollHeight, window.innerHeight)
@@ -60,7 +60,7 @@ export class BackdropComponent implements OnInit {
 
     this.bgAnimation.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
 
-    this.renderInterval = setInterval(() => { this.renderLoop() }, this.RefreshRateMS);
+    this.renderInterval = setInterval(async () => { await this.renderLoop() }, this.RefreshRateMS);
   }
 
   public renderLoop(): void {

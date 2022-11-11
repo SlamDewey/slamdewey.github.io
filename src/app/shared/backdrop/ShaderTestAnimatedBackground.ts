@@ -10,11 +10,6 @@ export class ShaderTestAnimatedBackground extends WebGLBackdrop {
 
   attribute vec2 coordinates;
   
-  uniform vec2 screenSize;
-  uniform float time;
-  
-  varying vec3 fragColor;
-  
   void main() {
     gl_Position = vec4(coordinates, 0.0, 1.0);
   }
@@ -24,8 +19,6 @@ export class ShaderTestAnimatedBackground extends WebGLBackdrop {
   
   uniform vec2 screenSize;
   uniform float time;
-
-  varying vec3 fragColor;
 
   void main() {
     float brightness = 1.0;

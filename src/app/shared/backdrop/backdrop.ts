@@ -22,6 +22,10 @@ export abstract class Backdrop {
   protected mouseOffset: Vector2 = new Vector2(0, 0);
   protected lastUpdate: number;
 
+  protected abstract init(): void;
+  protected abstract update(deltaTime: number): void;
+  protected abstract draw(deltaTime: number): void;
+
   public initialize(ctx: RenderingContext, width: number, height: number): void {
     this.ctx = ctx as CanvasRenderingContext2D;
     this.width = width;
@@ -45,10 +49,6 @@ export abstract class Backdrop {
         this.mousePosition = new Vector2(deltaOffset.x + this.mousePosition.x, deltaOffset.y + this.mousePosition.y);
     });
   }
-
-  protected abstract init(): void;
-  protected abstract update(deltaTime: number): void;
-  protected abstract draw(deltaTime: number): void;
 
   public clear(): void {
     (this.ctx as CanvasRenderingContext2D).clearRect(0, 0, this.width, this.height);
@@ -75,6 +75,10 @@ export abstract class WebGLBackdrop extends Backdrop {
     return "webgl";
   }
 
+  protected abstract getVertexShader(): string;
+  protected abstract getFragmentShader(): string;
+  protected abstract initializeDrawVariables(gl: WebGLRenderingContext, shaderProgram: WebGLProgram): void;
+
   public override initialize(ctx: RenderingContext, width: number, height: number): void {
     this.gl = ctx as WebGLRenderingContext;
     this.width = width;
@@ -82,15 +86,9 @@ export abstract class WebGLBackdrop extends Backdrop {
     this.lastUpdate = Date.now();
 
     this.initWebGL(this.gl);
-
     super.setupListeners();
-
     this.init();
   }
-
-  protected abstract getVertexShader(): string;
-  protected abstract getFragmentShader(): string;
-  protected abstract initializeDrawVariables(gl: WebGLRenderingContext, shaderProgram: WebGLProgram): void;
 
   protected override draw(deltaTime: number): void {
     this.prepareDrawVariables(this.gl, deltaTime);
@@ -151,7 +149,6 @@ export abstract class WebGLBackdrop extends Backdrop {
     }
 
     var shaderProgram = gl.createProgram();
-
     if (shaderProgram === null) {
       throw new Error("Failed To Create Shader Program!");
     }
