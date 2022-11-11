@@ -1,8 +1,8 @@
 $color-white: white;
-$color-gray: gray;
 $color-black: black;
 
 .projects-component-container {
+  z-index: 1;
   color: $color-white;
   display: flex;
   flex-direction: column;
@@ -12,11 +12,13 @@ $color-black: black;
 }
 
 .temp-header {
+  z-index: 1;
   font-size: 100px;
   margin: 5rem;
 }
 
 .continue-anyway {
+  z-index: 1;
   font-size: 40px;
   margin: 2rem;
 }

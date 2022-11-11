@@ -1,7 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Backdrop } from '../shared/backdrop/backdrop';
-import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 import { Waves } from '../shared/backdrop/WavesAnimatedBackground';
 
 @Component({

@@ -10,7 +10,7 @@ $icon-color-hover: white;
 $background-color: transparent;
 //$background-color: transparent;
 
-$header-size: 4.5vw;
+$header-size: 5vw;
 $min-header-size: 4rem;
 
 .header-container {
@@ -23,7 +23,7 @@ $min-header-size: 4rem;
   height: 100vh;
 
   //background-color: $background-color;
-  background-image: linear-gradient(to right, var(--primary-color), $background-color);
+  //background-image: linear-gradient(to right, #fa782185, $background-color);
 
   display: flex;
   align-items: flex-start;
