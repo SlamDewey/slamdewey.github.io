@@ -8,7 +8,7 @@ import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnima
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
 
   public bgAnimation: Backdrop = new ShaderTestAnimatedBackground();
 
@@ -16,7 +16,7 @@ export class ProjectsComponent implements OnInit {
     this.titleService.setTitle('Hobbies & Projects');
   }
 
-  ngOnInit(): void {
+  setShaderMode(i: number) {
   }
 
 }
