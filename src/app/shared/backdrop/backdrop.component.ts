@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Backdrop } from './backdrop';
 
 @Component({
@@ -7,7 +7,7 @@ import { Backdrop } from './backdrop';
   styleUrls: ['./backdrop.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class BackdropComponent implements OnInit {
+export class BackdropComponent implements OnInit, OnChanges {
 
   @ViewChild('bgCanvas') bgCanvas: ElementRef;
 
@@ -25,7 +25,13 @@ export class BackdropComponent implements OnInit {
   private renderInterval: any;
 
   constructor() { }
+
   ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.ctx)
+      this.bgAnimation.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
+  }
 
   ngOnDestroy() {
     clearInterval(this.renderInterval);
