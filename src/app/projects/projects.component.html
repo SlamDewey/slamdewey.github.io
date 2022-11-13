@@ -1,13 +1,18 @@
 <app-site-header></app-site-header>
 <backdrop [backdrop]="bgAnimation"></backdrop>
 
-<div class="projects-component-container">
+<div #container *ngIf="!shouldHide" class="projects-component-container">
   <div class="temp-header">
     This page is also under construction.
   </div>
-  <div class="continue-anyway">
+  <div class="blurb">
     Can you see the WebGL Background?
     <br />
-
+    It's Newton's Fractal with a circular offset
+    <br />
+    (and a relatively low iteration count).
+  </div>
+  <div class="hide-text-btn" (click)="this.shouldHide = true">
+    Hide Text
   </div>
 </div>

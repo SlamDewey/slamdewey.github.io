@@ -1,3 +1,5 @@
+@import url('../../styles.scss');
+
 $color-white: white;
 $color-black: black;
 
@@ -17,8 +19,31 @@ $color-black: black;
   margin: 5rem;
 }
 
-.continue-anyway {
+.blurb {
   z-index: 1;
+  padding: 1rem 0rem 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--secondary-color);
   font-size: 40px;
-  margin: 2rem;
+  margin-bottom: 2rem;
+}
+
+.hide-text-btn {
+  z-index: 1;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  font-size: 30px;
+  padding: 1rem 0rem 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  width: 20rem;
+  margin: auto;
+  user-select: none;
+
+  &:hover,
+  &:active {
+    background-color: var(--tertiary-color);
+  }
 }
