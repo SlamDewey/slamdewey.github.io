@@ -17,7 +17,7 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   readonly FragmentShader: string = `
   precision mediump float;
   
-  const int MAX_ITERATIONS = 12;
+  const int MAX_ITERATIONS = 20;
   const float PI = 3.14159;
   const float brightness = 0.8;
   
@@ -83,16 +83,13 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
     float dist3 = complex_sqdist(iterated_location, vec2(1.0, 0.0));
     
     if (dist1 < dist2 && dist1 < dist3) {
-      //gl_FragColor = vec4(250.0, 160.0, 95.0, 256.0) / vec4(256.0);
       gl_FragColor = vec4(uv.x * brightness, 0.0, ((sin(time) + 1.0) / 2.0) * brightness, 1.0);
     }
     else if (dist2 < dist1 && dist2 < dist3) {
-      //gl_FragColor = vec4(190.0, 110.0, 50.0, 256.0) / vec4(256.0);
       gl_FragColor = vec4(0.0, uv.y * brightness, ((sin(time) + 1.0) / 2.0) * brightness, 1.0);
     }
     else if (dist3 < dist1 && dist3 < dist2) {
-      //gl_FragColor = vec4(220.0, 110.0, 15.0, 256.0) / vec4(256.0);
-      gl_FragColor = vec4(uv.xy * brightness, ((cos(time) + 1.0) / 2.0) * brightness, 1.0);
+      gl_FragColor = vec4(1.0 - uv.xy * brightness, ((cos(time) + 1.0) / 2.0) * brightness, 1.0);
     }
     else {
       gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
@@ -172,13 +169,13 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   void main() {
     vec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
     
-    //float scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0);
-    float scalar = 10.0 * ((-cos(time / 15.0) + 1.0) / 2.0);
-    //float scalar = 5.0;
+    //float scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0) + 3.0;
+    //float scalar = 10.0 * ((-cos(time / 15.0) + 1.0) / 2.0);
+    float scalar = 2.4;
     
-    int function = 2;
+    int function = 1;
     
-    vec2 iterated_location = newtonsMethod(function, relCoordinate * scalar, -vec2(0.2 * sin(time / 2.0), 0.2 * cos(time / 2.0)));
+    vec2 iterated_location = newtonsMethod(function, relCoordinate * scalar, -vec2(0.4 * sin(time / 2.0), 0.4 * cos(time / 2.0)));
     //vec2 iterated_location = newtonsMethod(function, relCoordinate * scalar, vec2(0.0, 0.0));
     //vec2 iterated_location = newtonsMethod(function, relCoordinate * scalar, vec2(sin(time) * 0.2, 0.0));
     colorFrag(function, iterated_location);
