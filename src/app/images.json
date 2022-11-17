@@ -95,6 +95,13 @@
         "caption": "Unedited image of a stretch of the Milky Way galaxy"
       },
       {
+        "filename": "orion_neb_v2_proc.JPG",
+        "img_src": "../assets/img/astrophotography/orion_neb_v2_proc.JPG",
+        "placeholder_src": "../assets/placeholder/astrophotography/orion_neb_v2_proc.JPG",
+        "title": "Orion Nebula",
+        "caption": "1.5 hours of staring at the bright Philadelphia night sky"
+      },
+      {
         "filename": "processed_and_cropped.jpg",
         "img_src": "../assets/img/astrophotography/processed_and_cropped.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
