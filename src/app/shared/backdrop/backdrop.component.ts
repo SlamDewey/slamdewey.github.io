@@ -14,6 +14,8 @@ export class BackdropComponent implements OnInit, OnChanges {
   @Input('backdrop') bgAnimation: Backdrop;
   @Input('shouldPauseAnimation') shouldPauseAnimation: boolean;
 
+  public static isWebGlEnabled: boolean;
+
   public RefreshRateMS = 1000 / 90;
   public InternalCanvasRenderSize = {
     X: document.documentElement.scrollWidth,
@@ -42,6 +44,10 @@ export class BackdropComponent implements OnInit, OnChanges {
     this.bgCanvas.nativeElement.addEventListener('contextmenu', (e: Event) => { e.preventDefault(); });
 
     this.canvasElement = this.bgCanvas.nativeElement;
+
+    const e = document.createElement('canvas');
+    BackdropComponent.isWebGlEnabled = (!!window.WebGLRenderingContext) || (!!e.getContext('webgl') || !!e.getContext('experimental-webgl'));
+
     const context = this.canvasElement.getContext(this.bgAnimation.contextString());
 
     if (!context) {

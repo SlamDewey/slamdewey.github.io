@@ -5,13 +5,50 @@
   <div class="temp-header">
     This page is also under construction.
   </div>
-  <div class="blurb">
-    Can you see the WebGL Background?
-    <br />
-    It's Newton's Fractal with a circular offset
-    <br />
-    (and a relatively low iteration count).
+  <div class="content-container">
+    <div class="blurb">
+      <div>
+        Can you see the WebGL Backdrop?
+        <br />
+        <div class="monospace">
+          Browser WebGL: <div class="data">{{this.isWebGlEnabled ? 'enabled' : 'disabled'}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="blurb">
+      <div>
+        Backdrop Status:
+        <br />
+        <div class="monospace">
+          <table>
+            <tr>
+              <td>
+                Iterations:
+              </td>
+              <td>
+                <div class="data">{{this.bgAnimation.iterations}}</div>
+              </td>
+              <td>
+                <input type="button" value="<" (click)="this.decrementIterationCount()" />
+              <td>
+              <td>
+                <input type="button" value=">" (click)="this.incrementIterationCount()" />
+              <td>
+            </tr>
+            <tr>
+              <td>
+                Iteration Limit:
+              </td>
+              <td>
+                <div class="data">{{this.bgAnimation.MAX_ITERATIONS}}</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
+  <br />
   <div class="hide-text-btn" (click)="this.shouldHide = true">
     Hide Text
   </div>
