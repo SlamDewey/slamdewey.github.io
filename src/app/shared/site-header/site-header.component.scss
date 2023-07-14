@@ -110,77 +110,77 @@ $min-header-size: 4rem;
   flex-direction: column;
   margin: 0;
   padding: 0;
+
+
+  .nav-link {
+    width: 100%;
+    height: auto;
+
+    &--home {
+      color: #fa0000;
+    }
+
+    &--projects {
+      color: #fac000;
+    }
+
+    &--gallery {
+      color: #630091;
+    }
+
+    &--sourcecode {
+      color: #108d00;
+    }
+
+    &--github {
+      color: #000;
+    }
+
+    &--linkedin {
+      color: #2d76b0;
+    }
+
+
+    & .nav-svg {
+      width: 100%;
+      height: auto;
+
+      & .nav-group {
+        &__icon {
+          fill: $icon-color;
+          transition: all .45s;
+        }
+
+        &__inner-circle {
+          fill: $background-color;
+          transform-origin: 50% 50%;
+          transform: scale(.8);
+          transition: all .45s;
+        }
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        & .nav-group {
+          &__icon {
+            fill: $icon-color-hover;
+            transition: all .2s;
+          }
+
+          &__inner-circle {
+            fill: currentColor;
+            transform: scale(1.1);
+            transition: all .2s;
+          }
+        }
+      }
+    }
+  }
 }
 
 .nav-end-spacer {
   display: flex;
   flex-grow: 3;
   width: 100%;
-}
-
-.nav-link {
-  width: 100%;
-  height: auto;
-
-  &--home {
-    color: #fa0000;
-  }
-
-  &--projects {
-    color: #fac000;
-  }
-
-  &--gallery {
-    color: #630091;
-  }
-
-  &--sourcecode {
-    color: #108d00;
-  }
-
-  &--github {
-    color: #000;
-  }
-
-  &--linkedin {
-    color: #2d76b0;
-  }
-
-
-  & .nav-svg {
-    width: 100%;
-    height: auto;
-
-    & .nav-group {
-      &__icon {
-        fill: $icon-color;
-        transition: all .45s;
-      }
-
-      &__inner-circle {
-        fill: transparent;
-        transform-origin: 50% 50%;
-        transform: scale(.8);
-        transition: all .45s;
-      }
-    }
-
-    &:hover,
-    &:active,
-    &:focus {
-      & .nav-group {
-
-        &__icon {
-          fill: $icon-color-hover;
-          transition: all .2s;
-        }
-
-        &__inner-circle {
-          fill: currentColor;
-          transform: scale(1.1);
-          transition: all .2s;
-        }
-      }
-    }
-  }
 }
