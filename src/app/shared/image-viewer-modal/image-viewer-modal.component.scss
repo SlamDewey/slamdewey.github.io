@@ -1,0 +1,64 @@
+@import url('../../../styles.scss');
+
+$color-gray: gray;
+$color-black: black;
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  cursor: grab;
+
+  background-color: $color-black;
+  overflow: hidden;
+
+  &:active,
+  &:focus {
+    cursor: grabbing;
+  }
+
+  .modal-controls {
+    z-index: 3;
+    position: fixed;
+    display: flex;
+    justify-content: right;
+    width: 100%;
+
+    .modal-control-button {
+
+      width: 4rem;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+
+      margin-left: 2rem;
+      margin-right: 2rem;
+
+      font-size: 60px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $color-gray;
+      }
+    }
+  }
+
+  .modal-content {
+    margin: auto;
+
+    max-width: 70%;
+    max-height: 100vh;
+
+    img {
+      max-width: 100%;
+    }
+  }
+}

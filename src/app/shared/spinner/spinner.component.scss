@@ -1,0 +1,26 @@
+@import url('../../../styles.scss');
+
+.spinner {
+  z-index: 10;
+
+  position: absolute;
+  width: 5vw;
+  height: 5vw;
+  left: 47.5vw;
+  top: 47.5vh;
+
+  border-radius: 50%;
+  border: 16px solid var(--highlight-color);
+  border-top: 16px solid var(--primary-color);
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

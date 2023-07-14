@@ -5,7 +5,7 @@ import { Waves } from '../shared/backdrop/WavesAnimatedBackground';
 import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnimatedBackground';
 
 @Component({
-  selector: 'app-home',
+  selector: 'x-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None

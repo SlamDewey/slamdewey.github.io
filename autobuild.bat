@@ -1,6 +1,6 @@
 @echo off
 echo Building project...
-call ng build
+call ng build --configuration production
 
 :: we need to create this 404.html for ghpages to work with angular router
 echo Duplicating index.html into 404.html
