@@ -8,7 +8,6 @@ $icon-color: var(--highlight-color);
 $icon-color-hover: white;
 
 $background-color: transparent;
-//$background-color: transparent;
 
 $header-size: 5vw;
 $min-header-size: 4rem;
@@ -21,9 +20,6 @@ $min-header-size: 4rem;
   width: $header-size;
   min-width: $min-header-size;
   height: 100vh;
-
-  //background-color: $background-color;
-  //background-image: linear-gradient(to right, #fa782185, $background-color);
 
   display: flex;
   align-items: flex-start;
@@ -46,11 +42,60 @@ $min-header-size: 4rem;
   cursor: default;
 
   display: flex;
-  flex-grow: 1;
+  flex-grow: 3;
   align-items: center;
   justify-content: center;
 
   padding-bottom: 5%;
+}
+
+.website-logo-inner-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+
+  & .website-logo {
+    z-index: 1;
+    transition: all .45s;
+  }
+
+  & svg {
+    width: 100%;
+    height: auto;
+
+    z-index: 0;
+    position: absolute;
+    transform: scale(1.5);
+    transform-origin: 50% 50%;
+    transition: all .45s;
+
+    & .outer-circle {
+      transition: all .45s;
+      fill: $logo-secondary;
+    }
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    & .website-logo {
+      color: $logo-text-highlight;
+      transition: all .45s;
+    }
+
+    & svg {
+      transition: all .45s;
+      transform: scale(2);
+
+      & .outer-circle {
+        transition: all .45s;
+        fill: $logo-primary;
+      }
+    }
+  }
 }
 
 .nav-link-container {
@@ -58,13 +103,19 @@ $min-header-size: 4rem;
   position: relative;
 
   display: flex;
-  flex-grow: 6;
+  flex-grow: 5;
   align-items: center;
 
   justify-content: space-evenly;
   flex-direction: column;
   margin: 0;
   padding: 0;
+}
+
+.nav-end-spacer {
+  display: flex;
+  flex-grow: 3;
+  width: 100%;
 }
 
 .nav-link {
@@ -129,55 +180,6 @@ $min-header-size: 4rem;
           transform: scale(1.1);
           transition: all .2s;
         }
-      }
-    }
-  }
-}
-
-.website-logo-inner-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-
-  & .website-logo {
-    z-index: 1;
-    transition: all .45s;
-  }
-
-  & svg {
-    width: 100%;
-    height: auto;
-
-    z-index: 0;
-    position: absolute;
-    transform: scale(1.1);
-    transform-origin: 50% 50%;
-    transition: all .45s;
-
-    & .outer-circle {
-      transition: all .45s;
-      fill: $logo-secondary;
-    }
-  }
-
-  &:hover,
-  &:active,
-  &:focus {
-    & .website-logo {
-      color: $logo-text-highlight;
-      transition: all .45s;
-    }
-
-    & svg {
-      transition: all .45s;
-      transform: scale(2);
-
-      & .outer-circle {
-        transition: all .45s;
-        fill: $logo-primary;
       }
     }
   }

@@ -1,7 +1,6 @@
-<app-site-header></app-site-header>
 <backdrop [backdrop]="bgAnimation" [shouldPauseAnimation]="isModalOpen"></backdrop>
 
-<div class="gallery-component-container" (style)="isModalOpen ? 'overflow:hidden;' : 'overflow: auto;'">
+<div class="gallery-component-container" (style)="isModalOpen ? 'overflow: hidden;' : 'overflow: auto;'">
 
   <div class="gallery-help-box">
     <div class="gallery-help-box-content">
@@ -14,12 +13,10 @@
         </svg>
       </div>
       <div class="help-text">
-        <i>
-          <h1>
-            Some images are very large!
-          </h1>
-          Even if the image displays, the zoom tools may have delayed functionality while everything finishes loading
-        </i>
+        <h1>
+          Some images are very large
+        </h1>
+        Even if the image displays, the zoom tools may have delayed functionality while everything finishes loading
       </div>
     </div>
   </div>
@@ -35,30 +32,11 @@
 
   <div class="gallery-container">
     <div class="gallery">
-      <a *ngFor="let image of imageSet[this.currentImageFolder]"
-        (click)="this.setCurrentImage('../' + image.img_src, '../' + image.placeholder_src);this.openModal()"
-        [attr.data-src]="'../' + image.img_src" [attr.target]="'_blank'">
-        <img alt="{{image.filename}}" [attr.src]="'../' + image.placeholder_src" />
-        <div class="image-hover-data">
-          <h1>{{image.title}}</h1>
-          <p>{{image.caption}}</p>
-        </div>
-      </a>
+      <x-image-tile *ngFor="let image of imageTileDataSet.get(currentImageFolder)"
+        [imageTileData]="image"></x-image-tile>
     </div>
   </div>
 
-  <div *ngIf="this.isModalOpen" class="modal" (wheel)="this.onModalWheel($event)"
-    (mousedown)="this.onModalMouseDown($event)" (mouseup)="this.onModalMouseUp($event)"
-    (mousemove)="this.onModalMouseMove($event)">
-    <div class="modal-controls">
-      <span class="modal-control-button" (click)="this.zoomOut()">-</span>
-      <span class="modal-control-button" (click)="this.zoomIn()">+</span>
-      <span class="modal-control-button" (click)="this.closeModal()">&times;</span>
-    </div>
-    <div *ngIf="this.shouldDisplaySpinner" class="spinner"></div>
-    <div class="modal-content"
-      [style]="'transform: translate(' + this.zoomOptions.pointX + 'px, ' + this.zoomOptions.pointY + 'px) scale(' + this.zoomOptions.scale + ');'">
-      <img loading="lazy" (load)="this.checkIfImageLoadingComplete($event)" [attr.src]="this.currentImage.src" />
-    </div>
-  </div>
+  <x-image-viewer-modal #imageViewerModal [imageSource]="currentImage" (onOpen)="isModalOpen = true"
+    (onClose)="isModalOpen = false"></x-image-viewer-modal>
 </div>

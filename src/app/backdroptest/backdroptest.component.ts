@@ -4,7 +4,7 @@ import { Backdrop } from '../shared/backdrop/backdrop';
 import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFractalWebGLBackground';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'x-backdroptest',
   templateUrl: './backdroptest.component.html',
   styleUrls: ['./backdroptest.component.scss']
 })

@@ -1,0 +1,10 @@
+<!-- image urls are based on how they access files after building, consider the file structure of ./dist -->
+<div class="image-tile">
+  <a (click)="imageTileData.onClick($event)" [attr.data-src]="'../' + imageTileData.img_src" [attr.target]="'_blank'">
+    <img alt="{{imageTileData.title}}" [attr.src]="'../' + imageTileData.placeholder_src" />
+    <div class="image-hover-data">
+      <h1>{{imageTileData.title}}</h1>
+      <p>{{imageTileData.caption}}</p>
+    </div>
+  </a>
+</div>

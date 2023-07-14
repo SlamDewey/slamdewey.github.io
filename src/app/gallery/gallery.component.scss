@@ -1,16 +1,14 @@
 @import url('../../styles.scss');
 
 $color-white: white;
-$color-gray: gray;
-$color-black: black;
 
 .gallery-component-container {
   z-index: 1;
   color: $color-white;
   padding-top: 4rem;
   padding-bottom: 10rem;
-  margin-left: 10rem;
-  margin-right: 10rem;
+  margin-left: 20vw;
+  margin-right: 20vw;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -48,6 +46,7 @@ $color-black: black;
     }
 
     & .help-text {
+      font-size: 1.3rem;
 
       & h1 {
         font-size: 2rem;
@@ -131,151 +130,7 @@ $color-black: black;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
-  & a {
-    color: $color-white;
-    margin: 5px;
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    max-height: 200px;
-    border-radius: 5px;
-
-    &:hover {
-      box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
-    }
-
-    &:hover .image-hover-data {
-      opacity: 1;
-    }
-
-    &:hover img {
-      opacity: .5;
-    }
-
-    & .image-hover-data {
-      position: absolute;
-
-      height: 200px;
-      width: 300px;
-
-      max-height: 200px;
-      max-width: 300px;
-      overflow: wrap;
-
-      transition: all .2s;
-      opacity: 0;
-
-      & h1 {
-        font-weight: 500;
-        font-size: 25px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
-      }
-
-      & p {
-        font-weight: 300;
-        font-size: 20px;
-        margin-top: 0;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-    }
-  }
-
-  & img {
-    max-width: 300px;
-    height: auto;
-    max-height: 200px;
-
-    transition: all .2s;
-    opacity: 1;
-
-    border-radius: 5px;
-  }
-}
-
-.modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  cursor: grab;
-
-  background-color: $color-black;
-  overflow: hidden;
-
-  &:active,
-  &:focus {
-    cursor: grabbing;
-  }
-
-  .modal-controls {
-    z-index: 3;
-    position: fixed;
-    display: flex;
-    justify-content: right;
-    width: 100%;
-
-    .modal-control-button {
-
-      width: 4rem;
-      height: 4rem;
-      display: flex;
-      justify-content: center;
-
-      margin-left: 2rem;
-      margin-right: 2rem;
-
-      font-size: 60px;
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover,
-      &:active,
-      &:focus {
-        color: $color-gray;
-      }
-    }
-  }
-
-  .spinner {
-    z-index: 10;
-    position: absolute;
-    left: 47.5vw;
-    top: 40vh;
-
-    border: 16px solid var(--highlight-color);
-    border-radius: 50%;
-    border-top: 16px solid var(--primary-color);
-    width: 5vw;
-    height: 5vw;
-    animation: spin 2s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  .modal-content {
-    margin: auto;
-
-    max-width: 70%;
-    max-height: 100vh;
-
-    img {
-      max-width: 100%;
-    }
+  @media only screen and (max-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

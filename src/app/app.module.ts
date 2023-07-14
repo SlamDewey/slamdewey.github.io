@@ -8,6 +8,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { SharedModule } from './shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { BackdropTestComponent } from './backdroptest/backdroptest.component';
+import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtonsfractal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BackdropTestComponent } from './backdroptest/backdroptest.component';
     HomeComponent,
     GalleryComponent,
     ProjectsComponent,
-    BackdropTestComponent
+    BackdropTestComponent,
+    NewtonsfractalComponent
   ],
   imports: [
     BrowserModule,

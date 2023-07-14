@@ -1,15 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Backdrop } from '../shared/backdrop/backdrop';
-import { BackdropComponent } from '../shared/backdrop/backdrop.component';
-import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFractalWebGLBackground';
+import { NewtownsFractalWebGLBackground } from 'src/app/shared/backdrop/NewtownsFractalWebGLBackground';
+import { BackdropComponent } from 'src/app/shared/backdrop/backdrop.component';
 
 @Component({
-  selector: 'x-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  selector: 'app-newtonsfractal',
+  templateUrl: './newtonsfractal.component.html',
+  styleUrls: ['./newtonsfractal.component.scss']
 })
-export class ProjectsComponent {
+export class NewtonsfractalComponent {
 
   @ViewChild("container") container: HTMLDivElement;
 
@@ -19,7 +18,6 @@ export class ProjectsComponent {
 
   constructor(private titleService: Title) {
     this.titleService.setTitle('Hobbies & Projects');
-    this.bgAnimation.iterations = 25;
   }
 
   public incrementIterationCount(): void {
@@ -31,4 +29,5 @@ export class ProjectsComponent {
     if (this.bgAnimation.iterations > this.bgAnimation.MIN_ITERATIONS)
       this.bgAnimation.iterations--;
   }
+
 }
