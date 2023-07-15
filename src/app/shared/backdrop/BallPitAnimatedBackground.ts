@@ -1,8 +1,10 @@
 import { Backdrop, Vector2 } from "./backdrop";
 
 const COLORS = [
-  '#fb8537',
-  '#fb9550'
+  //'#fb8537',
+  //'#fb9550'
+  '#353535',
+  '#282828'
 ];
 const CIRCLE_SPAWN_DENSITY = 8_000;
 const MIN_RADIUS = 10;

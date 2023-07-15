@@ -40,7 +40,7 @@ export class GalleryComponent implements OnInit {
       this.currentImageFolder = params['folder'];
     });
     if (this.currentImageFolder)
-      this.titleService.setTitle(this.currentImageFolder + " | Gallery");
+      this.titleService.setTitle(this.formatFolderName(this.currentImageFolder) + " | Gallery");
 
     this.parseImageDataSet();
   }
@@ -67,5 +67,12 @@ export class GalleryComponent implements OnInit {
 
   public onFolderSelect(newFolder: string) {
     this.currentImageFolder = newFolder;
+  }
+
+  public formatFolderName(folderName: string): string {
+    const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
+    if (noSpecialChar.length < 1)
+      return noSpecialChar.charAt(0).toUpperCase();
+    return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }
 }

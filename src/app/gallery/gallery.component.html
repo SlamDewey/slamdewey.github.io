@@ -2,7 +2,7 @@
 
 <div class="gallery-component-container" (style)="isModalOpen ? 'overflow: hidden;' : 'overflow: auto;'">
 
-  <div class="gallery-help-box">
+  <div class="gallery-help-box-container">
     <div class="gallery-help-box-content">
       <div class="help-icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
@@ -25,7 +25,7 @@
     <div class="dropdown">
       <div class="dropdown-body">Select Folder</div>
       <div class="dropdown-content">
-        <a *ngFor="let folder of imageFolders" href="/gallery?folder={{folder}}">{{folder}}</a>
+        <a *ngFor="let folder of imageFolders" href="/gallery?folder={{folder}}">{{formatFolderName(folder)}}</a>
       </div>
     </div>
   </div>

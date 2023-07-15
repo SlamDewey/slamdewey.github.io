@@ -16,43 +16,42 @@ new_images.img = {};
 
 images.directories.forEach(folder => {
   var filenames = fs.readdirSync('./src/assets/img/' + folder + "/");
+  // create empty image set
+  var imageSet = [];
+  // loop through all images in folder
   filenames.forEach(filename => {
-    // create empty image set
-    var imageSet = [];
-    // loop through all images in folder
-    filenames.forEach(filename => {
-      imgEntry = undefined;
+    console.log('readfile 2: ' + filename);
+    imgEntry = undefined;
 
-      // check if folder was already known:
-      if (images.img[folder] !== undefined) {
-        // check if file was already known:
-        images.img[folder].forEach(existingImgEntry => {
-          // try to find file in old json list
-          if (existingImgEntry.filename === filename) {
-            // if it exists, copy over data
-            imgEntry = existingImgEntry;
-            return;
-          }
-        });
-      }
-
-      // if the entry did not exist in previous json file
-      if (imgEntry === undefined) {
-        // create new entry data
-        imgEntry = {
-          "filename": filename,
-          "img_src": images.img_path + folder + '/' + filename,
-          "placeholder_src": images.placeholder_path + folder + '/' + filename.replace('.jpg', '.JPG'),
-          "title": "",
-          "caption": ""
+    // check if folder was already known:
+    if (images.img[folder] !== undefined) {
+      // check if file was already known:
+      images.img[folder].forEach(existingImgEntry => {
+        // try to find file in old json list
+        if (existingImgEntry.filename === filename) {
+          // if it exists, copy over data
+          imgEntry = existingImgEntry;
+          return;
         }
-      }
-      // add file to imageSet
-      imageSet.push(imgEntry);
-    });
+      });
+    }
 
-    new_images.img[folder] = imageSet;
+    // if the entry did not exist in previous json file
+    if (imgEntry === undefined) {
+      // create new entry data
+      imgEntry = {
+        "filename": filename,
+        "img_src": images.img_path + folder + '/' + filename,
+        "placeholder_src": images.placeholder_path + folder + '/' + filename.replace('.jpg', '.JPG'),
+        "title": "",
+        "caption": ""
+      }
+    }
+    // add file to imageSet
+    imageSet.push(imgEntry);
   });
+
+  new_images.img[folder] = imageSet;
 });
 
 fs.writeFileSync('./src/app/images.json', JSON.stringify(new_images), err => {

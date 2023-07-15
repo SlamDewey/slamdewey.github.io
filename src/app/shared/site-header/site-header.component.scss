@@ -1,8 +1,8 @@
 @import url('../../../styles.scss');
 
 $logo-primary: var(--highlight-color);
-$logo-secondary: var(--secondary-color);
-$logo-text-highlight: var(--primary-color);
+$logo-secondary: var(--primary-color);
+$logo-text-hover: var(--primary-color);
 
 $icon-color: var(--highlight-color);
 $icon-color-hover: white;
@@ -10,7 +10,7 @@ $icon-color-hover: white;
 $background-color: transparent;
 
 $header-size: 5vw;
-$min-header-size: 4rem;
+$min-header-size: 5rem;
 
 .header-container {
   position: fixed;
@@ -23,7 +23,6 @@ $min-header-size: 4rem;
 
   display: flex;
   align-items: flex-start;
-  justify-content: flex;
   flex-direction: column;
 
   user-select: none;
@@ -82,7 +81,7 @@ $min-header-size: 4rem;
   &:active,
   &:focus {
     & .website-logo {
-      color: $logo-text-highlight;
+      color: $logo-text-hover;
       transition: all .45s;
     }
 

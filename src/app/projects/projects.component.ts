@@ -19,7 +19,7 @@ export class ProjectsComponent {
 
   constructor(private titleService: Title) {
     this.titleService.setTitle('Hobbies & Projects');
-    this.bgAnimation.iterations = 25;
+    this.bgAnimation.iterations = 25; //this.bgAnimation.MAX_ITERATIONS;
   }
 
   public incrementIterationCount(): void {
