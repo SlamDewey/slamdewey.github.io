@@ -139,7 +139,6 @@ $min-header-size: 5rem;
       color: #2d76b0;
     }
 
-
     & .nav-svg {
       width: 100%;
       height: auto;
@@ -160,7 +159,8 @@ $min-header-size: 5rem;
 
       &:hover,
       &:active,
-      &:focus {
+      &:focus,
+      &.active {
         & .nav-group {
           &__icon {
             fill: $icon-color-hover;
