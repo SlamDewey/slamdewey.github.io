@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, UrlTree } from '@angular/router';
 
 @Component({
   selector: 'x-site-header',
@@ -20,7 +20,7 @@ export class SiteHeaderComponent implements OnInit {
   }
 
   private onRouteChange() {
-    const splitRoute: string[] = this.router.url.split('/');
-    this.activeRoute = splitRoute.length < 1 ? '' : splitRoute[1];
+    const splitRoute: string[] = this.router.url.slice(1).split(/[//?,&+#]/);
+    this.activeRoute = splitRoute.length < 1 ? '' : splitRoute[0];
   }
 }
