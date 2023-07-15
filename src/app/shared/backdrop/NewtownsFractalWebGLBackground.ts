@@ -86,13 +86,15 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   void main() {
     vec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
     
+    float scalar = 1.5 * ((-cos(time / 10.0) + 1.0) / 2.0);
     //float scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0) + 3.0;
-    float scalar = 10.0 * ((-cos(time / 10.0) + 1.0) / 2.0);
-    //float scalar = 2.4;
+    //float scalar = 1.0 * (1.0 - abs(cos(time / 10.0)));
+    //float scalar = .08;
     
     vec2 iterated_location = newtonsMethod(relCoordinate * scalar, -vec2(0.4 * sin(time / 2.0), 0.4 * cos(time / 2.0)));
     //vec2 iterated_location = newtonsMethod(relCoordinate * scalar, vec2(0.0, 0.0));
     //vec2 iterated_location = newtonsMethod(relCoordinate * scalar, vec2(sin(time) * 0.2, 0.0));
+    
     fColor(iterated_location);
   }
   `;

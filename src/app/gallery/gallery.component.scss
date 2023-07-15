@@ -14,7 +14,7 @@ $color-white: white;
   flex-direction: column;
 }
 
-.gallery-help-box {
+.gallery-help-box-container {
   z-index: 1;
   font-size: 1.5rem;
   margin-bottom: 3rem;
@@ -32,6 +32,9 @@ $color-white: white;
     color: var(--tertiary-color);
     background-color: var(--highlight-color);
 
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(255, 166, 0);
     border-radius: 5px;
 
     & .help-icon {
