@@ -33,7 +33,6 @@ export abstract class Backdrop {
     this.lastUpdate = Date.now();
 
     this.setupListeners();
-
     this.init();
   }
 
@@ -41,7 +40,7 @@ export abstract class Backdrop {
     document.addEventListener('mousemove', (e) => {
       this.mousePosition = new Vector2(this.mouseOffset.x + e.clientX, this.mouseOffset.y + e.clientY);
     });
-    document.addEventListener('scroll', (e) => {
+    document.addEventListener('scroll', () => {
       const deltaOffset = new Vector2(window.scrollX - this.mouseOffset.x, window.scrollY - this.mouseOffset.y);
       this.mouseOffset.x = window.scrollX;
       this.mouseOffset.y = window.scrollY;

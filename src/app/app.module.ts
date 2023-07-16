@@ -8,7 +8,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { SharedModule } from './shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { BackdropTestComponent } from './backdroptest/backdroptest.component';
-import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtonsfractal.component';
+import { PagesModule } from './projects/pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -16,13 +16,13 @@ import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtons
     HomeComponent,
     GalleryComponent,
     ProjectsComponent,
-    BackdropTestComponent,
-    NewtonsfractalComponent
+    BackdropTestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule
+    SharedModule,
+    PagesModule
   ],
   providers: [Title],
   bootstrap: [AppComponent]

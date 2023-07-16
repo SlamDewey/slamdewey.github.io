@@ -1,4 +1,4 @@
-import { WebGLBackdrop } from "./backdrop";
+import { WebGLBackdrop } from "src/app/shared/backdrop/backdrop";
 
 export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
 
@@ -86,7 +86,7 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   void main() {
     vec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
     
-    float scalar = 1.5 * ((-cos(time / 10.0) + 1.0) / 2.0);
+    float scalar = 1.5 * ((-cos(time / 5.0) + 1.0) / 2.0);
     //float scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0) + 3.0;
     //float scalar = 1.0 * (1.0 - abs(cos(time / 10.0)));
     //float scalar = .08;

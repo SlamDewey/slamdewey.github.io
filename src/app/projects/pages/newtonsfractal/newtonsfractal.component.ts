@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NewtownsFractalWebGLBackground } from 'src/app/shared/backdrop/NewtownsFractalWebGLBackground';
 import { BackdropComponent } from 'src/app/shared/backdrop/backdrop.component';
+import { NewtownsFractalWebGLBackground } from './NewtownsFractalWebGLBackground';
 
 @Component({
-  selector: 'app-newtonsfractal',
+  selector: 'x-newtonsfractal',
   templateUrl: './newtonsfractal.component.html',
   styleUrls: ['./newtonsfractal.component.scss']
 })
-export class NewtonsfractalComponent {
+export class NewtonsfractalComponent implements OnInit {
 
   @ViewChild("container") container: HTMLDivElement;
 
@@ -16,8 +16,13 @@ export class NewtonsfractalComponent {
   public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
 
+  ngOnInit(): void {
+    this.isWebGlEnabled = BackdropComponent.isWebGlEnabled;
+  }
+
   constructor(private titleService: Title) {
     this.titleService.setTitle('Hobbies & Projects');
+    this.bgAnimation.iterations = 15;
   }
 
   public incrementIterationCount(): void {

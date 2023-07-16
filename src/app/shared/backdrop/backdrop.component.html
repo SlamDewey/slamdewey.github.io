@@ -1,2 +1,1 @@
-<!-- <canvas #bgCanvas class="canvas" [width]="InternalCanvasRenderSize.X" [height]="InternalCanvasRenderSize.Y"></canvas> -->
-<canvas #bgCanvas class="canvas"></canvas>
+<canvas #bgCanvas [ngClass]="isServingAsBackdrop ? 'canvas' : 'sample'"></canvas>

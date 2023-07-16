@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Backdrop } from '../shared/backdrop/backdrop';
-import { BackdropComponent } from '../shared/backdrop/backdrop.component';
-import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFractalWebGLBackground';
+import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
+import { NewtownsFractalWebGLBackground } from './pages/newtonsfractal/NewtownsFractalWebGLBackground';
 
 @Component({
   selector: 'x-projects',
@@ -11,24 +10,12 @@ import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFract
 })
 export class ProjectsComponent {
 
-  @ViewChild("container") container: HTMLDivElement;
+  @ViewChild('test', { static: false }) testCanvas: ElementRef;
 
-  public bgAnimation: NewtownsFractalWebGLBackground = new NewtownsFractalWebGLBackground();
-  public shouldHide: boolean = false;
-  public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
+  public bgAnimation = new BallPitAnimatedBackground();
+  public newtonsFractalAnimation = new NewtownsFractalWebGLBackground();
 
   constructor(private titleService: Title) {
     this.titleService.setTitle('Hobbies & Projects');
-    this.bgAnimation.iterations = 25; //this.bgAnimation.MAX_ITERATIONS;
-  }
-
-  public incrementIterationCount(): void {
-    if (this.bgAnimation.iterations < this.bgAnimation.MAX_ITERATIONS)
-      this.bgAnimation.iterations++;
-  }
-
-  public decrementIterationCount(): void {
-    if (this.bgAnimation.iterations > this.bgAnimation.MIN_ITERATIONS)
-      this.bgAnimation.iterations--;
   }
 }
