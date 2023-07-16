@@ -4,6 +4,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { BackdropTestComponent } from './backdroptest/backdroptest.component';
+import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtonsfractal.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,15 @@ const routes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent
+  },
+  {
+    path: 'projects',
+    children: [
+      {
+        path: 'newtonsfractal',
+        component: NewtonsfractalComponent
+      }
+    ]
   },
   {
     path: 'backdroptest',

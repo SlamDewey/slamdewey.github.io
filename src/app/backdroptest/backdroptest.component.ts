@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Backdrop } from '../shared/backdrop/backdrop';
-import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFractalWebGLBackground';
+import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 
 @Component({
   selector: 'x-backdroptest',
@@ -10,10 +9,6 @@ import { NewtownsFractalWebGLBackground } from '../shared/backdrop/NewtownsFract
 })
 export class BackdropTestComponent {
 
-  public bgAnimation: Backdrop = new NewtownsFractalWebGLBackground();
-
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Hobbies & Projects');
-  }
+  public bgAnimation: Backdrop = new BallPitAnimatedBackground();
 
 }

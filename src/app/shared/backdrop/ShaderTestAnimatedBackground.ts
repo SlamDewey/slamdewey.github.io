@@ -22,7 +22,7 @@ export class ShaderTestAnimatedBackground extends WebGLBackdrop {
 
   void main() {
     float brightness = 1.0;
-    vec2 uv = gl_FragCoord.xy / screenSize.xy / ((cos(time) + 1.0) / 2.0);
+    vec2 uv = gl_FragCoord.xy / screenSize.xy / ((cos(time / 3.0) + 1.0) / 2.0);
     gl_FragColor = vec4(uv.xy * brightness, ((sin(time) + 1.0) / 2.0) * brightness, 1.0);
   }
   `;
