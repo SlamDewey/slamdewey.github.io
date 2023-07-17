@@ -1,6 +1,23 @@
 import { WebGLBackdrop } from "src/app/shared/backdrop/backdrop";
 
+export enum ZoomChoice {
+  STATIC_ZOOM,
+  ANIMATED_ZOOM_TO_ORIGIN,
+  ANIMATED_ZOOM_CUSTOM
+}
+
+export enum PositionalChoice {
+  STATIC_POSITION,
+  X_AXIS_MOTION,
+  CIRCULAR_MOTION
+}
+
 export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
+
+  public zoomChoice: ZoomChoice = ZoomChoice.STATIC_ZOOM;
+  public positionalChoice: PositionalChoice = PositionalChoice.STATIC_POSITION;
+  public positionalScalar: number = 0.4;
+  private time: number = 0;
 
   protected init(): void {
   }
@@ -25,6 +42,11 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   const float brightness = 0.8;
   
   uniform vec2 screenSize;
+  
+  uniform int zoomChoice;
+  uniform int positionalChoice;
+  uniform float positionalScalar;
+  
   uniform float time;
   uniform int iter;
 
@@ -85,16 +107,30 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   
   void main() {
     vec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
+    float scalar;
+    vec2 locationInput;
     
-    float scalar = 1.5 * ((-cos(time / 5.0) + 1.0) / 2.0);
-    //float scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0) + 3.0;
-    //float scalar = 1.0 * (1.0 - abs(cos(time / 10.0)));
-    //float scalar = .08;
+    if (zoomChoice == ${ZoomChoice.STATIC_ZOOM}) {
+      scalar = 3.0 * positionalScalar;
+    }
+    if (zoomChoice == ${ZoomChoice.ANIMATED_ZOOM_TO_ORIGIN}) {
+      scalar = 1.5 * ((-cos(time / 5.0) + 1.0) / 2.0);
+    }
+    if (zoomChoice == ${ZoomChoice.ANIMATED_ZOOM_CUSTOM}) {
+      scalar = 10.0 * ((sin(time / 5.0) + 1.0) / 2.0) + 3.0;
+    }
     
-    vec2 iterated_location = newtonsMethod(relCoordinate * scalar, -vec2(0.4 * sin(time / 2.0), 0.4 * cos(time / 2.0)));
-    //vec2 iterated_location = newtonsMethod(relCoordinate * scalar, vec2(0.0, 0.0));
-    //vec2 iterated_location = newtonsMethod(relCoordinate * scalar, vec2(sin(time) * 0.2, 0.0));
+    if (positionalChoice == ${PositionalChoice.STATIC_POSITION}) {
+      locationInput = vec2(0.0, 0.0);
+    }
+    else if (positionalChoice == ${PositionalChoice.X_AXIS_MOTION}) {
+      locationInput = vec2(sin(time) * positionalScalar, 0.0);
+    }
+    else if (positionalChoice == ${PositionalChoice.CIRCULAR_MOTION}) {
+      locationInput = -vec2(positionalScalar * sin(time / 3.0), positionalScalar * cos(time / 2.0));
+    }
     
+    vec2 iterated_location = newtonsMethod(relCoordinate * scalar, locationInput);
     fColor(iterated_location);
   }
   `;
@@ -115,16 +151,20 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
 
     gl.uniform2f(gl.getUniformLocation(shaderProgram, "screenSize"), this.width, this.height);
     gl.uniform1f(gl.getUniformLocation(shaderProgram, "time"), this.time);
+    gl.uniform1i(gl.getUniformLocation(shaderProgram, "zoomChoice"), this.zoomChoice);
+    gl.uniform1i(gl.getUniformLocation(shaderProgram, "positionalChoice"), this.positionalChoice);
+    gl.uniform1f(gl.getUniformLocation(shaderProgram, "positionalScalar"), this.positionalScalar);
     gl.uniform1i(gl.getUniformLocation(shaderProgram, "iter"), this.iterations);
   }
 
   protected update(deltaTime: number): void {
   }
-
-  private time: number = 0;
   protected override prepareDrawVariables(gl: WebGLRenderingContext, deltaTime: number): void {
     this.time += deltaTime;
     gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "time"), this.time);
     gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "iter"), this.iterations);
+    gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "zoomChoice"), this.zoomChoice);
+    gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "positionalChoice"), this.positionalChoice);
+    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "positionalScalar"), this.positionalScalar);
   }
 }

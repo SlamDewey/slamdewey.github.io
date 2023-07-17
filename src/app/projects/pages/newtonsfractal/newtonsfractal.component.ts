@@ -1,7 +1,7 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BackdropComponent } from 'src/app/shared/backdrop/backdrop.component';
-import { NewtownsFractalWebGLBackground } from './NewtownsFractalWebGLBackground';
+import { NewtownsFractalWebGLBackground, PositionalChoice, ZoomChoice } from './NewtownsFractalWebGLBackground';
 
 @Component({
   selector: 'x-newtonsfractal',
@@ -16,13 +16,18 @@ export class NewtonsfractalComponent implements OnInit {
   public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
 
-  ngOnInit(): void {
-    this.isWebGlEnabled = BackdropComponent.isWebGlEnabled;
+  constructor(
+    private titleService: Title
+  ) {
   }
 
-  constructor(private titleService: Title) {
+  ngOnInit(): void {
     this.titleService.setTitle('Hobbies & Projects');
+
+    this.isWebGlEnabled = BackdropComponent.isWebGlEnabled;
     this.bgAnimation.iterations = 15;
+    this.bgAnimation.zoomChoice = ZoomChoice.ANIMATED_ZOOM_TO_ORIGIN;
+    this.bgAnimation.positionalChoice = PositionalChoice.CIRCULAR_MOTION;
   }
 
   public incrementIterationCount(): void {
