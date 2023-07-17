@@ -49,7 +49,6 @@ export class BackdropComponent implements OnInit, OnChanges {
 
   ngAfterViewInit(): void {
     // disable right click on canvas
-    this.bgCanvas.nativeElement.addEventListener('contextmenu', (e: Event) => { e.preventDefault(); });
     this.canvasElement = this.bgCanvas.nativeElement;
 
     const context = this.canvasElement.getContext(this.backdrop.contextString());
@@ -59,6 +58,7 @@ export class BackdropComponent implements OnInit, OnChanges {
     this.ctx = context;
 
     if (this.isServingAsBackdrop) {
+      this.bgCanvas.nativeElement.addEventListener('contextmenu', (e: Event) => { e.preventDefault(); });
       this.InternalCanvasRenderSize = {
         X: document.documentElement.scrollWidth,
         Y: Math.max(document.documentElement.scrollHeight, window.innerHeight)

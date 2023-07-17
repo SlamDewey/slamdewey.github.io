@@ -1,11 +1,11 @@
 <backdrop [backdrop]="bgAnimation"></backdrop>
 
 <div class="projects-component-container">
-  <div class="container">
-    <a routerLink="newtonsfractal">
-      <backdrop [backdrop]="newtonsFractalAnimation" [isServingAsBackdrop]="false"></backdrop>
-      newtonsfractal
-    </a>
+  <div class="project-gallery-container">
+    <div class="project-gallery">
+      <x-backdrop-tile [backdrop]="newtonsFractalAnimation" [routerLink]="'newtonsfractal'"
+        [linkText]="'Newton\'s Fractal'"></x-backdrop-tile>
+    </div>
   </div>
 </div>
 <router-outlet></router-outlet>
