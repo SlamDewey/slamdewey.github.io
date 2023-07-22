@@ -5,7 +5,7 @@ import { ReactiveWebGLBackground } from './ReactiveWebGLBackground';
 import { Subscription, fromEvent } from 'rxjs';
 import { ControlValueAccessor } from '@angular/forms';
 
-import { UNIFORM_DEFS, UNIFORM_NAMES } from "./shader-programs";
+import { DEFAULT_SHADER_PROGRAMS, ShaderProgramData, UNIFORM_DEFS, UNIFORM_NAMES } from "./shader-programs";
 import parsedOpenGlDocs from './parsedOpenGlDocs';
 
 let loadedMonaco = false;
@@ -33,10 +33,12 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
   }
 
   @ViewChild('editor') editorContainer: ElementRef;
+  @ViewChild('defaultShaderSelect') defaultShaderSelect: ElementRef;
 
   public bgAnimation = new ReactiveWebGLBackground();
   public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
+  public defaultShaders: ShaderProgramData[] = DEFAULT_SHADER_PROGRAMS;
   public compilationErrors: string = "";
 
   private _editor: any;
@@ -79,6 +81,16 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
       return;
     }
     this.compilationErrors = "";
+  }
+
+  public resetCodeToSelectedDefaultShader() {
+    const shaderProgram = DEFAULT_SHADER_PROGRAMS.find(shader => shader.name === this.defaultShaderSelect.nativeElement.value);
+    if (shaderProgram) {
+      this.bgAnimation.fragmentShaderOverride = undefined;
+      this.bgAnimation.shaderProgramData = shaderProgram;
+      this.bgAnimation.attemptRecompileAndReinitialize();
+      this._editor.setValue(this.bgAnimation.getFragmentShader());
+    }
   }
 
   onKeyPress(e: KeyboardEvent, c: FragmentwriterComponent) {

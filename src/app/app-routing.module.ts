@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { BackdropTestComponent } from './backdroptest/backdroptest.component';
 import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtonsfractal.component';
 import { FragmentwriterComponent } from './projects/pages/fragmentwriter/fragmentwriter.component';
 
@@ -32,10 +31,6 @@ const routes: Routes = [
         component: FragmentwriterComponent
       }
     ]
-  },
-  {
-    path: 'backdroptest',
-    component: BackdropTestComponent
   },
   {
     path: '**',

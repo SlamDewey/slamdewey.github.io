@@ -46,21 +46,20 @@ $color-black: black;
 
   & .editor-controls {
     display: flex;
-    justify-content: center;
     width: 100%;
     height: 15%;
 
-    & .editor-button {
+    & .control {
       display: flex;
-      flex-grow: 1;
+      justify-content: center;
       align-items: center;
+      text-align: center;
 
       color: var(--highlight-color);
-      background-color: black;
+      background-color: rgb(17, 17, 17);
 
-      justify-content: space-evenly;
+      flex-grow: 1;
       flex-direction: row;
-
     }
   }
 }

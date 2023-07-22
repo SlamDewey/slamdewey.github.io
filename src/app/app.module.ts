@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { SharedModule } from './shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
-import { BackdropTestComponent } from './backdroptest/backdroptest.component';
 import { PagesModule } from './projects/pages/pages.module';
 
 @NgModule({
@@ -15,8 +14,7 @@ import { PagesModule } from './projects/pages/pages.module';
     AppComponent,
     HomeComponent,
     GalleryComponent,
-    ProjectsComponent,
-    BackdropTestComponent
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

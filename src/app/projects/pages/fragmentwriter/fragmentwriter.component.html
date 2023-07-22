@@ -3,7 +3,16 @@
     <div class="editor-container">
       <div #editor class="editor"></div>
       <div class="editor-controls">
-        <button class="editor-button" (click)="tryShaderUpdate()">Run (Ctrl + S)</button>
+        <button class="control" (click)="tryShaderUpdate()">
+          Run
+          <br />
+          Ctrl + S
+        </button>
+        <div class="control"></div>
+        <select #defaultShaderSelect class="control" name="shader">
+          <option *ngFor="let shader of defaultShaders">{{shader.name}}</option>
+        </select>
+        <button class="control" (click)="resetCodeToSelectedDefaultShader()">Load Selected Shader</button>
       </div>
     </div>
     <div class="canvas-container">
