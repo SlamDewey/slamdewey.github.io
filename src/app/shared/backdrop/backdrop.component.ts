@@ -38,16 +38,14 @@ export class BackdropComponent {
   ngAfterViewInit(): void {
     this.canvasElement = this.bgCanvas.nativeElement;
 
+    const context = this.canvasElement.getContext(this.backdrop.contextString());
+    if (!context) {
+      throw new Error('Failed to get 2D context of Canvas');
+    }
+    this.ctx = context;
+
     // define resize observer
     this.resizeObserver = new ResizeObserver(entries => {
-      console.log("RESIZE_START");
-      this.canvasElement = this.bgCanvas.nativeElement;
-
-      const context = this.canvasElement.getContext(this.backdrop.contextString());
-      if (!context) {
-        throw new Error('Failed to get 2D context of Canvas');
-      }
-      this.ctx = context;
       if (this.isServingAsBackdrop) {
         this.InternalCanvasRenderSize = {
           X: entries[0].target.clientWidth,
@@ -55,7 +53,6 @@ export class BackdropComponent {
         }
       }
       else {
-        console.log(entries);
         this.InternalCanvasRenderSize = {
           X: entries[0].contentRect.width,
           Y: entries[0].contentRect.height
@@ -66,7 +63,6 @@ export class BackdropComponent {
       this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
 
       this.backdrop.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
-      console.log("RESIZE_END");
     });
     // initialize
     this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);

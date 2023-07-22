@@ -5,8 +5,14 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
 
   private totalTime: number = 0;
 
-  public shaderProgramData: ShaderProgramData = DEFAULT_SHADER_PROGRAMS[1];
+  public shaderProgramData: ShaderProgramData = DEFAULT_SHADER_PROGRAMS[0];
   public fragmentShaderOverride: string | undefined = undefined;
+
+  constructor(defaultShader?: ShaderProgramData) {
+    super();
+    if (defaultShader)
+      this.shaderProgramData = defaultShader;
+  }
 
   public attemptRecompileAndReinitialize(): void {
     const [vert, frag] = this.compileWebGLShaders(this.gl, this.getVertexShader(), this.getFragmentShader());
