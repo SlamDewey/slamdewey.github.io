@@ -19,9 +19,6 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
   public positionalScalar: number = 0.4;
   private time: number = 0;
 
-  protected init(): void {
-  }
-
   readonly VertexShader: string = `
   precision mediump float;
 
@@ -157,8 +154,8 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
     gl.uniform1i(gl.getUniformLocation(shaderProgram, "iter"), this.iterations);
   }
 
-  protected update(deltaTime: number): void {
-  }
+  protected update(deltaTime: number): void { }
+
   protected override prepareDrawVariables(gl: WebGLRenderingContext, deltaTime: number): void {
     this.time += deltaTime;
     gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "time"), this.time);

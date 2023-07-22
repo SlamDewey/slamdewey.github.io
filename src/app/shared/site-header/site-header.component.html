@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <div class="nav-link-container">
+  <div class="nav-link-container" [ngClass]="headerHideControl$ | async">
     <a class="nav-link nav-link--home" id="home" [routerLink]="['/']">
       <svg class="nav-svg" [ngClass]="activeRoute === '' ? 'active' : ''" viewBox="0 0 600 600"
         xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@
       <svg class="nav-svg" [ngClass]="activeRoute === 'projects' ? 'active' : ''" viewBox="0 0 600 600"
         xmlns="http://www.w3.org/2000/svg">
         <title>
-          Hobbies & Projects
+          Projects
         </title>
         <g class="nav-group" fill="none" fill-rule="evenodd">
           <circle class="nav-group__inner-circle" fill="#000" cx="300" cy="300" r="250" />

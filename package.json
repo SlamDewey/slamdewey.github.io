@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "alea": "^1.0.1",
+    "monaco-editor": "^0.40.0",
     "rxjs": "~7.5.0",
     "simplex-noise": "^4.0.0",
     "tslib": "^2.3.0",

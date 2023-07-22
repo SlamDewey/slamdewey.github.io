@@ -1,0 +1,92 @@
+@import url('../../../../styles.scss');
+
+$color-white: white;
+$color-black: black;
+
+.component-container {
+  color: $color-white;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5vh;
+  justify-content: center;
+  width: 85%;
+  height: 95vh;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+  }
+}
+
+.editor-container,
+.canvas-container {
+  width: 50%;
+  height: 100%;
+
+  @media only screen and (max-width: 1200px) {
+    height: 50%;
+    width: 100%;
+  }
+}
+
+.editor-container {
+
+  & .editor {
+    width: 100%;
+    height: 85%;
+  }
+
+  & .editor-controls {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 15%;
+
+    & .editor-button {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+
+      color: var(--highlight-color);
+      background-color: black;
+
+      justify-content: space-evenly;
+      flex-direction: row;
+
+    }
+  }
+}
+
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  & .compilation-errors {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    & h3 {
+      white-space: pre-line;
+      font-family: 'Courier New', Courier, monospace;
+      font-weight: 100;
+      font-size: 1rem;
+      margin: 1rem;
+    }
+  }
+}
