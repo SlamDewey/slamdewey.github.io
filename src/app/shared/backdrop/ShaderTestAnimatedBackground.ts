@@ -2,7 +2,7 @@ import { WebGLBackdrop } from "./backdrop";
 
 export class ShaderTestAnimatedBackground extends WebGLBackdrop {
 
-  protected init(): void {
+  protected override init(): void {
   }
 
   readonly VertexShader: string = `

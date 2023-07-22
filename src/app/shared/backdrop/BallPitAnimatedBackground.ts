@@ -70,7 +70,7 @@ export class BallPitAnimatedBackground extends Backdrop {
 
   circles: Circle[];
 
-  init(): void {
+  override init(): void {
     this.circles = [];
     const NUM_CIRCLES = Math.round((this.width * this.height) / CIRCLE_SPAWN_DENSITY);
     for (var i = 0; i < NUM_CIRCLES; i++) {

@@ -1,0 +1,18 @@
+<div class="component-container">
+  <div class="content-container">
+    <div class="editor-container">
+      <div #editor class="editor"></div>
+      <div class="editor-controls">
+        <button class="editor-button" (click)="tryShaderUpdate()">Run (Ctrl + S)</button>
+      </div>
+    </div>
+    <div class="canvas-container">
+      <backdrop class="canvas" [backdrop]="bgAnimation" [isServingAsBackdrop]="false"></backdrop>
+      <div *ngIf="compilationErrors" class="compilation-errors">
+        <h3>A compilation error has occurred!</h3>
+        <br />
+        <h3>{{compilationErrors}}</h3>
+      </div>
+    </div>
+  </div>
+</div>

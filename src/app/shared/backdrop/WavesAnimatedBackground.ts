@@ -34,7 +34,7 @@ export class Waves extends Backdrop {
   public angle: number = Math.PI / 4;
   public layers = this.getLayers();
 
-  protected init(): void {
+  protected override init(): void {
     this.wCenterX = this.width;
     this.wCenterY = this.height;
     this.wHypot = Math.hypot(this.width * 2, this.height * 2);

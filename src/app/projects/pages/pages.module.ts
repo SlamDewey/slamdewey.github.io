@@ -2,11 +2,13 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { NewtonsfractalComponent } from './newtonsfractal/newtonsfractal.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FragmentwriterComponent } from './fragmentwriter/fragmentwriter.component';
 
 
 @NgModule({
   declarations: [
-    NewtonsfractalComponent
+    NewtonsfractalComponent,
+    FragmentwriterComponent
   ],
   imports: [
     CommonModule,

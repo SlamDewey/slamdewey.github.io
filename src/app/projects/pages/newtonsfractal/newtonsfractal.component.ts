@@ -22,7 +22,7 @@ export class NewtonsfractalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Hobbies & Projects');
+    this.titleService.setTitle('Newton\'s Fractal, animated');
 
     this.isWebGlEnabled = BackdropComponent.isWebGlEnabled;
     this.bgAnimation.iterations = 15;

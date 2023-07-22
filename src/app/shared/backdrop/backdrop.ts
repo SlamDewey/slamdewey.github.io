@@ -15,6 +15,8 @@ export abstract class Backdrop {
     return "2d";
   }
 
+  public isInitialized: boolean = false;
+
   protected width: number;
   protected height: number;
   protected ctx: CanvasRenderingContext2D;
@@ -22,7 +24,7 @@ export abstract class Backdrop {
   protected mouseOffset: Vector2 = new Vector2(0, 0);
   protected lastUpdate: number;
 
-  protected abstract init(): void;
+  protected init(): void { }
   protected abstract update(deltaTime: number): void;
   protected abstract draw(deltaTime: number): void;
 
@@ -34,6 +36,11 @@ export abstract class Backdrop {
 
     this.setupListeners();
     this.init();
+    this.isInitialized = true;
+  }
+
+  public reInitialize(): void {
+    this.initialize(this.ctx, this.width, this.height);
   }
 
   protected setupListeners(): void {
@@ -87,6 +94,11 @@ export abstract class WebGLBackdrop extends Backdrop {
     this.initWebGL(this.gl);
     super.setupListeners();
     this.init();
+    this.isInitialized = true;
+  }
+
+  public override reInitialize(): void {
+    this.initialize(this.gl, this.width, this.height);
   }
 
   protected override draw(deltaTime: number): void {
@@ -109,7 +121,9 @@ export abstract class WebGLBackdrop extends Backdrop {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.DYNAMIC_DRAW);
     gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
-    this.createAndBindShaderProgram(gl);
+    const [vert, frag] = this.compileWebGLShaders(gl, this.getVertexShader(), this.getFragmentShader());
+
+    this.createAndBindShaderProgram(gl, vert, frag);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
     this.initializeDrawVariables(gl, this.shaderProgram);
@@ -120,10 +134,7 @@ export abstract class WebGLBackdrop extends Backdrop {
     gl.viewport(0, 0, this.width, this.height);
   }
 
-  private createAndBindShaderProgram(gl: WebGLRenderingContext) {
-    var vertCode = this.getVertexShader();
-    var fragCode = this.getFragmentShader();
-
+  public compileWebGLShaders(gl: WebGLRenderingContext, vertCode: string, fragCode: string): [vertexShader: WebGLShader, fragmentShader: WebGLShader] {
     var vertShader = gl.createShader(gl.VERTEX_SHADER);
     var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
     if (vertShader === null) {
@@ -138,21 +149,22 @@ export abstract class WebGLBackdrop extends Backdrop {
 
     gl.compileShader(vertShader);
     if (!gl.getShaderParameter(vertShader, gl.COMPILE_STATUS)) {
-      console.error("Error compiling vertex shader", gl.getShaderInfoLog(vertShader));
-      return;
+      throw new Error("Error compiling vertex shader\n" + gl.getShaderInfoLog(vertShader));
     }
     gl.compileShader(fragShader);
     if (!gl.getShaderParameter(fragShader, gl.COMPILE_STATUS)) {
-      console.error("Error compiling fragment shader", gl.getShaderInfoLog(fragShader));
-      return;
+      throw new Error("Error compiling fragment shader\n" + gl.getShaderInfoLog(fragShader));
     }
+    return [vertShader, fragShader];
+  }
 
+  private createAndBindShaderProgram(gl: WebGLRenderingContext, vert: WebGLShader, frag: WebGLShader) {
     var shaderProgram = gl.createProgram();
     if (shaderProgram === null) {
       throw new Error("Failed To Create Shader Program!");
     }
-    gl.attachShader(shaderProgram, vertShader);
-    gl.attachShader(shaderProgram, fragShader);
+    gl.attachShader(shaderProgram, vert);
+    gl.attachShader(shaderProgram, frag);
     gl.linkProgram(shaderProgram);
     gl.useProgram(shaderProgram);
     this.shaderProgram = shaderProgram;

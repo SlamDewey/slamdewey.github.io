@@ -16,7 +16,7 @@ export class ProjectsComponent implements OnInit {
   public newtonsFractalAnimation: NewtownsFractalWebGLBackground;
 
   constructor(private titleService: Title) {
-    this.titleService.setTitle('Hobbies & Projects');
+    this.titleService.setTitle('Projects');
   }
 
   ngOnInit(): void {

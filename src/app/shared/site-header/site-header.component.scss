@@ -9,8 +9,7 @@ $icon-color-hover: white;
 
 $background-color: transparent;
 
-$header-size: 5vw;
-$min-header-size: 5rem;
+$header-size: 80px;
 
 .header-container {
   position: fixed;
@@ -18,7 +17,6 @@ $min-header-size: 5rem;
   top: 0;
   left: 0;
   width: $header-size;
-  min-width: $min-header-size;
   height: 100vh;
 
   display: flex;
@@ -109,6 +107,13 @@ $min-header-size: 5rem;
   flex-direction: column;
   margin: 0;
   padding: 0;
+
+  transition: all ease 0.3s;
+
+  &.hide {
+    transform: translateX(calc($header-size * -1.5));
+    transition: all ease 1s;
+  }
 
 
   .nav-link {
