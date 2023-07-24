@@ -85,8 +85,9 @@ export class BallPitAnimatedBackground extends Backdrop {
   }
 
   update(deltaTime: number): void {
+    const swappedAxisMousePosition = { x: this.mousePosition.x, y: this.height - this.mousePosition.y }
     this.circles.forEach(circle => {
-      circle.update(deltaTime, this.mousePosition);
+      circle.update(deltaTime, swappedAxisMousePosition);
       if ((circle.position.x <= 0 && circle.velocity.x < 0) ||
         (circle.position.x >= this.width && circle.velocity.x > 0))
         circle.velocity.x = -circle.velocity.x;

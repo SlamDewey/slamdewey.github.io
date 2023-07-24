@@ -20,8 +20,8 @@ export abstract class Backdrop {
   protected width: number;
   protected height: number;
   protected ctx: CanvasRenderingContext2D;
-  protected mousePosition: Vector2;
-  protected mouseOffset: Vector2 = new Vector2(0, 0);
+  public mousePosition: Vector2 = new Vector2(-1000, -1000);
+  public mouseOffset: Vector2 = new Vector2(0, 0);
   protected lastUpdate: number;
 
   protected init(): void { }
@@ -44,15 +44,13 @@ export abstract class Backdrop {
   }
 
   protected setupListeners(): void {
-    document.addEventListener('mousemove', (e) => {
-      this.mousePosition = new Vector2(this.mouseOffset.x + e.clientX, this.mouseOffset.y + e.clientY);
-    });
     document.addEventListener('scroll', () => {
       const deltaOffset = new Vector2(window.scrollX - this.mouseOffset.x, window.scrollY - this.mouseOffset.y);
       this.mouseOffset.x = window.scrollX;
       this.mouseOffset.y = window.scrollY;
-      if (this.mousePosition !== undefined)
-        this.mousePosition = new Vector2(deltaOffset.x + this.mousePosition.x, deltaOffset.y + this.mousePosition.y);
+
+      this.mousePosition.x += deltaOffset.x;
+      this.mousePosition.y += deltaOffset.y;
     });
   }
 

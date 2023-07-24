@@ -6,6 +6,7 @@ import { Backdrop } from '../shared/backdrop/backdrop';
 import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 import { ImageTileData } from '../shared/image-tile/image-tile.component';
 import { ImageViewerModalComponent } from '../shared/image-viewer-modal/image-viewer-modal.component';
+import { DropdownLinkData } from '../shared/dropdown-link-selector/dropdown-link-selector.component';
 
 @Component({
   selector: 'x-gallery',
@@ -21,6 +22,9 @@ export class GalleryComponent implements OnInit {
   public imageDataJSON = (imageDataJSONraw as any).default;
 
   public imageFolders: string[] = Object.keys(this.imageDataJSON.img);
+  public imageFolderLinks: DropdownLinkData[] = this.imageFolders.map(
+    (f) => { return { text: this.formatFolderName(f), url: `/gallery?folder=${f}` } }
+  );
   public imageTileDataSet: Map<string, ImageTileData[]>;
 
   public currentImageFolder: string = this.imageFolders[0];
@@ -38,9 +42,9 @@ export class GalleryComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.currentImageFolder = params['folder'];
+      if (this.currentImageFolder)
+        this.titleService.setTitle(this.formatFolderName(this.currentImageFolder) + " | Gallery");
     });
-    if (this.currentImageFolder)
-      this.titleService.setTitle(this.formatFolderName(this.currentImageFolder) + " | Gallery");
 
     this.parseImageDataSet();
   }
@@ -63,10 +67,6 @@ export class GalleryComponent implements OnInit {
   private onImageTileClick(fullResolutionImageSource: string): void {
     this.currentImage = '../' + fullResolutionImageSource;
     this.imageViewerModal.openModal();
-  }
-
-  public onFolderSelect(newFolder: string) {
-    this.currentImageFolder = newFolder;
   }
 
   public formatFolderName(folderName: string): string {

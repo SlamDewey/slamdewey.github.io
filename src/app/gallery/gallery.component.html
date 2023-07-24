@@ -16,18 +16,13 @@
         <h1>
           Some images are very large
         </h1>
-        Even if the image displays, the zoom tools may have delayed functionality while everything finishes loading
+        Even if the image displays, the zoom tools may be jumpy while everything finishes loading
       </div>
     </div>
   </div>
 
   <div class="gallery-folder-selector">
-    <div class="dropdown">
-      <div class="dropdown-body">Select Folder</div>
-      <div class="dropdown-content">
-        <a *ngFor="let folder of imageFolders" href="/gallery?folder={{folder}}">{{formatFolderName(folder)}}</a>
-      </div>
-    </div>
+    <x-dropdown-link-selector [dropdownText]="'Select Folder'" [items]="imageFolderLinks"></x-dropdown-link-selector>
   </div>
 
   <div class="gallery-container">

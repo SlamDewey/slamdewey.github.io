@@ -2,9 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 import { NewtownsFractalWebGLBackground, PositionalChoice } from './pages/newtonsfractal/NewtownsFractalWebGLBackground';
-import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnimatedBackground';
 import { ReactiveWebGLBackground } from './pages/fragmentwriter/ReactiveWebGLBackground';
-import { WebGLBackdrop } from '../shared/backdrop/backdrop';
+import { MOUSE_POSITION_EXAMPLE, MOUSE_POSITION_NEWTONS_FRACTAL_SHADER } from './pages/fragmentwriter/shader-programs';
 
 @Component({
   selector: 'x-projects',
@@ -17,7 +16,7 @@ export class ProjectsComponent implements OnInit {
 
   public bgAnimation = new BallPitAnimatedBackground();
   public newtonsFractalAnimation: NewtownsFractalWebGLBackground;
-  public fragmentWriterTileBackdrop: WebGLBackdrop;
+  public fragmentWriterTileBackdrop: ReactiveWebGLBackground;
 
   constructor(private titleService: Title) {
     this.titleService.setTitle('Projects');
@@ -29,5 +28,6 @@ export class ProjectsComponent implements OnInit {
     this.newtonsFractalAnimation.positionalChoice = PositionalChoice.CIRCULAR_MOTION;
 
     this.fragmentWriterTileBackdrop = new ReactiveWebGLBackground();
+    this.fragmentWriterTileBackdrop.shaderProgramData = MOUSE_POSITION_EXAMPLE;
   }
 }

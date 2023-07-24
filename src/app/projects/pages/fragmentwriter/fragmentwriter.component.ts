@@ -7,6 +7,8 @@ import { ControlValueAccessor } from '@angular/forms';
 
 import { DEFAULT_SHADER_PROGRAMS, ShaderProgramData, UNIFORM_DEFS, UNIFORM_NAMES } from "./shader-programs";
 import parsedOpenGlDocs from './parsedOpenGlDocs';
+import { ActivatedRoute } from '@angular/router';
+import { DropdownLinkData } from 'src/app/shared/dropdown-link-selector/dropdown-link-selector.component';
 
 let loadedMonaco = false;
 let loadPromise: Promise<void>;
@@ -33,20 +35,33 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
   }
 
   @ViewChild('editor') editorContainer: ElementRef;
-  @ViewChild('defaultShaderSelect') defaultShaderSelect: ElementRef;
 
   public bgAnimation = new ReactiveWebGLBackground();
   public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
-  public defaultShaders: ShaderProgramData[] = DEFAULT_SHADER_PROGRAMS;
+  public defaultShaderLinks: DropdownLinkData[] = DEFAULT_SHADER_PROGRAMS.map(
+    (p) => {
+      return {
+        text: p.name,
+        url: `/projects/fragmentwriter?shader=${p.url}`
+      }
+    }
+  );
   public compilationErrors: string = "";
 
   private _editor: any;
-  private _options: any = { theme: 'vs-dark', language: 'glsl' };
+  private _options: any = {
+    theme: 'vs-dark',
+    language: 'glsl',
+    autoIndent: true,
+    formatOnPaste: true,
+    formatOnType: true
+  };
   private _windowResizeSubscription: Subscription;
   private _insideNg: boolean = false;
 
   constructor(
+    private route: ActivatedRoute,
     private zone: NgZone,
     private titleService: Title
   ) { }
@@ -83,16 +98,6 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
     this.compilationErrors = "";
   }
 
-  public resetCodeToSelectedDefaultShader() {
-    const shaderProgram = DEFAULT_SHADER_PROGRAMS.find(shader => shader.name === this.defaultShaderSelect.nativeElement.value);
-    if (shaderProgram) {
-      this.bgAnimation.fragmentShaderOverride = undefined;
-      this.bgAnimation.shaderProgramData = shaderProgram;
-      this.bgAnimation.attemptRecompileAndReinitialize();
-      this._editor.setValue(this.bgAnimation.getFragmentShader());
-    }
-  }
-
   onKeyPress(e: KeyboardEvent, c: FragmentwriterComponent) {
     if (e.ctrlKey && e.key == 's') {
       e.preventDefault();
@@ -101,11 +106,18 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Fragment Writer');
     window.onkeydown = (e) => this.onKeyPress(e, this);
+    this.route.queryParams.subscribe(params => {
+      const shaderProgram = DEFAULT_SHADER_PROGRAMS.find(program => program.url === params['shader']);
+      this.bgAnimation.fragmentShaderOverride = undefined;
+      if (shaderProgram) {
+        this.bgAnimation.shaderProgramData = shaderProgram;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
-    this.titleService.setTitle('Fragment Writer');
     this.isWebGlEnabled = BackdropComponent.isWebGlEnabled;
     this._value = this.bgAnimation.getFragmentShader();
 
