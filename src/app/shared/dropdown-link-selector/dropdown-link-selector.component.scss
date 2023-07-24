@@ -1,0 +1,59 @@
+@import url('../../../styles.scss');
+
+$color-white: white;
+$color-black: black;
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+
+  &:hover .dropdown-content {
+    display: block;
+    transition: all .45s;
+  }
+
+  &:hover .dropdown-body {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+    transition: all .2s;
+  }
+
+  & .dropdown-body {
+    background-color: var(--secondary-color);
+    padding: 1rem 4rem 1rem 4rem;
+    font-size: 2rem;
+    border: none;
+    cursor: pointer;
+    transition: all .45s;
+  }
+
+  & .dropdown-content {
+    width: 100%;
+    display: none;
+    position: absolute;
+    background-color: var(--highlight-color);
+    box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 1);
+
+    & a {
+      height: 4rem;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      flex-direction: column;
+      text-decoration: none;
+      display: flex;
+      transition: all .2s;
+
+      &:hover {
+        color: var(--tertiary-color);
+        background-color: $color-white;
+        transition: all .2s;
+      }
+    }
+  }
+
+  & .overflowing {
+    transform: translateY(-100%);
+  }
+}

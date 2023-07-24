@@ -7,6 +7,7 @@ import { ImageViewerModalComponent } from './image-viewer-modal/image-viewer-mod
 import { SpinnerComponent } from './spinner/spinner.component';
 import { BackdropComponent } from './backdrop/backdrop.component';
 import { BackdropTileComponent } from './backdrop-tile/backdrop-tile.component';
+import { DropdownLinkSelectorComponent } from './dropdown-link-selector/dropdown-link-selector.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BackdropTileComponent } from './backdrop-tile/backdrop-tile.component';
     ImageTileComponent,
     ImageViewerModalComponent,
     SpinnerComponent,
-    BackdropTileComponent
+    BackdropTileComponent,
+    DropdownLinkSelectorComponent
   ],
   imports: [
     CommonModule, RouterModule
@@ -26,7 +28,8 @@ import { BackdropTileComponent } from './backdrop-tile/backdrop-tile.component';
     ImageTileComponent,
     ImageViewerModalComponent,
     SpinnerComponent,
-    BackdropTileComponent
+    BackdropTileComponent,
+    DropdownLinkSelectorComponent
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })

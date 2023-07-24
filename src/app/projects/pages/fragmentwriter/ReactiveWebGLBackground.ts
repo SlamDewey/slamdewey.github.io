@@ -36,6 +36,7 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
     gl.enableVertexAttribArray(coord);
 
     gl.uniform2f(gl.getUniformLocation(shaderProgram, "screenSize"), this.width, this.height);
+    gl.uniform2f(gl.getUniformLocation(shaderProgram, "mousePosition"), this.mousePosition.x, this.mousePosition.y);
     gl.uniform1f(gl.getUniformLocation(shaderProgram, "totalTime"), this.totalTime);
     gl.uniform1f(gl.getUniformLocation(shaderProgram, "deltaTime"), 0);
   }
@@ -46,5 +47,6 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
     this.totalTime += deltaTime;
     gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "totalTime"), this.totalTime);
     gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "deltaTime"), deltaTime);
+    gl.uniform2f(gl.getUniformLocation(this.shaderProgram, "mousePosition"), this.mousePosition.x, this.mousePosition.y);
   }
 }

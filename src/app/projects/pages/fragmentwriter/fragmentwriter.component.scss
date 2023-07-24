@@ -26,8 +26,7 @@ $color-black: black;
   }
 }
 
-.editor-container,
-.canvas-container {
+.editor-container {
   width: 50%;
   height: 100%;
 
@@ -46,6 +45,7 @@ $color-black: black;
 
   & .editor-controls {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 15%;
 
@@ -54,25 +54,57 @@ $color-black: black;
       justify-content: center;
       align-items: center;
       text-align: center;
-
       color: var(--highlight-color);
-      background-color: rgb(17, 17, 17);
-
       flex-grow: 1;
-      flex-direction: row;
+    }
+
+    & .button {
+      background-color: rgb(31, 31, 31);
+      border-width: 1rem;
+      border-style: outset;
+      border-color: rgb(34, 34, 34);
+      border-radius: 5px;
+      flex-direction: column;
+      justify-content: center;
+      display: flex;
+      cursor: pointer;
+      user-select: none;
+
+      &:active {
+        border-style: inset;
+      }
+
+      & h1 {
+        margin: 0;
+        font-size: 2rem;
+      }
     }
   }
 }
 
-.canvas {
-  width: 100%;
+.canvas-container {
+  width: 50%;
   height: 100%;
+
+  @media only screen and (max-width: 1200px) {
+    height: 50%;
+    width: 100%;
+  }
 }
+
 
 .canvas-container {
   position: relative;
   display: flex;
   justify-content: center;
+
+  & .canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
 
   & .compilation-errors {
     position: absolute;

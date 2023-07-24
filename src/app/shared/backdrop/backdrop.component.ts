@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, ViewChild, Input, HostListener } from '@angular/core';
 import { Backdrop } from './backdrop';
 
 @Component({
@@ -17,7 +17,7 @@ export class BackdropComponent {
 
   public static isWebGlEnabled: boolean;
 
-  public RefreshRateMS = 1000 / 90;
+  public RefreshRateMS = 1000 / 60;
   public InternalCanvasRenderSize: { X: number, Y: number };
 
   private canvasElement: HTMLCanvasElement;
@@ -58,7 +58,6 @@ export class BackdropComponent {
           Y: entries[0].contentRect.height
         }
       }
-
       this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
       this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
 
@@ -66,8 +65,15 @@ export class BackdropComponent {
     });
     // initialize
     this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);
-
+    //document.addEventListener('mousemove', (e) => this.onMouseMove(e, this));
     this.renderInterval = setInterval(async () => { await this.renderLoop() }, this.RefreshRateMS);
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(e: MouseEvent) {
+    var rect = this.canvasElement.getBoundingClientRect();
+    this.backdrop.mousePosition.x = e.clientX - rect.left;
+    this.backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
   }
 
   public renderLoop(): void {
