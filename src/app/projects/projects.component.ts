@@ -28,6 +28,6 @@ export class ProjectsComponent implements OnInit {
     this.newtonsFractalAnimation.positionalChoice = PositionalChoice.CIRCULAR_MOTION;
 
     this.fragmentWriterTileBackdrop = new ReactiveWebGLBackground();
-    this.fragmentWriterTileBackdrop.shaderProgramData = MOUSE_POSITION_EXAMPLE;
+    this.fragmentWriterTileBackdrop.shaderProgramData = MOUSE_POSITION_NEWTONS_FRACTAL_SHADER;
   }
 }
