@@ -106,7 +106,7 @@ export class FragmentwriterComponent implements OnInit, AfterViewInit, ControlVa
   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Fragment Writer');
+    this.titleService.setTitle('Web based GLSL Fragment Shader Editor');
     window.onkeydown = (e) => this.onKeyPress(e, this);
     this.route.queryParams.subscribe(params => {
       const shaderProgram = DEFAULT_SHADER_PROGRAMS.find(program => program.url === params['shader']);

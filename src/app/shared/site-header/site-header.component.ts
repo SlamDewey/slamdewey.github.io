@@ -14,6 +14,7 @@ export class SiteHeaderComponent implements OnInit {
 
   public activeRoute: string;
   public headerHideControl$: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  private isInBounds: boolean;
   private hideTimer: Observable<0>;
   private hideTimerSubscription: Subscription;
 
@@ -36,6 +37,10 @@ export class SiteHeaderComponent implements OnInit {
     if (e.clientX < (document.body.clientWidth / 10)) {
       c.headerHideControl$.next('');
       c.hideTimerSubscription?.unsubscribe();
+      this.isInBounds = true;
+    }
+    else if (this.isInBounds) {
+      this.isInBounds = false;
       c.hideTimer = timer(HIDE_HEADER_WAIT_TIME);
       c.hideTimerSubscription = c.hideTimer.subscribe(() => c.headerHideControl$.next('hide'));
     }
