@@ -281,9 +281,6 @@ void choose_color(vec2 iterated_location) {
 
 void main() {
 \tvec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
-\tfloat radiusScalar = 0.35;
-\tfloat timeScalar = 0.6;
-\tfloat time = totalTime * timeScalar;
 \t
 \tfloat coordinateScalar = 2.0;
 \t
