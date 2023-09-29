@@ -3,6 +3,7 @@
 $color-white: white;
 
 .gallery-component-container {
+  position: relative;
   z-index: 1;
   color: $color-white;
   padding-top: 4rem;
@@ -14,115 +15,14 @@ $color-white: white;
   flex-direction: column;
 }
 
-.gallery-help-box-container {
-  z-index: 1;
-  font-size: 1.5rem;
-  margin-bottom: 3rem;
-  display: flex;
-  justify-content: center;
-
-  & .gallery-help-box-content {
-    max-width: 80%;
-    padding: 1rem 2rem 1rem 2rem;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-
-    color: var(--tertiary-color);
-    background-color: var(--highlight-color);
-
-    border-width: 2px;
-    border-style: solid;
-    border-color: rgb(255, 166, 0);
-    border-radius: 5px;
-
-    & .help-icon {
-      margin: auto;
-      padding-right: 1rem;
-      max-width: 40px;
-
-      & svg {
-        fill: rgb(255, 166, 0);
-        width: 100%;
-      }
-    }
-
-    & .help-text {
-      font-size: 1.3rem;
-
-      & h1 {
-        font-size: 2rem;
-        margin: 0;
-      }
-    }
-  }
-
-}
-
 .gallery-folder-selector {
   z-index: 2;
   display: flex;
   justify-content: center;
-  font-size: 22px;
-
-  & label {
-    padding: 0;
-    margin: 3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  & .dropdown {
-    position: relative;
-    display: inline-block;
-
-    &:hover .dropdown-content {
-      display: block;
-      transition: all .45s;
-    }
-
-    &:hover .dropdown-body {
-      background-color: var(--highlight-color);
-      color: var(--secondary-color);
-      transition: all .2s;
-    }
-
-    & .dropdown-body {
-      background-color: var(--secondary-color);
-      padding: 1rem 4rem 1rem 4rem;
-      font-size: 2rem;
-      border: none;
-      cursor: pointer;
-      transition: all .45s;
-    }
-
-    & .dropdown-content {
-      width: 100%;
-      display: none;
-      position: absolute;
-      background-color: var(--highlight-color);
-      box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 1);
-
-      & a {
-        padding: 1rem 1rem;
-        text-decoration: none;
-        display: block;
-        transition: all .2s;
-
-        &:hover {
-          color: var(--tertiary-color);
-          background-color: $color-white;
-          transition: all .2s;
-        }
-      }
-    }
-  }
+  font-size: 1.25rem;
 }
 
 .gallery-container {
-  z-index: 1;
   display: flex;
   justify-content: center;
 }
