@@ -1,0 +1,70 @@
+@import url('../../../styles.scss');
+
+.banner-container {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+
+  & .banner-constrainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    background-color: var(--highlight-color);
+    color: black;
+
+    border-left: solid 5px;
+
+    &--basic {
+      border-color: var(--tertiary-color);
+      & .icon svg {
+        color: var(--tertiary-color);
+        fill: currentColor;
+      }
+    }
+
+    &--success {
+      border-color: var(--success-color);
+      & .icon svg {
+        color: var(--success-color);
+        fill: currentColor;
+      }
+    }
+
+    &--warning {
+      border-color: var(--warning-color);
+      & .icon svg {
+        color: var(--warning-color);
+        fill: currentColor;
+      }
+    }
+
+    &--error {
+      border-color: var(--error-color);
+      & .icon svg {
+        color: var(--error-color);
+        fill: currentColor;
+      }
+    }
+
+    & .icon {
+      display: flex;
+      justify-content: center;
+      float: left;
+      width: 20%;
+      margin: auto;
+
+      & svg {
+        max-width: 40px;
+      }
+    }
+
+    & .banner-content {
+      padding: 1rem;
+      float: right;
+      max-width: 80%;
+      font-size: 1rem;
+    }
+  }
+}

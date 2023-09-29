@@ -56,7 +56,7 @@ $header-size: 80px;
 
   & .website-logo {
     z-index: 1;
-    transition: all .45s;
+    transition: all 0.45s;
   }
 
   & svg {
@@ -67,10 +67,10 @@ $header-size: 80px;
     position: absolute;
     transform: scale(1.5);
     transform-origin: 50% 50%;
-    transition: all .45s;
+    transition: all 0.45s;
 
     & .outer-circle {
-      transition: all .45s;
+      transition: all 0.45s;
       fill: $logo-secondary;
     }
   }
@@ -80,15 +80,15 @@ $header-size: 80px;
   &:focus {
     & .website-logo {
       color: $logo-text-hover;
-      transition: all .45s;
+      transition: all 0.45s;
     }
 
     & svg {
-      transition: all .45s;
+      transition: all 0.45s;
       transform: scale(2);
 
       & .outer-circle {
-        transition: all .45s;
+        transition: all 0.45s;
         fill: $logo-primary;
       }
     }
@@ -114,7 +114,6 @@ $header-size: 80px;
     transform: translateX(calc($header-size * -1.5));
     transition: all ease 1s;
   }
-
 
   .nav-link {
     width: 100%;
@@ -151,14 +150,14 @@ $header-size: 80px;
       & .nav-group {
         &__icon {
           fill: $icon-color;
-          transition: all .45s;
+          transition: all 0.45s;
         }
 
         &__inner-circle {
           fill: $background-color;
           transform-origin: 50% 50%;
-          transform: scale(.8);
-          transition: all .45s;
+          transform: scale(0.8);
+          transition: all 0.45s;
         }
       }
 
@@ -169,13 +168,13 @@ $header-size: 80px;
         & .nav-group {
           &__icon {
             fill: $icon-color-hover;
-            transition: all .2s;
+            transition: all 0.2s;
           }
 
           &__inner-circle {
             fill: currentColor;
             transform: scale(1.1);
-            transition: all .2s;
+            transition: all 0.2s;
           }
         }
       }

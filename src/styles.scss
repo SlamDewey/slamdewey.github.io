@@ -1,12 +1,16 @@
 :root {
   /* color palette */
-  --primary-color: #FA7921;
+  --primary-color: #fa7921;
   --secondary-color: #942911;
-  --tertiary-color: #0D3B66;
-  --highlight-color: #f8f4e6;
-  --complimentary-color: #B0A3D4;
+  --tertiary-color: #2066a8;
+  --highlight-color: #fffef8;
+  --complimentary-color: #b0a3d4;
 
   --background-color: #181818;
+
+  --success-color: #39a518;
+  --warning-color: #ffc320;
+  --error-color: #df4040;
 
   /* links */
   --link-color: var(--secondary-color);

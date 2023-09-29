@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
 import { NewtownsFractalWebGLBackground, PositionalChoice } from './pages/newtonsfractal/NewtownsFractalWebGLBackground';
 import { ReactiveWebGLBackground } from './pages/fragmentwriter/ReactiveWebGLBackground';
-import { MOUSE_POSITION_EXAMPLE, MOUSE_POSITION_NEWTONS_FRACTAL_SHADER } from './pages/fragmentwriter/shader-programs';
+import { MOUSE_POSITION_NEWTONS_FRACTAL_SHADER } from './pages/fragmentwriter/shader-programs';
 
 @Component({
   selector: 'x-projects',
@@ -18,8 +18,8 @@ export class ProjectsComponent implements OnInit {
   public newtonsFractalAnimation: NewtownsFractalWebGLBackground;
   public fragmentWriterTileBackdrop: ReactiveWebGLBackground;
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Projects');
+  constructor(readonly titleService: Title) {
+    titleService.setTitle('Projects');
   }
 
   ngOnInit(): void {

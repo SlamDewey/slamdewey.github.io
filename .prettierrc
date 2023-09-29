@@ -1,0 +1,15 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "proseWrap": "never",
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": ["*.json", "*.rc"],
+      "options": {
+        "parser": "json",
+        "printWidth": 240
+      }
+    }
+  ]
+}
