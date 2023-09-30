@@ -8,21 +8,17 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { SharedModule } from './shared/shared.module';
 import { ProjectsComponent } from './projects/projects.component';
 import { PagesModule } from './projects/pages/pages.module';
+import { FaviconService } from './services/favicon.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     GalleryComponent,
-    ProjectsComponent
+    ProjectsComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule,
-    PagesModule
-  ],
-  providers: [Title],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, SharedModule, PagesModule],
+  providers: [Title, FaviconService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,4 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Backdrop } from '../shared/backdrop/backdrop';
 import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnimatedBackground';
 
@@ -12,9 +11,7 @@ import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnima
 export class HomeComponent implements OnInit {
   public bgAnimation: Backdrop = new ShaderTestAnimatedBackground();
 
-  constructor(readonly titleService: Title) {
-    titleService.setTitle('Jared Massa | Software Engineer');
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

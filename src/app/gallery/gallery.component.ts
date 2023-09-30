@@ -34,9 +34,7 @@ export class GalleryComponent implements OnInit {
 
   public isModalOpen: boolean = false;
 
-  constructor(private route: ActivatedRoute, readonly titleService: Title) {
-    titleService.setTitle('Gallery');
-  }
+  constructor(private route: ActivatedRoute, readonly titleService: Title) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
