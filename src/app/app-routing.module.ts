@@ -1,46 +1,60 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NewtonsfractalComponent } from './projects/pages/newtonsfractal/newtonsfractal.component';
 import { FragmentwriterComponent } from './projects/pages/fragmentwriter/fragmentwriter.component';
 
-const routes: Routes = [
+export type FaviconStorage = {
+  faviconPath: string;
+};
+
+export const routes: (Route & FaviconStorage)[] = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    title: 'Jared Massa | Software Engineer',
+    faviconPath: 'home-favicon.ico',
   },
   {
     path: 'gallery',
-    component: GalleryComponent
+    component: GalleryComponent,
+    title: 'Gallery',
+    faviconPath: 'photo-favicon.ico',
   },
   {
     path: 'projects',
-    component: ProjectsComponent
+    component: ProjectsComponent,
+    title: 'Projects',
+    faviconPath: 'project-favicon.ico',
   },
   {
     path: 'projects',
     children: [
       {
         path: 'newtonsfractal',
-        component: NewtonsfractalComponent
+        title: "Newton's Fractal, animated",
+        component: NewtonsfractalComponent,
       },
       {
         path: 'fragmentwriter',
-        component: FragmentwriterComponent
-      }
-    ]
+        title: 'Web based GLSL Fragment Shader Editor',
+        component: FragmentwriterComponent,
+      },
+    ],
+    faviconPath: 'projects-favicon.ico',
   },
   {
     path: '**',
     pathMatch: 'full',
-    component: HomeComponent
-  }
+    component: HomeComponent,
+    faviconPath: '',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
