@@ -304,8 +304,9 @@ export const MANDELBROT_SET_SHADER: ShaderProgramData = {
   url: 'mandelbrot_zoom',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
-const int NUM_ITERATIONS = 2200;
-const int maxIterationDelta = 45;
+const int NUM_ITERATIONS = 500;
+const int maxIterationDelta = 10;
+const float o = .0000000000000001;
 
 // input = float [0, 1]
 // output = rgb color
@@ -347,18 +348,24 @@ vec4 mandelbrotColorizor(vec2 c, int maxIterations) {
 
 void main() {
 \t// origin = where we are zooming into
-\tvec2 origin = vec2(-.8217, .2);
+\tvec2 origin = vec2(-.821701, .2);
 \t// get a relative coordinate for this pixel with an origin in the
 \t// center of the screen
 \tvec2 cuv = gl_FragCoord.xy / screenSize.xy - vec2(.5, .5);
 \t// calc zoom; we are just zooming in forever
-\tfloat zoomScalar = 4. * (1. / (totalTime * totalTime * totalTime));
+\tfloat zoomScalar = 4. * (1. / pow(totalTime, 3.));
 \t// calculate this pixel's input location for mandelbrot
 \tvec2 locationInput = origin + cuv * zoomScalar;
 \t// increase the amount of iterations as time increases, so we can see it
-\tint maxIterations = int(float(maxIterationDelta) / (totalTime * totalTime * zoomScalar));
-\t// colorize set
+\tint maxIterations = int(float(maxIterationDelta) * totalTime);
+
+\t// crude anti-aliasing:
 \tgl_FragColor = mandelbrotColorizor(locationInput, maxIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), maxIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(0., o), maxIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, o), maxIterations);
+\tgl_FragColor /= 4.;
+\tgl_FragColor = vec4(gl_FragColor.xyz, 1.);
 }`,
 };
 
