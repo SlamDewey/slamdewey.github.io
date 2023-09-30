@@ -7,16 +7,14 @@ import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnima
   selector: 'x-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent implements OnInit {
-
   public bgAnimation: Backdrop = new ShaderTestAnimatedBackground();
 
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Jared Massa | Software Engineer');
+  constructor(readonly titleService: Title) {
+    titleService.setTitle('Jared Massa | Software Engineer');
   }
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 }

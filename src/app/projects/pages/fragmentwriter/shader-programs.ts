@@ -5,15 +5,17 @@ export class ShaderProgramData {
   public fragmentShader: string;
 }
 
-export const SHADER_HEADER: string = `precision mediump float;\n`
+export const SHADER_HEADER: string = `precision highp float;\n`;
 
-export const DEFAULT_VERTEX_SHADER: string = SHADER_HEADER + `
+export const DEFAULT_VERTEX_SHADER: string =
+  SHADER_HEADER +
+  `
 attribute vec2 coordinates;
 
 void main() {
   gl_Position = vec4(coordinates.xy, 0.0, 1.0);
 }
-`
+`;
 // string copied into actual shader code
 export const UNIFORM_DEFS: string = `
 // This is the data I provide all shaders with:
@@ -24,7 +26,12 @@ uniform float deltaTime;    // time since last frame
 // editing code above this line could result in errors
 `;
 // used for context highlighting inside monaco editor
-export const UNIFORM_NAMES: string[] = ['screenSize', 'mousePosition', 'totalTime', 'deltaTime'];
+export const UNIFORM_NAMES: string[] = [
+  'screenSize',
+  'mousePosition',
+  'totalTime',
+  'deltaTime',
+];
 
 export const UV_SHADER: ShaderProgramData = {
   name: 'UV Coordinates',
@@ -36,8 +43,8 @@ void main() {
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
 \t// set output color
 \tgl_FragColor = vec4(uv.xy, 0.0, 1.0);
-}`
-}
+}`,
+};
 export const SHADER_TOY_UV: ShaderProgramData = {
   name: 'Shadertoy UV',
   url: 'suv',
@@ -47,8 +54,8 @@ void main() {
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
 \tvec3 color = 0.5 + 0.5 * cos(totalTime + uv.xyy + vec3(0, 2, 4));
 \tgl_FragColor = vec4(color.xyz, 1.0);
-}`
-}
+}`,
+};
 export const MOUSE_POSITION_EXAMPLE: ShaderProgramData = {
   name: 'MousePosition Example',
   url: 'mouse_example',
@@ -69,10 +76,10 @@ void main() {
 \telse {
 \t\tgl_FragColor = vec4(relativePixelPos.xy, 0.0, 1.0);
 \t}
-}`
-}
+}`,
+};
 export const BASIC_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
-  name: 'Newton\'s Fractal',
+  name: "Newton's Fractal",
   url: 'newtons_fractal_basic',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
@@ -140,10 +147,10 @@ void main() {
 \tvec2 iterated_location = newtonsMethod(relCoordinate * scalar, locationInput);
 \t
 \tchoose_color(iterated_location);
-}`
-}
+}`,
+};
 export const ANIMATED_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
-  name: 'Animated Newton\'s Fractal Example',
+  name: "Animated Newton's Fractal Example",
   url: 'newtons_fractal_animated',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
@@ -215,10 +222,10 @@ void main() {
 \tvec2 iterated_location = newtonsMethod(relCoordinate * coordinateScalar, locationInput);
 \t
 \tchoose_color(iterated_location);
-}`
-}
+}`,
+};
 export const MOUSE_POSITION_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
-  name: 'MousePosition Example With Newton\'s Fractal',
+  name: "MousePosition Example With Newton's Fractal",
   url: 'newtons_fractal_mouse',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
@@ -290,8 +297,70 @@ void main() {
 \tvec2 iterated_location = newtonsMethod(relCoordinate * coordinateScalar, locationInput);
 \t// color by distance to nearest sector
 \tchoose_color(iterated_location);
-}`
+}`,
+};
+export const MANDELBROT_SET_SHADER: ShaderProgramData = {
+  name: 'Mandelbrot Set Shader',
+  url: 'mandelbrot_zoom',
+  vertexShader: DEFAULT_VERTEX_SHADER,
+  fragmentShader: `
+const int NUM_ITERATIONS = 2200;
+const int maxIterationDelta = 45;
+
+// input = float [0, 1]
+// output = rgb color
+vec3 colorWheel(float c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(vec3(c + K.x, c + K.y, c + K.z)) * 6.0 - K.www);
+    return 1. * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), 1.);
 }
+/*
+  * the mandelbrot set is the set of all complex numbers which stay bounded
+  * (aka they do not fly off to infinity) as you iterate them in the
+  * given function:
+  * Z[n+1] = Z[n]^2 + c
+  * where Z[0] = 0 + 0i
+*/
+vec4 mandelbrotColorizor(vec2 c, int maxIterations) {
+\t// initial Z = 0 + 0i 
+\tvec2 z = vec2(0, 0);
+\t// iterate mandelbrot
+\tfor(int i = 1; i < NUM_ITERATIONS; i++){
+\t\t// allow iterations to increase over time
+\t\t// (yes it has to be written this way, GLSL is picky)
+\t\tif (i > maxIterations) {
+\t\t\tbreak;
+\t\t}
+\t\t// mandelbrot:
+\t\tvec2 zSquared = vec2(pow(z.x, 2.) - pow(z.y, 2.), 2. * z.x * z.y);
+\t\tz = zSquared + c;
+\t\tfloat l = length(z);
+\t\t// check if we left the set
+\t\tif(l > 2.) {
+\t\t\t// pick color (we are not in the set)
+\t\t\treturn vec4(colorWheel(.5 + .5 * sin(l)).xyz, 1.);
+\t\t}
+\t}
+\t// transparent (we are in the set)
+\treturn vec4(0.);
+}
+
+void main() {
+\t// origin = where we are zooming into
+\tvec2 origin = vec2(-.8217, .2);
+\t// get a relative coordinate for this pixel with an origin in the
+\t// center of the screen
+\tvec2 cuv = gl_FragCoord.xy / screenSize.xy - vec2(.5, .5);
+\t// calc zoom; we are just zooming in forever
+\tfloat zoomScalar = 4. * (1. / (totalTime * totalTime * totalTime));
+\t// calculate this pixel's input location for mandelbrot
+\tvec2 locationInput = origin + cuv * zoomScalar;
+\t// increase the amount of iterations as time increases, so we can see it
+\tint maxIterations = int(float(maxIterationDelta) / (totalTime * totalTime * zoomScalar));
+\t// colorize set
+\tgl_FragColor = mandelbrotColorizor(locationInput, maxIterations);
+}`,
+};
 
 export const DEFAULT_SHADER_PROGRAMS: ShaderProgramData[] = [
   UV_SHADER,
@@ -299,5 +368,6 @@ export const DEFAULT_SHADER_PROGRAMS: ShaderProgramData[] = [
   MOUSE_POSITION_EXAMPLE,
   BASIC_NEWTONS_FRACTAL_SHADER,
   ANIMATED_NEWTONS_FRACTAL_SHADER,
-  MOUSE_POSITION_NEWTONS_FRACTAL_SHADER
-]
+  MOUSE_POSITION_NEWTONS_FRACTAL_SHADER,
+  MANDELBROT_SET_SHADER,
+];

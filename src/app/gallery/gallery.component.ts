@@ -11,10 +11,9 @@ import { DropdownLinkData } from '../shared/dropdown-link-selector/dropdown-link
 @Component({
   selector: 'x-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
 })
 export class GalleryComponent implements OnInit {
-
   @ViewChild('imageViewerModal') imageViewerModal: ImageViewerModalComponent;
 
   public bgAnimation: Backdrop = new BallPitAnimatedBackground();
@@ -22,9 +21,12 @@ export class GalleryComponent implements OnInit {
   public imageDataJSON = (imageDataJSONraw as any).default;
 
   public imageFolders: string[] = Object.keys(this.imageDataJSON.img);
-  public imageFolderLinks: DropdownLinkData[] = this.imageFolders.map(
-    (f) => { return { text: this.formatFolderName(f), url: `/gallery?folder=${f}` } }
-  );
+  public imageFolderLinks: DropdownLinkData[] = this.imageFolders.map((f) => {
+    return {
+      text: this.formatFolderName(f),
+      url: `/gallery?folder=${f}`,
+    };
+  });
   public imageTileDataSet: Map<string, ImageTileData[]>;
 
   public currentImageFolder: string = this.imageFolders[0];
@@ -32,18 +34,17 @@ export class GalleryComponent implements OnInit {
 
   public isModalOpen: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private titleService: Title
-  ) {
-    this.titleService.setTitle('Gallery');
+  constructor(private route: ActivatedRoute, readonly titleService: Title) {
+    titleService.setTitle('Gallery');
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       this.currentImageFolder = params['folder'];
       if (this.currentImageFolder)
-        this.titleService.setTitle(this.formatFolderName(this.currentImageFolder) + " | Gallery");
+        this.titleService.setTitle(
+          this.formatFolderName(this.currentImageFolder) + ' | Gallery',
+        );
     });
 
     this.parseImageDataSet();
@@ -71,8 +72,7 @@ export class GalleryComponent implements OnInit {
 
   public formatFolderName(folderName: string): string {
     const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
-    if (noSpecialChar.length < 1)
-      return noSpecialChar.charAt(0).toUpperCase();
+    if (noSpecialChar.length < 1) return noSpecialChar.charAt(0).toUpperCase();
     return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }
 }
