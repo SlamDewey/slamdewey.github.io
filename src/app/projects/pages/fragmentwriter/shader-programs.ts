@@ -41,6 +41,7 @@ export const UV_SHADER: ShaderProgramData = {
 void main() {
 \t// normalized coordinates
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
+\tuv.x *= screenSize.x / screenSize.y;
 \t// set output color
 \tgl_FragColor = vec4(uv.xy, 0.0, 1.0);
 }`,
@@ -52,6 +53,7 @@ export const SHADER_TOY_UV: ShaderProgramData = {
   fragmentShader: `
 void main() {
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
+\tuv.x *= screenSize.x / screenSize.y;
 \tvec3 color = 0.5 + 0.5 * cos(totalTime + uv.xyy + vec3(0, 2, 4));
 \tgl_FragColor = vec4(color.xyz, 1.0);
 }`,
@@ -65,8 +67,8 @@ float dist(vec2 a, vec2 b) {
 \treturn sqrt(pow(a.x - b.x, 2.0) + pow(a.y - b.y, 2.0));
 }
 void main() {
-\tvec2 relativePixelPos = gl_FragCoord.xy / screenSize.xy;
-\tvec2 relativeMousePos = mousePosition.xy / screenSize.xy;
+\tvec2 relativePixelPos = gl_FragCoord.xy / screenSize.xy * screenSize.x / screenSize.y;
+\tvec2 relativeMousePos = mousePosition.xy / screenSize.xy * screenSize.x / screenSize.y;
 \t// in GLSL, the bottom left is (0, 0) and top right is (1, 1)
 \t// so 0.05 as a distance represents 1/20th of the screen size
 \t// notice, using screen size makes an ellipse
@@ -306,7 +308,7 @@ export const MANDELBROT_SET_SHADER: ShaderProgramData = {
   fragmentShader: `
 const int NUM_ITERATIONS = 500;
 const int maxIterationDelta = 10;
-const float o = .0000000000000001;
+const float o = .000000000001;
 
 // input = float [0, 1]
 // output = rgb color
@@ -359,13 +361,13 @@ void main() {
 \t// increase the amount of iterations as time increases, so we can see it
 \tint maxIterations = int(float(maxIterationDelta) * totalTime);
 
-\t// crude anti-aliasing:
+\t// get color for this coord
 \tgl_FragColor = mandelbrotColorizor(locationInput, maxIterations);
+\t// crude antialiasing ahead, if this runs slow for you then delete these next four lines:
 \tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), maxIterations);
 \tgl_FragColor += mandelbrotColorizor(locationInput + vec2(0., o), maxIterations);
 \tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, o), maxIterations);
 \tgl_FragColor /= 4.;
-\tgl_FragColor = vec4(gl_FragColor.xyz, 1.);
 }`,
 };
 

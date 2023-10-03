@@ -1,9 +1,7 @@
-import { WebGLBackdrop } from "./backdrop";
+import { WebGLBackdrop } from './backdrop';
 
 export class ShaderTestAnimatedBackground extends WebGLBackdrop {
-
-  protected override init(): void {
-  }
+  protected override init(): void {}
 
   readonly VertexShader: string = `
   precision mediump float;
@@ -33,21 +31,37 @@ export class ShaderTestAnimatedBackground extends WebGLBackdrop {
     return this.FragmentShader;
   }
 
-  protected initializeDrawVariables(gl: WebGLRenderingContext, shaderProgram: WebGLProgram) {
-    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
-    gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
+  protected initializeDrawVariables(
+    gl: WebGLRenderingContext,
+    shaderProgram: WebGLProgram,
+  ) {
+    var coord = gl.getAttribLocation(shaderProgram, 'coordinates');
+    gl.vertexAttribPointer(
+      coord,
+      2,
+      gl.FLOAT,
+      false,
+      2 * Float32Array.BYTES_PER_ELEMENT,
+      0,
+    );
     gl.enableVertexAttribArray(coord);
 
-    gl.uniform2f(gl.getUniformLocation(shaderProgram, "screenSize"), this.width, this.height);
-    gl.uniform1f(gl.getUniformLocation(shaderProgram, "time"), this.time);
+    gl.uniform2f(
+      gl.getUniformLocation(shaderProgram, 'screenSize'),
+      this.width,
+      this.height,
+    );
+    gl.uniform1f(gl.getUniformLocation(shaderProgram, 'time'), this.time);
   }
 
-  protected update(deltaTime: number): void {
-  }
+  protected update(deltaTime: number): void {}
 
   private time: number = 0;
-  protected override prepareDrawVariables(gl: WebGLRenderingContext, deltaTime: number): void {
+  protected override prepareDrawVariables(
+    gl: WebGLRenderingContext,
+    deltaTime: number,
+  ): void {
     this.time += deltaTime;
-    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "time"), this.time);
+    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, 'time'), this.time);
   }
 }
