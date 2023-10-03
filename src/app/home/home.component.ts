@@ -2,6 +2,21 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Backdrop } from '../shared/backdrop/backdrop';
 import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnimatedBackground';
 
+const HELLOS: string[] = ['hello', 'hello', 'hi', 'howdy', 'hey'];
+
+const GREETING_MESSAGES: string[] = [
+  'thanks for visiting',
+  'enjoy your stay',
+  "how'd you end up here?",
+  'welcome to my site',
+  'take off the coat and stay a while',
+  'thanks for checking in',
+  "congratulations, you've made it",
+  'welcome to the other side',
+  'do you come here often?',
+  'there is nothing suspicious here',
+];
+
 @Component({
   selector: 'x-home',
   templateUrl: './home.component.html',
@@ -10,8 +25,19 @@ import { ShaderTestAnimatedBackground } from '../shared/backdrop/ShaderTestAnima
 })
 export class HomeComponent implements OnInit {
   public bgAnimation: Backdrop = new ShaderTestAnimatedBackground();
+  public hello: string;
+  public greeting: string;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    function randomRangeFloor(min: number, max: number) {
+      return Math.floor(min + Math.random() * (max - min));
+    }
+    function getRandomIndex(arr: any[]) {
+      return arr[randomRangeFloor(0, arr.length)];
+    }
+    this.hello = getRandomIndex(HELLOS);
+    this.greeting = getRandomIndex(GREETING_MESSAGES);
+  }
 }
