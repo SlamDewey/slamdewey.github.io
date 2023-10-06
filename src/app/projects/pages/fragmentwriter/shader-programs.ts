@@ -63,15 +63,22 @@ export const MOUSE_POSITION_EXAMPLE: ShaderProgramData = {
   url: 'mouse_example',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
+vec2 getRelativeCoordinate(vec2 x) {
+\tvec2 r = x.xy / screenSize.xy;
+\tr.x *= screenSize.x / screenSize.y;
+\treturn r;
+}
+
 float dist(vec2 a, vec2 b) {
 \treturn sqrt(pow(a.x - b.x, 2.0) + pow(a.y - b.y, 2.0));
 }
+
 void main() {
-\tvec2 relativePixelPos = gl_FragCoord.xy / screenSize.xy * screenSize.x / screenSize.y;
-\tvec2 relativeMousePos = mousePosition.xy / screenSize.xy * screenSize.x / screenSize.y;
+\tvec2 relativePixelPos = getRelativeCoordinate(gl_FragCoord.xy);
+\tvec2 relativeMousePos = getRelativeCoordinate(mousePosition.xy);
+
 \t// in GLSL, the bottom left is (0, 0) and top right is (1, 1)
-\t// so 0.05 as a distance represents 1/20th of the screen size
-\t// notice, using screen size makes an ellipse
+\t// so 0.05 as a distance represents a radius of 1/20th of the screen size
 \tif (dist(relativeMousePos, relativePixelPos) < 0.05) {
 \t\tgl_FragColor = vec4(0);
 \t}
@@ -122,8 +129,6 @@ vec2 newtonsMethod(vec2 x0, vec2 iterationOffset) {
 \treturn xn;
 }
 void choose_color(vec2 iterated_location) {
-\tvec2 uv = gl_FragCoord.xy / screenSize.xy;
-\t
 \tfloat dist1 = squared_distance(iterated_location, vec2(-0.5, 0.866));
 \tfloat dist2 = squared_distance(iterated_location, vec2(-0.5, -0.866));
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
@@ -143,7 +148,8 @@ void choose_color(vec2 iterated_location) {
 }
 
 void main() {
-\tvec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
+\tvec2 relCoordinate = gl_FragCoord.xy / screenSize.xy - vec2(.5, .5);
+\trelCoordinate.x *= screenSize.x / screenSize.y;
 \tfloat scalar = 3.0;
 \tvec2 locationInput = vec2(0.0, 0.0);
 \tvec2 iterated_location = newtonsMethod(relCoordinate * scalar, locationInput);
@@ -193,8 +199,6 @@ vec2 newtonsMethod(vec2 x0, vec2 iterationOffset) {
 \treturn xn;
 }
 void choose_color(vec2 iterated_location) {
-\tvec2 uv = gl_FragCoord.xy / screenSize.xy;
-\t
 \tfloat dist1 = squared_distance(iterated_location, vec2(-0.5, 0.866));
 \tfloat dist2 = squared_distance(iterated_location, vec2(-0.5, -0.866));
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
@@ -214,7 +218,8 @@ void choose_color(vec2 iterated_location) {
 }
 
 void main() {
-\tvec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
+\tvec2 relCoordinate = gl_FragCoord.xy / screenSize.xy - vec2(.5, .5);
+\trelCoordinate.x *= screenSize.x / screenSize.y;
 \tfloat radiusScalar = 0.35;
 \tfloat timeScalar = 0.6;
 \tfloat time = totalTime * timeScalar;
@@ -268,8 +273,6 @@ vec2 newtonsMethod(vec2 x0, vec2 iterationOffset) {
 \treturn xn;
 }
 void choose_color(vec2 iterated_location) {
-\tvec2 uv = gl_FragCoord.xy / screenSize.xy;
-\t
 \tfloat dist1 = squared_distance(iterated_location, vec2(-0.5, 0.866));
 \tfloat dist2 = squared_distance(iterated_location, vec2(-0.5, -0.866));
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
@@ -288,15 +291,23 @@ void choose_color(vec2 iterated_location) {
 \t}
 }
 
+vec2 getRelativeCoordinate(vec2 x) {
+\tvec2 r = x.xy / screenSize.xy;
+\tr.x *= screenSize.x / screenSize.y;
+\treturn r;
+}
+
 void main() {
-\tvec2 relCoordinate = (gl_FragCoord.xy - (screenSize.xy / 2.0)) / (screenSize.x);
+\t// get relative coords with the origin moved to the center of the screen
+\tvec2 relativePixelPos = getRelativeCoordinate(gl_FragCoord.xy - screenSize.xy / 2.);
+\tvec2 relativeMousePos = getRelativeCoordinate(mousePosition.xy - screenSize.xy / 2.);
 \t
 \tfloat coordinateScalar = 2.0;
 \t
 \t// get origin-adjusted, screen-relative mouse pos for location input
-\tvec2 locationInput = (mousePosition.xy - (screenSize.xy / 2.0)) / screenSize.xy;
+\tvec2 locationInput = relativeMousePos;
 \t// get iterated location
-\tvec2 iterated_location = newtonsMethod(relCoordinate * coordinateScalar, locationInput);
+\tvec2 iterated_location = newtonsMethod(relativePixelPos * coordinateScalar, locationInput);
 \t// color by distance to nearest sector
 \tchoose_color(iterated_location);
 }`,
@@ -306,8 +317,8 @@ export const MANDELBROT_SET_SHADER: ShaderProgramData = {
   url: 'mandelbrot_zoom',
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
-const int NUM_ITERATIONS = 500;
-const int maxIterationDelta = 10;
+const int MAX_ITERATIONS = 500;
+const int iterationCountDelta = 10;
 const float o = .000000000001;
 
 // input = float [0, 1]
@@ -324,14 +335,14 @@ vec3 colorWheel(float c) {
   * Z[n+1] = Z[n]^2 + c
   * where Z[0] = 0 + 0i
 */
-vec4 mandelbrotColorizor(vec2 c, int maxIterations) {
+vec4 mandelbrotColorizor(vec2 c, int allottedIterations) {
 \t// initial Z = 0 + 0i 
 \tvec2 z = vec2(0, 0);
 \t// iterate mandelbrot
-\tfor(int i = 1; i < NUM_ITERATIONS; i++){
+\tfor(int i = 0; i < MAX_ITERATIONS; i++){
 \t\t// allow iterations to increase over time
-\t\t// (yes it has to be written this way, GLSL is picky)
-\t\tif (i > maxIterations) {
+\t\t// (glsl does not let you write for loops with non constant iteration counts)
+\t\tif (i > allottedIterations) {
 \t\t\tbreak;
 \t\t}
 \t\t// mandelbrot:
@@ -359,16 +370,24 @@ void main() {
 \t// calculate this pixel's input location for mandelbrot
 \tvec2 locationInput = origin + cuv * zoomScalar;
 \t// increase the amount of iterations as time increases, so we can see it
-\tint maxIterations = int(float(maxIterationDelta) * totalTime);
+\tint allottedIterations = int(float(iterationCountDelta) * totalTime);
 
 \t// get color for this coord
-\tgl_FragColor = mandelbrotColorizor(locationInput, maxIterations);
+\tgl_FragColor = mandelbrotColorizor(locationInput, allottedIterations);
 \t// crude antialiasing ahead, if this runs slow for you then delete these next four lines:
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), maxIterations);
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(0., o), maxIterations);
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, o), maxIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), allottedIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(0., o), allottedIterations);
+\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, o), allottedIterations);
 \tgl_FragColor /= 4.;
-}`,
+}
+
+// Assuming you have now read the shader code, if you are still having trouble
+// understanding what you're looking at here, I can say explicitly:
+// The colored bands represent a graph of how many iterations it takes to remove
+// a given coordinate from the mandelbrot set.
+// In other words, it shows a glimpse of how the mandelbrot set is carved out
+// from the infinite set of all numbers.
+`,
 };
 
 export const DEFAULT_SHADER_PROGRAMS: ShaderProgramData[] = [
