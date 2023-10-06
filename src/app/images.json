@@ -1,12 +1,7 @@
 {
   "img_path": "../assets/img/",
   "placeholder_path": "../assets/placeholder/",
-  "directories": [
-    "astrophotography",
-    "birds",
-    "dogs",
-    "maine_2022"
-  ],
+  "directories": ["astrophotography", "birds", "dogs", "maine_2022"],
   "img": {
     "astrophotography": [
       {

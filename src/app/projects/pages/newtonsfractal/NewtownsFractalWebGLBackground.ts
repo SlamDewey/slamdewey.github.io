@@ -1,19 +1,18 @@
-import { WebGLBackdrop } from "src/app/shared/backdrop/backdrop";
+import { WebGLBackdrop } from 'src/app/shared/backdrop/backdrop';
 
 export enum ZoomChoice {
   STATIC_ZOOM,
   ANIMATED_ZOOM_TO_ORIGIN,
-  ANIMATED_ZOOM_CUSTOM
+  ANIMATED_ZOOM_CUSTOM,
 }
 
 export enum PositionalChoice {
   STATIC_POSITION,
   X_AXIS_MOTION,
-  CIRCULAR_MOTION
+  CIRCULAR_MOTION,
 }
 
 export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
-
   public zoomChoice: ZoomChoice = ZoomChoice.STATIC_ZOOM;
   public positionalChoice: PositionalChoice = PositionalChoice.STATIC_POSITION;
   public positionalScalar: number = 0.4;
@@ -141,27 +140,65 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
     return this.FragmentShader;
   }
 
-  protected initializeDrawVariables(gl: WebGLRenderingContext, shaderProgram: WebGLProgram) {
-    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
-    gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
+  protected initializeDrawVariables(
+    gl: WebGLRenderingContext,
+    shaderProgram: WebGLProgram,
+  ) {
+    var coord = gl.getAttribLocation(shaderProgram, 'coordinates');
+    gl.vertexAttribPointer(
+      coord,
+      2,
+      gl.FLOAT,
+      false,
+      2 * Float32Array.BYTES_PER_ELEMENT,
+      0,
+    );
     gl.enableVertexAttribArray(coord);
 
-    gl.uniform2f(gl.getUniformLocation(shaderProgram, "screenSize"), this.width, this.height);
-    gl.uniform1f(gl.getUniformLocation(shaderProgram, "time"), this.time);
-    gl.uniform1i(gl.getUniformLocation(shaderProgram, "zoomChoice"), this.zoomChoice);
-    gl.uniform1i(gl.getUniformLocation(shaderProgram, "positionalChoice"), this.positionalChoice);
-    gl.uniform1f(gl.getUniformLocation(shaderProgram, "positionalScalar"), this.positionalScalar);
-    gl.uniform1i(gl.getUniformLocation(shaderProgram, "iter"), this.iterations);
+    gl.uniform2f(
+      gl.getUniformLocation(shaderProgram, 'screenSize'),
+      this.width,
+      this.height,
+    );
+    gl.uniform1f(gl.getUniformLocation(shaderProgram, 'time'), this.time);
+    gl.uniform1i(
+      gl.getUniformLocation(shaderProgram, 'zoomChoice'),
+      this.zoomChoice,
+    );
+    gl.uniform1i(
+      gl.getUniformLocation(shaderProgram, 'positionalChoice'),
+      this.positionalChoice,
+    );
+    gl.uniform1f(
+      gl.getUniformLocation(shaderProgram, 'positionalScalar'),
+      this.positionalScalar,
+    );
+    gl.uniform1i(gl.getUniformLocation(shaderProgram, 'iter'), this.iterations);
   }
 
-  protected update(deltaTime: number): void { }
+  protected update(deltaTime: number): void {}
 
-  protected override prepareDrawVariables(gl: WebGLRenderingContext, deltaTime: number): void {
+  protected override prepareDrawVariables(
+    gl: WebGLRenderingContext,
+    deltaTime: number,
+  ): void {
     this.time += deltaTime;
-    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "time"), this.time);
-    gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "iter"), this.iterations);
-    gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "zoomChoice"), this.zoomChoice);
-    gl.uniform1i(gl.getUniformLocation(this.shaderProgram, "positionalChoice"), this.positionalChoice);
-    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, "positionalScalar"), this.positionalScalar);
+    gl.uniform1f(gl.getUniformLocation(this.shaderProgram, 'time'), this.time);
+    gl.uniform1i(
+      gl.getUniformLocation(this.shaderProgram, 'iter'),
+      this.iterations,
+    );
+    gl.uniform1i(
+      gl.getUniformLocation(this.shaderProgram, 'zoomChoice'),
+      this.zoomChoice,
+    );
+    gl.uniform1i(
+      gl.getUniformLocation(this.shaderProgram, 'positionalChoice'),
+      this.positionalChoice,
+    );
+    gl.uniform1f(
+      gl.getUniformLocation(this.shaderProgram, 'positionalScalar'),
+      this.positionalScalar,
+    );
   }
 }
