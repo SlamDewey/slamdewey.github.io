@@ -9,17 +9,23 @@
         </div>
         <div class="control"></div>
         <div class="control">
-          <x-dropdown-link-selector [dropdownText]="'Load Example Shader'"
-            [items]="defaultShaderLinks"></x-dropdown-link-selector>
+          <x-dropdown-link-selector
+            [dropdownText]="'Load Example Shader'"
+            [items]="defaultShaderLinks"
+          ></x-dropdown-link-selector>
         </div>
       </div>
     </div>
     <div class="canvas-container">
-      <backdrop class="canvas" [backdrop]="bgAnimation" [isServingAsBackdrop]="false"></backdrop>
+      <backdrop
+        class="canvas"
+        [backdrop]="bgAnimation"
+        [isServingAsBackdrop]="false"
+      ></backdrop>
       <div *ngIf="compilationErrors" class="compilation-errors">
         <h3>A compilation error has occurred!</h3>
         <br />
-        <h3>{{compilationErrors}}</h3>
+        <h3>{{ compilationErrors }}</h3>
       </div>
     </div>
   </div>
