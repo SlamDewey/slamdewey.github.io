@@ -5,12 +5,12 @@ export class ShaderProgramData {
   public fragmentShader: string;
 }
 
-export const SHADER_HEADER: string = `precision highp float;\n`;
+export const SHADER_HEADER: string = `#version 300 es // set GLSL version\nprecision highp float;\n`;
 
 export const DEFAULT_VERTEX_SHADER: string =
   SHADER_HEADER +
   `
-attribute vec2 coordinates;
+in vec2 coordinates;
 
 void main() {
   gl_Position = vec4(coordinates.xy, 0.0, 1.0);
@@ -23,19 +23,21 @@ uniform vec2 screenSize;    // screen size in pixels
 uniform vec2 mousePosition; // cursor position in pixels
 uniform float totalTime;    // time since start
 uniform float deltaTime;    // time since last frame
+// this is our shader's output (pixel color):
+out vec4 fragColor;
 // editing code above this line could result in errors
 `;
 // used for context highlighting inside monaco editor
 export const UNIFORM_NAMES: string[] = [
-  'screenSize',
-  'mousePosition',
-  'totalTime',
-  'deltaTime',
+  "screenSize",
+  "mousePosition",
+  "totalTime",
+  "deltaTime",
 ];
 
 export const UV_SHADER: ShaderProgramData = {
-  name: 'UV Coordinates',
-  url: 'uv',
+  name: "UV Coordinates",
+  url: "uv",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 void main() {
@@ -43,24 +45,25 @@ void main() {
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
 \tuv.x *= screenSize.x / screenSize.y;
 \t// set output color
-\tgl_FragColor = vec4(uv.xy, 0.0, 1.0);
+\tfragColor = vec4(uv.xy, 0.0, 1.0);
 }`,
 };
 export const SHADER_TOY_UV: ShaderProgramData = {
-  name: 'Shadertoy UV',
-  url: 'suv',
+  name: "Shadertoy UV",
+  url: "suv",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 void main() {
 \tvec2 uv = gl_FragCoord.xy / screenSize.xy;
 \tuv.x *= screenSize.x / screenSize.y;
-\tvec3 color = 0.5 + 0.5 * cos(totalTime + uv.xyy + vec3(0, 2, 4));
-\tgl_FragColor = vec4(color.xyz, 1.0);
+\t// try tan() on this next line instead!
+\tvec3 color = 0.5 + 0.5 * cos(totalTime + uv.xxy + vec3(0, 2, 4));
+\tfragColor = vec4(color.xyz, 1.0);
 }`,
 };
 export const MOUSE_POSITION_EXAMPLE: ShaderProgramData = {
-  name: 'MousePosition Example',
-  url: 'mouse_example',
+  name: "MousePosition Example",
+  url: "mouse_example",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 vec2 getRelativeCoordinate(vec2 x) {
@@ -80,16 +83,16 @@ void main() {
 \t// in GLSL, the bottom left is (0, 0) and top right is (1, 1)
 \t// so 0.05 as a distance represents a radius of 1/20th of the screen size
 \tif (dist(relativeMousePos, relativePixelPos) < 0.05) {
-\t\tgl_FragColor = vec4(0);
+\t\tfragColor = vec4(0);
 \t}
 \telse {
-\t\tgl_FragColor = vec4(relativePixelPos.xy, 0.0, 1.0);
+\t\tfragColor = vec4(relativePixelPos.xy, 0.0, 1.0);
 \t}
 }`,
 };
 export const BASIC_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
   name: "Newton's Fractal",
-  url: 'newtons_fractal_basic',
+  url: "newtons_fractal_basic",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 const int NUM_ITERATIONS = 20;
@@ -134,16 +137,16 @@ void choose_color(vec2 iterated_location) {
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
 \t
 \tif (dist1 < dist2 && dist1 < dist3) {
-\t\tgl_FragColor = RED;
+\t\tfragColor = RED;
 \t}
 \telse if (dist2 < dist1 && dist2 < dist3) {
-\t\tgl_FragColor = GREEN;
+\t\tfragColor = GREEN;
 \t}
 \telse if (dist3 < dist1 && dist3 < dist2) {
-\t\tgl_FragColor = BLUE;
+\t\tfragColor = BLUE;
 \t}
 \telse {
-\t\tgl_FragColor = BLACK;
+\t\tfragColor = BLACK;
 \t}
 }
 
@@ -159,7 +162,7 @@ void main() {
 };
 export const ANIMATED_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
   name: "Animated Newton's Fractal Example",
-  url: 'newtons_fractal_animated',
+  url: "newtons_fractal_animated",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 const int NUM_ITERATIONS = 20;
@@ -204,16 +207,16 @@ void choose_color(vec2 iterated_location) {
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
 \t
 \tif (dist1 < dist2 && dist1 < dist3) {
-\t\tgl_FragColor = RED;
+\t\tfragColor = RED;
 \t}
 \telse if (dist2 < dist1 && dist2 < dist3) {
-\t\tgl_FragColor = GREEN;
+\t\tfragColor = GREEN;
 \t}
 \telse if (dist3 < dist1 && dist3 < dist2) {
-\t\tgl_FragColor = BLUE;
+\t\tfragColor = BLUE;
 \t}
 \telse {
-\t\tgl_FragColor = BLACK;
+\t\tfragColor = BLACK;
 \t}
 }
 
@@ -233,7 +236,7 @@ void main() {
 };
 export const MOUSE_POSITION_NEWTONS_FRACTAL_SHADER: ShaderProgramData = {
   name: "MousePosition Example With Newton's Fractal",
-  url: 'newtons_fractal_mouse',
+  url: "newtons_fractal_mouse",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 const int NUM_ITERATIONS = 10;
@@ -278,16 +281,16 @@ void choose_color(vec2 iterated_location) {
 \tfloat dist3 = squared_distance(iterated_location, vec2(1.0, 0.0));
 \t
 \tif (dist1 < dist2 && dist1 < dist3) {
-\t\tgl_FragColor = RED;
+\t\tfragColor = RED;
 \t}
 \telse if (dist2 < dist1 && dist2 < dist3) {
-\t\tgl_FragColor = GREEN;
+\t\tfragColor = GREEN;
 \t}
 \telse if (dist3 < dist1 && dist3 < dist2) {
-\t\tgl_FragColor = BLUE;
+\t\tfragColor = BLUE;
 \t}
 \telse {
-\t\tgl_FragColor = BLACK;
+\t\tfragColor = BLACK;
 \t}
 }
 
@@ -313,8 +316,8 @@ void main() {
 }`,
 };
 export const MANDELBROT_SET_SHADER: ShaderProgramData = {
-  name: 'Mandelbrot Set Shader',
-  url: 'mandelbrot_zoom',
+  name: "Mandelbrot Set Shader",
+  url: "mandelbrot_zoom",
   vertexShader: DEFAULT_VERTEX_SHADER,
   fragmentShader: `
 const int MAX_ITERATIONS = 500;
@@ -373,12 +376,12 @@ void main() {
 \tint allottedIterations = int(float(iterationCountDelta) * totalTime);
 
 \t// get color for this coord
-\tgl_FragColor = mandelbrotColorizor(locationInput, allottedIterations);
+\tfragColor = mandelbrotColorizor(locationInput, allottedIterations);
 \t// crude antialiasing ahead, if this runs slow for you then delete these next four lines:
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), allottedIterations);
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(0., o), allottedIterations);
-\tgl_FragColor += mandelbrotColorizor(locationInput + vec2(o, o), allottedIterations);
-\tgl_FragColor /= 4.;
+\tfragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), allottedIterations);
+\tfragColor += mandelbrotColorizor(locationInput + vec2(0., o), allottedIterations);
+\tfragColor += mandelbrotColorizor(locationInput + vec2(o, o), allottedIterations);
+\tfragColor /= 4.;
 }
 
 // Assuming you have now read the shader code, if you are still having trouble
