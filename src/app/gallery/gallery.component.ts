@@ -1,22 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import * as imageDataJSONraw from '../images.json';
-import { Backdrop } from '../shared/backdrop/backdrop';
-import { BallPitAnimatedBackground } from '../shared/backdrop/BallPitAnimatedBackground';
-import { ImageTileData } from '../shared/image-tile/image-tile.component';
-import { ImageViewerModalComponent } from '../shared/image-viewer-modal/image-viewer-modal.component';
-import { DropdownLinkData } from '../shared/dropdown-link-selector/dropdown-link-selector.component';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Title } from "@angular/platform-browser";
+import { ActivatedRoute } from "@angular/router";
+import * as imageDataJSONraw from "../images.json";
+import { Backdrop } from "../shared/backdrop/backdrop";
+import { ImageTileData } from "../shared/image-tile/image-tile.component";
+import { ImageViewerModalComponent } from "../shared/image-viewer-modal/image-viewer-modal.component";
+import { DropdownLinkData } from "../shared/dropdown-link-selector/dropdown-link-selector.component";
+import { PerlinNoiseBackdrop } from "../shared/backdrop/PerlinNoiseBackdrop";
 
 @Component({
-  selector: 'x-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss'],
+  selector: "x-gallery",
+  templateUrl: "./gallery.component.html",
+  styleUrls: ["./gallery.component.scss"],
 })
 export class GalleryComponent implements OnInit {
-  @ViewChild('imageViewerModal') imageViewerModal: ImageViewerModalComponent;
+  @ViewChild("imageViewerModal") imageViewerModal: ImageViewerModalComponent;
 
-  public bgAnimation: Backdrop = new BallPitAnimatedBackground();
+  public bgAnimation: Backdrop = new PerlinNoiseBackdrop();
 
   public imageDataJSON = (imageDataJSONraw as any).default;
 
@@ -41,10 +41,10 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.currentImageFolder = params['folder'];
+      this.currentImageFolder = params["folder"];
       if (this.currentImageFolder)
         this.titleService.setTitle(
-          this.formatFolderName(this.currentImageFolder) + ' | Gallery',
+          this.formatFolderName(this.currentImageFolder) + " | Gallery",
         );
     });
 
@@ -67,12 +67,12 @@ export class GalleryComponent implements OnInit {
   }
 
   private onImageTileClick(fullResolutionImageSource: string): void {
-    this.currentImage = '../' + fullResolutionImageSource;
+    this.currentImage = "../" + fullResolutionImageSource;
     this.imageViewerModal.openModal();
   }
 
   public formatFolderName(folderName: string): string {
-    const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
+    const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, " ");
     if (noSpecialChar.length < 1) return noSpecialChar.charAt(0).toUpperCase();
     return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }

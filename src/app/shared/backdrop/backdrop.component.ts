@@ -5,17 +5,18 @@ import {
   ViewChild,
   Input,
   HostListener,
-} from '@angular/core';
-import { Backdrop } from './backdrop';
+  OnDestroy,
+} from "@angular/core";
+import { Backdrop } from "./backdrop";
 
 @Component({
-  selector: 'backdrop',
-  templateUrl: './backdrop.component.html',
-  styleUrls: ['./backdrop.component.scss'],
+  selector: "backdrop",
+  templateUrl: "./backdrop.component.html",
+  styleUrls: ["./backdrop.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class BackdropComponent {
-  @ViewChild('bgCanvas') bgCanvas: ElementRef;
+export class BackdropComponent implements OnDestroy {
+  @ViewChild("bgCanvas") bgCanvas: ElementRef;
 
   @Input() backdrop: Backdrop;
   @Input() shouldPauseAnimation: boolean;
@@ -32,15 +33,16 @@ export class BackdropComponent {
   private resizeObserver: ResizeObserver;
 
   constructor() {
-    const e = document.createElement('canvas');
+    const e = document.createElement("canvas");
     BackdropComponent.isWebGlEnabled =
       !!window.WebGLRenderingContext ||
-      !!e.getContext('webgl') ||
-      !!e.getContext('experimental-webgl');
+      !!e.getContext("webgl") ||
+      !!e.getContext("experimental-webgl");
   }
 
   ngOnDestroy() {
     window.cancelAnimationFrame(this.renderInterval);
+    this.backdrop.onDestroy();
     this.resizeObserver?.disconnect();
   }
 
@@ -66,7 +68,7 @@ export class BackdropComponent {
     );
   }
 
-  @HostListener('document:mousemove', ['$event'])
+  @HostListener("document:mousemove", ["$event"])
   onMouseMove(e: MouseEvent) {
     var rect = this.canvasElement.getBoundingClientRect();
     this.backdrop.mousePosition.x = e.clientX - rect.left;
