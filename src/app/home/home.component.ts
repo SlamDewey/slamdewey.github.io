@@ -9,7 +9,7 @@ const GREETING_MESSAGES: string[] = [
   "enjoy your stay",
   "how'd you end up here?",
   "welcome to my site",
-  "take off the coat and stay a while",
+  "take off your coat and stay a while",
   "thanks for checking in",
   "congratulations, you've made it",
   "welcome to the other side",

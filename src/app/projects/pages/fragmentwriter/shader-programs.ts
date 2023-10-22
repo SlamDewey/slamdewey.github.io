@@ -68,7 +68,12 @@ export const MOUSE_POSITION_EXAMPLE: ShaderProgramData = {
   fragmentShader: `
 vec2 getRelativeCoordinate(vec2 x) {
 \tvec2 r = x.xy / screenSize.xy;
-\tr.x *= screenSize.x / screenSize.y;
+\tif (screenSize.x < screenSize.y) {
+\t\tr.y *= screenSize.y / screenSize.x;
+\t}
+\telse {
+\t\tr.x *= screenSize.x / screenSize.y;
+\t}
 \treturn r;
 }
 
@@ -296,7 +301,12 @@ void choose_color(vec2 iterated_location) {
 
 vec2 getRelativeCoordinate(vec2 x) {
 \tvec2 r = x.xy / screenSize.xy;
-\tr.x *= screenSize.x / screenSize.y;
+\tif (screenSize.x < screenSize.y) {
+\t\tr.y *= screenSize.y / screenSize.x;
+\t}
+\telse {
+\t\tr.x *= screenSize.x / screenSize.y;
+\t}
 \treturn r;
 }
 
