@@ -1,7 +1,12 @@
 {
   "img_path": "../assets/img/",
   "placeholder_path": "../assets/placeholder/",
-  "directories": ["astrophotography", "birds", "dogs", "maine_2022"],
+  "directories": [
+    "astrophotography",
+    "birds",
+    "dogs",
+    "maine_2022"
+  ],
   "img": {
     "astrophotography": [
       {
@@ -89,11 +94,11 @@
         "caption": "Unedited image of a stretch of the Milky Way galaxy"
       },
       {
-        "filename": "orion_neb_v2_proc.JPG",
-        "img_src": "../assets/img/astrophotography/orion_neb_v2_proc.JPG",
-        "placeholder_src": "../assets/placeholder/astrophotography/orion_neb_v2_proc.JPG",
-        "title": "Orion Nebula",
-        "caption": "1.5 hours of staring at the bright Philadelphia night sky"
+        "filename": "orion_2nd_v2_pc4.JPG",
+        "img_src": "../assets/img/astrophotography/orion_2nd_v2_pc4.JPG",
+        "placeholder_src": "../assets/placeholder/astrophotography/orion_2nd_v2_pc4.JPG",
+        "title": "Orion Nebula and Friends",
+        "caption": "This one is 1 hour shot featuring the Horsehead and Flame nebulae on the left, and the Orion nebula on the right"
       },
       {
         "filename": "processed_and_cropped.jpg",

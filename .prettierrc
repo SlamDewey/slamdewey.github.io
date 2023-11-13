@@ -8,7 +8,7 @@
       "files": ["*.json", "*.rc"],
       "options": {
         "parser": "json",
-        "printWidth": 240
+        "printWidth": 1
       }
     }
   ]

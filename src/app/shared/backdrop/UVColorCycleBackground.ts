@@ -3,6 +3,7 @@ import { WebGLBackdrop } from "./backdrop";
 export class UVColorCycleBackground extends WebGLBackdrop {
   protected override init(): void {}
 
+  private totalTimeLocation: WebGLUniformLocation;
   private totalTime: number = 0;
 
   readonly VertexShader: string = `\
@@ -67,6 +68,10 @@ void main() {
       gl.getUniformLocation(shaderProgram, "totalTime"),
       this.totalTime,
     );
+    this.totalTimeLocation = gl.getUniformLocation(
+      this.shaderProgram,
+      "totalTime",
+    )!;
   }
 
   protected update(deltaTime: number): void {}
@@ -76,9 +81,6 @@ void main() {
     deltaTime: number,
   ): void {
     this.totalTime += deltaTime;
-    gl.uniform1f(
-      gl.getUniformLocation(this.shaderProgram, "totalTime"),
-      this.totalTime,
-    );
+    gl.uniform1f(this.totalTimeLocation, this.totalTime);
   }
 }

@@ -24,7 +24,6 @@ export class BackdropComponent implements OnDestroy {
 
   public static isWebGlEnabled: boolean;
 
-  public RefreshRateMS = 1000 / 60;
   public InternalCanvasRenderSize: { X: number; Y: number };
 
   private canvasElement: HTMLCanvasElement;
