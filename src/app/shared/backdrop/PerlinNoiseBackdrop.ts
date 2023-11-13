@@ -7,6 +7,7 @@ const noise = createNoise3D(alea("seed"));
 export class PerlinNoiseBackdrop extends WebGLBackdrop {
   protected override init(): void {}
 
+  private totalTimeLocation: WebGLUniformLocation;
   private totalTime = 0;
 
   readonly VertexShader = `\
@@ -253,6 +254,10 @@ void main() {
       gl.getUniformLocation(shaderProgram, "totalTime"),
       this.totalTime,
     );
+    this.totalTimeLocation = gl.getUniformLocation(
+      this.shaderProgram,
+      "totalTime",
+    )!;
   }
 
   protected update(deltaTime: number): void {
@@ -263,9 +268,6 @@ void main() {
     gl: WebGLRenderingContext,
     _deltaTime: number,
   ): void {
-    gl.uniform1f(
-      gl.getUniformLocation(this.shaderProgram, "totalTime"),
-      this.totalTime,
-    );
+    gl.uniform1f(this.totalTimeLocation, this.totalTime);
   }
 }
