@@ -13,15 +13,15 @@
         "filename": "andromeda_rising.JPG",
         "img_src": "../assets/img/astrophotography/andromeda_rising.JPG",
         "placeholder_src": "../assets/placeholder/astrophotography/andromeda_rising.JPG",
-        "title": "Andromeda Rising",
-        "caption": "An image of the andromeda galaxy rising with the night sky over some powerlines"
+        "title": "",
+        "caption": "Just a shot of the andromeda galaxy rising over some powerlines"
       },
       {
         "filename": "enhanced_nebula.jpg",
         "img_src": "../assets/img/astrophotography/enhanced_nebula.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/enhanced_nebula.JPG",
         "title": "N. A. Nebula",
-        "caption": "The North America Nebula with permeating starlight dimmed and enhanced contrast in the nebulosity"
+        "caption": "The North America Nebula with permeating starlight dimmed and enhanced contrast"
       },
       {
         "filename": "enhanced_stars.jpg",
@@ -29,6 +29,13 @@
         "placeholder_src": "../assets/placeholder/astrophotography/enhanced_stars.JPG",
         "title": "N. A. Nebula",
         "caption": "A natural starlight image of the North America Nebula; little enhancement done after image stacking."
+      },
+      {
+        "filename": "heart_and_soul_v2_PC.jpg",
+        "img_src": "../assets/img/astrophotography/heart_and_soul_v2_PC.jpg",
+        "placeholder_src": "../assets/placeholder/astrophotography/heart_and_soul_v2_PC.JPG",
+        "title": "Heart and Soul Nebulae",
+        "caption": "About 1.5 hours integration, but still was quite a dim image"
       },
       {
         "filename": "IMG_4948e2.jpg",
@@ -63,14 +70,14 @@
         "img_src": "../assets/img/astrophotography/IMG_4966e.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4966e.JPG",
         "title": "Nebulae & Sagittarius",
-        "caption": "A beautiful post-processed Milky Way core shot with focus on major star clouds and nebulae"
+        "caption": "Milky Way core shot with focus on major star clouds and nebulae"
       },
       {
         "filename": "IMG_4967.jpg",
         "img_src": "../assets/img/astrophotography/IMG_4967.jpg",
         "placeholder_src": "../assets/placeholder/astrophotography/IMG_4967.JPG",
         "title": "",
-        "caption": "A unedited long exposure shot of the Cygnus region of the Milky Way"
+        "caption": "A unedited long exposure shot of the Cygnus region"
       },
       {
         "filename": "IMG_5038e.jpg",
