@@ -3,7 +3,6 @@
   "placeholder_path": "../assets/placeholder/",
   "directories": [
     "astrophotography",
-    "birds",
     "dogs",
     "maine_2022"
   ],
@@ -113,85 +112,6 @@
         "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
         "title": "Andromeda Galaxy",
         "caption": "A 1.5 hour long integration time exposure of the Andromeda Galaxy"
-      }
-    ],
-    "birds": [
-      {
-        "filename": "IMG_2035-1.jpg",
-        "img_src": "../assets/img/birds/IMG_2035-1.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2035-1.JPG",
-        "title": "",
-        "caption": ""
-      },
-      {
-        "filename": "IMG_2111.jpg",
-        "img_src": "../assets/img/birds/IMG_2111.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2111.JPG",
-        "title": "",
-        "caption": "Blue Jay"
-      },
-      {
-        "filename": "IMG_2127.jpg",
-        "img_src": "../assets/img/birds/IMG_2127.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2127.JPG",
-        "title": "",
-        "caption": "Robin perched in pine tree"
-      },
-      {
-        "filename": "IMG_2131.jpg",
-        "img_src": "../assets/img/birds/IMG_2131.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2131.JPG",
-        "title": "",
-        "caption": "mid squawk"
-      },
-      {
-        "filename": "IMG_2136.jpg",
-        "img_src": "../assets/img/birds/IMG_2136.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2136.JPG",
-        "title": "",
-        "caption": ""
-      },
-      {
-        "filename": "IMG_2148.jpg",
-        "img_src": "../assets/img/birds/IMG_2148.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2148.JPG",
-        "title": "",
-        "caption": "An invasive bird species"
-      },
-      {
-        "filename": "IMG_2158.jpg",
-        "img_src": "../assets/img/birds/IMG_2158.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2158.JPG",
-        "title": "",
-        "caption": "The invader posing proudly"
-      },
-      {
-        "filename": "IMG_2163.jpg",
-        "img_src": "../assets/img/birds/IMG_2163.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2163.JPG",
-        "title": "",
-        "caption": "An old robin"
-      },
-      {
-        "filename": "IMG_2164.jpg",
-        "img_src": "../assets/img/birds/IMG_2164.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2164.JPG",
-        "title": "",
-        "caption": ""
-      },
-      {
-        "filename": "IMG_2172c.jpg",
-        "img_src": "../assets/img/birds/IMG_2172c.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2172c.JPG",
-        "title": "",
-        "caption": "A local hawk"
-      },
-      {
-        "filename": "IMG_2316.jpg",
-        "img_src": "../assets/img/birds/IMG_2316.jpg",
-        "placeholder_src": "../assets/placeholder/birds/IMG_2316.JPG",
-        "title": "",
-        "caption": "Red Feathered Finch"
       }
     ],
     "dogs": [
