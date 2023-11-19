@@ -37,6 +37,7 @@ const int OCTAVES = 3;
 const float PERSISTANCE = 0.15;
 const float FREQUENCY = .75;
 const float LACUNARITY = 2.5;
+const float OFFSET_SCALAR = 20.;
 
 //	Classic Perlin 3D Noise
 //	by Stefan Gustavson
@@ -136,7 +137,10 @@ void main() {
   else {
     uv.y *= screenSize.y / screenSize.x;
   }
-  // you'd never notice if it repeated anyway, right?
+  
+  uv += vec2(${Math.random()} * OFFSET_SCALAR, ${Math.random()} * OFFSET_SCALAR);
+  
+  // you'd never notice if it repeated anyway, right?noice
   vec3 q3 = vec3(
     uv.xy * ZOOM,
     totalTime * TIME_SCALAR
