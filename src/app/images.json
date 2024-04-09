@@ -3,8 +3,9 @@
   "placeholder_path": "../assets/placeholder/",
   "directories": [
     "astrophotography",
-    "dogs",
-    "maine_2022"
+    "maine_2022",
+    "eclipse_2024",
+    "dogs"
   ],
   "img": {
     "astrophotography": [
@@ -112,92 +113,6 @@
         "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
         "title": "Andromeda Galaxy",
         "caption": "A 1.5 hour long integration time exposure of the Andromeda Galaxy"
-      }
-    ],
-    "dogs": [
-      {
-        "filename": "IMG_0729.jpg",
-        "img_src": "../assets/img/dogs/IMG_0729.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0729.JPG",
-        "title": "",
-        "caption": "Mollie"
-      },
-      {
-        "filename": "IMG_0730.jpg",
-        "img_src": "../assets/img/dogs/IMG_0730.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0730.JPG",
-        "title": "",
-        "caption": "Mollie"
-      },
-      {
-        "filename": "IMG_0743.jpg",
-        "img_src": "../assets/img/dogs/IMG_0743.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0743.JPG",
-        "title": "",
-        "caption": "Ginger"
-      },
-      {
-        "filename": "IMG_0747.jpg",
-        "img_src": "../assets/img/dogs/IMG_0747.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0747.JPG",
-        "title": "",
-        "caption": "Ginger"
-      },
-      {
-        "filename": "IMG_0753.jpg",
-        "img_src": "../assets/img/dogs/IMG_0753.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0753.JPG",
-        "title": "",
-        "caption": "Mollie & Ginger"
-      },
-      {
-        "filename": "IMG_0771.jpg",
-        "img_src": "../assets/img/dogs/IMG_0771.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0771.JPG",
-        "title": "",
-        "caption": "Mollie on alert"
-      },
-      {
-        "filename": "IMG_0776.jpg",
-        "img_src": "../assets/img/dogs/IMG_0776.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0776.JPG",
-        "title": "",
-        "caption": "Mollie"
-      },
-      {
-        "filename": "IMG_0778.jpg",
-        "img_src": "../assets/img/dogs/IMG_0778.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0778.JPG",
-        "title": "",
-        "caption": "Ginger rotating"
-      },
-      {
-        "filename": "IMG_0779.jpg",
-        "img_src": "../assets/img/dogs/IMG_0779.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0779.JPG",
-        "title": "",
-        "caption": "Mid roll"
-      },
-      {
-        "filename": "IMG_0786.jpg",
-        "img_src": "../assets/img/dogs/IMG_0786.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0786.JPG",
-        "title": "",
-        "caption": "Mollie relaxing"
-      },
-      {
-        "filename": "IMG_0798.jpg",
-        "img_src": "../assets/img/dogs/IMG_0798.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0798.JPG",
-        "title": "",
-        "caption": "Mollie skulking"
-      },
-      {
-        "filename": "IMG_0804.jpg",
-        "img_src": "../assets/img/dogs/IMG_0804.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0804.JPG",
-        "title": "",
-        "caption": "Ginger being paranoid"
       }
     ],
     "maine_2022": [
@@ -382,6 +297,143 @@
         "placeholder_src": "../assets/placeholder/maine_2022/IMG_5392.JPG",
         "title": "",
         "caption": ""
+      }
+    ],
+    "eclipse_2024": [
+      {
+        "filename": "eclipse_long.jpg",
+        "img_src": "../assets/img/eclipse_2024/eclipse_long.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/eclipse_long.JPG",
+        "title": "Totality",
+        "caption": "Shot of totality with post processing to enhance filaments"
+      },
+      {
+        "filename": "eclipse_short.jpg",
+        "img_src": "../assets/img/eclipse_2024/eclipse_short.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/eclipse_short.JPG",
+        "title": "Totality",
+        "caption": "Another shot of totality with little post processing"
+      },
+      {
+        "filename": "IMG_22022.jpg",
+        "img_src": "../assets/img/eclipse_2024/IMG_22022.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_22022.JPG",
+        "title": "",
+        "caption": "A still lake"
+      },
+      {
+        "filename": "IMG_68252.jpg",
+        "img_src": "../assets/img/eclipse_2024/IMG_68252.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68252.JPG",
+        "title": "Settling in",
+        "caption": "Early arrivers prepare to wait 3 hours for a 3 minute show"
+      },
+      {
+        "filename": "IMG_68272.jpg",
+        "img_src": "../assets/img/eclipse_2024/IMG_68272.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68272.JPG",
+        "title": "View from Ampersand Mountain",
+        "caption": "Just a small piece of the 360 degree view"
+      },
+      {
+        "filename": "IMG_68762.jpg",
+        "img_src": "../assets/img/eclipse_2024/IMG_68762.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68762.JPG",
+        "title": "Awe Inspired Hikers",
+        "caption": "Moments before the total eclipse, as distant mountains begin to darken"
+      },
+      {
+        "filename": "IMG_69012.jpg",
+        "img_src": "../assets/img/eclipse_2024/IMG_69012.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_69012.JPG",
+        "title": "Traffic",
+        "caption": "A fruitless attempt to escape the Adirondacks"
+      }
+    ],
+    "dogs": [
+      {
+        "filename": "IMG_0729.jpg",
+        "img_src": "../assets/img/dogs/IMG_0729.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0729.JPG",
+        "title": "",
+        "caption": "Mollie"
+      },
+      {
+        "filename": "IMG_0730.jpg",
+        "img_src": "../assets/img/dogs/IMG_0730.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0730.JPG",
+        "title": "",
+        "caption": "Mollie"
+      },
+      {
+        "filename": "IMG_0743.jpg",
+        "img_src": "../assets/img/dogs/IMG_0743.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0743.JPG",
+        "title": "",
+        "caption": "Ginger"
+      },
+      {
+        "filename": "IMG_0747.jpg",
+        "img_src": "../assets/img/dogs/IMG_0747.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0747.JPG",
+        "title": "",
+        "caption": "Ginger"
+      },
+      {
+        "filename": "IMG_0753.jpg",
+        "img_src": "../assets/img/dogs/IMG_0753.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0753.JPG",
+        "title": "",
+        "caption": "Mollie & Ginger"
+      },
+      {
+        "filename": "IMG_0771.jpg",
+        "img_src": "../assets/img/dogs/IMG_0771.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0771.JPG",
+        "title": "",
+        "caption": "Mollie on alert"
+      },
+      {
+        "filename": "IMG_0776.jpg",
+        "img_src": "../assets/img/dogs/IMG_0776.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0776.JPG",
+        "title": "",
+        "caption": "Mollie"
+      },
+      {
+        "filename": "IMG_0778.jpg",
+        "img_src": "../assets/img/dogs/IMG_0778.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0778.JPG",
+        "title": "",
+        "caption": "Ginger rotating"
+      },
+      {
+        "filename": "IMG_0779.jpg",
+        "img_src": "../assets/img/dogs/IMG_0779.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0779.JPG",
+        "title": "",
+        "caption": "Mid roll"
+      },
+      {
+        "filename": "IMG_0786.jpg",
+        "img_src": "../assets/img/dogs/IMG_0786.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0786.JPG",
+        "title": "",
+        "caption": "Mollie relaxing"
+      },
+      {
+        "filename": "IMG_0798.jpg",
+        "img_src": "../assets/img/dogs/IMG_0798.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0798.JPG",
+        "title": "",
+        "caption": "Mollie skulking"
+      },
+      {
+        "filename": "IMG_0804.jpg",
+        "img_src": "../assets/img/dogs/IMG_0804.jpg",
+        "placeholder_src": "../assets/placeholder/dogs/IMG_0804.JPG",
+        "title": "",
+        "caption": "Ginger being paranoid"
       }
     ]
   }
