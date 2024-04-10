@@ -4,7 +4,7 @@
   "directories": [
     "astrophotography",
     "maine_2022",
-    "eclipse_2024",
+    "eclipse_in_the_adirondacks",
     "dogs"
   ],
   "img": {
@@ -299,53 +299,53 @@
         "caption": ""
       }
     ],
-    "eclipse_2024": [
+    "eclipse_in_the_adirondacks": [
       {
         "filename": "eclipse_long.jpg",
-        "img_src": "../assets/img/eclipse_2024/eclipse_long.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/eclipse_long.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/eclipse_long.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/eclipse_long.JPG",
         "title": "Totality",
         "caption": "Shot of totality with post processing to enhance filaments"
       },
       {
         "filename": "eclipse_short.jpg",
-        "img_src": "../assets/img/eclipse_2024/eclipse_short.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/eclipse_short.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/eclipse_short.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/eclipse_short.JPG",
         "title": "Totality",
         "caption": "Another shot of totality with little post processing"
       },
       {
         "filename": "IMG_22022.jpg",
-        "img_src": "../assets/img/eclipse_2024/IMG_22022.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_22022.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_22022.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_22022.JPG",
         "title": "",
         "caption": "A still lake"
       },
       {
         "filename": "IMG_68252.jpg",
-        "img_src": "../assets/img/eclipse_2024/IMG_68252.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68252.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68252.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68252.JPG",
         "title": "Settling in",
         "caption": "Early arrivers prepare to wait 3 hours for a 3 minute show"
       },
       {
         "filename": "IMG_68272.jpg",
-        "img_src": "../assets/img/eclipse_2024/IMG_68272.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68272.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68272.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68272.JPG",
         "title": "View from Ampersand Mountain",
         "caption": "Just a small piece of the 360 degree view"
       },
       {
         "filename": "IMG_68762.jpg",
-        "img_src": "../assets/img/eclipse_2024/IMG_68762.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_68762.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68762.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68762.JPG",
         "title": "Awe Inspired Hikers",
         "caption": "Moments before the total eclipse, as distant mountains begin to darken"
       },
       {
         "filename": "IMG_69012.jpg",
-        "img_src": "../assets/img/eclipse_2024/IMG_69012.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_2024/IMG_69012.JPG",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_69012.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_69012.JPG",
         "title": "Traffic",
         "caption": "A fruitless attempt to escape the Adirondacks"
       }
