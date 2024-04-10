@@ -322,6 +322,13 @@
         "caption": "A still lake"
       },
       {
+        "filename": "IMG_6791.jpg",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_6791.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_6791.JPG",
+        "title": "Mt. Marcy",
+        "caption": "A distant high peak"
+      },
+      {
         "filename": "IMG_68252.jpg",
         "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68252.jpg",
         "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68252.JPG",
@@ -334,6 +341,20 @@
         "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68272.JPG",
         "title": "View from Ampersand Mountain",
         "caption": "Just a small piece of the 360 degree view"
+      },
+      {
+        "filename": "IMG_68282.jpg",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68282.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68282.JPG",
+        "title": "Looking South",
+        "caption": "A view of Mt. Marcy and friends"
+      },
+      {
+        "filename": "IMG_68462.jpg",
+        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68462.jpg",
+        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68462.JPG",
+        "title": "",
+        "caption": "A small lake town and nearby village"
       },
       {
         "filename": "IMG_68762.jpg",
