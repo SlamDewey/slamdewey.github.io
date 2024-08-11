@@ -1,4 +1,4 @@
-@import url('../../../styles.scss');
+@import url("../../../styles.scss");
 
 $color-gray: gray;
 $color-black: black;
@@ -30,7 +30,6 @@ $color-black: black;
     width: 100%;
 
     .modal-control-button {
-
       width: 4rem;
       height: 4rem;
       display: flex;
@@ -59,6 +58,7 @@ $color-black: black;
 
     img {
       max-width: 100%;
+      max-height: 100vh;
     }
   }
 }
