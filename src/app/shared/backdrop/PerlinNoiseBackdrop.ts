@@ -1,8 +1,4 @@
 import { WebGLBackdrop } from "./backdrop";
-import alea from "alea";
-import { createNoise3D } from "simplex-noise";
-
-const noise = createNoise3D(alea("seed"));
 
 export class PerlinNoiseBackdrop extends WebGLBackdrop {
   protected override init(): void {}

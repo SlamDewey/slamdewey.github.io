@@ -334,8 +334,11 @@ const int MAX_ITERATIONS = 500;
 const int iterationCountDelta = 10;
 const float o = .000000000001;
 
-// input = float [0, 1]
-// output = rgb color
+/*
+  * input = float [0, 1]
+  * output = rgb color
+  * this is a simple hsv to rgb function for 1 dimensional input
+*/
 vec3 colorWheel(float c) {
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     vec3 p = abs(fract(vec3(c + K.x, c + K.y, c + K.z)) * 6.0 - K.www);

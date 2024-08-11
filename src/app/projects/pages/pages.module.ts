@@ -7,9 +7,14 @@ import { CommonModule } from "@angular/common";
 import { NewtonsfractalComponent } from "./newtonsfractal/newtonsfractal.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { FragmentwriterComponent } from "./fragmentwriter/fragmentwriter.component";
+import { UnitTaskingComponent } from "./unittasking/unittasking.component";
 
 @NgModule({
-  declarations: [NewtonsfractalComponent, FragmentwriterComponent],
+  declarations: [
+    NewtonsfractalComponent,
+    FragmentwriterComponent,
+    UnitTaskingComponent,
+  ],
   imports: [CommonModule, SharedModule],
   exports: [NewtonsfractalComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
