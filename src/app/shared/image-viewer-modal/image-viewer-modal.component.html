@@ -1,13 +1,37 @@
-<div *ngIf="isModalOpen" class="modal" (wheel)="onModalWheel($event)" (mousedown)="onModalMouseDown($event)"
-  (mouseup)="onModalMouseUp($event)" (mousemove)="onModalMouseMove($event)">
+<div
+  *ngIf="isModalOpen"
+  class="modal"
+  (wheel)="onModalWheel($event)"
+  (mousedown)="onModalMouseDown($event)"
+  (mouseup)="onModalMouseUp($event)"
+  (mousemove)="onModalMouseMove($event)"
+>
+  <div *ngIf="shouldDisplaySpinner" class="modal-spinner">
+    <div style="margin: auto">
+      <spinner [shouldDisplaySpinner]="shouldDisplaySpinner"></spinner>
+    </div>
+  </div>
   <div class="modal-controls">
     <span class="modal-control-button" (click)="zoomOut()">-</span>
     <span class="modal-control-button" (click)="zoomIn()">+</span>
     <span class="modal-control-button" (click)="closeModal()">&times;</span>
   </div>
-  <spinner [shouldDisplaySpinner]="shouldDisplaySpinner"></spinner>
-  <div class="modal-content"
-    [style]="'transform: translate(' + zoomOptions.pointX + 'px, ' + zoomOptions.pointY + 'px) scale(' + zoomOptions.scale + ');'">
-    <img loading="lazy" (load)="checkIfImageLoadingComplete($event)" [attr.src]="imageSource" />
+  <div
+    class="modal-content"
+    [style]="
+      'transform: translate(' +
+      zoomOptions.pointX +
+      'px, ' +
+      zoomOptions.pointY +
+      'px) scale(' +
+      zoomOptions.scale +
+      ');'
+    "
+  >
+    <img
+      loading="lazy"
+      (load)="checkIfImageLoadingComplete($event)"
+      [attr.src]="imageSource"
+    />
   </div>
 </div>

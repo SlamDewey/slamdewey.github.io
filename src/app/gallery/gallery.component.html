@@ -15,24 +15,30 @@
   </x-info-banner>
 
   <div class="gallery-folder-selector">
+    @if (imageFolderLinks) {
     <x-dropdown-link-selector
       [dropdownText]="'Select Folder'"
       [items]="imageFolderLinks"
     ></x-dropdown-link-selector>
+    } @else {
+    <spinner [shouldDisplaySpinner]="true"></spinner>
+    }
   </div>
 
   <div class="gallery-container">
-    <div class="gallery">
+    <div class="gallery" *ngIf="imageTileDataSet !== undefined">
+      @if (imageTileDataSet) {
       <x-image-tile
         *ngFor="let image of imageTileDataSet.get(currentImageFolder)"
         [imageTileData]="image"
       ></x-image-tile>
+      }
     </div>
   </div>
 
   <x-image-viewer-modal
     #imageViewerModal
-    [imageSource]="currentImage"
+    [imageSource]="currentImageSourceUrl"
     (onOpen)="isModalOpen = true"
     (onClose)="isModalOpen = false"
   ></x-image-viewer-modal>
