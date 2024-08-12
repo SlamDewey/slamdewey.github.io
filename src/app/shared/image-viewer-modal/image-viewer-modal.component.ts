@@ -1,20 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 export interface ZoomOptions {
-  scale: number,
-  panning: boolean,
-  pointX: number,
-  pointY: number,
-  start: { x: number, y: number }
+  scale: number;
+  panning: boolean;
+  pointX: number;
+  pointY: number;
+  start: { x: number; y: number };
 }
 
 @Component({
-  selector: 'x-image-viewer-modal',
-  templateUrl: './image-viewer-modal.component.html',
-  styleUrls: ['./image-viewer-modal.component.scss']
+  selector: "x-image-viewer-modal",
+  templateUrl: "./image-viewer-modal.component.html",
+  styleUrls: ["./image-viewer-modal.component.scss"],
 })
 export class ImageViewerModalComponent implements OnInit {
-
   @Input() imageSource: string;
   @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
@@ -24,7 +23,7 @@ export class ImageViewerModalComponent implements OnInit {
   public zoomOptions: ZoomOptions;
   public isModalOpen: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.resetZoomOptions();
@@ -36,17 +35,19 @@ export class ImageViewerModalComponent implements OnInit {
       panning: false,
       pointX: 0,
       pointY: 0,
-      start: { x: 0, y: 0 }
+      start: { x: 0, y: 0 },
     };
   }
 
   public checkIfImageLoadingComplete(event: Event) {
     const element: any = event.target;
-    if (!element || !(element instanceof HTMLImageElement))
+    if (!element || !(element instanceof HTMLImageElement)) {
       return;
+    }
     const imgElement: HTMLImageElement = element;
-    if (imgElement.complete && imgElement.naturalWidth !== 0)
+    if (imgElement.complete && imgElement.naturalWidth !== 0) {
       this.onImageLoad();
+    }
   }
 
   public onImageLoad() {
@@ -79,13 +80,13 @@ export class ImageViewerModalComponent implements OnInit {
 
   public onModalWheel(e: WheelEvent): void {
     e.preventDefault();
-    (e.deltaY < 0) ? this.zoomIn() : this.zoomOut();
+    e.deltaY < 0 ? this.zoomIn() : this.zoomOut();
   }
   public onModalMouseDown(e: MouseEvent): void {
     e.preventDefault();
     this.zoomOptions.start = {
       x: e.clientX - this.zoomOptions.pointX,
-      y: e.clientY - this.zoomOptions.pointY
+      y: e.clientY - this.zoomOptions.pointY,
     };
     this.zoomOptions.panning = true;
   }
@@ -95,11 +96,9 @@ export class ImageViewerModalComponent implements OnInit {
   }
   public onModalMouseMove(e: MouseEvent): void {
     e.preventDefault();
-    if (!this.zoomOptions.panning)
-      return;
+    if (!this.zoomOptions.panning) return;
 
-    this.zoomOptions.pointX = (e.clientX - this.zoomOptions.start.x);
-    this.zoomOptions.pointY = (e.clientY - this.zoomOptions.start.y);
+    this.zoomOptions.pointX = e.clientX - this.zoomOptions.start.x;
+    this.zoomOptions.pointY = e.clientY - this.zoomOptions.start.y;
   }
-
 }

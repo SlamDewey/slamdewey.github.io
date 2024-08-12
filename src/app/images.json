@@ -1,6 +1,6 @@
 {
-  "img_path": "../assets/img/",
-  "placeholder_path": "../assets/placeholder/",
+  "img_path": "img/",
+  "placeholder_path": "placeholder/",
   "directories": [
     "astrophotography",
     "maine_2022",
@@ -11,153 +11,134 @@
   "img": {
     "astrophotography": [
       {
-        "filename": "milk_arm_2024_pc.jpg",
-        "img_src": "../assets/img/astrophotography/milk_arm_2024_pc.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/milk_arm_2024_pc.jpg",
+        "img_src": "img/astrophotography/milk_arm_2024_pc.jpg",
+        "placeholder_src": "placeholder/astrophotography/milk_arm_2024_pc.jpg",
         "title": "Arm of the Milky Way",
         "caption": "",
         "lastModified": "2024-08-11T19:24:20.213Z"
       },
       {
-        "filename": "traingulum_2024_v1_pc4.jpg",
-        "img_src": "../assets/img/astrophotography/traingulum_2024_v1_pc4.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/traingulum_2024_v1_pc4.JPG",
+        "img_src": "img/astrophotography/traingulum_2024_v1_pc4.jpg",
+        "placeholder_src": "placeholder/astrophotography/traingulum_2024_v1_pc4.JPG",
         "title": "Triangulum Galaxy",
         "caption": "About 2 hours of capture",
         "lastModified": "2024-08-11T18:16:57.593Z"
       },
       {
-        "filename": "milk_2024_pc4.jpg",
-        "img_src": "../assets/img/astrophotography/milk_2024_pc4.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/milk_2024_pc4.JPG",
+        "img_src": "img/astrophotography/milk_2024_pc4.jpg",
+        "placeholder_src": "placeholder/astrophotography/milk_2024_pc4.JPG",
         "title": "Milky Way Core",
         "caption": "Taken on Causeway Beach",
         "lastModified": "2024-08-11T15:07:33.987Z"
       },
       {
-        "filename": "andromeda_2024_v2_pc3.jpg",
-        "img_src": "../assets/img/astrophotography/andromeda_2024_v2_pc3.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/andromeda_2024_v2_pc3.JPG",
+        "img_src": "img/astrophotography/andromeda_2024_v2_pc3.jpg",
+        "placeholder_src": "placeholder/astrophotography/andromeda_2024_v2_pc3.JPG",
         "title": "Andromeda Galaxy",
         "caption": "A new image with my new equipment",
         "lastModified": "2024-08-10T21:43:09.767Z"
       },
       {
-        "filename": "heart_and_soul_v2_PC.jpg",
-        "img_src": "../assets/img/astrophotography/heart_and_soul_v2_PC.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/heart_and_soul_v2_PC.JPG",
+        "img_src": "img/astrophotography/heart_and_soul_v2_PC.jpg",
+        "placeholder_src": "placeholder/astrophotography/heart_and_soul_v2_PC.JPG",
         "title": "Heart and Soul Nebulae",
         "caption": "About 1.5 hours integration, but still was quite a dim image",
         "lastModified": "2023-11-13T21:28:07.537Z"
       },
       {
-        "filename": "orion_2nd_v2_pc4.JPG",
-        "img_src": "../assets/img/astrophotography/orion_2nd_v2_pc4.JPG",
-        "placeholder_src": "../assets/placeholder/astrophotography/orion_2nd_v2_pc4.JPG",
+        "img_src": "img/astrophotography/orion_2nd_v2_pc4.JPG",
+        "placeholder_src": "placeholder/astrophotography/orion_2nd_v2_pc4.JPG",
         "title": "Orion Nebula and Friends",
         "caption": "This one is 1 hour shot featuring the Horsehead and Flame nebulae on the left, and the Orion nebula on the right",
         "lastModified": "2023-11-13T20:57:39.280Z"
       },
       {
-        "filename": "IMG_5115.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_5115.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5115.JPG",
+        "img_src": "img/astrophotography/IMG_5115.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_5115.JPG",
         "title": "",
         "caption": "Unedited image of a stretch of the Milky Way galaxy",
         "lastModified": "2022-09-12T15:21:49.095Z"
       },
       {
-        "filename": "processed_and_cropped.jpg",
-        "img_src": "../assets/img/astrophotography/processed_and_cropped.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/processed_and_cropped.JPG",
+        "img_src": "img/astrophotography/processed_and_cropped.jpg",
+        "placeholder_src": "placeholder/astrophotography/processed_and_cropped.JPG",
         "title": "Andromeda Galaxy",
         "caption": "A 1.5 hour long integration time exposure of the Andromeda Galaxy",
         "lastModified": "2022-08-17T23:08:40.179Z"
       },
       {
-        "filename": "enhanced_nebula.jpg",
-        "img_src": "../assets/img/astrophotography/enhanced_nebula.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/enhanced_nebula.JPG",
+        "img_src": "img/astrophotography/enhanced_nebula.jpg",
+        "placeholder_src": "placeholder/astrophotography/enhanced_nebula.JPG",
         "title": "N. A. Nebula",
         "caption": "The North America Nebula with permeating starlight dimmed and enhanced contrast",
         "lastModified": "2022-08-10T03:31:30.717Z"
       },
       {
-        "filename": "enhanced_stars.jpg",
-        "img_src": "../assets/img/astrophotography/enhanced_stars.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/enhanced_stars.JPG",
+        "img_src": "img/astrophotography/enhanced_stars.jpg",
+        "placeholder_src": "placeholder/astrophotography/enhanced_stars.JPG",
         "title": "N. A. Nebula",
         "caption": "A natural starlight image of the North America Nebula; little enhancement done after image stacking.",
         "lastModified": "2022-08-10T03:30:55.653Z"
       },
       {
-        "filename": "IMG_5114e2.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_5114e2.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5114e2.JPG",
+        "img_src": "img/astrophotography/IMG_5114e2.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_5114e2.JPG",
         "title": "Milky Way & Scorpius",
         "caption": "Post processed image of the Milky Way galaxy core and Scorpius constellation.  Prominently featuring Anteres & M4",
         "lastModified": "2022-08-10T03:10:13.013Z"
       },
       {
-        "filename": "IMG_4967.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_4967.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4967.JPG",
+        "img_src": "img/astrophotography/IMG_4967.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_4967.JPG",
         "title": "",
         "caption": "A unedited long exposure shot of the Cygnus region",
         "lastModified": "2022-08-10T02:44:13.937Z"
       },
       {
-        "filename": "IMG_4963e.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_4963e.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4963e.JPG",
+        "img_src": "img/astrophotography/IMG_4963e.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_4963e.JPG",
         "title": "",
         "caption": "A contrast-boosted long exposure Milky Way core shot",
         "lastModified": "2022-08-10T02:42:51.624Z"
       },
       {
-        "filename": "IMG_4948e2.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_4948e2.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4948e2.JPG",
+        "img_src": "img/astrophotography/IMG_4948e2.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_4948e2.JPG",
         "title": "",
         "caption": "A dim Milky Way galaxy at twilight with a shooting star",
         "lastModified": "2022-08-10T02:33:18.472Z"
       },
       {
-        "filename": "IMG_4966e.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_4966e.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4966e.JPG",
+        "img_src": "img/astrophotography/IMG_4966e.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_4966e.JPG",
         "title": "Nebulae & Sagittarius",
         "caption": "Milky Way core shot with focus on major star clouds and nebulae",
         "lastModified": "2022-08-09T03:58:39.244Z"
       },
       {
-        "filename": "IMG_5038e.jpg",
-        "img_src": "../assets/img/astrophotography/IMG_5038e.jpg",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_5038e.JPG",
+        "img_src": "img/astrophotography/IMG_5038e.jpg",
+        "placeholder_src": "placeholder/astrophotography/IMG_5038e.JPG",
         "title": "Milky Way Galaxy over Carney Island",
         "caption": "The Milky Way galaxy gleaming over Carney Island, Maine.  Shot on Causeway Beach",
         "lastModified": "2022-08-08T22:08:10.644Z"
       },
       {
-        "filename": "IMG_4949e.JPG",
-        "img_src": "../assets/img/astrophotography/IMG_4949e.JPG",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4949e.JPG",
+        "img_src": "img/astrophotography/IMG_4949e.JPG",
+        "placeholder_src": "placeholder/astrophotography/IMG_4949e.JPG",
         "title": "",
         "caption": "A longer exposure of a twilight Milky Way core with another shooting star guest appearance",
         "lastModified": "2022-08-08T18:24:28.000Z"
       },
       {
-        "filename": "andromeda_rising.JPG",
-        "img_src": "../assets/img/astrophotography/andromeda_rising.JPG",
-        "placeholder_src": "../assets/placeholder/astrophotography/andromeda_rising.JPG",
+        "img_src": "img/astrophotography/andromeda_rising.JPG",
+        "placeholder_src": "placeholder/astrophotography/andromeda_rising.JPG",
         "title": "",
         "caption": "Just a shot of the andromeda galaxy rising over some powerlines",
         "lastModified": "2022-08-08T17:58:22.474Z"
       },
       {
-        "filename": "IMG_4957.JPG",
-        "img_src": "../assets/img/astrophotography/IMG_4957.JPG",
-        "placeholder_src": "../assets/placeholder/astrophotography/IMG_4957.JPG",
+        "img_src": "img/astrophotography/IMG_4957.JPG",
+        "placeholder_src": "placeholder/astrophotography/IMG_4957.JPG",
         "title": "",
         "caption": "Unedited long exposure of milky way",
         "lastModified": "2022-08-08T17:56:15.193Z"
@@ -165,209 +146,183 @@
     ],
     "maine_2022": [
       {
-        "filename": "IMG_4936.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4936.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4936.JPG",
+        "img_src": "img/maine_2022/IMG_4936.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4936.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:55:23.752Z"
       },
       {
-        "filename": "IMG_4929.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4929.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4929.JPG",
+        "img_src": "img/maine_2022/IMG_4929.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4929.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:54:58.114Z"
       },
       {
-        "filename": "IMG_4927.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4927.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4927.JPG",
+        "img_src": "img/maine_2022/IMG_4927.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4927.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:54:44.928Z"
       },
       {
-        "filename": "IMG_4921.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4921.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4921.JPG",
+        "img_src": "img/maine_2022/IMG_4921.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4921.JPG",
         "title": "",
         "caption": "The Cabin",
         "lastModified": "2022-08-08T21:54:09.208Z"
       },
       {
-        "filename": "IMG_4915.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4915.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4915.JPG",
+        "img_src": "img/maine_2022/IMG_4915.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4915.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:53:54.929Z"
       },
       {
-        "filename": "IMG_4914.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_4914.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_4914.JPG",
+        "img_src": "img/maine_2022/IMG_4914.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_4914.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:53:40.991Z"
       },
       {
-        "filename": "IMG_5143.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5143.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5143.JPG",
+        "img_src": "img/maine_2022/IMG_5143.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5143.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:30:14.612Z"
       },
       {
-        "filename": "IMG_5142.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5142.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5142.JPG",
+        "img_src": "img/maine_2022/IMG_5142.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5142.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:30:01.255Z"
       },
       {
-        "filename": "IMG_5141.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5141.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5141.JPG",
+        "img_src": "img/maine_2022/IMG_5141.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5141.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:29:47.134Z"
       },
       {
-        "filename": "IMG_5090.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5090.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5090.JPG",
+        "img_src": "img/maine_2022/IMG_5090.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5090.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:09:40.819Z"
       },
       {
-        "filename": "IMG_5089.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5089.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5089.JPG",
+        "img_src": "img/maine_2022/IMG_5089.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5089.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:09:29.655Z"
       },
       {
-        "filename": "IMG_5088.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5088.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5088.JPG",
+        "img_src": "img/maine_2022/IMG_5088.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5088.JPG",
         "title": "",
         "caption": "Long exposure shot of the ocean brushing waves onto a rocky beach",
         "lastModified": "2022-08-08T21:09:15.934Z"
       },
       {
-        "filename": "IMG_5084.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5084.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5084.JPG",
+        "img_src": "img/maine_2022/IMG_5084.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5084.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:09:02.852Z"
       },
       {
-        "filename": "IMG_5071.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5071.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5071.JPG",
+        "img_src": "img/maine_2022/IMG_5071.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5071.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:08:40.779Z"
       },
       {
-        "filename": "IMG_5063.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5063.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5063.JPG",
+        "img_src": "img/maine_2022/IMG_5063.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5063.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:08:13.214Z"
       },
       {
-        "filename": "IMG_5059.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5059.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5059.JPG",
+        "img_src": "img/maine_2022/IMG_5059.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5059.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:07:53.713Z"
       },
       {
-        "filename": "IMG_5056.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5056.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5056.JPG",
+        "img_src": "img/maine_2022/IMG_5056.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5056.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:07:39.337Z"
       },
       {
-        "filename": "IMG_5053.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5053.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5053.JPG",
+        "img_src": "img/maine_2022/IMG_5053.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5053.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:07:29.115Z"
       },
       {
-        "filename": "IMG_5041.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5041.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5041.JPG",
+        "img_src": "img/maine_2022/IMG_5041.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5041.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:07:00.477Z"
       },
       {
-        "filename": "IMG_5039.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5039.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5039.JPG",
+        "img_src": "img/maine_2022/IMG_5039.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5039.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T21:06:50.522Z"
       },
       {
-        "filename": "IMG_5392.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5392.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5392.JPG",
+        "img_src": "img/maine_2022/IMG_5392.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5392.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:55:12.484Z"
       },
       {
-        "filename": "IMG_5381.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5381.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5381.JPG",
+        "img_src": "img/maine_2022/IMG_5381.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5381.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:52:45.475Z"
       },
       {
-        "filename": "IMG_5377.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5377.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5377.JPG",
+        "img_src": "img/maine_2022/IMG_5377.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5377.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:51:58.696Z"
       },
       {
-        "filename": "IMG_5370.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5370.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5370.JPG",
+        "img_src": "img/maine_2022/IMG_5370.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5370.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:50:37.000Z"
       },
       {
-        "filename": "IMG_5360.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5360.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5360.JPG",
+        "img_src": "img/maine_2022/IMG_5360.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5360.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:48:42.938Z"
       },
       {
-        "filename": "IMG_5358.JPG",
-        "img_src": "../assets/img/maine_2022/IMG_5358.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2022/IMG_5358.JPG",
+        "img_src": "img/maine_2022/IMG_5358.JPG",
+        "placeholder_src": "placeholder/maine_2022/IMG_5358.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2022-08-08T18:48:18.298Z"
@@ -375,313 +330,274 @@
     ],
     "maine_2024": [
       {
-        "filename": "IMG_7676_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7676_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7676_2.JPG",
+        "img_src": "img/maine_2024/IMG_7676_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7676_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:18:18.851Z"
       },
       {
-        "filename": "IMG_7671_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7671_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7671_2.JPG",
+        "img_src": "img/maine_2024/IMG_7671_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7671_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:18:07.773Z"
       },
       {
-        "filename": "IMG_7628_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7628_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7628_2.JPG",
+        "img_src": "img/maine_2024/IMG_7628_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7628_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:17:10.892Z"
       },
       {
-        "filename": "IMG_7623_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7623_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7623_2.JPG",
+        "img_src": "img/maine_2024/IMG_7623_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7623_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:16:52.217Z"
       },
       {
-        "filename": "IMG_7619_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7619_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7619_2.JPG",
+        "img_src": "img/maine_2024/IMG_7619_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7619_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:16:39.088Z"
       },
       {
-        "filename": "IMG_7615_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7615_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7615_2.JPG",
+        "img_src": "img/maine_2024/IMG_7615_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7615_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:16:18.324Z"
       },
       {
-        "filename": "IMG_7613_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7613_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7613_2.JPG",
+        "img_src": "img/maine_2024/IMG_7613_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7613_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:16:01.074Z"
       },
       {
-        "filename": "IMG_7611_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7611_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7611_2.JPG",
+        "img_src": "img/maine_2024/IMG_7611_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7611_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:15:36.048Z"
       },
       {
-        "filename": "IMG_7606_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7606_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7606_2.JPG",
+        "img_src": "img/maine_2024/IMG_7606_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7606_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:15:12.340Z"
       },
       {
-        "filename": "IMG_7599_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7599_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7599_2.JPG",
+        "img_src": "img/maine_2024/IMG_7599_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7599_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:15:03.044Z"
       },
       {
-        "filename": "IMG_7568_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7568_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7568_2.JPG",
+        "img_src": "img/maine_2024/IMG_7568_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7568_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:14:34.553Z"
       },
       {
-        "filename": "IMG_7550_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7550_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7550_2.JPG",
+        "img_src": "img/maine_2024/IMG_7550_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7550_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:13:45.803Z"
       },
       {
-        "filename": "IMG_7543_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7543_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7543_2.JPG",
+        "img_src": "img/maine_2024/IMG_7543_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7543_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:13:33.125Z"
       },
       {
-        "filename": "IMG_7528_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7528_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7528_2.JPG",
+        "img_src": "img/maine_2024/IMG_7528_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7528_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:13:09.120Z"
       },
       {
-        "filename": "IMG_7517_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7517_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7517_2.JPG",
+        "img_src": "img/maine_2024/IMG_7517_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7517_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:13:01.466Z"
       },
       {
-        "filename": "IMG_7514_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7514_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7514_2.JPG",
+        "img_src": "img/maine_2024/IMG_7514_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7514_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:12:50.039Z"
       },
       {
-        "filename": "IMG_7509_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7509_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7509_2.JPG",
+        "img_src": "img/maine_2024/IMG_7509_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7509_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:12:35.740Z"
       },
       {
-        "filename": "IMG_7497_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7497_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7497_2.JPG",
+        "img_src": "img/maine_2024/IMG_7497_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7497_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:12:02.773Z"
       },
       {
-        "filename": "IMG_7487_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7487_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7487_2.JPG",
+        "img_src": "img/maine_2024/IMG_7487_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7487_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:11:41.598Z"
       },
       {
-        "filename": "IMG_7469_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7469_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7469_2.JPG",
+        "img_src": "img/maine_2024/IMG_7469_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7469_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:10:27.432Z"
       },
       {
-        "filename": "IMG_7261_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7261_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7261_2.JPG",
+        "img_src": "img/maine_2024/IMG_7261_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7261_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:09:44.861Z"
       },
       {
-        "filename": "IMG_7249_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7249_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7249_2.JPG",
+        "img_src": "img/maine_2024/IMG_7249_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7249_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:09:05.771Z"
       },
       {
-        "filename": "IMG_7228_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7228_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7228_2.JPG",
+        "img_src": "img/maine_2024/IMG_7228_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7228_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:08:33.954Z"
       },
       {
-        "filename": "IMG_7194_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7194_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7194_2.JPG",
+        "img_src": "img/maine_2024/IMG_7194_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7194_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:06:22.784Z"
       },
       {
-        "filename": "IMG_7166_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7166_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7166_2.JPG",
+        "img_src": "img/maine_2024/IMG_7166_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7166_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:05:16.500Z"
       },
       {
-        "filename": "IMG_7161_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7161_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7161_2.JPG",
+        "img_src": "img/maine_2024/IMG_7161_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7161_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:05:06.634Z"
       },
       {
-        "filename": "IMG_7154_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7154_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7154_2.JPG",
+        "img_src": "img/maine_2024/IMG_7154_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7154_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:05:00.612Z"
       },
       {
-        "filename": "IMG_7139_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7139_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7139_2.JPG",
+        "img_src": "img/maine_2024/IMG_7139_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7139_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:04:24.186Z"
       },
       {
-        "filename": "IMG_7138_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7138_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7138_2.JPG",
+        "img_src": "img/maine_2024/IMG_7138_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7138_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:04:10.479Z"
       },
       {
-        "filename": "IMG_7126_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7126_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7126_2.JPG",
+        "img_src": "img/maine_2024/IMG_7126_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7126_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:03:59.601Z"
       },
       {
-        "filename": "IMG_7117_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7117_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7117_2.JPG",
+        "img_src": "img/maine_2024/IMG_7117_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7117_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:03:35.169Z"
       },
       {
-        "filename": "IMG_7108_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7108_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7108_2.JPG",
+        "img_src": "img/maine_2024/IMG_7108_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7108_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:02:44.575Z"
       },
       {
-        "filename": "IMG_7097_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7097_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7097_2.JPG",
+        "img_src": "img/maine_2024/IMG_7097_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7097_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:02:32.126Z"
       },
       {
-        "filename": "IMG_7087_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7087_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7087_2.JPG",
+        "img_src": "img/maine_2024/IMG_7087_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7087_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:02:06.834Z"
       },
       {
-        "filename": "IMG_7077_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7077_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7077_2.JPG",
+        "img_src": "img/maine_2024/IMG_7077_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7077_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:01:50.754Z"
       },
       {
-        "filename": "IMG_7076_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7076_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7076_2.JPG",
+        "img_src": "img/maine_2024/IMG_7076_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7076_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:01:37.739Z"
       },
       {
-        "filename": "IMG_7072_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7072_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7072_2.JPG",
+        "img_src": "img/maine_2024/IMG_7072_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7072_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T06:01:12.705Z"
       },
       {
-        "filename": "IMG_7047_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7047_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7047_2.JPG",
+        "img_src": "img/maine_2024/IMG_7047_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7047_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T05:59:53.141Z"
       },
       {
-        "filename": "IMG_7024_2.JPG",
-        "img_src": "../assets/img/maine_2024/IMG_7024_2.JPG",
-        "placeholder_src": "../assets/placeholder/maine_2024/IMG_7024_2.JPG",
+        "img_src": "img/maine_2024/IMG_7024_2.JPG",
+        "placeholder_src": "placeholder/maine_2024/IMG_7024_2.JPG",
         "title": "",
         "caption": "",
         "lastModified": "2024-08-11T05:59:11.463Z"
@@ -689,81 +605,71 @@
     ],
     "eclipse_in_the_adirondacks": [
       {
-        "filename": "IMG_68462.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68462.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68462.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_68462.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_68462.JPG",
         "title": "",
         "caption": "A small lake town and nearby village",
         "lastModified": "2024-04-10T02:09:22.312Z"
       },
       {
-        "filename": "IMG_68282.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68282.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68282.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_68282.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_68282.JPG",
         "title": "Looking South",
         "caption": "A view of Algonquin Peak and friends",
         "lastModified": "2024-04-10T01:55:01.997Z"
       },
       {
-        "filename": "IMG_6791.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_6791.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_6791.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_6791.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_6791.JPG",
         "title": "Algonquin Peak",
         "caption": "A distant mountain",
         "lastModified": "2024-04-10T01:30:17.269Z"
       },
       {
-        "filename": "IMG_68762.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68762.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68762.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_68762.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_68762.JPG",
         "title": "Awe Inspired Hikers",
         "caption": "Moments before the total eclipse, as distant mountains begin to darken",
         "lastModified": "2024-04-09T23:10:33.884Z"
       },
       {
-        "filename": "IMG_68272.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68272.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68272.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_68272.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_68272.JPG",
         "title": "View from Ampersand Mountain",
         "caption": "Just a small piece of the 360 degree view",
         "lastModified": "2024-04-09T23:10:16.954Z"
       },
       {
-        "filename": "IMG_68252.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_68252.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_68252.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_68252.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_68252.JPG",
         "title": "Settling in",
         "caption": "Early arrivers prepare to wait 3 hours for a 3 minute show",
         "lastModified": "2024-04-09T23:10:01.101Z"
       },
       {
-        "filename": "IMG_22022.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_22022.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_22022.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_22022.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_22022.JPG",
         "title": "",
         "caption": "A still lake",
         "lastModified": "2024-04-09T23:09:13.796Z"
       },
       {
-        "filename": "IMG_69012.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/IMG_69012.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/IMG_69012.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/IMG_69012.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/IMG_69012.JPG",
         "title": "Traffic",
         "caption": "A fruitless attempt to escape the Adirondacks",
         "lastModified": "2024-04-09T23:08:53.422Z"
       },
       {
-        "filename": "eclipse_short.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/eclipse_short.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/eclipse_short.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/eclipse_short.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/eclipse_short.JPG",
         "title": "Totality",
         "caption": "Another shot of totality with little post processing",
         "lastModified": "2024-04-09T23:08:16.060Z"
       },
       {
-        "filename": "eclipse_long.jpg",
-        "img_src": "../assets/img/eclipse_in_the_adirondacks/eclipse_long.jpg",
-        "placeholder_src": "../assets/placeholder/eclipse_in_the_adirondacks/eclipse_long.JPG",
+        "img_src": "img/eclipse_in_the_adirondacks/eclipse_long.jpg",
+        "placeholder_src": "placeholder/eclipse_in_the_adirondacks/eclipse_long.JPG",
         "title": "Totality",
         "caption": "Shot of totality with post processing to enhance filaments",
         "lastModified": "2024-04-09T23:07:43.704Z"
@@ -771,97 +677,85 @@
     ],
     "dogs": [
       {
-        "filename": "IMG_0804.jpg",
-        "img_src": "../assets/img/dogs/IMG_0804.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0804.JPG",
+        "img_src": "img/dogs/IMG_0804.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0804.JPG",
         "title": "",
         "caption": "Ginger being paranoid",
         "lastModified": "2022-04-13T19:18:08.103Z"
       },
       {
-        "filename": "IMG_0798.jpg",
-        "img_src": "../assets/img/dogs/IMG_0798.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0798.JPG",
+        "img_src": "img/dogs/IMG_0798.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0798.JPG",
         "title": "",
         "caption": "Mollie skulking",
         "lastModified": "2022-04-13T19:17:40.429Z"
       },
       {
-        "filename": "IMG_0786.jpg",
-        "img_src": "../assets/img/dogs/IMG_0786.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0786.JPG",
+        "img_src": "img/dogs/IMG_0786.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0786.JPG",
         "title": "",
         "caption": "Mollie relaxing",
         "lastModified": "2022-04-13T19:16:42.057Z"
       },
       {
-        "filename": "IMG_0779.jpg",
-        "img_src": "../assets/img/dogs/IMG_0779.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0779.JPG",
+        "img_src": "img/dogs/IMG_0779.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0779.JPG",
         "title": "",
         "caption": "Mid roll",
         "lastModified": "2022-04-13T19:16:19.016Z"
       },
       {
-        "filename": "IMG_0778.jpg",
-        "img_src": "../assets/img/dogs/IMG_0778.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0778.JPG",
+        "img_src": "img/dogs/IMG_0778.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0778.JPG",
         "title": "",
         "caption": "Ginger rotating",
         "lastModified": "2022-04-13T19:16:14.459Z"
       },
       {
-        "filename": "IMG_0776.jpg",
-        "img_src": "../assets/img/dogs/IMG_0776.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0776.JPG",
+        "img_src": "img/dogs/IMG_0776.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0776.JPG",
         "title": "",
         "caption": "Mollie",
         "lastModified": "2022-04-13T19:16:09.907Z"
       },
       {
-        "filename": "IMG_0771.jpg",
-        "img_src": "../assets/img/dogs/IMG_0771.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0771.JPG",
+        "img_src": "img/dogs/IMG_0771.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0771.JPG",
         "title": "",
         "caption": "Mollie on alert",
         "lastModified": "2022-04-13T19:16:00.729Z"
       },
       {
-        "filename": "IMG_0753.jpg",
-        "img_src": "../assets/img/dogs/IMG_0753.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0753.JPG",
+        "img_src": "img/dogs/IMG_0753.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0753.JPG",
         "title": "",
         "caption": "Mollie & Ginger",
         "lastModified": "2022-04-13T19:15:37.416Z"
       },
       {
-        "filename": "IMG_0747.jpg",
-        "img_src": "../assets/img/dogs/IMG_0747.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0747.JPG",
+        "img_src": "img/dogs/IMG_0747.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0747.JPG",
         "title": "",
         "caption": "Ginger",
         "lastModified": "2022-04-13T19:15:28.144Z"
       },
       {
-        "filename": "IMG_0743.jpg",
-        "img_src": "../assets/img/dogs/IMG_0743.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0743.JPG",
+        "img_src": "img/dogs/IMG_0743.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0743.JPG",
         "title": "",
         "caption": "Ginger",
         "lastModified": "2022-04-13T19:15:18.951Z"
       },
       {
-        "filename": "IMG_0730.jpg",
-        "img_src": "../assets/img/dogs/IMG_0730.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0730.JPG",
+        "img_src": "img/dogs/IMG_0730.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0730.JPG",
         "title": "",
         "caption": "Mollie",
         "lastModified": "2022-04-13T19:15:00.476Z"
       },
       {
-        "filename": "IMG_0729.jpg",
-        "img_src": "../assets/img/dogs/IMG_0729.jpg",
-        "placeholder_src": "../assets/placeholder/dogs/IMG_0729.JPG",
+        "img_src": "img/dogs/IMG_0729.jpg",
+        "placeholder_src": "placeholder/dogs/IMG_0729.JPG",
         "title": "",
         "caption": "Mollie",
         "lastModified": "2022-04-13T19:14:55.561Z"

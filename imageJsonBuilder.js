@@ -51,7 +51,6 @@ images.directories.forEach((folder) => {
 
       // create new entry data
       imgEntry = {
-        filename: filename,
         img_src: images.img_path + relativeFilePath,
         placeholder_src: undefined,
         title: "",
