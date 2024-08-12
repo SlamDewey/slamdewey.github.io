@@ -31,7 +31,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "docs"
+              "base": "docs",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
@@ -48,7 +49,9 @@
                 "output": "/assets/monaco"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
             "browser": "src/main.ts"
           },
