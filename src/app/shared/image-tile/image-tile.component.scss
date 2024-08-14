@@ -3,6 +3,9 @@ $color-white: white;
 .image-tile {
   justify-content: center;
   margin: 1rem;
+  display: block;
+  max-width: 300px;
+  max-height: 200px;
 
   & a {
     color: $color-white;
