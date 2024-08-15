@@ -1,6 +1,6 @@
 import { WebGLBackdrop } from "./backdrop";
 
-export class PerlinNoiseBackdrop extends WebGLBackdrop {
+export class WalkingNoiseBackdrop extends WebGLBackdrop {
   protected override init(): void {}
 
   private totalTimeLocation: WebGLUniformLocation;
@@ -25,15 +25,15 @@ uniform float totalTime;
 
 out vec4 fragColor;
 
-const float ZOOM = 8.;
+const float ZOOM = 7.;
 const float TIME_SCALAR = 0.1;
 const float RADIUS = 15.;
 
-const int OCTAVES = 3;
+const int OCTAVES = 5;
 const float PERSISTANCE = 0.15;
-const float FREQUENCY = .75;
+const float FREQUENCY = 3.25;
 const float LACUNARITY = 2.5;
-const float OFFSET_SCALAR = 20.;
+const float OFFSET_SCALAR = 200.;
 
 float frac(float v)
 {
@@ -64,9 +64,9 @@ float noise(vec3 x)
 
     f       = f*f*(3.0-2.0*f);
     
-    float a = 57.;
-    float b = 113.;
-    float c = 170.;
+    float a = 1.;
+    float b = 2.;
+    float c = 3.;
     
     float n = p.x + p.y*a + b*p.z;
 
@@ -79,7 +79,7 @@ float noise(vec3 x)
 // basic noise builder, adding octaves into fractal noise
 float fractal_noise(vec3 x3) {
   float val = 0.;
-  float scale = 0.5;
+  float scale = 1.;
   float magnitude = 0.;
   float f = FREQUENCY;
   for( int i = 0; i < OCTAVES; i++ ) {
@@ -90,7 +90,7 @@ float fractal_noise(vec3 x3) {
   }
   return val / magnitude;
 }
-  
+
 void main() {
   vec2 uv = gl_FragCoord.xy / screenSize.xy;
   uv.x *= screenSize.x / screenSize.y;

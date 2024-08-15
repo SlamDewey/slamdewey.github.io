@@ -10,6 +10,7 @@ import {
   CLOUDFRONT_BASE_URL,
 } from "../services/image-delivery.service";
 import { DropdownLinkData } from "../shared/dropdown-link-selector/dropdown-link-selector.component";
+import { WalkingNoiseBackdrop } from "../shared/backdrop/WalkingNosieBackdrop";
 
 export type ImageJson = {
   img_path: string;
@@ -26,7 +27,7 @@ export type ImageJson = {
 export class GalleryComponent implements OnInit {
   @ViewChild("imageViewerModal") imageViewerModal: ImageViewerModalComponent;
 
-  public bgAnimation: Backdrop = new PerlinNoiseBackdrop();
+  public bgAnimation: Backdrop = new WalkingNoiseBackdrop();
 
   public imageDataJSON: ImageJson;
   public imageFolders: string[];
