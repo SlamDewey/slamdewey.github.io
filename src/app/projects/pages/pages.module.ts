@@ -5,7 +5,7 @@ import {
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NewtonsfractalComponent } from "./newtonsfractal/newtonsfractal.component";
-import { SharedModule } from "src/app/shared/shared.module";
+import { SharedModule } from "src/app/components/shared.module";
 import { FragmentwriterComponent } from "./fragmentwriter/fragmentwriter.component";
 import { UnitTaskingComponent } from "./unittasking/unittasking.component";
 

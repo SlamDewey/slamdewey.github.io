@@ -8,6 +8,8 @@ export interface ZoomOptions {
   start: { x: number; y: number };
 }
 
+const ZoomScalar = 1.2;
+
 @Component({
   selector: "x-image-viewer-modal",
   templateUrl: "./image-viewer-modal.component.html",
@@ -15,8 +17,8 @@ export interface ZoomOptions {
 })
 export class ImageViewerModalComponent implements OnInit {
   @Input() imageSource: string;
-  @Output() onOpen: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onOpen: EventEmitter<void> = new EventEmitter<void>();
+  @Output() onClose: EventEmitter<void> = new EventEmitter<void>();
 
   public shouldDisplaySpinner: boolean = false;
 
@@ -40,7 +42,7 @@ export class ImageViewerModalComponent implements OnInit {
   }
 
   public checkIfImageLoadingComplete(event: Event) {
-    const element: any = event.target;
+    const element = event.target;
     if (!element || !(element instanceof HTMLImageElement)) {
       return;
     }
@@ -68,19 +70,23 @@ export class ImageViewerModalComponent implements OnInit {
   }
 
   public zoomIn(): void {
-    this.zoomOptions.scale *= 1.2;
-    this.zoomOptions.pointX *= 1.2;
-    this.zoomOptions.pointY *= 1.2;
+    this.zoomOptions.scale *= ZoomScalar;
+    this.zoomOptions.pointX *= ZoomScalar;
+    this.zoomOptions.pointY *= ZoomScalar;
   }
   public zoomOut(): void {
-    this.zoomOptions.scale /= 1.2;
-    this.zoomOptions.pointX /= 1.2;
-    this.zoomOptions.pointY /= 1.2;
+    this.zoomOptions.scale /= ZoomScalar;
+    this.zoomOptions.pointX /= ZoomScalar;
+    this.zoomOptions.pointY /= ZoomScalar;
   }
 
   public onModalWheel(e: WheelEvent): void {
     e.preventDefault();
-    e.deltaY < 0 ? this.zoomIn() : this.zoomOut();
+    if (e.deltaY < 0) {
+      this.zoomIn();
+    } else {
+      this.zoomOut();
+    }
   }
   public onModalMouseDown(e: MouseEvent): void {
     e.preventDefault();

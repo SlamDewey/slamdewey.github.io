@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from "@angular/core";
-import { Backdrop } from "../shared/backdrop/backdrop";
-import { UVColorCycleBackground } from "../shared/backdrop/UVColorCycleBackground";
+import { Backdrop } from "../components/backdrop/backdrop";
+import { UVColorCycleBackground } from "../components/backdrop/UVColorCycleBackground";
 
 const HELLOS: string[] = ["hello", "hi", "howdy", "hey"];
 

@@ -1,10 +1,10 @@
-import { WebGLBackdrop } from 'src/app/shared/backdrop/backdrop';
+import { WebGLBackdrop } from "src/app/components/backdrop/backdrop";
 import {
   DEFAULT_SHADER_PROGRAMS,
   SHADER_HEADER,
   ShaderProgramData,
   UNIFORM_DEFS,
-} from './shader-programs';
+} from "./shader-programs";
 
 export class ReactiveWebGLBackground extends WebGLBackdrop {
   private totalTime: number = 0;
@@ -44,7 +44,7 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
     gl: WebGLRenderingContext,
     shaderProgram: WebGLProgram,
   ) {
-    var coord = gl.getAttribLocation(shaderProgram, 'coordinates');
+    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
     gl.vertexAttribPointer(
       coord,
       2,
@@ -56,20 +56,20 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
     gl.enableVertexAttribArray(coord);
 
     gl.uniform2f(
-      gl.getUniformLocation(shaderProgram, 'screenSize'),
+      gl.getUniformLocation(shaderProgram, "screenSize"),
       this.width,
       this.height,
     );
     gl.uniform2f(
-      gl.getUniformLocation(shaderProgram, 'mousePosition'),
+      gl.getUniformLocation(shaderProgram, "mousePosition"),
       this.mousePosition.x,
       this.mousePosition.y,
     );
     gl.uniform1f(
-      gl.getUniformLocation(shaderProgram, 'totalTime'),
+      gl.getUniformLocation(shaderProgram, "totalTime"),
       this.totalTime,
     );
-    gl.uniform1f(gl.getUniformLocation(shaderProgram, 'deltaTime'), 0);
+    gl.uniform1f(gl.getUniformLocation(shaderProgram, "deltaTime"), 0);
   }
 
   protected update(deltaTime: number): void {}
@@ -80,15 +80,15 @@ export class ReactiveWebGLBackground extends WebGLBackdrop {
   ): void {
     this.totalTime += deltaTime;
     gl.uniform1f(
-      gl.getUniformLocation(this.shaderProgram, 'totalTime'),
+      gl.getUniformLocation(this.shaderProgram, "totalTime"),
       this.totalTime,
     );
     gl.uniform1f(
-      gl.getUniformLocation(this.shaderProgram, 'deltaTime'),
+      gl.getUniformLocation(this.shaderProgram, "deltaTime"),
       deltaTime,
     );
     gl.uniform2f(
-      gl.getUniformLocation(this.shaderProgram, 'mousePosition'),
+      gl.getUniformLocation(this.shaderProgram, "mousePosition"),
       this.mousePosition.x,
       this.mousePosition.y,
     );

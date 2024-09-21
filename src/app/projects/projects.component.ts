@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ReactiveWebGLBackground } from "./pages/fragmentwriter/ReactiveWebGLBackground";
 import { MOUSE_POSITION_NEWTONS_FRACTAL_SHADER } from "./pages/fragmentwriter/shader-programs";
-import { PerlinNoiseBackdrop } from "../shared/backdrop/PerlinNoiseBackdrop";
+import { PerlinNoiseBackdrop } from "../components/backdrop/PerlinNoiseBackdrop";
 
 @Component({
   selector: "x-projects",
@@ -9,12 +9,8 @@ import { PerlinNoiseBackdrop } from "../shared/backdrop/PerlinNoiseBackdrop";
   styleUrls: ["./projects.component.scss"],
 })
 export class ProjectsComponent implements OnInit {
-  @ViewChild("test", { static: false }) testCanvas: ElementRef;
-
   public bgAnimation = new PerlinNoiseBackdrop();
   public fragmentWriterTileBackdrop: ReactiveWebGLBackground;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.fragmentWriterTileBackdrop = new ReactiveWebGLBackground();

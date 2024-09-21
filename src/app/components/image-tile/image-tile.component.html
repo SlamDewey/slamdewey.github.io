@@ -2,6 +2,7 @@
 <div class="image-tile">
   <a (click)="imageTileData.onClick($event)" [attr.target]="'_blank'">
     <img
+      loading="eager"
       alt="{{ imageTileData.title }}"
       [attr.src]="imageTileData.placeholder_src"
     />

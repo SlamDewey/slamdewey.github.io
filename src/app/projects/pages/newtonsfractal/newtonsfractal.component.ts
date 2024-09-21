@@ -1,18 +1,18 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
-import { BackdropComponent } from 'src/app/shared/backdrop/backdrop.component';
+import { OnInit, Component, ViewChild } from "@angular/core";
+import { BackdropComponent } from "src/app/components/backdrop/backdrop.component";
 import {
   NewtownsFractalWebGLBackground,
   PositionalChoice,
   ZoomChoice,
-} from './NewtownsFractalWebGLBackground';
+} from "./NewtownsFractalWebGLBackground";
 
 @Component({
-  selector: 'x-newtonsfractal',
-  templateUrl: './newtonsfractal.component.html',
-  styleUrls: ['./newtonsfractal.component.scss'],
+  selector: "x-newtonsfractal",
+  templateUrl: "./newtonsfractal.component.html",
+  styleUrls: ["./newtonsfractal.component.scss"],
 })
 export class NewtonsfractalComponent implements OnInit {
-  @ViewChild('container') container: HTMLDivElement;
+  @ViewChild("container") container: HTMLDivElement;
 
   public bgAnimation: NewtownsFractalWebGLBackground =
     new NewtownsFractalWebGLBackground();
