@@ -1,21 +1,18 @@
-import { OnInit, Component, ViewChild } from "@angular/core";
-import { BackdropComponent } from "src/app/components/backdrop/backdrop.component";
-import {
-  NewtownsFractalWebGLBackground,
-  PositionalChoice,
-  ZoomChoice,
-} from "./NewtownsFractalWebGLBackground";
+import { OnInit, Component, ViewChild } from '@angular/core';
+import { BackdropComponent } from 'src/app/components/backdrop/backdrop.component';
+import { NewtownsFractalWebGLBackground, PositionalChoice, ZoomChoice } from './NewtownsFractalWebGLBackground';
 
 @Component({
-  selector: "x-newtonsfractal",
-  templateUrl: "./newtonsfractal.component.html",
-  styleUrls: ["./newtonsfractal.component.scss"],
+  selector: 'x-newtonsfractal',
+  templateUrl: './newtonsfractal.component.html',
+  styleUrls: ['./newtonsfractal.component.scss'],
+  standalone: true,
+  imports: [BackdropComponent],
 })
 export class NewtonsfractalComponent implements OnInit {
-  @ViewChild("container") container: HTMLDivElement;
+  @ViewChild('container') container: HTMLDivElement;
 
-  public bgAnimation: NewtownsFractalWebGLBackground =
-    new NewtownsFractalWebGLBackground();
+  public bgAnimation: NewtownsFractalWebGLBackground = new NewtownsFractalWebGLBackground();
   public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
 
@@ -29,12 +26,10 @@ export class NewtonsfractalComponent implements OnInit {
   }
 
   public incrementIterationCount(): void {
-    if (this.bgAnimation.iterations < this.bgAnimation.MAX_ITERATIONS)
-      this.bgAnimation.iterations++;
+    if (this.bgAnimation.iterations < this.bgAnimation.MAX_ITERATIONS) this.bgAnimation.iterations++;
   }
 
   public decrementIterationCount(): void {
-    if (this.bgAnimation.iterations > this.bgAnimation.MIN_ITERATIONS)
-      this.bgAnimation.iterations--;
+    if (this.bgAnimation.iterations > this.bgAnimation.MIN_ITERATIONS) this.bgAnimation.iterations--;
   }
 }

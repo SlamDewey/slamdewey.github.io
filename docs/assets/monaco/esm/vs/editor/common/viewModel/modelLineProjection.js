@@ -83,7 +83,7 @@ class ModelLineProjection {
      * Try using {@link getViewLinesData} instead.
     */
     getViewLineData(model, modelLineNumber, outputLineIndex) {
-        const arr = new Array();
+        const arr = [];
         this.getViewLinesData(model, modelLineNumber, outputLineIndex, 1, 0, [true], arr);
         return arr[0];
     }
@@ -98,7 +98,7 @@ class ModelLineProjection {
             let totalInjectedTextLengthBefore = 0;
             let currentInjectedOffset = 0;
             for (let outputLineIndex = 0; outputLineIndex < lineBreakData.getOutputLineCount(); outputLineIndex++) {
-                const inlineDecorations = new Array();
+                const inlineDecorations = [];
                 inlineDecorationsPerOutputLine[outputLineIndex] = inlineDecorations;
                 const lineStartOffsetInInputWithInjections = outputLineIndex > 0 ? lineBreakData.breakOffsets[outputLineIndex - 1] : 0;
                 const lineEndOffsetInInputWithInjections = lineBreakData.breakOffsets[outputLineIndex];

@@ -701,7 +701,7 @@ CommandsRegistry.registerCommand({
                         return noResultsMessage || super._getNoResultFoundMessage(info);
                     }
                 }({
-                    muteMessage: !Boolean(noResultsMessage),
+                    muteMessage: !noResultsMessage,
                     openInPeek: Boolean(openInPeek),
                     openToSide: false
                 }, references, multiple);

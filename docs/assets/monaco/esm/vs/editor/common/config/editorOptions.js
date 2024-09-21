@@ -561,7 +561,7 @@ export class EditorFontLigatures extends BaseEditorOption {
             }
             return input;
         }
-        if (Boolean(input)) {
+        if (input) {
             return EditorFontLigatures.ON;
         }
         return EditorFontLigatures.OFF;
@@ -604,7 +604,7 @@ export class EditorFontVariations extends BaseEditorOption {
             }
             return input;
         }
-        if (Boolean(input)) {
+        if (input) {
             return EditorFontVariations.TRANSLATE;
         }
         return EditorFontVariations.OFF;

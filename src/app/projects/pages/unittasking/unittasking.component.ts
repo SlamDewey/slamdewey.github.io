@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "x-unittasking",
-  templateUrl: "./unittasking.component.html",
-  styleUrls: ["./unittasking.component.scss"],
+  selector: 'x-unittasking',
+  templateUrl: './unittasking.component.html',
+  styleUrls: ['./unittasking.component.scss'],
+  standalone: true,
 })
 export class UnitTaskingComponent implements OnInit {
   constructor() {}

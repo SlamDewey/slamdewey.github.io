@@ -17,9 +17,11 @@
   </div>
 
   <div class="gallery-container">
-    <div class="gallery" *ngIf="imageTileDataSet !== undefined">
-      @if (imageTileDataSet) { @for (image of imageTileDataSet.get(currentImageFolder); track $index) {
+    <div class="gallery">
+      @for (image of imageTileDataSet.get(currentImageFolder); track $index) { @if (imageTileDataSet) {
       <x-image-tile [imageTileData]="image"></x-image-tile>
+      } @else {
+      <div>skeleton loader</div>
       } }
     </div>
   </div>

@@ -164,7 +164,7 @@ export function coalesce(array) {
 export function coalesceInPlace(array) {
     let to = 0;
     for (let i = 0; i < array.length; i++) {
-        if (!!array[i]) {
+        if (array[i]) {
             array[to] = array[i];
             to += 1;
         }

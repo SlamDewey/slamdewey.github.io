@@ -72,7 +72,7 @@ export class LineContext {
     }
 }
 function canShowQuickSuggest(editor, contextKeyService, configurationService) {
-    if (!Boolean(contextKeyService.getContextKeyValue(InlineCompletionContextKeys.inlineSuggestionVisible.key))) {
+    if (!contextKeyService.getContextKeyValue(InlineCompletionContextKeys.inlineSuggestionVisible.key)) {
         // Allow if there is no inline suggestion.
         return true;
     }
@@ -83,7 +83,7 @@ function canShowQuickSuggest(editor, contextKeyService, configurationService) {
     return !editor.getOption(60 /* EditorOption.inlineSuggest */).suppressSuggestions;
 }
 function canShowSuggestOnTriggerCharacters(editor, contextKeyService, configurationService) {
-    if (!Boolean(contextKeyService.getContextKeyValue('inlineSuggestionVisible'))) {
+    if (!contextKeyService.getContextKeyValue('inlineSuggestionVisible')) {
         // Allow if there is no inline suggestion.
         return true;
     }

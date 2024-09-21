@@ -583,7 +583,7 @@ SuggestController = __decorate([
 class PriorityRegistry {
     constructor(prioritySelector) {
         this.prioritySelector = prioritySelector;
-        this._items = new Array();
+        this._items = [];
     }
     register(value) {
         if (this._items.indexOf(value) !== -1) {

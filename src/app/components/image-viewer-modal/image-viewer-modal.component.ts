@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 export interface ZoomOptions {
   scale: number;
@@ -11,9 +12,11 @@ export interface ZoomOptions {
 const ZoomScalar = 1.2;
 
 @Component({
-  selector: "x-image-viewer-modal",
-  templateUrl: "./image-viewer-modal.component.html",
-  styleUrls: ["./image-viewer-modal.component.scss"],
+  selector: 'x-image-viewer-modal',
+  templateUrl: './image-viewer-modal.component.html',
+  styleUrls: ['./image-viewer-modal.component.scss'],
+  standalone: true,
+  imports: [SpinnerComponent],
 })
 export class ImageViewerModalComponent implements OnInit {
   @Input() imageSource: string;

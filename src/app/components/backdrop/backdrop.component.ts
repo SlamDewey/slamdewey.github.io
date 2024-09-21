@@ -1,22 +1,15 @@
-import {
-  Component,
-  ViewEncapsulation,
-  ElementRef,
-  ViewChild,
-  Input,
-  HostListener,
-  OnDestroy,
-} from "@angular/core";
-import { Backdrop } from "./backdrop";
+import { Component, ViewEncapsulation, ElementRef, ViewChild, Input, HostListener, OnDestroy } from '@angular/core';
+import { Backdrop } from './backdrop';
 
 @Component({
-  selector: "backdrop",
-  templateUrl: "./backdrop.component.html",
-  styleUrls: ["./backdrop.component.scss"],
+  selector: 'backdrop',
+  templateUrl: './backdrop.component.html',
+  styleUrls: ['./backdrop.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
 })
 export class BackdropComponent implements OnDestroy {
-  @ViewChild("bgCanvas") bgCanvas: ElementRef;
+  @ViewChild('bgCanvas') bgCanvas: ElementRef;
 
   @Input() backdrop: Backdrop;
   @Input() shouldPauseAnimation: boolean;
@@ -32,11 +25,9 @@ export class BackdropComponent implements OnDestroy {
   private resizeObserver: ResizeObserver;
 
   constructor() {
-    const e = document.createElement("canvas");
+    const e = document.createElement('canvas');
     BackdropComponent.isWebGlEnabled =
-      !!window.WebGLRenderingContext ||
-      !!e.getContext("webgl") ||
-      !!e.getContext("experimental-webgl");
+      !!window.WebGLRenderingContext || !!e.getContext('webgl') || !!e.getContext('experimental-webgl');
   }
 
   ngOnDestroy() {
@@ -55,29 +46,21 @@ export class BackdropComponent implements OnDestroy {
     }
     this.ctx = context;
 
-    this.resizeObserver = new ResizeObserver((entries) =>
-      this.onResize(entries),
-    );
-    this.resizeObserver.observe(
-      this.isServingAsBackdrop ? document.body : this.canvasElement,
-    );
+    this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
+    this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);
     // schedule first animation frame
-    this.renderInterval = window.requestAnimationFrame(
-      this.renderLoop.bind(this),
-    );
+    this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
   }
 
-  @HostListener("document:mousemove", ["$event"])
+  @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
-    var rect = this.canvasElement.getBoundingClientRect();
+    const rect = this.canvasElement.getBoundingClientRect();
     this.backdrop.mousePosition.x = e.clientX - rect.left;
     this.backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
   }
 
   public renderLoop(): void {
-    this.renderInterval = window.requestAnimationFrame(
-      this.renderLoop.bind(this),
-    );
+    this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
 
     if (this.shouldPauseAnimation || !this.backdrop.isInitialized) return;
 
@@ -100,10 +83,6 @@ export class BackdropComponent implements OnDestroy {
     this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
     this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
 
-    this.backdrop.initialize(
-      this.ctx,
-      this.InternalCanvasRenderSize.X,
-      this.InternalCanvasRenderSize.Y,
-    );
+    this.backdrop.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
   }
 }

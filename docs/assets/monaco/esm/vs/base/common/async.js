@@ -588,7 +588,7 @@ export var Promises;
      * cannot be used (e.g. when callbacks are involved that require this).
      */
     function withAsyncBody(bodyFn) {
-        // eslint-disable-next-line no-async-promise-executor
+         
         return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
                 yield bodyFn(resolve, reject);

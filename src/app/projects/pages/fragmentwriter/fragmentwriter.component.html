@@ -17,16 +17,14 @@
       </div>
     </div>
     <div class="canvas-container">
-      <backdrop
-        class="canvas"
-        [backdrop]="bgAnimation"
-        [isServingAsBackdrop]="false"
-      ></backdrop>
-      <div *ngIf="compilationErrors" class="compilation-errors">
+      <backdrop class="canvas" [backdrop]="bgAnimation" [isServingAsBackdrop]="false"></backdrop>
+      @if(compilationErrors) {
+      <div class="compilation-errors">
         <h3>A compilation error has occurred!</h3>
         <br />
         <h3>{{ compilationErrors }}</h3>
       </div>
+      }
     </div>
   </div>
 </div>

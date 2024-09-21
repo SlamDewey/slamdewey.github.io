@@ -137,7 +137,7 @@ export abstract class WebGLBackdrop extends Backdrop {
 
   private initWebGL(gl: WebGLRenderingContext): void {
     // Create a new buffer object
-    var vertex_buffer = gl.createBuffer();
+    const vertex_buffer = gl.createBuffer();
     if (vertex_buffer === null)
       throw new Error("Couldn't create vertex buffer!");
 
@@ -177,8 +177,8 @@ export abstract class WebGLBackdrop extends Backdrop {
     vertCode: string,
     fragCode: string,
   ): [vertexShader: WebGLShader, fragmentShader: WebGLShader] {
-    var vertShader = gl.createShader(gl.VERTEX_SHADER);
-    var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    const vertShader = gl.createShader(gl.VERTEX_SHADER);
+    const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
     if (vertShader === null) {
       throw new Error("Failed To Create Vertex Shader!");
     }

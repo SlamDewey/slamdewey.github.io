@@ -953,7 +953,7 @@ export class ListView {
     probeDynamicHeight(index) {
         var _a, _b, _c;
         const item = this.items[index];
-        if (!!this.virtualDelegate.getDynamicHeight) {
+        if (this.virtualDelegate.getDynamicHeight) {
             const newSize = this.virtualDelegate.getDynamicHeight(item.element);
             if (newSize !== null) {
                 const size = item.size;

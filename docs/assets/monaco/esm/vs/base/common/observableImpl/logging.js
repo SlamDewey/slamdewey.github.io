@@ -108,7 +108,7 @@ export class ConsoleObservableLogger {
     }
 }
 function consoleTextToArgs(text) {
-    const styles = new Array();
+    const styles = [];
     const initial = {};
     const data = initial;
     let firstArg = '';

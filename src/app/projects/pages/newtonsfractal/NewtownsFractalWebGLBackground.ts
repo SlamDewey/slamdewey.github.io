@@ -144,7 +144,7 @@ export class NewtownsFractalWebGLBackground extends WebGLBackdrop {
     gl: WebGLRenderingContext,
     shaderProgram: WebGLProgram,
   ) {
-    var coord = gl.getAttribLocation(shaderProgram, "coordinates");
+    const coord = gl.getAttribLocation(shaderProgram, "coordinates");
     gl.vertexAttribPointer(
       coord,
       2,

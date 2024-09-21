@@ -140,7 +140,7 @@ export class IndentGuidesOverlay extends DynamicViewOverlay {
         const { indentSize } = this._context.viewModel.model.getOptions();
         const result = [];
         for (let lineNumber = visibleStartLineNumber; lineNumber <= visibleEndLineNumber; lineNumber++) {
-            const lineGuides = new Array();
+            const lineGuides = [];
             result.push(lineGuides);
             const bracketGuidesInLine = bracketGuides ? bracketGuides[lineNumber - visibleStartLineNumber] : [];
             const bracketGuidesInLineQueue = new ArrayQueue(bracketGuidesInLine);

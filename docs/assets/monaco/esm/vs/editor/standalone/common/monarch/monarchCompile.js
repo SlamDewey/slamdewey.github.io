@@ -468,7 +468,7 @@ export function compile(languageId, json) {
                 lexer.start = key;
             }
             const rules = json.tokenizer[key];
-            lexer.tokenizer[key] = new Array();
+            lexer.tokenizer[key] = [];
             addRules('tokenizer.' + key, lexer.tokenizer[key], rules);
         }
     }

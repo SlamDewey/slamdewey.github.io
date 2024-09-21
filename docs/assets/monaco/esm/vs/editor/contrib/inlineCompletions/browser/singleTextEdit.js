@@ -71,7 +71,7 @@ export class SingleTextEdit {
             return undefined;
         }
         const lineNumber = edit.range.startLineNumber;
-        const parts = new Array();
+        const parts = [];
         if (mode === 'prefix') {
             const filteredChanges = changes.filter(c => c.originalLength === 0);
             if (filteredChanges.length > 1 || filteredChanges.length === 1 && filteredChanges[0].originalStart !== valueToBeReplaced.length) {

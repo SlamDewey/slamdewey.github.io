@@ -6,7 +6,8 @@
     "start:dev": "ng serve --watch --configuration=development",
     "build": "ng build",
     "test": "ng test",
-    "deploy": "ng deploy"
+    "deploy": "ng deploy",
+    "lint": "eslint --fix"
   },
   "private": true,
   "dependencies": {

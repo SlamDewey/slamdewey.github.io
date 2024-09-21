@@ -1,14 +1,18 @@
 import { Component, ElementRef, Input, ViewChild, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 export class DropdownLinkData {
   public text: string;
   public url: string;
+  queryParams: { [key: string]: string };
 }
 
 @Component({
   selector: 'x-dropdown-link-selector',
   templateUrl: './dropdown-link-selector.component.html',
-  styleUrls: ['./dropdown-link-selector.component.scss']
+  styleUrls: ['./dropdown-link-selector.component.scss'],
+  standalone: true,
+  imports: [RouterLink],
 })
 export class DropdownLinkSelectorComponent implements AfterViewInit {
   @Input('dropdownText') dropdownText: string;
@@ -16,7 +20,7 @@ export class DropdownLinkSelectorComponent implements AfterViewInit {
 
   @ViewChild('container') container: ElementRef;
 
-  constructor(private ref: ChangeDetectorRef) { }
+  constructor(private ref: ChangeDetectorRef) {}
 
   public isOverflowing: boolean = false;
 

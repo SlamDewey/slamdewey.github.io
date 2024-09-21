@@ -1,6 +1,6 @@
 <backdrop [backdrop]="bgAnimation"></backdrop>
-
-<div #container *ngIf="!shouldHide" class="newtonsfractal-container">
+@if (!shouldHide) {
+<div #container class="newtonsfractal-container">
   <div class="temp-header">This page is also under construction.</div>
   <div class="content-container">
     <div class="blurb">
@@ -27,20 +27,12 @@
                 <div class="data">{{ this.bgAnimation.iterations }}</div>
               </td>
               <td>
-                <input
-                  type="button"
-                  value="<"
-                  (click)="this.decrementIterationCount()"
-                />
+                <input type="button" value="<" (click)="this.decrementIterationCount()" />
               </td>
 
               <td></td>
               <td>
-                <input
-                  type="button"
-                  value=">"
-                  (click)="this.incrementIterationCount()"
-                />
+                <input type="button" value=">" (click)="this.incrementIterationCount()" />
               </td>
 
               <td></td>
@@ -60,3 +52,4 @@
   <br />
   <div class="hide-text-btn" (click)="this.shouldHide = true">Hide Text</div>
 </div>
+}

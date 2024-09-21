@@ -3,14 +3,18 @@ export type ImageJson = {
   placeholder_path: string;
   directories: string[];
   img: {
-    [key: string]: Image[];
+    [key: string]: GalleryImageData[];
   };
 };
 
-export type Image = {
+export type GalleryImageData = {
   title: string;
   caption: string;
   lastModified: string;
   img_src: string;
   placeholder_src: string;
+};
+
+export type GalleryRouteQueryParams = {
+  folder: string;
 };

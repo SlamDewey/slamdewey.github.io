@@ -292,7 +292,7 @@ export class FormatString extends Marker {
         else if (Boolean(value) && typeof this.ifValue === 'string') {
             return this.ifValue;
         }
-        else if (!Boolean(value) && typeof this.elseValue === 'string') {
+        else if (!value && typeof this.elseValue === 'string') {
             return this.elseValue;
         }
         else {

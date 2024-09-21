@@ -138,7 +138,7 @@ export class LineTokens {
         let nextOriginalTokenIdx = 0;
         let nextInsertTokenIdx = 0;
         let text = '';
-        const newTokens = new Array();
+        const newTokens = [];
         let originalEndOffset = 0;
         while (true) {
             const nextOriginalTokenEndOffset = nextOriginalTokenIdx < this._tokensCount ? this._tokens[nextOriginalTokenIdx << 1] : -1;

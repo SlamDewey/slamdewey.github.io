@@ -1,12 +1,16 @@
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
 import { env } from './environments/environment';
+import { bootstrapApplication, Title } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { FaviconService } from './app/services/favicon.service';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
 
 if ('prod' === env.enviornment) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [FaviconService, Title, provideHttpClient(withFetch()), provideRouter(routes)],
+});

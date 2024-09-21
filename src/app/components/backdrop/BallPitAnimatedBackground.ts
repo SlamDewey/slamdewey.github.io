@@ -42,8 +42,8 @@ class Circle {
 
     if (mousePosition === undefined)
       return;
-    let dif: Vector2 = new Vector2(mousePosition.x - this.position.x, mousePosition.y - this.position.y);
-    let length: number = Math.sqrt(dif.x * dif.x + dif.y * dif.y);
+    const dif: Vector2 = new Vector2(mousePosition.x - this.position.x, mousePosition.y - this.position.y);
+    const length: number = Math.sqrt(dif.x * dif.x + dif.y * dif.y);
 
     // make the circles grow when in range of cursor
     if (length > MAX_GROW_RANGE)
@@ -73,7 +73,7 @@ export class BallPitAnimatedBackground extends Backdrop {
   override init(): void {
     this.circles = [];
     const NUM_CIRCLES = Math.round((this.width * this.height) / CIRCLE_SPAWN_DENSITY);
-    for (var i = 0; i < NUM_CIRCLES; i++) {
+    for (let i = 0; i < NUM_CIRCLES; i++) {
       const radius = randomRange(MIN_RADIUS, MAX_RADIUS);
       const xSpawn = randomRange(0, this.width);
       const ySpawn = randomRange(0, this.height);

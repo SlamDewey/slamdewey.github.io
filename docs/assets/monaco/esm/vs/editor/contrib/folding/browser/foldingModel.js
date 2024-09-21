@@ -56,7 +56,7 @@ export class FoldingModel {
         this._updateEventEmitter.fire({ model: this, collapseStateChanged: toggledRegions });
     }
     removeManualRanges(ranges) {
-        const newFoldingRanges = new Array();
+        const newFoldingRanges = [];
         const intersects = (foldRange) => {
             for (const range of ranges) {
                 if (!(range.startLineNumber > foldRange.endLineNumber || foldRange.startLineNumber > range.endLineNumber)) {

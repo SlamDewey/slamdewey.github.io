@@ -2414,7 +2414,7 @@ define(__m[26/*vs/base/common/arrays*/], __M([0/*require*/,1/*exports*/]), funct
     function coalesceInPlace(array) {
         let to = 0;
         for (let i = 0; i < array.length; i++) {
-            if (!!array[i]) {
+            if (array[i]) {
                 array[to] = array[i];
                 to += 1;
             }
@@ -3493,7 +3493,7 @@ define(__m[4/*vs/base/common/errors*/], __M([0/*require*/,1/*exports*/]), functi
             Object.setPrototypeOf(this, BugIndicatingError.prototype);
             // Because we know for sure only buggy code throws this,
             // we definitely want to break here and fix the bug.
-            // eslint-disable-next-line no-debugger
+             
             // debugger;
         }
     }

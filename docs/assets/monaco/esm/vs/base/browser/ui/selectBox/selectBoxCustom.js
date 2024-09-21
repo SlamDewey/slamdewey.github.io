@@ -33,8 +33,8 @@ class SelectListRenderer {
         const decoratorRight = element.decoratorRight;
         const isDisabled = element.isDisabled;
         data.text.textContent = text;
-        data.detail.textContent = !!detail ? detail : '';
-        data.decoratorRight.innerText = !!decoratorRight ? decoratorRight : '';
+        data.detail.textContent = detail ? detail : '';
+        data.decoratorRight.innerText = decoratorRight ? decoratorRight : '';
         // pseudo-select disabled option
         if (isDisabled) {
             data.root.classList.add('option-disabled');
@@ -524,15 +524,15 @@ export class SelectBoxList extends Disposable {
             let longest = 0;
             let longestLength = 0;
             this.options.forEach((option, index) => {
-                const detailLength = !!option.detail ? option.detail.length : 0;
-                const rightDecoratorLength = !!option.decoratorRight ? option.decoratorRight.length : 0;
+                const detailLength = option.detail ? option.detail.length : 0;
+                const rightDecoratorLength = option.decoratorRight ? option.decoratorRight.length : 0;
                 const len = option.text.length + detailLength + rightDecoratorLength;
                 if (len > longestLength) {
                     longest = index;
                     longestLength = len;
                 }
             });
-            container.textContent = this.options[longest].text + (!!this.options[longest].decoratorRight ? (this.options[longest].decoratorRight + ' ') : '');
+            container.textContent = this.options[longest].text + (this.options[longest].decoratorRight ? (this.options[longest].decoratorRight + ' ') : '');
             elementWidth = dom.getTotalWidth(container);
         }
         return elementWidth;

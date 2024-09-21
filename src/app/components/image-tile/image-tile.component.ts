@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input } from '@angular/core';
 
 export class ImageTileData {
   public title?: string;
@@ -10,9 +10,10 @@ export class ImageTileData {
 }
 
 @Component({
-  selector: "x-image-tile",
-  templateUrl: "./image-tile.component.html",
-  styleUrls: ["./image-tile.component.scss"],
+  selector: 'x-image-tile',
+  templateUrl: './image-tile.component.html',
+  styleUrls: ['./image-tile.component.scss'],
+  standalone: true,
 })
 export class ImageTileComponent {
   @Input() imageTileData: ImageTileData;

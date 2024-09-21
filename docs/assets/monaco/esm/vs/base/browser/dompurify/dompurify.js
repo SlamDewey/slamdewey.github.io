@@ -440,7 +440,7 @@ function createDOMPurify() {
    *
    * @param  {Object} cfg optional config literal
    */
-  // eslint-disable-next-line complexity
+   
   var _parseConfig = function _parseConfig(cfg) {
     if (CONFIG && CONFIG === cfg) {
       return;
@@ -943,7 +943,7 @@ function createDOMPurify() {
    * @param  {string} value Attribute value.
    * @return {Boolean} Returns true if `value` is valid, otherwise false.
    */
-  // eslint-disable-next-line complexity
+   
   var _isValidAttribute = function _isValidAttribute(lcTag, lcName, value) {
     /* Make sure attribute cannot clobber */
     if (SANITIZE_DOM && (lcName === 'id' || lcName === 'name') && (value in document || value in formElement)) {
@@ -1105,7 +1105,7 @@ function createDOMPurify() {
    * @param {String|Node} dirty string or DOM node
    * @param {Object} configuration object
    */
-  // eslint-disable-next-line complexity
+   
   DOMPurify.sanitize = function (dirty, cfg) {
     var body = void 0;
     var importedNode = void 0;
@@ -1122,7 +1122,7 @@ function createDOMPurify() {
 
     /* Stringify, in case dirty is an object */
     if (typeof dirty !== 'string' && !_isNode(dirty)) {
-      // eslint-disable-next-line no-negated-condition
+       
       if (typeof dirty.toString !== 'function') {
         throw typeErrorCreate('toString is not a function');
       } else {

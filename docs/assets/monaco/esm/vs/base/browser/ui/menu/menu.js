@@ -300,7 +300,7 @@ class BaseMenuActionViewItem extends BaseActionViewItem {
             if (label) {
                 const matches = MENU_MNEMONIC_REGEX.exec(label);
                 if (matches) {
-                    this.mnemonic = (!!matches[1] ? matches[1] : matches[3]).toLocaleLowerCase();
+                    this.mnemonic = (matches[1] ? matches[1] : matches[3]).toLocaleLowerCase();
                 }
             }
         }
@@ -424,7 +424,7 @@ class BaseMenuActionViewItem extends BaseActionViewItem {
                     else {
                         this.label.innerText = replaceDoubleEscapes(label).trim();
                     }
-                    (_a = this.item) === null || _a === void 0 ? void 0 : _a.setAttribute('aria-keyshortcuts', (!!matches[1] ? matches[1] : matches[3]).toLocaleLowerCase());
+                    (_a = this.item) === null || _a === void 0 ? void 0 : _a.setAttribute('aria-keyshortcuts', (matches[1] ? matches[1] : matches[3]).toLocaleLowerCase());
                 }
                 else {
                     this.label.innerText = label.replace(/&&/g, '&').trim();
