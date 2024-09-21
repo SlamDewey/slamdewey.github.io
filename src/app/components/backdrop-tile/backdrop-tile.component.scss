@@ -4,6 +4,8 @@ $color-white: white;
   display: grid;
   justify-content: center;
   margin: 0.5rem;
+  height: 200px;
+  width: 300px;
 
   & a {
     color: $color-white;
@@ -12,10 +14,6 @@ $color-white: white;
 
     height: 200px;
     width: 300px;
-
-    max-height: 200px;
-    max-width: 300px;
-    border-radius: 5px;
 
     &:hover {
       box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
@@ -27,14 +25,10 @@ $color-white: white;
     }
 
     & .hover-data {
-      border-radius: 5px;
       position: absolute;
 
       height: 200px;
       width: 300px;
-
-      max-height: 200px;
-      max-width: 300px;
       overflow: wrap;
 
       text-align: center;
@@ -42,7 +36,7 @@ $color-white: white;
       flex-direction: column;
       justify-content: center;
 
-      transition: all .2s;
+      transition: all 0.2s;
       opacity: 0;
 
       & h1 {
@@ -50,8 +44,8 @@ $color-white: white;
         font-size: 25px;
         padding-left: 1rem;
         padding-right: 1rem;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
       }
     }
   }

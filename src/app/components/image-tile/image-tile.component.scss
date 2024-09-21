@@ -2,18 +2,15 @@ $color-white: white;
 
 .image-tile {
   justify-content: center;
-  margin: 1rem;
+  margin: 0.5rem;
   display: block;
-  max-width: 300px;
-  max-height: 200px;
 
   & a {
     color: $color-white;
     display: flex;
     justify-content: center;
     width: 300px;
-    max-height: 200px;
-    border-radius: 5px;
+    height: 200px;
 
     &:hover {
       box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
@@ -27,14 +24,11 @@ $color-white: white;
     }
 
     & .image-hover-data {
-      border-radius: 5px;
+      border-radius: 0.25rem;
       position: absolute;
 
-      height: 200px;
       width: 300px;
-
-      max-height: 200px;
-      max-width: 300px;
+      height: 200px;
       overflow: wrap;
 
       transition: all 0.2s;
@@ -60,12 +54,12 @@ $color-white: white;
 
   & img {
     max-width: 300px;
-    height: auto;
     max-height: 200px;
+    margin: auto;
 
     transition: all 0.2s;
     opacity: 1;
 
-    border-radius: 5px;
+    border-radius: 0.25rem;
   }
 }

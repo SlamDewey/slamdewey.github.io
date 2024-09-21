@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 export class ImageTileData {
   public title?: string;
@@ -14,6 +15,7 @@ export class ImageTileData {
   templateUrl: './image-tile.component.html',
   styleUrls: ['./image-tile.component.scss'],
   standalone: true,
+  imports: [SkeletonLoaderComponent],
 })
 export class ImageTileComponent {
   @Input() imageTileData: ImageTileData;

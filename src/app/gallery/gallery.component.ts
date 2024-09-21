@@ -47,6 +47,8 @@ export class GalleryComponent implements OnInit {
   private readonly titleService = inject(Title);
 
   ngOnInit() {
+    this.titleService.setTitle('Gallery');
+
     this.activatedRoute.data.subscribe({
       next: ({ imageJson }) => {
         this.imageDataJSON = imageJson;
@@ -73,11 +75,9 @@ export class GalleryComponent implements OnInit {
       if (folder) {
         this.currentImageFolder = folder;
         this.titleService.setTitle(this.formatFolderName(folder) + ' | Gallery');
-        console.log('setting title to: ', this.formatFolderName(folder) + ' | Gallery');
       } else {
         this.currentImageFolder = '';
         this.titleService.setTitle('Gallery');
-        console.log('defaulted title');
       }
     });
   }
@@ -87,8 +87,7 @@ export class GalleryComponent implements OnInit {
     const imageTileData = new Map<string, ImageTileData[]>();
 
     this.imageFolders.forEach((folder: string) => {
-      const imagesInFolder = imageSet[folder];
-      const imageTilesForThisFolder = imagesInFolder.map((image: GalleryImageData) => {
+      const imageTilesForThisFolder = imageSet[folder].map((image: GalleryImageData) => {
         return {
           ...image,
           placeholder_src: env.imageCdnUrl + image.placeholder_src,

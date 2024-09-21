@@ -17,13 +17,13 @@
   </div>
 
   <div class="gallery-container">
+    @if (imageTileDataSet && currentImageFolder) {
     <div class="gallery">
-      @for (image of imageTileDataSet.get(currentImageFolder); track $index) { @if (imageTileDataSet) {
+      @for (image of imageTileDataSet.get(currentImageFolder); track $index) {
       <x-image-tile [imageTileData]="image"></x-image-tile>
-      } @else {
-      <div>skeleton loader</div>
-      } }
+      }
     </div>
+    }
   </div>
 
   <x-image-viewer-modal
