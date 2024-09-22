@@ -1,10 +1,10 @@
-import { Backdrop, Vector2 } from "./backdrop";
+import { Backdrop, Vector2 } from './backdrop';
 
 const COLORS = [
   //'#fb8537',
   //'#fb9550'
   '#353535',
-  '#282828'
+  '#282828',
 ];
 const CIRCLE_SPAWN_DENSITY = 8_000;
 const MIN_RADIUS = 10;
@@ -40,21 +40,21 @@ class Circle {
     this.position.x += this.velocity.x * deltaTime;
     this.position.y += this.velocity.y * deltaTime;
 
-    if (mousePosition === undefined)
-      return;
+    if (mousePosition === undefined) return;
     const dif: Vector2 = new Vector2(mousePosition.x - this.position.x, mousePosition.y - this.position.y);
     const length: number = Math.sqrt(dif.x * dif.x + dif.y * dif.y);
 
     // make the circles grow when in range of cursor
-    if (length > MAX_GROW_RANGE)
-      this.radiusMultiplier = 1;
-    else if (length < MIN_GROW_RANGE)
-      this.radiusMultiplier = MAX_GROW_MULTIPLIER;
+    if (length > MAX_GROW_RANGE) this.radiusMultiplier = 1;
+    else if (length < MIN_GROW_RANGE) this.radiusMultiplier = MAX_GROW_MULTIPLIER;
     else {
       const distanceAsPercentage = (MAX_GROW_RANGE - length) / (MAX_GROW_RANGE - MIN_GROW_RANGE);
-      this.radiusMultiplier = lerp(1, MAX_GROW_MULTIPLIER, distanceAsPercentage * distanceAsPercentage * distanceAsPercentage);
-      if (this.radiusMultiplier < 1)
-        console.log('err')
+      this.radiusMultiplier = lerp(
+        1,
+        MAX_GROW_MULTIPLIER,
+        distanceAsPercentage * distanceAsPercentage * distanceAsPercentage
+      );
+      if (this.radiusMultiplier < 1) console.log('err');
     }
   }
 
@@ -67,7 +67,6 @@ class Circle {
 }
 
 export class BallPitAnimatedBackground extends Backdrop {
-
   circles: Circle[];
 
   override init(): void {
@@ -85,19 +84,23 @@ export class BallPitAnimatedBackground extends Backdrop {
   }
 
   update(deltaTime: number): void {
-    const swappedAxisMousePosition = { x: this.mousePosition.x, y: this.height - this.mousePosition.y }
-    this.circles.forEach(circle => {
+    const swappedAxisMousePosition = { x: this.mousePosition.x, y: this.height - this.mousePosition.y };
+    this.circles.forEach((circle) => {
       circle.update(deltaTime, swappedAxisMousePosition);
-      if ((circle.position.x <= 0 && circle.velocity.x < 0) ||
-        (circle.position.x >= this.width && circle.velocity.x > 0))
+      if (
+        (circle.position.x <= 0 && circle.velocity.x < 0) ||
+        (circle.position.x >= this.width && circle.velocity.x > 0)
+      )
         circle.velocity.x = -circle.velocity.x;
-      if ((circle.position.y <= 0 && circle.velocity.y < 0) ||
-        (circle.position.y >= this.height && circle.velocity.y > 0))
+      if (
+        (circle.position.y <= 0 && circle.velocity.y < 0) ||
+        (circle.position.y >= this.height && circle.velocity.y > 0)
+      )
         circle.velocity.y = -circle.velocity.y;
     });
   }
-  draw(deltaTime: number): void {
-    this.circles.forEach(circle => {
+  draw(): void {
+    this.circles.forEach((circle) => {
       circle.draw(this.ctx);
     });
   }

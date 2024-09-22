@@ -6,11 +6,19 @@ import { FaviconService } from './app/services/favicon.service';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { NGX_MONACO_EDITOR_CONFIG } from 'ngx-monaco-editor-v2';
+import { monacoConfig } from './app/util/monaco-config';
 
 if ('prod' === env.enviornment) {
   enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [FaviconService, Title, provideHttpClient(withFetch()), provideRouter(routes)],
+  providers: [
+    provideHttpClient(withFetch()),
+    provideRouter(routes),
+    FaviconService,
+    Title,
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: monacoConfig },
+  ],
 });

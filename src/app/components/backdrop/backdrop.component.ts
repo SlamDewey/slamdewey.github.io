@@ -46,6 +46,10 @@ export class BackdropComponent implements OnDestroy {
     }
     this.ctx = context;
 
+    this.backdrop.initializeContext(this.ctx);
+    this.backdrop.setSize(this.canvasElement.width, this.canvasElement.height);
+    this.backdrop.initialize();
+
     this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
     this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);
     // schedule first animation frame
@@ -83,6 +87,7 @@ export class BackdropComponent implements OnDestroy {
     this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
     this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
 
-    this.backdrop.initialize(this.ctx, this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
+    this.backdrop.setSize(this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
+    this.backdrop.initialize();
   }
 }

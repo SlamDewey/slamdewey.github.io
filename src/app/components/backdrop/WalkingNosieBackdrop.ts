@@ -1,21 +1,8 @@
-import { WebGLBackdrop } from "./backdrop";
+import { WebGLBackdrop } from './backdrop';
 
 export class WalkingNoiseBackdrop extends WebGLBackdrop {
   protected override init(): void {}
 
-  private totalTimeLocation: WebGLUniformLocation;
-  private totalTime = 0;
-
-  readonly VertexShader = `\
-#version 300 es
-precision mediump float;
-
-in vec2 coordinates;
-
-void main() {
-  gl_Position = vec4(coordinates.xy, 0.0, 1.0);
-}
-  `;
   readonly FragmentShader = `\
 #version 300 es
 precision mediump float;
@@ -118,51 +105,8 @@ void main() {
   }
 }
   `;
-  protected override getVertexShader(): string {
-    return this.VertexShader;
-  }
+
   protected override getFragmentShader(): string {
     return this.FragmentShader;
-  }
-
-  protected initializeDrawVariables(
-    gl: WebGLRenderingContext,
-    shaderProgram: WebGLProgram,
-  ) {
-    const coord = gl.getAttribLocation(shaderProgram, "coordinates");
-    gl.vertexAttribPointer(
-      coord,
-      2,
-      gl.FLOAT,
-      false,
-      2 * Float32Array.BYTES_PER_ELEMENT,
-      0,
-    );
-    gl.enableVertexAttribArray(coord);
-
-    gl.uniform2f(
-      gl.getUniformLocation(shaderProgram, "screenSize"),
-      this.width,
-      this.height,
-    );
-    gl.uniform1f(
-      gl.getUniformLocation(shaderProgram, "totalTime"),
-      this.totalTime,
-    );
-    this.totalTimeLocation = gl.getUniformLocation(
-      this.shaderProgram,
-      "totalTime",
-    )!;
-  }
-
-  protected update(deltaTime: number): void {
-    this.totalTime += deltaTime;
-  }
-
-  protected override prepareDrawVariables(
-    gl: WebGLRenderingContext,
-    _deltaTime: number,
-  ): void {
-    gl.uniform1f(this.totalTimeLocation, this.totalTime);
   }
 }

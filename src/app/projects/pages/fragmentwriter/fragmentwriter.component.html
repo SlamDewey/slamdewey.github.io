@@ -1,7 +1,13 @@
 <div class="component-container">
   <div class="content-container">
     <div class="editor-container">
-      <div #editor class="editor"></div>
+      <ngx-monaco-editor
+        class="editor"
+        [insideNg]="true"
+        [options]="options"
+        [model]="options.model!"
+        (onInit)="onMonacoInit($event)"
+      ></ngx-monaco-editor>
       <div class="editor-controls">
         <div class="control button" (click)="tryShaderUpdate()">
           <h1>Run</h1>
