@@ -1,0 +1,8 @@
+<div #container class="dropdown">
+  <div class="dropdown-body">{{ dropdownText }}</div>
+  <div class="dropdown-content" [class]="isOverflowing ? 'overflowing' : ''">
+    @for (item of items; track $index) {
+    <a [routerLink]="item.url" [queryParams]="item.queryParams">{{ item.text }}</a>
+    }
+  </div>
+</div>

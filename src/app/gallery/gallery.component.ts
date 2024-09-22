@@ -1,31 +1,35 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Title } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
-import { Backdrop } from "../shared/backdrop/backdrop";
-import { ImageTileData } from "../shared/image-tile/image-tile.component";
-import { ImageViewerModalComponent } from "../shared/image-viewer-modal/image-viewer-modal.component";
-import { PerlinNoiseBackdrop } from "../shared/backdrop/PerlinNoiseBackdrop";
+import { Component, inject, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { Backdrop } from '../components/backdrop/backdrop';
+import { ImageTileComponent, ImageTileData } from '../components/image-tile/image-tile.component';
+import { ImageViewerModalComponent } from '../components/image-viewer-modal/image-viewer-modal.component';
 import {
-  ImageDeliveryService,
-  CLOUDFRONT_BASE_URL,
-} from "../services/image-delivery.service";
-import { DropdownLinkData } from "../shared/dropdown-link-selector/dropdown-link-selector.component";
-import { WalkingNoiseBackdrop } from "../shared/backdrop/WalkingNosieBackdrop";
-
-export type ImageJson = {
-  img_path: string;
-  placeholder_path: string;
-  directories: string[];
-  img: {};
-};
+  DropdownLinkData,
+  DropdownLinkSelectorComponent,
+} from '../components/dropdown-link-selector/dropdown-link-selector.component';
+import { WalkingNoiseBackdrop } from '../components/backdrop/WalkingNosieBackdrop';
+import { GalleryImageData, GalleryRouteQueryParams, ImageJson } from '../types/gallery';
+import { env } from '../../environments/environment';
+import { BackdropComponent } from '../components/backdrop/backdrop.component';
+import { InfoBannerComponent } from '../components/info-banner/info-banner.component';
 
 @Component({
-  selector: "x-gallery",
-  templateUrl: "./gallery.component.html",
-  styleUrls: ["./gallery.component.scss"],
+  selector: 'x-gallery',
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.scss'],
+  standalone: true,
+  imports: [
+    BackdropComponent,
+    InfoBannerComponent,
+    DropdownLinkSelectorComponent,
+    ImageTileComponent,
+    ImageViewerModalComponent,
+  ],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class GalleryComponent implements OnInit {
-  @ViewChild("imageViewerModal") imageViewerModal: ImageViewerModalComponent;
+  @ViewChild('imageViewerModal') imageViewerModal: ImageViewerModalComponent;
 
   public bgAnimation: Backdrop = new WalkingNoiseBackdrop();
 
@@ -39,41 +43,57 @@ export class GalleryComponent implements OnInit {
 
   public isModalOpen: boolean = false;
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly titleService: Title,
-    private readonly imageDeliveryService: ImageDeliveryService,
-  ) {}
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly titleService = inject(Title);
 
-  async ngOnInit(): Promise<void> {
-    this.route.queryParams.subscribe((params) => {
-      this.currentImageFolder = params["folder"];
-      if (this.currentImageFolder)
-        this.titleService.setTitle(
-          this.imageDeliveryService.formatFolderName(this.currentImageFolder) +
-            " | Gallery",
-        );
+  ngOnInit() {
+    this.titleService.setTitle('Gallery');
+
+    this.activatedRoute.data.subscribe({
+      next: ({ imageJson }) => {
+        this.imageDataJSON = imageJson;
+        this.imageFolders = imageJson.directories;
+        this.imageFolderLinks = this.imageFolders.map((f) => {
+          return {
+            text: this.formatFolderName(f),
+            url: '/gallery',
+            queryParams: {
+              folder: f,
+            },
+          };
+        });
+        this.currentImageFolder = this.imageFolders[0];
+        this.parseImageDataSet();
+      },
+      error: (e) => {
+        console.error(e);
+      },
     });
-    this.imageDataJSON = await this.imageDeliveryService.getImageJson();
-    this.imageFolders = this.imageDeliveryService.imageFolders;
-    this.imageFolderLinks = this.imageDeliveryService.imageFolderLinks;
-    this.imageDeliveryService.currentImageFolder = this.currentImageFolder;
-    this.parseImageDataSet();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      const { folder } = params as GalleryRouteQueryParams;
+      if (folder) {
+        this.currentImageFolder = folder;
+        this.titleService.setTitle(this.formatFolderName(folder) + ' | Gallery');
+      } else {
+        this.currentImageFolder = '';
+        this.titleService.setTitle('Gallery');
+      }
+    });
   }
 
   private parseImageDataSet(): void {
-    const imageSet: {} = this.imageDataJSON.img;
+    const imageSet = this.imageDataJSON.img;
     const imageTileData = new Map<string, ImageTileData[]>();
 
     this.imageFolders.forEach((folder: string) => {
-      const imageTilesForThisFolder: ImageTileData[] = [];
-      const imagesInFolder = (imageSet as any)[folder] as ImageTileData[];
-
-      imagesInFolder?.forEach((image: ImageTileData) => {
-        image.onClick = () => this.onImageTileClick(image.img_src);
-        image.placeholder_src = CLOUDFRONT_BASE_URL + image.placeholder_src;
-        image.img_src = CLOUDFRONT_BASE_URL + image.img_src;
-        imageTilesForThisFolder.push(image);
+      const imageTilesForThisFolder = imageSet[folder].map((image: GalleryImageData) => {
+        return {
+          ...image,
+          placeholder_src: env.imageCdnUrl + image.placeholder_src,
+          img_src: env.imageCdnUrl + image.img_src,
+          onClick: () => this.onImageTileClick(env.imageCdnUrl + image.img_src),
+        } as ImageTileData;
       });
       imageTileData.set(folder, imageTilesForThisFolder);
     });
@@ -83,5 +103,11 @@ export class GalleryComponent implements OnInit {
   private onImageTileClick(fullResolutionImageSource: string): void {
     this.currentImageSourceUrl = fullResolutionImageSource;
     this.imageViewerModal.openModal();
+  }
+
+  public formatFolderName(folderName: string): string {
+    const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
+    if (noSpecialChar.length < 1) return noSpecialChar.charAt(0).toUpperCase();
+    return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }
 }

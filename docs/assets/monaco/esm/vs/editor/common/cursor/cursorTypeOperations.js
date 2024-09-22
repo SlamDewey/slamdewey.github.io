@@ -489,12 +489,6 @@ export class TypeOperations {
         return result;
     }
     static _getAutoClosingPairClose(config, model, selections, ch, chIsAlreadyTyped) {
-        const chIsQuote = isQuote(ch);
-        const autoCloseConfig = (chIsQuote ? config.autoClosingQuotes : config.autoClosingBrackets);
-        const shouldAutoCloseBefore = (chIsQuote ? config.shouldAutoCloseBefore.quote : config.shouldAutoCloseBefore.bracket);
-        if (autoCloseConfig === 'never') {
-            return null;
-        }
         for (const selection of selections) {
             if (!selection.isEmpty()) {
                 return null;
@@ -522,6 +516,27 @@ export class TypeOperations {
         if (!pair) {
             return null;
         }
+        let autoCloseConfig;
+        let shouldAutoCloseBefore;
+        const chIsQuote = isQuote(ch);
+        if (chIsQuote) {
+            autoCloseConfig = config.autoClosingQuotes;
+            shouldAutoCloseBefore = config.shouldAutoCloseBefore.quote;
+        }
+        else {
+            const pairIsForComments = config.blockCommentStartToken ? pair.open.includes(config.blockCommentStartToken) : false;
+            if (pairIsForComments) {
+                autoCloseConfig = config.autoClosingComments;
+                shouldAutoCloseBefore = config.shouldAutoCloseBefore.comment;
+            }
+            else {
+                autoCloseConfig = config.autoClosingBrackets;
+                shouldAutoCloseBefore = config.shouldAutoCloseBefore.bracket;
+            }
+        }
+        if (autoCloseConfig === 'never') {
+            return null;
+        }
         // Sometimes, it is possible to have two auto-closing pairs that have a containment relationship
         // e.g. when having [(,)] and [(*,*)]
         // - when typing (, the resulting state is (|)
@@ -547,7 +562,7 @@ export class TypeOperations {
             }
             // Do not auto-close ' or " after a word character
             if (pair.open.length === 1 && (ch === '\'' || ch === '"') && autoCloseConfig !== 'always') {
-                const wordSeparators = getMapForWordSeparators(config.wordSeparators);
+                const wordSeparators = getMapForWordSeparators(config.wordSeparators, []);
                 if (lineBefore.length > 0) {
                     const characterBefore = lineBefore.charCodeAt(lineBefore.length - 1);
                     if (wordSeparators.get(characterBefore) === 0 /* WordCharacterClass.Regular */) {

@@ -1,6 +1,0 @@
-<div #container class="dropdown">
-  <div class="dropdown-body">{{dropdownText}}</div>
-  <div class="dropdown-content" [ngClass]="isOverflowing ? 'overflowing' : ''">
-    <a *ngFor="let item of items" [href]="item.url">{{item.text}}</a>
-  </div>
-</div>

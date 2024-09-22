@@ -1,43 +1,46 @@
-import { Component, ViewEncapsulation, OnInit } from "@angular/core";
-import { Backdrop } from "../shared/backdrop/backdrop";
-import { UVColorCycleBackground } from "../shared/backdrop/UVColorCycleBackground";
+import { Component, ViewEncapsulation, OnInit, inject } from '@angular/core';
+import { Backdrop } from '../components/backdrop/backdrop';
+import { UVColorCycleBackground } from '../components/backdrop/UVColorCycleBackground';
+import { BackdropComponent } from '../components/backdrop/backdrop.component';
+import { Title } from '@angular/platform-browser';
 
-const HELLOS: string[] = ["hello", "hi", "howdy", "hey"];
+const HELLOS: string[] = ['hello', 'hi', 'howdy', 'hey'];
 
 const GREETING_MESSAGES: string[] = [
-  "thanks for visiting",
-  "enjoy your stay",
+  'thanks for visiting',
+  'enjoy your stay',
   "how'd you end up here?",
-  "welcome to my site",
-  "stay a while",
-  "thanks for checking in",
+  'welcome to my site',
+  'stay a while',
+  'thanks for checking in',
   "congratulations, you've made it",
-  "welcome to the other side",
-  "do you come here often?",
-  "there is nothing suspicious here",
+  'welcome to the other side',
+  'do you come here often?',
+  'there is nothing suspicious here',
   "now that you're here, you can never leave",
   "what's that behind you?",
 ];
 
 @Component({
-  selector: "x-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'x-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [BackdropComponent],
 })
 export class HomeComponent implements OnInit {
   public bgAnimation: Backdrop = new UVColorCycleBackground();
   public hello: string;
   public greeting: string;
 
-  constructor() {}
+  private readonly titleService = inject(Title);
 
   ngOnInit(): void {
-    function randomRangeFloor(min: number, max: number) {
-      return Math.floor(min + Math.random() * (max - min));
-    }
-    function getRandomIndex(arr: any[]) {
-      return arr[randomRangeFloor(0, arr.length)];
+    this.titleService.setTitle('Jared Massa | Software Engineer');
+
+    function getRandomIndex(arr: string[]) {
+      return arr[Math.floor(Math.random() * arr.length)];
     }
     this.hello = getRandomIndex(HELLOS);
     this.greeting = getRandomIndex(GREETING_MESSAGES);

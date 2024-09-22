@@ -11,7 +11,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Disposable, DisposableStore } from '../../../../base/common/lifecycle.js';
+var SnippetController2_1;
+import { DisposableStore } from '../../../../base/common/lifecycle.js';
 import { assertType } from '../../../../base/common/types.js';
 import { EditorCommand, registerEditorCommand, registerEditorContribution } from '../../../browser/editorExtensions.js';
 import { Position } from '../../../common/core/position.js';
@@ -32,9 +33,9 @@ const _defaultOptions = {
     clipboardText: undefined,
     overtypingCapturer: undefined
 };
-export let SnippetController2 = class SnippetController2 {
+let SnippetController2 = SnippetController2_1 = class SnippetController2 {
     static get(editor) {
-        return editor.getContribution(SnippetController2.ID);
+        return editor.getContribution(SnippetController2_1.ID);
     }
     constructor(_editor, _logService, _languageFeaturesService, contextKeyService, _languageConfigurationService) {
         this._editor = _editor;
@@ -43,9 +44,9 @@ export let SnippetController2 = class SnippetController2 {
         this._languageConfigurationService = _languageConfigurationService;
         this._snippetListener = new DisposableStore();
         this._modelVersionId = -1;
-        this._inSnippet = SnippetController2.InSnippetMode.bindTo(contextKeyService);
-        this._hasNextTabstop = SnippetController2.HasNextTabstop.bindTo(contextKeyService);
-        this._hasPrevTabstop = SnippetController2.HasPrevTabstop.bindTo(contextKeyService);
+        this._inSnippet = SnippetController2_1.InSnippetMode.bindTo(contextKeyService);
+        this._hasNextTabstop = SnippetController2_1.HasNextTabstop.bindTo(contextKeyService);
+        this._hasPrevTabstop = SnippetController2_1.HasPrevTabstop.bindTo(contextKeyService);
     }
     dispose() {
         var _a;
@@ -60,7 +61,7 @@ export let SnippetController2 = class SnippetController2 {
         // error that sometimes happens when we fail to inserted a nested
         // snippet
         try {
-            this._doInsert(template, typeof opts === 'undefined' ? _defaultOptions : Object.assign(Object.assign({}, _defaultOptions), opts));
+            this._doInsert(template, typeof opts === 'undefined' ? _defaultOptions : { ..._defaultOptions, ...opts });
         }
         catch (e) {
             this.cancel();
@@ -128,10 +129,10 @@ export let SnippetController2 = class SnippetController2 {
                 }
             };
             const model = this._editor.getModel();
-            let registration = Disposable.None;
+            let registration;
             let isRegistered = false;
             const disable = () => {
-                registration.dispose();
+                registration === null || registration === void 0 ? void 0 : registration.dispose();
                 isRegistered = false;
             };
             const enable = () => {
@@ -142,10 +143,10 @@ export let SnippetController2 = class SnippetController2 {
                         scheme: model.uri.scheme,
                         exclusive: true
                     }, provider);
+                    this._snippetListener.add(registration);
                     isRegistered = true;
                 }
             };
-            this._snippetListener.add(registration);
             this._choiceCompletions = { provider, enable, disable };
         }
         this._updateState();
@@ -238,12 +239,13 @@ SnippetController2.ID = 'snippetController2';
 SnippetController2.InSnippetMode = new RawContextKey('inSnippetMode', false, localize('inSnippetMode', "Whether the editor in current in snippet mode"));
 SnippetController2.HasNextTabstop = new RawContextKey('hasNextTabstop', false, localize('hasNextTabstop', "Whether there is a next tab stop when in snippet mode"));
 SnippetController2.HasPrevTabstop = new RawContextKey('hasPrevTabstop', false, localize('hasPrevTabstop', "Whether there is a previous tab stop when in snippet mode"));
-SnippetController2 = __decorate([
+SnippetController2 = SnippetController2_1 = __decorate([
     __param(1, ILogService),
     __param(2, ILanguageFeaturesService),
     __param(3, IContextKeyService),
     __param(4, ILanguageConfigurationService)
 ], SnippetController2);
+export { SnippetController2 };
 registerEditorContribution(SnippetController2.ID, SnippetController2, 4 /* EditorContributionInstantiation.Lazy */);
 const CommandCtor = EditorCommand.bindToContribution(SnippetController2.get);
 registerEditorCommand(new CommandCtor({
@@ -252,7 +254,7 @@ registerEditorCommand(new CommandCtor({
     handler: ctrl => ctrl.next(),
     kbOpts: {
         weight: 100 /* KeybindingWeight.EditorContrib */ + 30,
-        kbExpr: EditorContextKeys.editorTextFocus,
+        kbExpr: EditorContextKeys.textInputFocus,
         primary: 2 /* KeyCode.Tab */
     }
 }));
@@ -262,7 +264,7 @@ registerEditorCommand(new CommandCtor({
     handler: ctrl => ctrl.prev(),
     kbOpts: {
         weight: 100 /* KeybindingWeight.EditorContrib */ + 30,
-        kbExpr: EditorContextKeys.editorTextFocus,
+        kbExpr: EditorContextKeys.textInputFocus,
         primary: 1024 /* KeyMod.Shift */ | 2 /* KeyCode.Tab */
     }
 }));
@@ -272,7 +274,7 @@ registerEditorCommand(new CommandCtor({
     handler: ctrl => ctrl.cancel(true),
     kbOpts: {
         weight: 100 /* KeybindingWeight.EditorContrib */ + 30,
-        kbExpr: EditorContextKeys.editorTextFocus,
+        kbExpr: EditorContextKeys.textInputFocus,
         primary: 9 /* KeyCode.Escape */,
         secondary: [1024 /* KeyMod.Shift */ | 9 /* KeyCode.Escape */]
     }

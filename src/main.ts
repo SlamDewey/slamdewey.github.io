@@ -1,12 +1,24 @@
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { env } from './environments/environment';
+import { bootstrapApplication, Title } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { FaviconService } from './app/services/favicon.service';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+import { NGX_MONACO_EDITOR_CONFIG } from 'ngx-monaco-editor-v2';
+import { monacoConfig } from './app/util/monaco-config';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-
-if (environment.production) {
+if ('prod' === env.enviornment) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(withFetch()),
+    provideRouter(routes),
+    FaviconService,
+    Title,
+    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: monacoConfig },
+  ],
+});

@@ -1,39 +1,29 @@
-<backdrop
-  [backdrop]="bgAnimation"
-  [shouldPauseAnimation]="isModalOpen"
-></backdrop>
+<backdrop [backdrop]="bgAnimation" [shouldPauseAnimation]="isModalOpen"></backdrop>
 
-<div
-  class="gallery-component-container"
-  (style)="(isModalOpen ? 'overflow: hidden;' : 'overflow: auto;')"
->
+<div class="gallery-component-container" (style)="(isModalOpen ? 'overflow: hidden;' : 'overflow: auto;')">
   <x-info-banner [variant]="'basic'">
     <p style="font-size: 1rem; margin: 1rem">
-      Some images are very large. Even if the image displays, the zoom tools may
-      be jumpy while everything finishes loading
+      Some images are very large. Even if the image displays, the zoom tools may be jumpy while everything finishes
+      loading
     </p>
   </x-info-banner>
 
   <div class="gallery-folder-selector">
     @if (imageFolderLinks) {
-    <x-dropdown-link-selector
-      [dropdownText]="'Select Folder'"
-      [items]="imageFolderLinks"
-    ></x-dropdown-link-selector>
+    <x-dropdown-link-selector [dropdownText]="'Select Folder'" [items]="imageFolderLinks"></x-dropdown-link-selector>
     } @else {
     <spinner [shouldDisplaySpinner]="true"></spinner>
     }
   </div>
 
   <div class="gallery-container">
-    <div class="gallery" *ngIf="imageTileDataSet !== undefined">
-      @if (imageTileDataSet) {
-      <x-image-tile
-        *ngFor="let image of imageTileDataSet.get(currentImageFolder)"
-        [imageTileData]="image"
-      ></x-image-tile>
+    @if (imageTileDataSet && currentImageFolder) {
+    <div class="gallery">
+      @for (image of imageTileDataSet.get(currentImageFolder); track $index) {
+      <x-image-tile [imageTileData]="image"></x-image-tile>
       }
     </div>
+    }
   </div>
 
   <x-image-viewer-modal

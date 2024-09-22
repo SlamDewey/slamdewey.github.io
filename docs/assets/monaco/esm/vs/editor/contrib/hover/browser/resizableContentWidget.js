@@ -9,7 +9,7 @@ import * as dom from '../../../../base/browser/dom.js';
 const TOP_HEIGHT = 30;
 const BOTTOM_HEIGHT = 24;
 export class ResizableContentWidget extends Disposable {
-    constructor(_editor, initialSize = new dom.Dimension(10, 10)) {
+    constructor(_editor, minimumSize = new dom.Dimension(10, 10)) {
         super();
         this._editor = _editor;
         this.allowEditorOverflow = true;
@@ -18,9 +18,9 @@ export class ResizableContentWidget extends Disposable {
         this._contentPosition = null;
         this._isResizing = false;
         this._resizableNode.domNode.style.position = 'absolute';
-        this._resizableNode.minSize = new dom.Dimension(10, 10);
+        this._resizableNode.minSize = dom.Dimension.lift(minimumSize);
+        this._resizableNode.layout(minimumSize.height, minimumSize.width);
         this._resizableNode.enableSashes(true, true, true, true);
-        this._resizableNode.layout(initialSize.height, initialSize.width);
         this._register(this._resizableNode.onDidResize(e => {
             this._resize(new dom.Dimension(e.dimension.width, e.dimension.height));
             if (e.done) {
@@ -60,7 +60,7 @@ export class ResizableContentWidget extends Disposable {
             return;
         }
         const editorBox = dom.getDomNodePagePosition(editorDomNode);
-        const bodyBox = dom.getClientArea(document.body);
+        const bodyBox = dom.getClientArea(editorDomNode.ownerDocument.body);
         const mouseBottom = editorBox.top + mouseBox.top + mouseBox.height;
         return bodyBox.height - mouseBottom - BOTTOM_HEIGHT;
     }
@@ -71,7 +71,7 @@ export class ResizableContentWidget extends Disposable {
         const maxHeight = Math.min(Math.max(maxHeightAbove, maxHeightBelow), widgetHeight);
         const height = Math.min(widgetHeight, maxHeight);
         let renderingAbove;
-        if (this._editor.getOption(58 /* EditorOption.hover */).above) {
+        if (this._editor.getOption(60 /* EditorOption.hover */).above) {
             renderingAbove = height <= maxHeightAbove ? 1 /* ContentWidgetPositionPreference.ABOVE */ : 2 /* ContentWidgetPositionPreference.BELOW */;
         }
         else {

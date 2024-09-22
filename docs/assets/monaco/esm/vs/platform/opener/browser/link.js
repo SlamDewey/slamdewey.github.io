@@ -19,7 +19,9 @@ import { Event } from '../../../base/common/event.js';
 import { Disposable } from '../../../base/common/lifecycle.js';
 import { IOpenerService } from '../common/opener.js';
 import './link.css';
-export let Link = class Link extends Disposable {
+import { getDefaultHoverDelegate } from '../../../base/browser/ui/hover/hoverDelegateFactory.js';
+import { IHoverService } from '../../hover/browser/hover.js';
+let Link = class Link extends Disposable {
     get enabled() {
         return this._enabled;
     }
@@ -42,23 +44,23 @@ export let Link = class Link extends Disposable {
         }
         this._enabled = enabled;
     }
-    constructor(container, _link, options = {}, openerService) {
-        var _a;
+    constructor(container, _link, options = {}, _hoverService, openerService) {
+        var _a, _b;
         super();
         this._link = _link;
+        this._hoverService = _hoverService;
         this._enabled = true;
         this.el = append(container, $('a.monaco-link', {
             tabIndex: (_a = _link.tabIndex) !== null && _a !== void 0 ? _a : 0,
             href: _link.href,
-            title: _link.title
         }, _link.label));
+        this.hoverDelegate = (_b = options.hoverDelegate) !== null && _b !== void 0 ? _b : getDefaultHoverDelegate('mouse');
+        this.setTooltip(_link.title);
         this.el.setAttribute('role', 'button');
         const onClickEmitter = this._register(new DomEmitter(this.el, 'click'));
         const onKeyPress = this._register(new DomEmitter(this.el, 'keypress'));
-        const onEnterPress = Event.chain(onKeyPress.event)
-            .map(e => new StandardKeyboardEvent(e))
-            .filter(e => e.keyCode === 3 /* KeyCode.Enter */)
-            .event;
+        const onEnterPress = Event.chain(onKeyPress.event, $ => $.map(e => new StandardKeyboardEvent(e))
+            .filter(e => e.keyCode === 3 /* KeyCode.Enter */));
         const onTap = this._register(new DomEmitter(this.el, TouchEventType.Tap)).event;
         this._register(Gesture.addTarget(this.el));
         const onOpen = Event.any(onClickEmitter.event, onEnterPress, onTap);
@@ -76,7 +78,20 @@ export let Link = class Link extends Disposable {
         }));
         this.enabled = true;
     }
+    setTooltip(title) {
+        if (this.hoverDelegate.showNativeHover) {
+            this.el.title = title !== null && title !== void 0 ? title : '';
+        }
+        else if (!this.hover && title) {
+            this.hover = this._register(this._hoverService.setupUpdatableHover(this.hoverDelegate, this.el, title));
+        }
+        else if (this.hover) {
+            this.hover.update(title);
+        }
+    }
 };
 Link = __decorate([
-    __param(3, IOpenerService)
+    __param(3, IHoverService),
+    __param(4, IOpenerService)
 ], Link);
+export { Link };

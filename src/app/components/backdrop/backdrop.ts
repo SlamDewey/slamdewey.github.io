@@ -1,0 +1,277 @@
+export class Vector2 {
+  public x: number;
+  public y: number;
+
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+export abstract class Backdrop {
+  public contextString(): string {
+    return '2d';
+  }
+
+  public isInitialized: boolean = false;
+
+  protected width: number;
+  protected height: number;
+  protected ctx: CanvasRenderingContext2D;
+  public mousePosition: Vector2 = new Vector2(-1000, -1000);
+  public mouseOffset: Vector2 = new Vector2(0, 0);
+  protected lastUpdate: number;
+
+  protected init(): void {}
+  protected abstract update(deltaTime: number): void;
+  protected abstract draw(deltaTime: number): void;
+
+  public onDestroy(): void {}
+
+  public initializeContext(ctx: RenderingContext) {
+    this.ctx = ctx as CanvasRenderingContext2D;
+    this.setupListeners();
+  }
+
+  public setSize(width: number, height: number): void {
+    this.width = width;
+    this.height = height;
+    this.clear();
+  }
+
+  public reInitialize(): void {
+    this.initializeContext(this.ctx);
+  }
+
+  public initialize(): void {
+    this.lastUpdate = Date.now();
+    this.init();
+    this.isInitialized = true;
+    this.clear();
+  }
+
+  protected setupListeners(): void {
+    document.addEventListener('scroll', () => {
+      const deltaOffset = new Vector2(window.scrollX - this.mouseOffset.x, window.scrollY - this.mouseOffset.y);
+      this.mouseOffset.x = window.scrollX;
+      this.mouseOffset.y = window.scrollY;
+
+      this.mousePosition.x += deltaOffset.x;
+      this.mousePosition.y += deltaOffset.y;
+    });
+  }
+
+  public clear(): void {
+    (this.ctx as CanvasRenderingContext2D).clearRect(0, 0, this.width, this.height);
+  }
+
+  public tick(): void {
+    const now = Date.now();
+    const deltaTime = (now - this.lastUpdate) / 1000;
+    this.lastUpdate = now;
+
+    this.update(deltaTime);
+    this.draw(deltaTime);
+  }
+}
+
+type Uniform = {
+  name: string;
+  value: () => [number] | [number, number];
+  location: WebGLUniformLocation | undefined;
+};
+
+export abstract class WebGLBackdrop extends Backdrop {
+  // vertices for a quad (two triangles)
+  private readonly vertices: number[] = [-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1];
+
+  protected gl: WebGLRenderingContext;
+  protected shaderProgram: WebGLProgram;
+  private vert: WebGLProgram;
+  private frag: WebGLProgram;
+
+  public totalTime = 0;
+
+  private standardUniforms: Uniform[] = [
+    {
+      name: 'screenSize',
+      value: () => [this.width, this.height],
+      location: undefined,
+    },
+    {
+      name: 'totalTime',
+      value: () => [this.totalTime],
+      location: undefined,
+    },
+    {
+      name: 'mousePosition',
+      value: () => [this.mousePosition.x, this.mousePosition.y],
+      location: undefined,
+    },
+  ];
+
+  public override contextString(): string {
+    return 'webgl2';
+  }
+
+  protected getVertexShader(): string {
+    return `\
+#version 300 es
+precision mediump float;
+
+in vec2 coordinates;
+
+void main() {
+  gl_Position = vec4(coordinates.xy, 0.0, 1.0);
+}
+  `;
+  }
+
+  protected abstract getFragmentShader(): string;
+
+  protected initializeDrawVariables(gl: WebGLRenderingContext, shaderProgram: WebGLProgram): void {
+    const coord = gl.getAttribLocation(shaderProgram, 'coordinates');
+    gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 2 * Float32Array.BYTES_PER_ELEMENT, 0);
+    gl.enableVertexAttribArray(coord);
+    gl.uniform2f(gl.getUniformLocation(shaderProgram, 'screenSize'), this.width, this.height);
+
+    this.standardUniforms = this.standardUniforms.map((uniform) => {
+      return {
+        ...uniform,
+        location: gl.getUniformLocation(shaderProgram, uniform.name)!,
+      };
+    });
+  }
+
+  protected update(deltaTime: number): void {
+    this.totalTime += deltaTime;
+  }
+
+  protected prepareDrawVariables(gl: WebGLRenderingContext): void {
+    this.standardUniforms.forEach((uniform) => {
+      const value = uniform.value();
+      if (!value || !uniform.location) {
+        return;
+      }
+      switch (value.length) {
+        case 1:
+          gl.uniform1f(uniform.location!, ...value);
+          break;
+        case 2:
+          gl.uniform2f(uniform.location!, ...value);
+          break;
+      }
+    });
+  }
+
+  public override initializeContext(ctx: RenderingContext): void {
+    this.gl = ctx as WebGLRenderingContext;
+    this.initWebGL(this.gl);
+    super.setupListeners();
+  }
+
+  public override reInitialize(): void {
+    this.initWebGL(this.gl);
+    this.clear();
+  }
+
+  public override setSize(width: number, height: number): void {
+    this.width = width;
+    this.height = height;
+    if (this.gl) {
+      this.gl.viewport(0, 0, this.width, this.height);
+    }
+  }
+
+  protected override draw(): void {
+    this.prepareDrawVariables(this.gl);
+    this.gl.drawArrays(this.gl.TRIANGLES, 0, this.vertices.length / 2);
+  }
+
+  public override clear(): void {
+    this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+  }
+
+  private initWebGL(gl: WebGLRenderingContext): void {
+    // Create a new buffer object
+    const vertex_buffer = gl.createBuffer();
+    if (vertex_buffer === null) throw new Error("Couldn't create vertex buffer!");
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.DYNAMIC_DRAW);
+    gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
+    if (this.vert) {
+      gl.deleteShader(this.vert);
+    }
+    if (this.frag) {
+      gl.deleteShader(this.frag);
+    }
+    [this.vert, this.frag] = this.compileWebGLShaders(gl, this.getVertexShader(), this.getFragmentShader());
+
+    this.createAndBindShaderProgram(gl, this.vert, this.frag);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertex_buffer);
+    this.initializeDrawVariables(gl, this.shaderProgram);
+
+    gl.clearColor(0, 0, 0, 0);
+    gl.enable(gl.DEPTH_TEST);
+  }
+
+  public compileWebGLShaders(
+    gl: WebGLRenderingContext,
+    vertCode: string,
+    fragCode: string
+  ): [vertexShader: WebGLShader, fragmentShader: WebGLShader] {
+    const vertShader = gl.createShader(gl.VERTEX_SHADER);
+    const fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+    if (vertShader === null) {
+      throw new Error('Failed To Create Vertex Shader!');
+    }
+    if (fragShader === null) {
+      throw new Error('Failed To Create Fragment Shader!');
+    }
+    gl.shaderSource(vertShader, vertCode);
+    gl.shaderSource(fragShader, fragCode);
+
+    gl.compileShader(vertShader);
+    if (!gl.getShaderParameter(vertShader, gl.COMPILE_STATUS)) {
+      console.log(vertCode);
+      throw new Error('Error compiling vertex shader\n' + gl.getShaderInfoLog(vertShader));
+    }
+    gl.compileShader(fragShader);
+    if (!gl.getShaderParameter(fragShader, gl.COMPILE_STATUS)) {
+      throw new Error('Error compiling fragment shader\n' + gl.getShaderInfoLog(fragShader));
+    }
+    return [vertShader, fragShader];
+  }
+
+  private createAndBindShaderProgram(gl: WebGLRenderingContext, vert: WebGLShader, frag: WebGLShader) {
+    const shaderProgram = gl.createProgram();
+    if (shaderProgram === null) {
+      throw new Error('Failed To Create Shader Program!');
+    }
+    gl.attachShader(shaderProgram, vert);
+    gl.attachShader(shaderProgram, frag);
+    gl.linkProgram(shaderProgram);
+    gl.useProgram(shaderProgram);
+
+    if (this.shaderProgram) {
+      gl.deleteProgram(this.shaderProgram);
+    }
+    this.shaderProgram = shaderProgram;
+  }
+
+  public override onDestroy(): void {
+    const gl = this.gl;
+    if (this.shaderProgram) {
+      gl.deleteProgram(this.shaderProgram);
+    }
+    if (this.vert) {
+      gl.deleteShader(this.vert);
+    }
+    if (this.frag) {
+      gl.deleteShader(this.frag);
+    }
+  }
+}

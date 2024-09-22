@@ -18,7 +18,7 @@ import { ILogService } from '../../../platform/log/common/log.js';
 import { SemanticTokensProviderStyling } from './semanticTokensProviderStyling.js';
 import { ISemanticTokensStylingService } from './semanticTokensStyling.js';
 import { registerSingleton } from '../../../platform/instantiation/common/extensions.js';
-export let SemanticTokensStylingService = class SemanticTokensStylingService extends Disposable {
+let SemanticTokensStylingService = class SemanticTokensStylingService extends Disposable {
     constructor(_themeService, _logService, _languageService) {
         super();
         this._themeService = _themeService;
@@ -41,4 +41,5 @@ SemanticTokensStylingService = __decorate([
     __param(1, ILogService),
     __param(2, ILanguageService)
 ], SemanticTokensStylingService);
+export { SemanticTokensStylingService };
 registerSingleton(ISemanticTokensStylingService, SemanticTokensStylingService, 1 /* InstantiationType.Delayed */);

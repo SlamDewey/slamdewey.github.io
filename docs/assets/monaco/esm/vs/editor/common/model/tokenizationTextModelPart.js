@@ -94,6 +94,10 @@ export class TokenizationTextModelPart extends TextModelPart {
         this.validateLineNumber(lineNumber);
         this.grammarTokens.forceTokenization(lineNumber);
     }
+    hasAccurateTokensForLine(lineNumber) {
+        this.validateLineNumber(lineNumber);
+        return this.grammarTokens.hasAccurateTokensForLine(lineNumber);
+    }
     isCheapToTokenize(lineNumber) {
         this.validateLineNumber(lineNumber);
         return this.grammarTokens.isCheapToTokenize(lineNumber);
@@ -328,21 +332,21 @@ class GrammarTokens extends Disposable {
                     this._onDidChangeBackgroundTokenizationState.fire();
                 },
                 setEndState: (lineNumber, state) => {
-                    var _a, _b, _c;
-                    if (!state) {
-                        throw new BugIndicatingError();
+                    var _a;
+                    if (!this._tokenizer) {
+                        return;
                     }
-                    const firstInvalidEndStateLineNumber = (_b = (_a = this._tokenizer) === null || _a === void 0 ? void 0 : _a.store.getFirstInvalidEndStateLineNumber()) !== null && _b !== void 0 ? _b : undefined;
-                    if (firstInvalidEndStateLineNumber !== undefined && lineNumber >= firstInvalidEndStateLineNumber) {
-                        // Don't accept states for definitely valid states
-                        (_c = this._tokenizer) === null || _c === void 0 ? void 0 : _c.store.setEndState(lineNumber, state);
+                    const firstInvalidEndStateLineNumber = this._tokenizer.store.getFirstInvalidEndStateLineNumber();
+                    // Don't accept states for definitely valid states, the renderer is ahead of the worker!
+                    if (firstInvalidEndStateLineNumber !== null && lineNumber >= firstInvalidEndStateLineNumber) {
+                        (_a = this._tokenizer) === null || _a === void 0 ? void 0 : _a.store.setEndState(lineNumber, state);
                     }
                 },
             };
             if (tokenizationSupport && tokenizationSupport.createBackgroundTokenizer && !tokenizationSupport.backgroundTokenizerShouldOnlyVerifyTokens) {
                 this._backgroundTokenizer.value = tokenizationSupport.createBackgroundTokenizer(this._textModel, b);
             }
-            if (!this._backgroundTokenizer.value) {
+            if (!this._backgroundTokenizer.value && !this._textModel.isTooLargeForTokenization()) {
                 this._backgroundTokenizer.value = this._defaultBackgroundTokenizer =
                     new DefaultBackgroundTokenizer(this._tokenizer, b);
                 this._defaultBackgroundTokenizer.handleChanges();
@@ -439,6 +443,12 @@ class GrammarTokens extends Disposable {
         this.setTokens(builder.finalize());
         (_b = this._defaultBackgroundTokenizer) === null || _b === void 0 ? void 0 : _b.checkFinished();
     }
+    hasAccurateTokensForLine(lineNumber) {
+        if (!this._tokenizer) {
+            return true;
+        }
+        return this._tokenizer.hasAccurateTokensForLine(lineNumber);
+    }
     isCheapToTokenize(lineNumber) {
         if (!this._tokenizer) {
             return true;
@@ -494,7 +504,7 @@ class AttachedViewHandler extends Disposable {
         this._lineRanges = [];
     }
     update() {
-        if (equals(this._computedLineRanges, this._lineRanges)) {
+        if (equals(this._computedLineRanges, this._lineRanges, (a, b) => a.equals(b))) {
             return;
         }
         this._computedLineRanges = this._lineRanges;

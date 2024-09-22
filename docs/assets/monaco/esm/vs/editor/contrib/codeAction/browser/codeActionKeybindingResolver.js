@@ -11,18 +11,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var CodeActionKeybindingResolver_1;
+import { HierarchicalKind } from '../../../../base/common/hierarchicalKind.js';
 import { Lazy } from '../../../../base/common/lazy.js';
 import { codeActionCommandId, fixAllCommandId, organizeImportsCommandId, refactorCommandId, sourceActionCommandId } from './codeAction.js';
 import { CodeActionCommandArgs, CodeActionKind } from '../common/types.js';
 import { IKeybindingService } from '../../../../platform/keybinding/common/keybinding.js';
-export let CodeActionKeybindingResolver = class CodeActionKeybindingResolver {
+let CodeActionKeybindingResolver = CodeActionKeybindingResolver_1 = class CodeActionKeybindingResolver {
     constructor(keybindingService) {
         this.keybindingService = keybindingService;
     }
     getResolver() {
         // Lazy since we may not actually ever read the value
         const allCodeActionBindings = new Lazy(() => this.keybindingService.getKeybindings()
-            .filter(item => CodeActionKeybindingResolver.codeActionCommands.indexOf(item.command) >= 0)
+            .filter(item => CodeActionKeybindingResolver_1.codeActionCommands.indexOf(item.command) >= 0)
             .filter(item => item.resolvedKeybinding)
             .map((item) => {
             // Special case these commands since they come built-in with VS Code and don't use 'commandArgs'
@@ -33,10 +35,13 @@ export let CodeActionKeybindingResolver = class CodeActionKeybindingResolver {
             else if (item.command === fixAllCommandId) {
                 commandArgs = { kind: CodeActionKind.SourceFixAll.value };
             }
-            return Object.assign({ resolvedKeybinding: item.resolvedKeybinding }, CodeActionCommandArgs.fromUser(commandArgs, {
-                kind: CodeActionKind.None,
-                apply: "never" /* CodeActionAutoApply.Never */
-            }));
+            return {
+                resolvedKeybinding: item.resolvedKeybinding,
+                ...CodeActionCommandArgs.fromUser(commandArgs, {
+                    kind: HierarchicalKind.None,
+                    apply: "never" /* CodeActionAutoApply.Never */
+                })
+            };
         }));
         return (action) => {
             if (action.kind) {
@@ -50,7 +55,7 @@ export let CodeActionKeybindingResolver = class CodeActionKeybindingResolver {
         if (!action.kind) {
             return undefined;
         }
-        const kind = new CodeActionKind(action.kind);
+        const kind = new HierarchicalKind(action.kind);
         return candidates
             .filter(candidate => candidate.kind.contains(kind))
             .filter(candidate => {
@@ -76,6 +81,7 @@ CodeActionKeybindingResolver.codeActionCommands = [
     organizeImportsCommandId,
     fixAllCommandId
 ];
-CodeActionKeybindingResolver = __decorate([
+CodeActionKeybindingResolver = CodeActionKeybindingResolver_1 = __decorate([
     __param(0, IKeybindingService)
 ], CodeActionKeybindingResolver);
+export { CodeActionKeybindingResolver };

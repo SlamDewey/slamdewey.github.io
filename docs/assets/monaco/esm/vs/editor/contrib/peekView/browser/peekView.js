@@ -22,7 +22,7 @@ import * as objects from '../../../../base/common/objects.js';
 import './media/peekViewWidget.css';
 import { registerEditorContribution } from '../../../browser/editorExtensions.js';
 import { ICodeEditorService } from '../../../browser/services/codeEditorService.js';
-import { EmbeddedCodeEditorWidget } from '../../../browser/widget/embeddedCodeEditorWidget.js';
+import { EmbeddedCodeEditorWidget } from '../../../browser/widget/codeEditor/embeddedCodeEditorWidget.js';
 import { ZoneWidget } from '../../zoneWidget/browser/zoneWidget.js';
 import * as nls from '../../../../nls.js';
 import { createActionViewItem } from '../../../../platform/actions/browser/menuEntryActionViewItem.js';
@@ -81,7 +81,7 @@ const defaultOptions = {
     primaryHeadingColor: Color.fromHex('#333333'),
     secondaryHeadingColor: Color.fromHex('#6c6c6cb3')
 };
-export let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
+let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
     constructor(editor, options, instantiationService) {
         super(editor, options);
         this.instantiationService = instantiationService;
@@ -198,7 +198,7 @@ export let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
             this.dispose();
             return;
         }
-        const headHeight = Math.ceil(this.editor.getOption(64 /* EditorOption.lineHeight */) * 1.2);
+        const headHeight = Math.ceil(this.editor.getOption(67 /* EditorOption.lineHeight */) * 1.2);
         const bodyHeight = Math.round(heightInPixel - (headHeight + 2 /* the border-top/bottom width*/));
         this._doLayoutHead(headHeight, widthInPixel);
         this._doLayoutBody(bodyHeight, widthInPixel);
@@ -218,6 +218,7 @@ export let PeekViewWidget = class PeekViewWidget extends ZoneWidget {
 PeekViewWidget = __decorate([
     __param(2, IInstantiationService)
 ], PeekViewWidget);
+export { PeekViewWidget };
 export const peekViewTitleBackground = registerColor('peekViewTitle.background', { dark: '#252526', light: '#F3F3F3', hcDark: Color.black, hcLight: Color.white }, nls.localize('peekViewTitleBackground', 'Background color of the peek view title area.'));
 export const peekViewTitleForeground = registerColor('peekViewTitleLabel.foreground', { dark: Color.white, light: Color.black, hcDark: Color.white, hcLight: editorForeground }, nls.localize('peekViewTitleForeground', 'Color of the peek view title.'));
 export const peekViewTitleInfoForeground = registerColor('peekViewTitleDescription.foreground', { dark: '#ccccccb3', light: '#616161', hcDark: '#FFFFFF99', hcLight: '#292929' }, nls.localize('peekViewTitleInfoForeground', 'Color of the peek view title info.'));

@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import { Range } from '../../../common/core/range.js';
-import { MinimapPosition, OverviewRulerLane } from '../../../common/model.js';
+import { OverviewRulerLane } from '../../../common/model.js';
 import { ModelDecorationOptions } from '../../../common/model/textModel.js';
 import { minimapFindMatch, overviewRulerFindMatchForeground } from '../../../../platform/theme/common/colorRegistry.js';
 import { themeColorFromId } from '../../../../platform/theme/common/themeService.js';
@@ -244,6 +244,7 @@ FindDecorations._CURRENT_FIND_MATCH_DECORATION = ModelDecorationOptions.register
     stickiness: 1 /* TrackedRangeStickiness.NeverGrowsWhenTypingAtEdges */,
     zIndex: 13,
     className: 'currentFindMatch',
+    inlineClassName: 'currentFindMatchInline',
     showIfCollapsed: true,
     overviewRuler: {
         color: themeColorFromId(overviewRulerFindMatchForeground),
@@ -251,7 +252,7 @@ FindDecorations._CURRENT_FIND_MATCH_DECORATION = ModelDecorationOptions.register
     },
     minimap: {
         color: themeColorFromId(minimapFindMatch),
-        position: MinimapPosition.Inline
+        position: 1 /* MinimapPosition.Inline */
     }
 });
 FindDecorations._FIND_MATCH_DECORATION = ModelDecorationOptions.register({
@@ -259,6 +260,7 @@ FindDecorations._FIND_MATCH_DECORATION = ModelDecorationOptions.register({
     stickiness: 1 /* TrackedRangeStickiness.NeverGrowsWhenTypingAtEdges */,
     zIndex: 10,
     className: 'findMatch',
+    inlineClassName: 'findMatchInline',
     showIfCollapsed: true,
     overviewRuler: {
         color: themeColorFromId(overviewRulerFindMatchForeground),
@@ -266,7 +268,7 @@ FindDecorations._FIND_MATCH_DECORATION = ModelDecorationOptions.register({
     },
     minimap: {
         color: themeColorFromId(minimapFindMatch),
-        position: MinimapPosition.Inline
+        position: 1 /* MinimapPosition.Inline */
     }
 });
 FindDecorations._FIND_MATCH_NO_OVERVIEW_DECORATION = ModelDecorationOptions.register({

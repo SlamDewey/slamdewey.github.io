@@ -2,34 +2,35 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { coalesce } from '../../../../base/common/arrays.js';
 import { CancellationToken } from '../../../../base/common/cancellation.js';
 import { onUnexpectedExternalError } from '../../../../base/common/errors.js';
+import { matchesSomeScheme, Schemas } from '../../../../base/common/network.js';
 import { registerModelAndPositionCommand } from '../../../browser/editorExtensions.js';
 import { ILanguageFeaturesService } from '../../../common/services/languageFeatures.js';
 import { ReferencesModel } from './referencesModel.js';
-function getLocationLinks(model, position, registry, provide) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const provider = registry.ordered(model);
-        // get results
-        const promises = provider.map((provider) => {
-            return Promise.resolve(provide(provider, model, position)).then(undefined, err => {
-                onUnexpectedExternalError(err);
-                return undefined;
-            });
+function shouldIncludeLocationLink(sourceModel, loc) {
+    // Always allow the location if the request comes from a document with the same scheme.
+    if (loc.uri.scheme === sourceModel.uri.scheme) {
+        return true;
+    }
+    // Otherwise filter out locations from internal schemes
+    if (matchesSomeScheme(loc.uri, Schemas.walkThroughSnippet, Schemas.vscodeChatCodeBlock, Schemas.vscodeChatCodeCompareBlock, Schemas.vscodeCopilotBackingChatCodeBlock)) {
+        return false;
+    }
+    return true;
+}
+async function getLocationLinks(model, position, registry, provide) {
+    const provider = registry.ordered(model);
+    // get results
+    const promises = provider.map((provider) => {
+        return Promise.resolve(provide(provider, model, position)).then(undefined, err => {
+            onUnexpectedExternalError(err);
+            return undefined;
         });
-        const values = yield Promise.all(promises);
-        return coalesce(values.flat());
     });
+    const values = await Promise.all(promises);
+    return coalesce(values.flat()).filter(loc => shouldIncludeLocationLink(model, loc));
 }
 export function getDefinitionsAtPosition(registry, model, position, token) {
     return getLocationLinks(model, position, registry, (provider, model, position) => {
@@ -52,27 +53,26 @@ export function getTypeDefinitionsAtPosition(registry, model, position, token) {
     });
 }
 export function getReferencesAtPosition(registry, model, position, compact, token) {
-    return getLocationLinks(model, position, registry, (provider, model, position) => __awaiter(this, void 0, void 0, function* () {
-        const result = yield provider.provideReferences(model, position, { includeDeclaration: true }, token);
+    return getLocationLinks(model, position, registry, async (provider, model, position) => {
+        var _a, _b;
+        const result = (_a = (await provider.provideReferences(model, position, { includeDeclaration: true }, token))) === null || _a === void 0 ? void 0 : _a.filter(ref => shouldIncludeLocationLink(model, ref));
         if (!compact || !result || result.length !== 2) {
             return result;
         }
-        const resultWithoutDeclaration = yield provider.provideReferences(model, position, { includeDeclaration: false }, token);
+        const resultWithoutDeclaration = (_b = (await provider.provideReferences(model, position, { includeDeclaration: false }, token))) === null || _b === void 0 ? void 0 : _b.filter(ref => shouldIncludeLocationLink(model, ref));
         if (resultWithoutDeclaration && resultWithoutDeclaration.length === 1) {
             return resultWithoutDeclaration;
         }
         return result;
-    }));
+    });
 }
 // -- API commands ----
-function _sortedAndDeduped(callback) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const rawLinks = yield callback();
-        const model = new ReferencesModel(rawLinks, '');
-        const modelLinks = model.references.map(ref => ref.link);
-        model.dispose();
-        return modelLinks;
-    });
+async function _sortedAndDeduped(callback) {
+    const rawLinks = await callback();
+    const model = new ReferencesModel(rawLinks, '');
+    const modelLinks = model.references.map(ref => ref.link);
+    model.dispose();
+    return modelLinks;
 }
 registerModelAndPositionCommand('_executeDefinitionProvider', (accessor, model, position) => {
     const languageFeaturesService = accessor.get(ILanguageFeaturesService);

@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/m3/m3", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -176,6 +176,7 @@ var moduleExports = (() => {
     escapes: /\\(?:[\\fnrt"']|[0-7]{3})/,
     tokenizer: {
       root: [
+        // Identifiers and keywords
         [/_\w*/, "invalid"],
         [
           /[a-zA-Z][a-zA-Z0-9_]*/,
@@ -188,10 +189,13 @@ var moduleExports = (() => {
             }
           }
         ],
+        // Whitespace
         { include: "@whitespace" },
         [/[{}()\[\]]/, "@brackets"],
+        // Integer- and real literals
         [/[0-9]+\.[0-9]+(?:[DdEeXx][\+\-]?[0-9]+)?/, "number.float"],
         [/[0-9]+(?:\_[0-9a-fA-F]+)?L?/, "number"],
+        // Operators, relations, and delimiters
         [
           /@symbols/,
           {
@@ -203,9 +207,11 @@ var moduleExports = (() => {
             }
           }
         ],
+        // Character literals
         [/'[^\\']'/, "string.char"],
         [/(')(@escapes)(')/, ["string.char", "string.escape", "string.char"]],
         [/'/, "invalid"],
+        // Text literals
         [/"([^"\\]|\\.)*$/, "invalid"],
         [/"/, "string.text", "@text"]
       ],

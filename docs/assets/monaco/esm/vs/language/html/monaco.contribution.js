@@ -1,7 +1,7 @@
 import '../../editor/editor.api.js';
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
@@ -27,11 +27,8 @@ import * as monaco_editor_core_star from "../../editor/editor.api.js";
 
 // src/language/html/monaco.contribution.ts
 var LanguageServiceDefaultsImpl = class {
-  _onDidChange = new monaco_editor_core_exports.Emitter();
-  _options;
-  _modeConfiguration;
-  _languageId;
   constructor(languageId, options, modeConfiguration) {
+    this._onDidChange = new monaco_editor_core_exports.Emitter();
     this._languageId = languageId;
     this.setOptions(options);
     this.setModeConfiguration(modeConfiguration);
@@ -88,18 +85,33 @@ function getConfigurationDefault(languageId) {
     foldingRanges: true,
     selectionRanges: true,
     diagnostics: languageId === htmlLanguageId,
+    // turned off for Razor and Handlebar
     documentFormattingEdits: languageId === htmlLanguageId,
+    // turned off for Razor and Handlebar
     documentRangeFormattingEdits: languageId === htmlLanguageId
+    // turned off for Razor and Handlebar
   };
 }
 var htmlLanguageId = "html";
 var handlebarsLanguageId = "handlebars";
 var razorLanguageId = "razor";
-var htmlLanguageService = registerHTMLLanguageService(htmlLanguageId, optionsDefault, getConfigurationDefault(htmlLanguageId));
+var htmlLanguageService = registerHTMLLanguageService(
+  htmlLanguageId,
+  optionsDefault,
+  getConfigurationDefault(htmlLanguageId)
+);
 var htmlDefaults = htmlLanguageService.defaults;
-var handlebarLanguageService = registerHTMLLanguageService(handlebarsLanguageId, optionsDefault, getConfigurationDefault(handlebarsLanguageId));
+var handlebarLanguageService = registerHTMLLanguageService(
+  handlebarsLanguageId,
+  optionsDefault,
+  getConfigurationDefault(handlebarsLanguageId)
+);
 var handlebarDefaults = handlebarLanguageService.defaults;
-var razorLanguageService = registerHTMLLanguageService(razorLanguageId, optionsDefault, getConfigurationDefault(razorLanguageId));
+var razorLanguageService = registerHTMLLanguageService(
+  razorLanguageId,
+  optionsDefault,
+  getConfigurationDefault(razorLanguageId)
+);
 var razorDefaults = razorLanguageService.defaults;
 monaco_editor_core_exports.languages.html = {
   htmlDefaults,

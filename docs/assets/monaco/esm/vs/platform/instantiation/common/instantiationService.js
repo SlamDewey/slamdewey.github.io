@@ -2,9 +2,9 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { IdleValue } from '../../../base/common/async.js';
+import { GlobalIdleValue } from '../../../base/common/async.js';
 import { illegalState } from '../../../base/common/errors.js';
-import { toDisposable } from '../../../base/common/lifecycle.js';
+import { dispose, isDisposable, toDisposable } from '../../../base/common/lifecycle.js';
 import { SyncDescriptor } from './descriptors.js';
 import { Graph } from './graph.js';
 import { IInstantiationService, _util } from './instantiation.js';
@@ -26,14 +26,48 @@ export class InstantiationService {
         this._strict = _strict;
         this._parent = _parent;
         this._enableTracing = _enableTracing;
+        this._isDisposed = false;
+        this._servicesToMaybeDispose = new Set();
+        this._children = new Set();
         this._activeInstantiations = new Set();
         this._services.set(IInstantiationService, this);
         this._globalGraph = _enableTracing ? (_a = _parent === null || _parent === void 0 ? void 0 : _parent._globalGraph) !== null && _a !== void 0 ? _a : new Graph(e => e) : undefined;
     }
-    createChild(services) {
-        return new InstantiationService(services, this._strict, this, this._enableTracing);
+    dispose() {
+        if (!this._isDisposed) {
+            this._isDisposed = true;
+            // dispose all child services
+            dispose(this._children);
+            this._children.clear();
+            // dispose all services created by this service
+            for (const candidate of this._servicesToMaybeDispose) {
+                if (isDisposable(candidate)) {
+                    candidate.dispose();
+                }
+            }
+            this._servicesToMaybeDispose.clear();
+        }
+    }
+    _throwIfDisposed() {
+        if (this._isDisposed) {
+            throw new Error('InstantiationService has been disposed');
+        }
+    }
+    createChild(services, store) {
+        this._throwIfDisposed();
+        const that = this;
+        const result = new class extends InstantiationService {
+            dispose() {
+                that._children.delete(result);
+                super.dispose();
+            }
+        }(services, this._strict, this, this._enableTracing);
+        this._children.add(result);
+        store === null || store === void 0 ? void 0 : store.add(result);
+        return result;
     }
     invokeFunction(fn, ...args) {
+        this._throwIfDisposed();
         const _trace = Trace.traceInvocation(this._enableTracing, fn);
         let _done = false;
         try {
@@ -57,6 +91,7 @@ export class InstantiationService {
         }
     }
     createInstance(ctorOrDescriptor, ...rest) {
+        this._throwIfDisposed();
         let _trace;
         let result;
         if (ctorOrDescriptor instanceof SyncDescriptor) {
@@ -96,12 +131,12 @@ export class InstantiationService {
         // now create the instance
         return Reflect.construct(ctor, args.concat(serviceArgs));
     }
-    _setServiceInstance(id, instance) {
+    _setCreatedServiceInstance(id, instance) {
         if (this._services.get(id) instanceof SyncDescriptor) {
             this._services.set(id, instance);
         }
         else if (this._parent) {
-            this._parent._setServiceInstance(id, instance);
+            this._parent._setCreatedServiceInstance(id, instance);
         }
         else {
             throw new Error('illegalState - setting UNKNOWN service instance');
@@ -186,7 +221,7 @@ export class InstantiationService {
                 if (instanceOrDesc instanceof SyncDescriptor) {
                     // create instance and overwrite the service collections
                     const instance = this._createServiceInstanceWithOwner(data.id, data.desc.ctor, data.desc.staticArguments, data.desc.supportsDelayedInstantiation, data._trace);
-                    this._setServiceInstance(data.id, instance);
+                    this._setCreatedServiceInstance(data.id, instance);
                 }
                 graph.removeNode(data);
             }
@@ -195,7 +230,7 @@ export class InstantiationService {
     }
     _createServiceInstanceWithOwner(id, ctor, args = [], supportsDelayedInstantiation, _trace) {
         if (this._services.get(id) instanceof SyncDescriptor) {
-            return this._createServiceInstance(id, ctor, args, supportsDelayedInstantiation, _trace);
+            return this._createServiceInstance(id, ctor, args, supportsDelayedInstantiation, _trace, this._servicesToMaybeDispose);
         }
         else if (this._parent) {
             return this._parent._createServiceInstanceWithOwner(id, ctor, args, supportsDelayedInstantiation, _trace);
@@ -204,10 +239,12 @@ export class InstantiationService {
             throw new Error(`illegalState - creating UNKNOWN service instance ${ctor.name}`);
         }
     }
-    _createServiceInstance(id, ctor, args = [], supportsDelayedInstantiation, _trace) {
+    _createServiceInstance(id, ctor, args = [], supportsDelayedInstantiation, _trace, disposeBucket) {
         if (!supportsDelayedInstantiation) {
             // eager instantiation
-            return this._createInstance(ctor, args, _trace);
+            const result = this._createInstance(ctor, args, _trace);
+            disposeBucket.add(result);
+            return result;
         }
         else {
             const child = new InstantiationService(undefined, this._strict, this, this._enableTracing);
@@ -217,19 +254,20 @@ export class InstantiationService {
             // needed but not when injected into a consumer
             // return "empty events" when the service isn't instantiated yet
             const earlyListeners = new Map();
-            const idle = new IdleValue(() => {
+            const idle = new GlobalIdleValue(() => {
                 const result = child._createInstance(ctor, args, _trace);
                 // early listeners that we kept are now being subscribed to
                 // the real service
                 for (const [key, values] of earlyListeners) {
                     const candidate = result[key];
                     if (typeof candidate === 'function') {
-                        for (const listener of values) {
-                            candidate.apply(result, listener);
+                        for (const value of values) {
+                            value.disposable = candidate.apply(result, value.listener);
                         }
                     }
                 }
                 earlyListeners.clear();
+                disposeBucket.add(result);
                 return result;
             });
             return new Proxy(Object.create(null), {
@@ -243,8 +281,19 @@ export class InstantiationService {
                                 earlyListeners.set(key, list);
                             }
                             const event = (callback, thisArg, disposables) => {
-                                const rm = list.push([callback, thisArg, disposables]);
-                                return toDisposable(rm);
+                                if (idle.isInitialized) {
+                                    return idle.value[key](callback, thisArg, disposables);
+                                }
+                                else {
+                                    const entry = { listener: [callback, thisArg, disposables], disposable: undefined };
+                                    const rm = list.push(entry);
+                                    const result = toDisposable(() => {
+                                        var _a;
+                                        rm();
+                                        (_a = entry.disposable) === null || _a === void 0 ? void 0 : _a.dispose();
+                                    });
+                                    return result;
+                                }
                             };
                             return event;
                         }

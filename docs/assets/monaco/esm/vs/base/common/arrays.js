@@ -86,27 +86,6 @@ export function binarySearch2(length, compareToKey) {
     }
     return -(low + 1);
 }
-/**
- * Takes a sorted array and a function p. The array is sorted in such a way that all elements where p(x) is false
- * are located before all elements where p(x) is true.
- * @returns the least x for which p(x) is true or array.length if no element fullfills the given function.
- */
-export function findFirstInSorted(array, p) {
-    let low = 0, high = array.length;
-    if (high === 0) {
-        return 0; // no children
-    }
-    while (low < high) {
-        const mid = Math.floor((low + high) / 2);
-        if (p(array[mid])) {
-            high = mid;
-        }
-        else {
-            low = mid + 1;
-        }
-    }
-    return low;
-}
 export function quickSelect(nth, data, compare) {
     nth = nth | 0;
     if (nth >= data.length) {
@@ -153,10 +132,44 @@ export function groupBy(data, compare) {
     return result;
 }
 /**
+ * Splits the given items into a list of (non-empty) groups.
+ * `shouldBeGrouped` is used to decide if two consecutive items should be in the same group.
+ * The order of the items is preserved.
+ */
+export function* groupAdjacentBy(items, shouldBeGrouped) {
+    let currentGroup;
+    let last;
+    for (const item of items) {
+        if (last !== undefined && shouldBeGrouped(last, item)) {
+            currentGroup.push(item);
+        }
+        else {
+            if (currentGroup) {
+                yield currentGroup;
+            }
+            currentGroup = [item];
+        }
+        last = item;
+    }
+    if (currentGroup) {
+        yield currentGroup;
+    }
+}
+export function forEachAdjacent(arr, f) {
+    for (let i = 0; i <= arr.length; i++) {
+        f(i === 0 ? undefined : arr[i - 1], i === arr.length ? undefined : arr[i]);
+    }
+}
+export function forEachWithNeighbors(arr, f) {
+    for (let i = 0; i < arr.length; i++) {
+        f(i === 0 ? undefined : arr[i - 1], arr[i], i + 1 === arr.length ? undefined : arr[i + 1]);
+    }
+}
+/**
  * @returns New array with all falsy values removed. The original array IS NOT modified.
  */
 export function coalesce(array) {
-    return array.filter(e => !!e);
+    return array.filter((e) => !!e);
 }
 /**
  * Remove all falsy values from `array`. The original array IS modified.
@@ -194,22 +207,6 @@ export function distinct(array, keyFn = value => value) {
         seen.add(key);
         return true;
     });
-}
-export function findLast(arr, predicate) {
-    const idx = lastIndex(arr, predicate);
-    if (idx === -1) {
-        return undefined;
-    }
-    return arr[idx];
-}
-export function lastIndex(array, fn) {
-    for (let i = array.length - 1; i >= 0; i--) {
-        const element = array[i];
-        if (fn(element)) {
-            return i;
-        }
-    }
-    return -1;
 }
 export function firstOrDefault(array, notFoundValue) {
     return array.length > 0 ? array[0] : notFoundValue;
@@ -274,18 +271,6 @@ export function asArray(x) {
     return Array.isArray(x) ? x : [x];
 }
 /**
- * Returns the first mapped value of the array which is not undefined.
- */
-export function mapFind(array, mapFn) {
-    for (const value of array) {
-        const mapped = mapFn(value);
-        if (mapped !== undefined) {
-            return mapped;
-        }
-    }
-    return undefined;
-}
-/**
  * Insert the new items in the array.
  * @param array The original array.
  * @param start The zero-based location in the array from which to start inserting elements.
@@ -314,7 +299,11 @@ export function insertInto(array, start, newItems) {
  */
 export function splice(array, start, deleteCount, newItems) {
     const index = getActualStartIndex(array, start);
-    const result = array.splice(index, deleteCount);
+    let result = array.splice(index, deleteCount);
+    if (result === undefined) {
+        // see https://bugs.webkit.org/show_bug.cgi?id=261140
+        result = [];
+    }
     insertInto(array, index, newItems);
     return result;
 }
@@ -334,6 +323,10 @@ export var CompareResult;
         return result < 0;
     }
     CompareResult.isLessThan = isLessThan;
+    function isLessThanOrEqual(result) {
+        return result <= 0;
+    }
+    CompareResult.isLessThanOrEqual = isLessThanOrEqual;
     function isGreaterThan(result) {
         return result > 0;
     }
@@ -349,47 +342,24 @@ export var CompareResult;
 export function compareBy(selector, comparator) {
     return (a, b) => comparator(selector(a), selector(b));
 }
+export function tieBreakComparators(...comparators) {
+    return (item1, item2) => {
+        for (const comparator of comparators) {
+            const result = comparator(item1, item2);
+            if (!CompareResult.isNeitherLessOrGreaterThan(result)) {
+                return result;
+            }
+        }
+        return CompareResult.neitherLessOrGreaterThan;
+    };
+}
 /**
  * The natural order on numbers.
 */
 export const numberComparator = (a, b) => a - b;
-/**
- * Returns the first item that is equal to or greater than every other item.
-*/
-export function findMaxBy(items, comparator) {
-    if (items.length === 0) {
-        return undefined;
-    }
-    let max = items[0];
-    for (let i = 1; i < items.length; i++) {
-        const item = items[i];
-        if (comparator(item, max) > 0) {
-            max = item;
-        }
-    }
-    return max;
-}
-/**
- * Returns the last item that is equal to or greater than every other item.
-*/
-export function findLastMaxBy(items, comparator) {
-    if (items.length === 0) {
-        return undefined;
-    }
-    let max = items[0];
-    for (let i = 1; i < items.length; i++) {
-        const item = items[i];
-        if (comparator(item, max) >= 0) {
-            max = item;
-        }
-    }
-    return max;
-}
-/**
- * Returns the first item that is equal to or less than every other item.
-*/
-export function findMinBy(items, comparator) {
-    return findMaxBy(items, (a, b) => -comparator(a, b));
+export const booleanComparator = (a, b) => numberComparator(a ? 1 : 0, b ? 1 : 0);
+export function reverseOrder(comparator) {
+    return (a, b) => -comparator(a, b);
 }
 export class ArrayQueue {
     /**
@@ -498,3 +468,34 @@ export class CallbackIterable {
     }
 }
 CallbackIterable.empty = new CallbackIterable(_callback => { });
+/**
+ * Represents a re-arrangement of items in an array.
+ */
+export class Permutation {
+    constructor(_indexMap) {
+        this._indexMap = _indexMap;
+    }
+    /**
+     * Returns a permutation that sorts the given array according to the given compare function.
+     */
+    static createSortPermutation(arr, compareFn) {
+        const sortIndices = Array.from(arr.keys()).sort((index1, index2) => compareFn(arr[index1], arr[index2]));
+        return new Permutation(sortIndices);
+    }
+    /**
+     * Returns a new array with the elements of the given array re-arranged according to this permutation.
+     */
+    apply(arr) {
+        return arr.map((_, index) => arr[this._indexMap[index]]);
+    }
+    /**
+     * Returns a new permutation that undoes the re-arrangement of this permutation.
+    */
+    inverse() {
+        const inverseIndexMap = this._indexMap.slice();
+        for (let i = 0; i < this._indexMap.length; i++) {
+            inverseIndexMap[this._indexMap[i]] = i;
+        }
+        return new Permutation(inverseIndexMap);
+    }
+}

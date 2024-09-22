@@ -1,14 +1,13 @@
 {
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "proseWrap": "never",
-  "trailingComma": "all",
+  "printWidth": 120,
   "overrides": [
     {
-      "files": ["*.json", "*.rc"],
+      "files": ["*.rc"],
       "options": {
-        "parser": "json",
-        "printWidth": 1
+        "parser": "json"
       }
     }
   ]

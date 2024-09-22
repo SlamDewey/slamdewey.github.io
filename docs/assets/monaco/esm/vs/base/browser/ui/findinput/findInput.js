@@ -9,14 +9,15 @@ import { Widget } from '../widget.js';
 import { Emitter } from '../../../common/event.js';
 import './findInput.css';
 import * as nls from '../../../../nls.js';
-import { DisposableStore } from '../../../common/lifecycle.js';
+import { DisposableStore, MutableDisposable } from '../../../common/lifecycle.js';
+import { createInstantHoverDelegate } from '../hover/hoverDelegateFactory.js';
 const NLS_DEFAULT_LABEL = nls.localize('defaultLabel', "input");
 export class FindInput extends Widget {
     constructor(parent, contextViewProvider, options) {
         super();
         this.fixFocusOnOptionClickEnabled = true;
         this.imeSessionInProgress = false;
-        this.additionalTogglesDisposables = new DisposableStore();
+        this.additionalTogglesDisposables = this._register(new MutableDisposable());
         this.additionalToggles = [];
         this._onDidOptionChange = this._register(new Emitter());
         this.onDidOptionChange = this._onDidOptionChange.event;
@@ -57,8 +58,14 @@ export class FindInput extends Widget {
             flexibleMaxHeight,
             inputBoxStyles: options.inputBoxStyles,
         }));
+        const hoverDelegate = this._register(createInstantHoverDelegate());
         if (this.showCommonFindToggles) {
-            this.regex = this._register(new RegexToggle(Object.assign({ appendTitle: appendRegexLabel, isChecked: false }, options.toggleStyles)));
+            this.regex = this._register(new RegexToggle({
+                appendTitle: appendRegexLabel,
+                isChecked: false,
+                hoverDelegate,
+                ...options.toggleStyles
+            }));
             this._register(this.regex.onChange(viaKeyboard => {
                 this._onDidOptionChange.fire(viaKeyboard);
                 if (!viaKeyboard && this.fixFocusOnOptionClickEnabled) {
@@ -69,7 +76,12 @@ export class FindInput extends Widget {
             this._register(this.regex.onKeyDown(e => {
                 this._onRegexKeyDown.fire(e);
             }));
-            this.wholeWords = this._register(new WholeWordsToggle(Object.assign({ appendTitle: appendWholeWordsLabel, isChecked: false }, options.toggleStyles)));
+            this.wholeWords = this._register(new WholeWordsToggle({
+                appendTitle: appendWholeWordsLabel,
+                isChecked: false,
+                hoverDelegate,
+                ...options.toggleStyles
+            }));
             this._register(this.wholeWords.onChange(viaKeyboard => {
                 this._onDidOptionChange.fire(viaKeyboard);
                 if (!viaKeyboard && this.fixFocusOnOptionClickEnabled) {
@@ -77,7 +89,12 @@ export class FindInput extends Widget {
                 }
                 this.validate();
             }));
-            this.caseSensitive = this._register(new CaseSensitiveToggle(Object.assign({ appendTitle: appendCaseSensitiveLabel, isChecked: false }, options.toggleStyles)));
+            this.caseSensitive = this._register(new CaseSensitiveToggle({
+                appendTitle: appendCaseSensitiveLabel,
+                isChecked: false,
+                hoverDelegate,
+                ...options.toggleStyles
+            }));
             this._register(this.caseSensitive.onChange(viaKeyboard => {
                 this._onDidOptionChange.fire(viaKeyboard);
                 if (!viaKeyboard && this.fixFocusOnOptionClickEnabled) {
@@ -92,7 +109,7 @@ export class FindInput extends Widget {
             const indexes = [this.caseSensitive.domNode, this.wholeWords.domNode, this.regex.domNode];
             this.onkeydown(this.domNode, (event) => {
                 if (event.equals(15 /* KeyCode.LeftArrow */) || event.equals(17 /* KeyCode.RightArrow */) || event.equals(9 /* KeyCode.Escape */)) {
-                    const index = indexes.indexOf(document.activeElement);
+                    const index = indexes.indexOf(this.domNode.ownerDocument.activeElement);
                     if (index >= 0) {
                         let newIndex = -1;
                         if (event.equals(17 /* KeyCode.RightArrow */)) {
@@ -192,12 +209,11 @@ export class FindInput extends Widget {
             currentToggle.domNode.remove();
         }
         this.additionalToggles = [];
-        this.additionalTogglesDisposables.dispose();
-        this.additionalTogglesDisposables = new DisposableStore();
+        this.additionalTogglesDisposables.value = new DisposableStore();
         for (const toggle of toggles !== null && toggles !== void 0 ? toggles : []) {
-            this.additionalTogglesDisposables.add(toggle);
+            this.additionalTogglesDisposables.value.add(toggle);
             this.controls.appendChild(toggle.domNode);
-            this.additionalTogglesDisposables.add(toggle.onChange(viaKeyboard => {
+            this.additionalTogglesDisposables.value.add(toggle.onChange(viaKeyboard => {
                 this._onDidOptionChange.fire(viaKeyboard);
                 if (!viaKeyboard && this.fixFocusOnOptionClickEnabled) {
                     this.inputBox.focus();

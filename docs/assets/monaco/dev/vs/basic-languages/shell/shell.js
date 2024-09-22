@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/shell/shell", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -157,7 +157,9 @@ var moduleExports = (() => {
     ],
     startingWithDash: /\-+\w+/,
     identifiersWithDashes: /[a-zA-Z]\w+(?:@startingWithDash)+/,
+    // we include these common regular expressions
     symbols: /[=><!~?&|+\-*\/\^;\.,]+/,
+    // The main tokenizer for our languages
     tokenizer: {
       root: [
         [/@identifiersWithDashes/, ""],
@@ -191,6 +193,7 @@ var moduleExports = (() => {
         [/0[xX][0-9a-fA-F_]*[0-9a-fA-F]/, "number.hex"],
         [/\d+/, "number"]
       ],
+      // Recognize strings, including those broken across lines
       strings: [
         [/'/, "string", "@stringBody"],
         [/"/, "string", "@dblStringBody"]

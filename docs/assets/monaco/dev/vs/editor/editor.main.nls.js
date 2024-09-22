@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/vscode/blob/main/LICENSE.txt
  *-----------------------------------------------------------*/
@@ -24,14 +24,16 @@ define("vs/editor/editor.main.nls", {
 		"input",
 		"Preserve Case"
 	],
-	"vs/base/browser/ui/iconLabel/iconLabelHover": [
-		"Loading..."
+	"vs/base/browser/ui/hover/hoverWidget": [
+		"Inspect this in the accessible view with {0}.",
+		"Inspect this in the accessible view via the command Open Accessible View which is currently not triggerable via keybinding."
 	],
 	"vs/base/browser/ui/inputbox/inputBox": [
 		"Error: {0}",
 		"Warning: {0}",
 		"Info: {0}",
-		"for history",
+		" or {0} for history",
+		" ({0} for history)",
 		"Cleared Input"
 	],
 	"vs/base/browser/ui/keybindingLabel/keybindingLabel": [
@@ -90,7 +92,10 @@ define("vs/editor/editor.main.nls", {
 	],
 	"vs/editor/browser/controller/textAreaHandler": [
 		"editor",
-		"The editor is not accessible at this time. Press {0} for options."
+		"The editor is not accessible at this time.",
+		"{0} To enable screen reader optimized mode, use {1}",
+		"{0} To enable screen reader optimized mode, open the quick pick with {1} and run the command Toggle Screen Reader Accessibility Mode, which is currently not triggerable via keyboard.",
+		"{0} Please assign a keybinding for the command Toggle Screen Reader Accessibility Mode by accessing the keybindings editor with {1} and run it."
 	],
 	"vs/editor/browser/coreCommands": [
 		"Stick to the end even when going to longer lines",
@@ -105,34 +110,36 @@ define("vs/editor/editor.main.nls", {
 		"&&Select All",
 		"Select All"
 	],
-	"vs/editor/browser/widget/codeEditorWidget": [
+	"vs/editor/browser/services/hoverService/hoverWidget": [
+		"Hold {0} key to mouse over"
+	],
+	"vs/editor/browser/services/hoverService/updatableHoverWidget": [
+		"Loading..."
+	],
+	"vs/editor/browser/widget/codeEditor/codeEditorWidget": [
 		"The number of cursors has been limited to {0}. Consider using [find and replace](https://code.visualstudio.com/docs/editor/codebasics#_find-and-replace) for larger changes or increase the editor multi cursor limit setting.",
 		"Increase Multi Cursor Limit"
 	],
-	"vs/editor/browser/widget/diffEditor.contribution": [
+	"vs/editor/browser/widget/diffEditor/commands": [
+		"Toggle Collapse Unchanged Regions",
+		"Toggle Show Moved Code Blocks",
+		"Toggle Use Inline View When Space Is Limited",
+		"Diff Editor",
+		"Switch Side",
+		"Exit Compare Move",
+		"Collapse All Unchanged Regions",
+		"Show All Unchanged Regions",
+		"Revert",
+		"Accessible Diff Viewer",
 		"Go to Next Difference",
 		"Go to Previous Difference"
 	],
-	"vs/editor/browser/widget/diffEditorWidget": [
-		"Line decoration for inserts in the diff editor.",
-		"Line decoration for removals in the diff editor.",
-		" use Shift + F7 to navigate changes",
-		"Cannot compare files because one file is too large.",
-		"Click to revert change"
-	],
-	"vs/editor/browser/widget/diffEditorWidget2/decorations": [
-		"Line decoration for inserts in the diff editor.",
-		"Line decoration for removals in the diff editor.",
-		"Click to revert change"
-	],
-	"vs/editor/browser/widget/diffEditorWidget2/diffEditorEditors": [
-		" use Shift + F7 to navigate changes"
-	],
-	"vs/editor/browser/widget/diffEditorWidget2/diffReview": [
-		"Icon for 'Insert' in diff review.",
-		"Icon for 'Remove' in diff review.",
-		"Icon for 'Close' in diff review.",
+	"vs/editor/browser/widget/diffEditor/components/accessibleDiffViewer": [
+		"Icon for 'Insert' in accessible diff viewer.",
+		"Icon for 'Remove' in accessible diff viewer.",
+		"Icon for 'Close' in accessible diff viewer.",
 		"Close",
+		"Accessible Diff Viewer. Use arrow up and down to navigate.",
 		"no lines changed",
 		"1 line changed",
 		"{0} lines changed",
@@ -143,7 +150,10 @@ define("vs/editor/editor.main.nls", {
 		"+ {0} modified line {1}",
 		"- {0} original line {1}"
 	],
-	"vs/editor/browser/widget/diffEditorWidget2/inlineDiffDeletedCodeMargin": [
+	"vs/editor/browser/widget/diffEditor/components/diffEditorEditors": [
+		" use {0} to open the accessibility help."
+	],
+	"vs/editor/browser/widget/diffEditor/components/diffEditorViewZones/inlineDiffDeletedCodeMargin": [
 		"Copy deleted lines",
 		"Copy deleted line",
 		"Copy changed lines",
@@ -152,34 +162,45 @@ define("vs/editor/editor.main.nls", {
 		"Copy changed line ({0})",
 		"Revert this change"
 	],
-	"vs/editor/browser/widget/diffEditorWidget2/unchangedRanges": [
-		"Fold Unchanged Region"
+	"vs/editor/browser/widget/diffEditor/diffEditor.contribution": [
+		"Use Inline View When Space Is Limited",
+		"Show Moved Code Blocks",
+		"Revert Block",
+		"Revert Selection",
+		"Open Accessible Diff Viewer"
 	],
-	"vs/editor/browser/widget/diffReview": [
-		"Icon for 'Insert' in diff review.",
-		"Icon for 'Remove' in diff review.",
-		"Icon for 'Close' in diff review.",
-		"Close",
-		"no lines changed",
-		"1 line changed",
-		"{0} lines changed",
-		"Difference {0} of {1}: original line {2}, {3}, modified line {4}, {5}",
-		"blank",
-		"{0} unchanged line {1}",
-		"{0} original line {1} modified line {2}",
-		"+ {0} modified line {1}",
-		"- {0} original line {1}"
+	"vs/editor/browser/widget/diffEditor/features/hideUnchangedRegionsFeature": [
+		"Fold Unchanged Region",
+		"Click or drag to show more above",
+		"Show Unchanged Region",
+		"Click or drag to show more below",
+		"{0} hidden lines",
+		"Double click to unfold"
 	],
-	"vs/editor/browser/widget/inlineDiffMargin": [
-		"Copy deleted lines",
-		"Copy deleted line",
-		"Copy changed lines",
-		"Copy changed line",
-		"Copy deleted line ({0})",
-		"Copy changed line ({0})",
-		"Revert this change",
-		"Copy deleted line ({0})",
-		"Copy changed line ({0})"
+	"vs/editor/browser/widget/diffEditor/features/movedBlocksLinesFeature": [
+		"Code moved with changes to line {0}-{1}",
+		"Code moved with changes from line {0}-{1}",
+		"Code moved to line {0}-{1}",
+		"Code moved from line {0}-{1}"
+	],
+	"vs/editor/browser/widget/diffEditor/features/revertButtonsFeature": [
+		"Revert Selected Changes",
+		"Revert Change"
+	],
+	"vs/editor/browser/widget/diffEditor/registrations.contribution": [
+		"The border color for text that got moved in the diff editor.",
+		"The active border color for text that got moved in the diff editor.",
+		"The color of the shadow around unchanged region widgets.",
+		"Line decoration for inserts in the diff editor.",
+		"Line decoration for removals in the diff editor."
+	],
+	"vs/editor/browser/widget/multiDiffEditor/colors": [
+		"The background color of the diff editor's header",
+		"The background color of the multi file diff editor",
+		"The border color of the multi file diff editor"
+	],
+	"vs/editor/browser/widget/multiDiffEditor/multiDiffEditorWidgetImpl": [
+		"No Changed Files"
 	],
 	"vs/editor/common/config/editorConfigurationSchema": [
 		"Editor",
@@ -189,11 +210,11 @@ define("vs/editor/editor.main.nls", {
 		"Controls whether {0} and {1} will be automatically detected when a file is opened based on the file contents.",
 		"Remove trailing auto inserted whitespace.",
 		"Special handling for large files to disable certain memory intensive features.",
-		"Controls whether completions should be computed based on words in the document.",
+		"Turn off Word Based Suggestions.",
 		"Only suggest words from the active document.",
 		"Suggest words from all open documents of the same language.",
 		"Suggest words from all open documents.",
-		"Controls from which documents word based completions are computed.",
+		"Controls whether completions should be computed based on words in the document and from which documents they are computed.",
 		"Semantic highlighting enabled for all color themes.",
 		"Semantic highlighting disabled for all color themes.",
 		"Semantic highlighting is configured by the current color theme's `semanticHighlighting` setting.",
@@ -212,7 +233,10 @@ define("vs/editor/editor.main.nls", {
 		"Timeout in milliseconds after which diff computation is cancelled. Use 0 for no timeout.",
 		"Maximum file size in MB for which to compute diffs. Use 0 for no limit.",
 		"Controls whether the diff editor shows the diff side by side or inline.",
+		"If the diff editor width is smaller than this value, the inline view is used.",
+		"If enabled and the editor width is too small, the inline view is used.",
 		"When enabled, the diff editor shows arrows in its glyph margin to revert changes.",
+		"When enabled, the diff editor shows a special gutter for revert and stage actions.",
 		"When enabled, the diff editor ignores changes in leading or trailing whitespace.",
 		"Controls whether the diff editor shows +/- indicators for added/removed changes.",
 		"Controls whether the editor shows CodeLens.",
@@ -221,15 +245,17 @@ define("vs/editor/editor.main.nls", {
 		"Lines will wrap according to the {0} setting.",
 		"Uses the legacy diffing algorithm.",
 		"Uses the advanced diffing algorithm.",
-		"Controls whether the diff editor shows unchanged regions. Only works when {0} is set.",
-		"Controls whether the diff editor should show detected code moves. Only works when {0} is set.",
-		"Controls whether the diff editor uses the new or the old implementation.",
+		"Controls whether the diff editor shows unchanged regions.",
+		"Controls how many lines are used for unchanged regions.",
+		"Controls how many lines are used as a minimum for unchanged regions.",
+		"Controls how many lines are used as context when comparing unchanged regions.",
+		"Controls whether the diff editor should show detected code moves.",
 		"Controls whether the diff editor shows empty decorations to see where characters got inserted or deleted."
 	],
 	"vs/editor/common/config/editorOptions": [
-		"Use platform APIs to detect when a Screen Reader is attached",
-		"Optimize for usage with a Screen Reader",
-		"Assume a screen reader is not attached",
+		"Use platform APIs to detect when a Screen Reader is attached.",
+		"Optimize for usage with a Screen Reader.",
+		"Assume a screen reader is not attached.",
 		"Controls if the UI should run in a mode where it is optimized for screen readers.",
 		"Controls whether a space character is inserted when commenting.",
 		"Controls if empty lines should be ignored with toggle, add or remove actions for line comments.",
@@ -272,14 +298,19 @@ define("vs/editor/editor.main.nls", {
 		"Controls whether the hover is shown.",
 		"Controls the delay in milliseconds after which the hover is shown.",
 		"Controls whether the hover should remain visible when mouse is moved over it.",
+		"Controls the delay in milliseconds after which the hover is hidden. Requires `editor.hover.sticky` to be enabled.",
 		"Prefer showing hovers above the line, if there's space.",
 		"Assumes that all characters are of the same width. This is a fast algorithm that works correctly for monospace fonts and certain scripts (like Latin characters) where glyphs are of equal width.",
 		"Delegates wrapping points computation to the browser. This is a slow algorithm, that might cause freezes for large files, but it works correctly in all cases.",
 		"Controls the algorithm that computes wrapping points. Note that when in accessibility mode, advanced will be used for the best experience.",
+		"Disable the code action menu.",
+		"Show the code action menu when the cursor is on lines with code.",
+		"Show the code action menu when the cursor is on lines with code or on empty lines.",
 		"Enables the Code Action lightbulb in the editor.",
 		"Shows the nested current scopes during the scroll at the top of the editor.",
 		"Defines the maximum number of sticky lines to show.",
 		"Defines the model to use for determining which lines to stick. If the outline model does not exist, it will fall back on the folding provider model which falls back on the indentation model. This order is respected in all three cases.",
+		"Enable scrolling of Sticky Scroll with the editor's horizontal scrollbar.",
 		"Enables the inlay hints in the editor.",
 		"Inlay hints are enabled",
 		"Inlay hints are showing by default and hide when holding {0}",
@@ -300,6 +331,10 @@ define("vs/editor/editor.main.nls", {
 		"Scale of content drawn in the minimap: 1, 2 or 3.",
 		"Render the actual characters on a line as opposed to color blocks.",
 		"Limit the width of the minimap to render at most a certain number of columns.",
+		"Controls whether named regions are shown as section headers in the minimap.",
+		"Controls whether MARK: comments are shown as section headers in the minimap.",
+		"Controls the font size of section headers in the minimap.",
+		"Controls the amount of space (in pixels) between characters of section header. This helps the readability of the header in small font sizes.",
 		"Controls the amount of space between the top edge of the editor and the first line.",
 		"Controls the amount of space between the bottom edge of the editor and the last line.",
 		"Enables a pop-up that shows parameter documentation and type information as you type.",
@@ -330,6 +365,7 @@ define("vs/editor/editor.main.nls", {
 		"The width of the vertical scrollbar.",
 		"The height of the horizontal scrollbar.",
 		"Controls whether clicks scroll by page or jump to click position.",
+		"When set, the horizontal scrollbar will not increase the size of the editor's content.",
 		"Controls whether all non-basic ASCII characters are highlighted. Only characters between U+0020 and U+007E, tab, line-feed and carriage-return are considered basic ASCII.",
 		"Controls whether characters that just reserve space or have no width at all are highlighted.",
 		"Controls whether characters are highlighted that can be confused with basic ASCII characters, except those that are common in the current user locale.",
@@ -340,8 +376,17 @@ define("vs/editor/editor.main.nls", {
 		"Controls whether to automatically show inline suggestions in the editor.",
 		"Show the inline suggestion toolbar whenever an inline suggestion is shown.",
 		"Show the inline suggestion toolbar when hovering over an inline suggestion.",
+		"Never show the inline suggestion toolbar.",
 		"Controls when to show the inline suggestion toolbar.",
 		"Controls how inline suggestions interact with the suggest widget. If enabled, the suggest widget is not shown automatically when inline suggestions are available.",
+		"Controls the font family of the inline suggestions.",
+		"Controls whether to show inline edits in the editor.",
+		"Show the inline edit toolbar whenever an inline suggestion is shown.",
+		"Show the inline edit toolbar when hovering over an inline suggestion.",
+		"Never show the inline edit toolbar.",
+		"Controls when to show the inline edit toolbar.",
+		"Controls the font family of the inline edit.",
+		"Controls whether to color the background of inline edits.",
 		"Controls whether bracket pair colorization is enabled or not. Use {0} to override the bracket highlight colors.",
 		"Controls whether each bracket type has its own independent color pool.",
 		"Enables bracket pair guides.",
@@ -408,12 +453,14 @@ define("vs/editor/editor.main.nls", {
 		"When enabled IntelliSense shows `issues`-suggestions.",
 		"Whether leading and trailing whitespace should always be selected.",
 		"Whether subwords (like 'foo' in 'fooBar' or 'foo_bar') should be selected.",
+		"Locales to be used for word segmentation when doing word related navigations or operations. Specify the BCP 47 language tag of the word you wish to recognize (e.g., ja, zh-CN, zh-Hant-TW, etc.).",
+		"Locales to be used for word segmentation when doing word related navigations or operations. Specify the BCP 47 language tag of the word you wish to recognize (e.g., ja, zh-CN, zh-Hant-TW, etc.).",
 		"No indentation. Wrapped lines begin at column 1.",
 		"Wrapped lines get the same indentation as the parent.",
 		"Wrapped lines get +1 indentation toward the parent.",
 		"Wrapped lines get +2 indentation toward the parent.",
 		"Controls the indentation of wrapped lines.",
-		"Controls whether you can drag and drop a file into a text editor by holding down `shift` (instead of opening the file in an editor).",
+		"Controls whether you can drag and drop a file into a text editor by holding down the `Shift` key (instead of opening the file in an editor).",
 		"Controls if a widget is shown when dropping files into the editor. This widget lets you control how the file is dropped.",
 		"Show the drop selector widget after a file is dropped into the editor.",
 		"Never show the drop selector widget. Instead the default drop provider is always used.",
@@ -430,6 +477,9 @@ define("vs/editor/editor.main.nls", {
 		"Use language configurations to determine when to autoclose brackets.",
 		"Autoclose brackets only when the cursor is to the left of whitespace.",
 		"Controls whether the editor should automatically close brackets after the user adds an opening bracket.",
+		"Use language configurations to determine when to autoclose comments.",
+		"Autoclose comments only when the cursor is to the left of whitespace.",
+		"Controls whether the editor should automatically close comments after the user adds an opening comment.",
 		"Remove adjacent closing quotes or brackets only if they were automatically inserted.",
 		"Controls whether the editor should remove adjacent closing quotes or brackets when deleting.",
 		"Type over closing quotes or brackets only if they were automatically inserted.",
@@ -468,7 +518,7 @@ define("vs/editor/editor.main.nls", {
 		"Controls the minimal number of visible leading lines (minimum 0) and trailing lines (minimum 1) surrounding the cursor. Known as 'scrollOff' or 'scrollOffset' in some other editors.",
 		"`cursorSurroundingLines` is enforced only when triggered via the keyboard or API.",
 		"`cursorSurroundingLines` is enforced always.",
-		"Controls when `cursorSurroundingLines` should be enforced.",
+		"Controls when `#editor.cursorSurroundingLines#` should be enforced.",
 		"Controls the width of the cursor when `#editor.cursorStyle#` is set to `line`.",
 		"Controls whether the editor should allow moving selections via drag and drop.",
 		"Use a new rendering method with svgs.",
@@ -494,6 +544,7 @@ define("vs/editor/editor.main.nls", {
 		"Controls whether the editor should detect links and make them clickable.",
 		"Highlight matching brackets.",
 		"A multiplier to be used on the `deltaX` and `deltaY` of mouse wheel scroll events.",
+		"Zoom the font of the editor when using mouse wheel and holding `Cmd`.",
 		"Zoom the font of the editor when using mouse wheel and holding `Ctrl`.",
 		"Merge multiple cursors when they are overlapping.",
 		"Maps to `Control` on Windows and Linux and to `Command` on macOS.",
@@ -503,7 +554,10 @@ define("vs/editor/editor.main.nls", {
 		"Each cursor pastes the full text.",
 		"Controls pasting when the line count of the pasted text matches the cursor count.",
 		"Controls the max number of cursors that can be in an active editor at once.",
-		"Controls whether the editor should highlight semantic symbol occurrences.",
+		"Does not highlight occurrences.",
+		"Highlights occurrences only in the current file.",
+		"Experimental: Highlights occurrences across all valid open files.",
+		"Controls whether occurrences should be highlighted across open files.",
 		"Controls whether a border should be drawn around the overview ruler.",
 		"Focus the tree when opening peek",
 		"Focus the editor when opening peek",
@@ -539,6 +593,7 @@ define("vs/editor/editor.main.nls", {
 		"Do not show snippet suggestions.",
 		"Controls whether snippets are shown with other suggestions and how they are sorted.",
 		"Controls whether the editor will scroll using an animation.",
+		"Controls whether the accessibility hint should be provided to screen reader users when an inline completion is shown.",
 		"Font size for the suggest widget. When set to {0}, the value of {1} is used.",
 		"Line height for the suggest widget. When set to {0}, the value of {1} is used. The minimum value is 8.",
 		"Controls whether suggestions should automatically show up when typing trigger characters.",
@@ -554,7 +609,7 @@ define("vs/editor/editor.main.nls", {
 		"Unusual line terminators are ignored.",
 		"Unusual line terminators prompt to be removed.",
 		"Remove unusual line terminators that might cause problems.",
-		"Inserting and deleting whitespace follows tab stops.",
+		"Spaces and tabs are inserted and deleted in alignment with tab stops.",
 		"Use the default line break rule.",
 		"Word breaks should not be used for Chinese/Japanese/Korean (CJK) text. Non-CJK text behavior is the same as for normal.",
 		"Controls the word break rules used for Chinese/Japanese/Korean (CJK) text.",
@@ -577,10 +632,28 @@ define("vs/editor/editor.main.nls", {
 		"Background color of the border around highlighted symbols.",
 		"Color of the editor cursor.",
 		"The background color of the editor cursor. Allows customizing the color of a character overlapped by a block cursor.",
+		"Color of the primary editor cursor when multiple cursors are present.",
+		"The background color of the primary editor cursor when multiple cursors are present. Allows customizing the color of a character overlapped by a block cursor.",
+		"Color of secondary editor cursors when multiple cursors are present.",
+		"The background color of secondary editor cursors when multiple cursors are present. Allows customizing the color of a character overlapped by a block cursor.",
 		"Color of whitespace characters in the editor.",
-		"Color of the editor indentation guides.",
-		"Color of the active editor indentation guides.",
 		"Color of editor line numbers.",
+		"Color of the editor indentation guides.",
+		"'editorIndentGuide.background' is deprecated. Use 'editorIndentGuide.background1' instead.",
+		"Color of the active editor indentation guides.",
+		"'editorIndentGuide.activeBackground' is deprecated. Use 'editorIndentGuide.activeBackground1' instead.",
+		"Color of the editor indentation guides (1).",
+		"Color of the editor indentation guides (2).",
+		"Color of the editor indentation guides (3).",
+		"Color of the editor indentation guides (4).",
+		"Color of the editor indentation guides (5).",
+		"Color of the editor indentation guides (6).",
+		"Color of the active editor indentation guides (1).",
+		"Color of the active editor indentation guides (2).",
+		"Color of the active editor indentation guides (3).",
+		"Color of the active editor indentation guides (4).",
+		"Color of the active editor indentation guides (5).",
+		"Color of the active editor indentation guides (6).",
 		"Color of editor active line number",
 		"Id is deprecated. Use 'editorLineNumber.activeForeground' instead.",
 		"Color of editor active line number",
@@ -630,6 +703,17 @@ define("vs/editor/editor.main.nls", {
 		"Whether the editor is read-only",
 		"Whether the context is a diff editor",
 		"Whether the context is an embedded diff editor",
+		"Whether the context is a multi diff editor",
+		"Whether all files in multi diff editor are collapsed",
+		"Whether the diff editor has changes",
+		"Whether a moved code block is selected for comparison",
+		"Whether the accessible diff viewer is visible",
+		"Whether the diff editor render side by side inline breakpoint is reached",
+		"Whether inline mode is active",
+		"Whether modified is writable in the diff editor",
+		"Whether modified is writable in the diff editor",
+		"The uri of the original document",
+		"The uri of the modified document",
 		"Whether `editor.columnSelection` is enabled",
 		"Whether the editor has text selected",
 		"Whether the editor has multiple selections",
@@ -660,6 +744,35 @@ define("vs/editor/editor.main.nls", {
 		"Whether the editor has a document selection formatting provider",
 		"Whether the editor has multiple document formatting providers",
 		"Whether the editor has multiple document selection formatting providers"
+	],
+	"vs/editor/common/languages": [
+		"array",
+		"boolean",
+		"class",
+		"constant",
+		"constructor",
+		"enumeration",
+		"enumeration member",
+		"event",
+		"field",
+		"file",
+		"function",
+		"interface",
+		"key",
+		"method",
+		"module",
+		"namespace",
+		"null",
+		"number",
+		"object",
+		"operator",
+		"package",
+		"property",
+		"string",
+		"struct",
+		"type parameter",
+		"variable",
+		"{0} ({1})"
 	],
 	"vs/editor/common/languages/modesRegistry": [
 		"Plain Text"
@@ -697,7 +810,8 @@ define("vs/editor/editor.main.nls", {
 		"Go to Bracket",
 		"Select to Bracket",
 		"Remove Brackets",
-		"Go to &&Bracket"
+		"Go to &&Bracket",
+		"Select the text inside and including the brackets or curly braces"
 	],
 	"vs/editor/contrib/caretOperations/browser/caretOperations": [
 		"Move Selected Text Left",
@@ -715,16 +829,15 @@ define("vs/editor/editor.main.nls", {
 		"Copy",
 		"Copy",
 		"Copy",
-		"Copy As",
-		"Copy As",
-		"Share",
-		"Share",
-		"Share",
 		"&&Paste",
 		"Paste",
 		"Paste",
 		"Paste",
-		"Copy With Syntax Highlighting"
+		"Copy With Syntax Highlighting",
+		"Copy As",
+		"Copy As",
+		"Share",
+		"Share"
 	],
 	"vs/editor/contrib/codeAction/browser/codeAction": [
 		"An unknown error occurred while applying the code action"
@@ -760,39 +873,46 @@ define("vs/editor/editor.main.nls", {
 		"No auto fixes available"
 	],
 	"vs/editor/contrib/codeAction/browser/codeActionContributions": [
-		"Enable/disable showing group headers in the Code Action menu."
+		"Enable/disable showing group headers in the Code Action menu.",
+		"Enable/disable showing nearest Quick Fix within a line when not currently on a diagnostic."
 	],
 	"vs/editor/contrib/codeAction/browser/codeActionController": [
+		"Context: {0} at line {1} and column {2}.",
 		"Hide Disabled",
 		"Show Disabled"
 	],
 	"vs/editor/contrib/codeAction/browser/codeActionMenu": [
 		"More Actions...",
-		"Quick Fix...",
-		"Extract...",
-		"Inline...",
-		"Rewrite...",
-		"Move...",
-		"Surround With...",
-		"Source Action..."
+		"Quick Fix",
+		"Extract",
+		"Inline",
+		"Rewrite",
+		"Move",
+		"Surround With",
+		"Source Action"
 	],
 	"vs/editor/contrib/codeAction/browser/lightBulbWidget": [
+		"Run: {0}",
 		"Show Code Actions. Preferred Quick Fix Available ({0})",
 		"Show Code Actions ({0})",
 		"Show Code Actions"
 	],
 	"vs/editor/contrib/codelens/browser/codelensController": [
-		"Show CodeLens Commands For Current Line"
+		"Show CodeLens Commands For Current Line",
+		"Select a command"
 	],
 	"vs/editor/contrib/colorPicker/browser/colorPickerWidget": [
 		"Click to toggle color options (rgb/hsl/hex)",
 		"Icon to close the color picker"
 	],
 	"vs/editor/contrib/colorPicker/browser/standaloneColorPickerActions": [
-		"Show or Focus Standalone Color Picker",
 		"&&Show or Focus Standalone Color Picker",
 		"Hide the Color Picker",
-		"Insert Color with Standalone Color Picker"
+		"Insert Color with Standalone Color Picker",
+		"Show or Focus Standalone Color Picker",
+		"Show or focus a standalone color picker which uses the default color provider. It displays hex/rgb/hsl colors.",
+		"Hide the standalone color picker.",
+		"Insert hex/rgb/hsl colors with the focused standalone color picker."
 	],
 	"vs/editor/contrib/comment/browser/comment": [
 		"Toggle Line Comment",
@@ -819,41 +939,47 @@ define("vs/editor/editor.main.nls", {
 		"Cursor Redo"
 	],
 	"vs/editor/contrib/dropOrPasteInto/browser/copyPasteContribution": [
+		"The kind of the paste edit to try applying. If not provided or there are multiple edits for this kind, the editor will show a picker.",
 		"Paste As...",
-		"The id of the paste edit to try applying. If not provided, the editor will show a picker."
+		"Paste as Text"
 	],
 	"vs/editor/contrib/dropOrPasteInto/browser/copyPasteController": [
 		"Whether the paste widget is showing",
 		"Show paste options...",
+		"No paste edits for '{0}' found",
 		"Running paste handlers. Click to cancel",
 		"Select Paste Action",
 		"Running paste handlers"
 	],
 	"vs/editor/contrib/dropOrPasteInto/browser/defaultProviders": [
-		"Built-in",
 		"Insert Plain Text",
 		"Insert Uris",
 		"Insert Uri",
 		"Insert Paths",
 		"Insert Path",
 		"Insert Relative Paths",
-		"Insert Relative Path"
+		"Insert Relative Path",
+		"Insert HTML"
+	],
+	"vs/editor/contrib/dropOrPasteInto/browser/dropIntoEditorContribution": [
+		"Configures the default drop provider to use for content of a given mime type."
 	],
 	"vs/editor/contrib/dropOrPasteInto/browser/dropIntoEditorController": [
 		"Whether the drop widget is showing",
 		"Show drop options...",
 		"Running drop handlers. Click to cancel"
 	],
+	"vs/editor/contrib/dropOrPasteInto/browser/postEditWidget": [
+		"Error resolving edit '{0}':\n{1}",
+		"Error applying edit '{0}':\n{1}"
+	],
 	"vs/editor/contrib/editorState/browser/keybindingCancellation": [
 		"Whether the editor runs a cancellable operation, e.g. like 'Peek References'"
 	],
 	"vs/editor/contrib/find/browser/findController": [
+		"The file is too large to perform a replace all operation.",
 		"Find",
 		"&&Find",
-		"Overrides \"Use Regular Expression\" flag.\nThe flag will not be saved for the future.\n0: Do Nothing\n1: True\n2: False",
-		"Overrides \"Match Whole Word\" flag.\nThe flag will not be saved for the future.\n0: Do Nothing\n1: True\n2: False",
-		"Overrides \"Math Case\" flag.\nThe flag will not be saved for the future.\n0: Do Nothing\n1: True\n2: False",
-		"Overrides \"Preserve Case\" flag.\nThe flag will not be saved for the future.\n0: Do Nothing\n1: True\n2: False",
 		"Find With Arguments",
 		"Find With Selection",
 		"Find Next",
@@ -869,9 +995,9 @@ define("vs/editor/editor.main.nls", {
 		"&&Replace"
 	],
 	"vs/editor/contrib/find/browser/findWidget": [
-		"Icon for 'Find in Selection' in the editor find widget.",
 		"Icon to indicate that the editor find widget is collapsed.",
 		"Icon to indicate that the editor find widget is expanded.",
+		"Icon for 'Find in Selection' in the editor find widget.",
 		"Icon for 'Replace' in the editor find widget.",
 		"Icon for 'Replace All' in the editor find widget.",
 		"Icon for 'Find Previous' in the editor find widget.",
@@ -906,8 +1032,8 @@ define("vs/editor/editor.main.nls", {
 		"Fold All Block Comments",
 		"Fold All Regions",
 		"Unfold All Regions",
-		"Fold All Regions Except Selected",
-		"Unfold All Regions Except Selected",
+		"Fold All Except Selected",
+		"Unfold All Except Selected",
 		"Fold All",
 		"Unfold All",
 		"Go to Parent Fold",
@@ -923,18 +1049,14 @@ define("vs/editor/editor.main.nls", {
 		"Icon for expanded ranges in the editor glyph margin.",
 		"Icon for collapsed ranges in the editor glyph margin.",
 		"Icon for manually collapsed ranges in the editor glyph margin.",
-		"Icon for manually expanded ranges in the editor glyph margin."
+		"Icon for manually expanded ranges in the editor glyph margin.",
+		"Click to expand the range.",
+		"Click to collapse the range."
 	],
 	"vs/editor/contrib/fontZoom/browser/fontZoom": [
-		"Editor Font Zoom In",
-		"Editor Font Zoom Out",
-		"Editor Font Zoom Reset"
-	],
-	"vs/editor/contrib/format/browser/format": [
-		"Made 1 formatting edit on line {0}",
-		"Made {0} formatting edits on line {1}",
-		"Made 1 formatting edit between lines {0} and {1}",
-		"Made {0} formatting edits between lines {1} and {2}"
+		"Increase Editor Font Size",
+		"Decrease Editor Font Size",
+		"Reset Editor Font Size"
 	],
 	"vs/editor/contrib/format/browser/formatActions": [
 		"Format Document",
@@ -971,41 +1093,41 @@ define("vs/editor/editor.main.nls", {
 		"Definitions",
 		"No definition found for '{0}'",
 		"No definition found",
-		"Go to Definition",
 		"Go to &&Definition",
-		"Open Definition to the Side",
-		"Peek Definition",
 		"Declarations",
 		"No declaration found for '{0}'",
 		"No declaration found",
-		"Go to Declaration",
 		"Go to &&Declaration",
 		"No declaration found for '{0}'",
 		"No declaration found",
-		"Peek Declaration",
 		"Type Definitions",
 		"No type definition found for '{0}'",
 		"No type definition found",
-		"Go to Type Definition",
 		"Go to &&Type Definition",
-		"Peek Type Definition",
 		"Implementations",
 		"No implementation found for '{0}'",
 		"No implementation found",
-		"Go to Implementations",
 		"Go to &&Implementations",
-		"Peek Implementations",
 		"No references found for '{0}'",
 		"No references found",
-		"Go to References",
 		"Go to &&References",
 		"References",
-		"Peek References",
 		"References",
-		"Go to Any Symbol",
 		"Locations",
 		"No results for '{0}'",
-		"References"
+		"References",
+		"Go to Definition",
+		"Open Definition to the Side",
+		"Peek Definition",
+		"Go to Declaration",
+		"Peek Declaration",
+		"Go to Type Definition",
+		"Peek Type Definition",
+		"Go to Implementations",
+		"Peek Implementations",
+		"Go to References",
+		"Peek References",
+		"Go to Any Symbol"
 	],
 	"vs/editor/contrib/gotoSymbol/browser/link/goToDefinitionAtPosition": [
 		"Click to show {0} definitions."
@@ -1040,8 +1162,21 @@ define("vs/editor/editor.main.nls", {
 		"Symbol {0} of {1}, {2} for next",
 		"Symbol {0} of {1}"
 	],
-	"vs/editor/contrib/hover/browser/hover": [
+	"vs/editor/contrib/hover/browser/hoverAccessibleViews": [
+		"Focus on the hover widget to cycle through the hover parts with the Tab key.",
+		"- The focused hover part verbosity level can be increased with the Increase Hover Verbosity command<keybinding:{0}>.",
+		"- The focused hover part verbosity level can be decreased with the Decrease Hover Verbosity command<keybinding:{0}>.",
+		"The last focused hover content is the following."
+	],
+	"vs/editor/contrib/hover/browser/hoverActionIds": [
+		"Increase Hover Verbosity Level",
+		"Decrease Hover Verbosity Level"
+	],
+	"vs/editor/contrib/hover/browser/hoverActions": [
 		"Show or Focus Hover",
+		"The hover will not automatically take focus.",
+		"The hover will take focus only if it is already visible.",
+		"The hover will automatically take focus when it appears.",
 		"Show Definition Preview Hover",
 		"Scroll Up Hover",
 		"Scroll Down Hover",
@@ -1051,12 +1186,27 @@ define("vs/editor/editor.main.nls", {
 		"Page Down Hover",
 		"Go To Top Hover",
 		"Go To Bottom Hover",
-		"Escape Focus Hover"
+		"Show or focus the editor hover which shows documentation, references, and other content for a symbol at the current cursor position.",
+		"Show the definition preview hover in the editor.",
+		"Scroll up the editor hover.",
+		"Scroll down the editor hover.",
+		"Scroll left the editor hover.",
+		"Scroll right the editor hover.",
+		"Page up the editor hover.",
+		"Page down the editor hover.",
+		"Go to the top of the editor hover.",
+		"Go to the bottom of the editor hover."
 	],
 	"vs/editor/contrib/hover/browser/markdownHoverParticipant": [
+		"Icon for increaseing hover verbosity.",
+		"Icon for decreasing hover verbosity.",
 		"Loading...",
 		"Rendering paused for long line for performance reasons. This can be configured via `editor.stopRenderingLineAfter`.",
-		"Tokenization is skipped for long lines for performance reasons. This can be configured via `editor.maxTokenizationLineLength`."
+		"Tokenization is skipped for long lines for performance reasons. This can be configured via `editor.maxTokenizationLineLength`.",
+		"Increase Hover Verbosity ({0})",
+		"Increase Hover Verbosity",
+		"Decrease Hover Verbosity ({0})",
+		"Decrease Hover Verbosity"
 	],
 	"vs/editor/contrib/hover/browser/markerHoverParticipant": [
 		"View Problem",
@@ -1081,7 +1231,15 @@ define("vs/editor/editor.main.nls", {
 		"Change Tab Display Size",
 		"Detect Indentation from Content",
 		"Reindent Lines",
-		"Reindent Selected Lines"
+		"Reindent Selected Lines",
+		"Convert the tab indentation to spaces.",
+		"Convert the spaces indentation to tabs.",
+		"Use indentation with tabs.",
+		"Use indentation with spaces.",
+		"Change the space size equivalent of the tab.",
+		"Detect the indentation from content.",
+		"Reindent the lines of the editor.",
+		"Reindent the selected lines of the editor."
 	],
 	"vs/editor/contrib/inlayHints/browser/inlayHintsHover": [
 		"Double-click to insert",
@@ -1114,6 +1272,9 @@ define("vs/editor/editor.main.nls", {
 		"Whether the inline suggestion starts with whitespace",
 		"Whether the inline suggestion starts with whitespace that is less than what would be inserted by tab",
 		"Whether suggestions should be suppressed for the current suggestion"
+	],
+	"vs/editor/contrib/inlineCompletions/browser/inlineCompletionsController": [
+		"Inspect this in the accessible view ({0})"
 	],
 	"vs/editor/contrib/inlineCompletions/browser/inlineCompletionsHintsWidget": [
 		"Icon for show next parameter hint.",
@@ -1148,12 +1309,13 @@ define("vs/editor/editor.main.nls", {
 		"Delete All Left",
 		"Delete All Right",
 		"Join Lines",
-		"Transpose characters around the cursor",
+		"Transpose Characters around the Cursor",
 		"Transform to Uppercase",
 		"Transform to Lowercase",
 		"Transform to Title Case",
 		"Transform to Snake Case",
 		"Transform to Camel Case",
+		"Transform to Pascal Case",
 		"Transform to Kebab Case"
 	],
 	"vs/editor/contrib/linkedEditing/browser/linkedEditing": [
@@ -1283,12 +1445,18 @@ define("vs/editor/editor.main.nls", {
 		"Rename failed to apply edits",
 		"Rename failed to compute edits",
 		"Rename Symbol",
-		"Enable/disable the ability to preview changes before renaming"
+		"Enable/disable the ability to preview changes before renaming",
+		"Focus Next Rename Suggestion",
+		"Focus Previous Rename Suggestion"
 	],
-	"vs/editor/contrib/rename/browser/renameInputField": [
+	"vs/editor/contrib/rename/browser/renameWidget": [
 		"Whether the rename input widget is visible",
+		"Whether the rename input widget is focused",
+		"{0} to Rename, {1} to Preview",
+		"Received {0} rename suggestions",
 		"Rename input. Type new name and press Enter to commit.",
-		"{0} to Rename, {1} to Preview"
+		"Generate new name suggestions",
+		"Cancel"
 	],
 	"vs/editor/contrib/smartSelect/browser/smartSelect": [
 		"Expand Selection",
@@ -1343,15 +1511,16 @@ define("vs/editor/editor.main.nls", {
 		"Dec"
 	],
 	"vs/editor/contrib/stickyScroll/browser/stickyScrollActions": [
-		"Toggle Sticky Scroll",
-		"&&Toggle Sticky Scroll",
+		"&&Toggle Editor Sticky Scroll",
 		"Sticky Scroll",
 		"&&Sticky Scroll",
-		"Focus Sticky Scroll",
 		"&&Focus Sticky Scroll",
-		"Select next sticky scroll line",
-		"Select previous sticky scroll line",
-		"Go to focused sticky scroll line",
+		"Toggle Editor Sticky Scroll",
+		"Toggle/enable the editor sticky scroll which shows the nested scopes at the top of the viewport",
+		"Focus on the editor sticky scroll",
+		"Select the next editor sticky scroll line",
+		"Select the previous sticky scroll line",
+		"Go to the focused sticky scroll line",
 		"Select Editor"
 	],
 	"vs/editor/contrib/suggest/browser/suggest": [
@@ -1389,8 +1558,8 @@ define("vs/editor/editor.main.nls", {
 		"Loading...",
 		"No suggestions.",
 		"Suggest",
-		"{0}{1}, {2}",
-		"{0}{1}",
+		"{0} {1}, {2}",
+		"{0} {1}",
 		"{0}, {1}",
 		"{0}, docs: {1}"
 	],
@@ -1441,9 +1610,10 @@ define("vs/editor/editor.main.nls", {
 		"The foreground color for variable symbols. These symbols appear in the outline, breadcrumb, and suggest widget."
 	],
 	"vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode": [
-		"Toggle Tab Key Moves Focus",
 		"Pressing Tab will now move focus to the next focusable element",
-		"Pressing Tab will now insert the tab character"
+		"Pressing Tab will now insert the tab character",
+		"Toggle Tab Key Moves Focus",
+		"Determines whether the tab key moves focus around the workbench or inserts the tab character in the current editor. This is also called tab trapping, tab navigation, or tab focus mode."
 	],
 	"vs/editor/contrib/tokenization/browser/tokenization": [
 		"Developer: Force Retokenize"
@@ -1453,6 +1623,7 @@ define("vs/editor/editor.main.nls", {
 		"This document contains many non-basic ASCII unicode characters",
 		"This document contains many ambiguous unicode characters",
 		"This document contains many invisible unicode characters",
+		"Configure Unicode Highlight Options",
 		"The character {0} could be confused with the ASCII character {1}, which is more common in source code.",
 		"The character {0} could be confused with the character {1}, which is more common in source code.",
 		"The character {0} is invisible.",
@@ -1471,8 +1642,7 @@ define("vs/editor/editor.main.nls", {
 		"Show Exclude Options",
 		"Exclude {0} (invisible character) from being highlighted",
 		"Exclude {0} from being highlighted",
-		"Allow unicode characters that are more common in the language \"{0}\".",
-		"Configure Unicode Highlight Options"
+		"Allow unicode characters that are more common in the language \"{0}\"."
 	],
 	"vs/editor/contrib/unusualLineTerminators/browser/unusualLineTerminators": [
 		"Unusual Line Terminators",
@@ -1500,6 +1670,57 @@ define("vs/editor/editor.main.nls", {
 	"vs/editor/contrib/wordOperations/browser/wordOperations": [
 		"Delete Word"
 	],
+	"vs/platform/accessibilitySignal/browser/accessibilitySignalService": [
+		"Error at Position",
+		"Error",
+		"Warning at Position",
+		"Warning",
+		"Error on Line",
+		"Error on Line",
+		"Warning on Line",
+		"Warning on Line",
+		"Folded Area on Line",
+		"Folded",
+		"Breakpoint on Line",
+		"Breakpoint",
+		"Inline Suggestion on Line",
+		"Terminal Quick Fix",
+		"Quick Fix",
+		"Debugger Stopped on Breakpoint",
+		"Breakpoint",
+		"No Inlay Hints on Line",
+		"No Inlay Hints",
+		"Task Completed",
+		"Task Completed",
+		"Task Failed",
+		"Task Failed",
+		"Terminal Command Failed",
+		"Command Failed",
+		"Terminal Command Succeeded",
+		"Command Succeeded",
+		"Terminal Bell",
+		"Terminal Bell",
+		"Notebook Cell Completed",
+		"Notebook Cell Completed",
+		"Notebook Cell Failed",
+		"Notebook Cell Failed",
+		"Diff Line Inserted",
+		"Diff Line Deleted",
+		"Diff Line Modified",
+		"Chat Request Sent",
+		"Chat Request Sent",
+		"Chat Response Received",
+		"Progress",
+		"Progress",
+		"Clear",
+		"Clear",
+		"Save",
+		"Save",
+		"Format",
+		"Format",
+		"Voice Recording Started",
+		"Voice Recording Stopped"
+	],
 	"vs/platform/action/common/actionCommonCategories": [
 		"View",
 		"Help",
@@ -1509,12 +1730,13 @@ define("vs/editor/editor.main.nls", {
 		"Developer"
 	],
 	"vs/platform/actionWidget/browser/actionList": [
-		"{0} to apply, {1} to preview",
-		"{0} to apply",
+		"{0} to Apply, {1} to Preview",
+		"{0} to Apply",
 		"{0}, Disabled Reason: {1}",
 		"Action Widget"
 	],
 	"vs/platform/actionWidget/browser/actionWidget": [
+		"Background color for toggled action items in action bar.",
 		"Whether the action widget list is visible",
 		"Hide action widget",
 		"Select previous action",
@@ -1532,29 +1754,8 @@ define("vs/editor/editor.main.nls", {
 		"Reset Menu"
 	],
 	"vs/platform/actions/common/menuService": [
-		"Hide '{0}'"
-	],
-	"vs/platform/audioCues/browser/audioCueService": [
-		"Error on Line",
-		"Warning on Line",
-		"Folded Area on Line",
-		"Breakpoint on Line",
-		"Inline Suggestion on Line",
-		"Terminal Quick Fix",
-		"Debugger Stopped on Breakpoint",
-		"No Inlay Hints on Line",
-		"Task Completed",
-		"Task Failed",
-		"Terminal Command Failed",
-		"Terminal Bell",
-		"Notebook Cell Completed",
-		"Notebook Cell Failed",
-		"Diff Line Inserted",
-		"Diff Line Deleted",
-		"Diff Line Modified",
-		"Chat Request Sent",
-		"Chat Response Received",
-		"Chat Response Pending"
+		"Hide '{0}'",
+		"Configure Keybinding"
 	],
 	"vs/platform/configuration/common/configurationRegistry": [
 		"Default Language Configuration Overrides",
@@ -1634,7 +1835,9 @@ define("vs/editor/editor.main.nls", {
 		"Use contiguous matching when searching.",
 		"Controls the type of matching used when searching lists and trees in the workbench.",
 		"Controls how tree folders are expanded when clicking the folder names. Note that some trees and lists might choose to ignore this setting if it is not applicable.",
-		"Controls the how type navigation works in lists and trees in the workbench. When set to 'trigger', type navigation begins once the 'list.triggerTypeNavigation' command is run."
+		"Controls whether sticky scrolling is enabled in trees.",
+		"Controls the number of sticky elements displayed in the tree when `#workbench.tree.enableStickyScroll#` is enabled.",
+		"Controls how type navigation works in lists and trees in the workbench. When set to `trigger`, type navigation begins once the `list.triggerTypeNavigation` command is run."
 	],
 	"vs/platform/markers/common/markers": [
 		"Error",
@@ -1643,8 +1846,10 @@ define("vs/editor/editor.main.nls", {
 	],
 	"vs/platform/quickinput/browser/commandsQuickAccess": [
 		"recently used",
+		"similar commands",
 		"commonly used",
 		"other commands",
+		"similar commands",
 		"{0}, {1}",
 		"Command '{0}' resulted in an error"
 	],
@@ -1652,10 +1857,20 @@ define("vs/editor/editor.main.nls", {
 		"{0}, {1}"
 	],
 	"vs/platform/quickinput/browser/quickInput": [
+		"Whether keyboard focus is inside the quick input control",
+		"The type of the currently visible quick input",
+		"Whether the cursor in the quick input is at the end of the input box",
 		"Back",
 		"Press 'Enter' to confirm your input or 'Escape' to cancel",
 		"{0}/{1}",
-		"Type to narrow down results.",
+		"Type to narrow down results."
+	],
+	"vs/platform/quickinput/browser/quickInputActions": [
+		"Used while in the context of the quick pick. If you change one keybinding for this command, you should change all of the other keybindings (modifier variants) of this command as well.",
+		"If we're in quick access mode, this will navigate to the next item. If we are not in quick access mode, this will navigate to the next separator.",
+		"If we're in quick access mode, this will navigate to the previous item. If we are not in quick access mode, this will navigate to the previous separator."
+	],
+	"vs/platform/quickinput/browser/quickInputController": [
 		"Toggle all checkboxes",
 		"{0} Results",
 		"{0} Selected",
@@ -1664,13 +1879,13 @@ define("vs/editor/editor.main.nls", {
 		"Back ({0})",
 		"Back"
 	],
-	"vs/platform/quickinput/browser/quickInputList": [
+	"vs/platform/quickinput/browser/quickInputTree": [
 		"Quick Input"
 	],
 	"vs/platform/quickinput/browser/quickInputUtils": [
 		"Click to execute command '{0}'"
 	],
-	"vs/platform/theme/common/colorRegistry": [
+	"vs/platform/theme/common/colors/baseColors": [
 		"Overall foreground color. This color is only used if not overridden by a component.",
 		"Overall foreground for disabled elements. This color is only used if not overridden by a component.",
 		"Overall foreground color for error messages. This color is only used if not overridden by a component.",
@@ -1680,15 +1895,121 @@ define("vs/editor/editor.main.nls", {
 		"An extra border around elements to separate them from others for greater contrast.",
 		"An extra border around active elements to separate them from others for greater contrast.",
 		"The background color of text selections in the workbench (e.g. for input fields or text areas). Note that this does not apply to selections within the editor.",
-		"Color for text separators.",
 		"Foreground color for links in text.",
 		"Foreground color for links in text when clicked on and on mouse hover.",
+		"Color for text separators.",
 		"Foreground color for preformatted text segments.",
+		"Background color for preformatted text segments.",
 		"Background color for block quotes in text.",
 		"Border color for block quotes in text.",
-		"Background color for code blocks in text.",
+		"Background color for code blocks in text."
+	],
+	"vs/platform/theme/common/colors/chartsColors": [
+		"The foreground color used in charts.",
+		"The color used for horizontal lines in charts.",
+		"The red color used in chart visualizations.",
+		"The blue color used in chart visualizations.",
+		"The yellow color used in chart visualizations.",
+		"The orange color used in chart visualizations.",
+		"The green color used in chart visualizations.",
+		"The purple color used in chart visualizations."
+	],
+	"vs/platform/theme/common/colors/editorColors": [
+		"Editor background color.",
+		"Editor default foreground color.",
+		"Background color of sticky scroll in the editor",
+		"Background color of sticky scroll on hover in the editor",
+		"Border color of sticky scroll in the editor",
+		" Shadow color of sticky scroll in the editor",
+		"Background color of editor widgets, such as find/replace.",
+		"Foreground color of editor widgets, such as find/replace.",
+		"Border color of editor widgets. The color is only used if the widget chooses to have a border and if the color is not overridden by a widget.",
+		"Border color of the resize bar of editor widgets. The color is only used if the widget chooses to have a resize border and if the color is not overridden by a widget.",
+		"Background color of error text in the editor. The color must not be opaque so as not to hide underlying decorations.",
+		"Foreground color of error squigglies in the editor.",
+		"If set, color of double underlines for errors in the editor.",
+		"Background color of warning text in the editor. The color must not be opaque so as not to hide underlying decorations.",
+		"Foreground color of warning squigglies in the editor.",
+		"If set, color of double underlines for warnings in the editor.",
+		"Background color of info text in the editor. The color must not be opaque so as not to hide underlying decorations.",
+		"Foreground color of info squigglies in the editor.",
+		"If set, color of double underlines for infos in the editor.",
+		"Foreground color of hint squigglies in the editor.",
+		"If set, color of double underlines for hints in the editor.",
+		"Color of active links.",
+		"Color of the editor selection.",
+		"Color of the selected text for high contrast.",
+		"Color of the selection in an inactive editor. The color must not be opaque so as not to hide underlying decorations.",
+		"Color for regions with the same content as the selection. The color must not be opaque so as not to hide underlying decorations.",
+		"Border color for regions with the same content as the selection.",
+		"Color of the current search match.",
+		"Text color of the current search match.",
+		"Color of the other search matches. The color must not be opaque so as not to hide underlying decorations.",
+		"Foreground color of the other search matches.",
+		"Color of the range limiting the search. The color must not be opaque so as not to hide underlying decorations.",
+		"Border color of the current search match.",
+		"Border color of the other search matches.",
+		"Border color of the range limiting the search. The color must not be opaque so as not to hide underlying decorations.",
+		"Highlight below the word for which a hover is shown. The color must not be opaque so as not to hide underlying decorations.",
+		"Background color of the editor hover.",
+		"Foreground color of the editor hover.",
+		"Border color of the editor hover.",
+		"Background color of the editor hover status bar.",
+		"Foreground color of inline hints",
+		"Background color of inline hints",
+		"Foreground color of inline hints for types",
+		"Background color of inline hints for types",
+		"Foreground color of inline hints for parameters",
+		"Background color of inline hints for parameters",
+		"The color used for the lightbulb actions icon.",
+		"The color used for the lightbulb auto fix actions icon.",
+		"The color used for the lightbulb AI icon.",
+		"Highlight background color of a snippet tabstop.",
+		"Highlight border color of a snippet tabstop.",
+		"Highlight background color of the final tabstop of a snippet.",
+		"Highlight border color of the final tabstop of a snippet.",
+		"Background color for text that got inserted. The color must not be opaque so as not to hide underlying decorations.",
+		"Background color for text that got removed. The color must not be opaque so as not to hide underlying decorations.",
+		"Background color for lines that got inserted. The color must not be opaque so as not to hide underlying decorations.",
+		"Background color for lines that got removed. The color must not be opaque so as not to hide underlying decorations.",
+		"Background color for the margin where lines got inserted.",
+		"Background color for the margin where lines got removed.",
+		"Diff overview ruler foreground for inserted content.",
+		"Diff overview ruler foreground for removed content.",
+		"Outline color for the text that got inserted.",
+		"Outline color for text that got removed.",
+		"Border color between the two text editors.",
+		"Color of the diff editor's diagonal fill. The diagonal fill is used in side-by-side diff views.",
+		"The background color of unchanged blocks in the diff editor.",
+		"The foreground color of unchanged blocks in the diff editor.",
+		"The background color of unchanged code in the diff editor.",
 		"Shadow color of widgets such as find/replace inside the editor.",
 		"Border color of widgets such as find/replace inside the editor.",
+		"Toolbar background when hovering over actions using the mouse",
+		"Toolbar outline when hovering over actions using the mouse",
+		"Toolbar background when holding the mouse over actions",
+		"Color of focused breadcrumb items.",
+		"Background color of breadcrumb items.",
+		"Color of focused breadcrumb items.",
+		"Color of selected breadcrumb items.",
+		"Background color of breadcrumb item picker.",
+		"Current header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Current content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Incoming header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Incoming content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Common ancestor header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Common ancestor content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
+		"Border color on headers and the splitter in inline merge-conflicts.",
+		"Current overview ruler foreground for inline merge-conflicts.",
+		"Incoming overview ruler foreground for inline merge-conflicts.",
+		"Common ancestor overview ruler foreground for inline merge-conflicts.",
+		"Overview ruler marker color for find matches. The color must not be opaque so as not to hide underlying decorations.",
+		"Overview ruler marker color for selection highlights. The color must not be opaque so as not to hide underlying decorations.",
+		"The color used for the problems error icon.",
+		"The color used for the problems warning icon.",
+		"The color used for the problems info icon."
+	],
+	"vs/platform/theme/common/colors/inputColors": [
 		"Input box background.",
 		"Input box foreground.",
 		"Input box border.",
@@ -1718,85 +2039,17 @@ define("vs/editor/editor.main.nls", {
 		"Secondary button foreground color.",
 		"Secondary button background color.",
 		"Secondary button background color when hovering.",
-		"Badge background color. Badges are small information labels, e.g. for search results count.",
-		"Badge foreground color. Badges are small information labels, e.g. for search results count.",
-		"Scrollbar shadow to indicate that the view is scrolled.",
-		"Scrollbar slider background color.",
-		"Scrollbar slider background color when hovering.",
-		"Scrollbar slider background color when clicked on.",
-		"Background color of the progress bar that can show for long running operations.",
-		"Background color of error text in the editor. The color must not be opaque so as not to hide underlying decorations.",
-		"Foreground color of error squigglies in the editor.",
-		"If set, color of double underlines for errors in the editor.",
-		"Background color of warning text in the editor. The color must not be opaque so as not to hide underlying decorations.",
-		"Foreground color of warning squigglies in the editor.",
-		"If set, color of double underlines for warnings in the editor.",
-		"Background color of info text in the editor. The color must not be opaque so as not to hide underlying decorations.",
-		"Foreground color of info squigglies in the editor.",
-		"If set, color of double underlines for infos in the editor.",
-		"Foreground color of hint squigglies in the editor.",
-		"If set, color of double underlines for hints in the editor.",
-		"Border color of active sashes.",
-		"Editor background color.",
-		"Editor default foreground color.",
-		"Sticky scroll background color for the editor",
-		"Sticky scroll on hover background color for the editor",
-		"Background color of editor widgets, such as find/replace.",
-		"Foreground color of editor widgets, such as find/replace.",
-		"Border color of editor widgets. The color is only used if the widget chooses to have a border and if the color is not overridden by a widget.",
-		"Border color of the resize bar of editor widgets. The color is only used if the widget chooses to have a resize border and if the color is not overridden by a widget.",
-		"Quick picker background color. The quick picker widget is the container for pickers like the command palette.",
-		"Quick picker foreground color. The quick picker widget is the container for pickers like the command palette.",
-		"Quick picker title background color. The quick picker widget is the container for pickers like the command palette.",
-		"Quick picker color for grouping labels.",
-		"Quick picker color for grouping borders.",
+		"Background color of checkbox widget.",
+		"Background color of checkbox widget when the element it's in is selected.",
+		"Foreground color of checkbox widget.",
+		"Border color of checkbox widget.",
+		"Border color of checkbox widget when the element it's in is selected.",
 		"Keybinding label background color. The keybinding label is used to represent a keyboard shortcut.",
 		"Keybinding label foreground color. The keybinding label is used to represent a keyboard shortcut.",
 		"Keybinding label border color. The keybinding label is used to represent a keyboard shortcut.",
-		"Keybinding label border bottom color. The keybinding label is used to represent a keyboard shortcut.",
-		"Color of the editor selection.",
-		"Color of the selected text for high contrast.",
-		"Color of the selection in an inactive editor. The color must not be opaque so as not to hide underlying decorations.",
-		"Color for regions with the same content as the selection. The color must not be opaque so as not to hide underlying decorations.",
-		"Border color for regions with the same content as the selection.",
-		"Color of the current search match.",
-		"Color of the other search matches. The color must not be opaque so as not to hide underlying decorations.",
-		"Color of the range limiting the search. The color must not be opaque so as not to hide underlying decorations.",
-		"Border color of the current search match.",
-		"Border color of the other search matches.",
-		"Border color of the range limiting the search. The color must not be opaque so as not to hide underlying decorations.",
-		"Color of the Search Editor query matches.",
-		"Border color of the Search Editor query matches.",
-		"Color of the text in the search viewlet's completion message.",
-		"Highlight below the word for which a hover is shown. The color must not be opaque so as not to hide underlying decorations.",
-		"Background color of the editor hover.",
-		"Foreground color of the editor hover.",
-		"Border color of the editor hover.",
-		"Background color of the editor hover status bar.",
-		"Color of active links.",
-		"Foreground color of inline hints",
-		"Background color of inline hints",
-		"Foreground color of inline hints for types",
-		"Background color of inline hints for types",
-		"Foreground color of inline hints for parameters",
-		"Background color of inline hints for parameters",
-		"The color used for the lightbulb actions icon.",
-		"The color used for the lightbulb auto fix actions icon.",
-		"Background color for text that got inserted. The color must not be opaque so as not to hide underlying decorations.",
-		"Background color for text that got removed. The color must not be opaque so as not to hide underlying decorations.",
-		"Background color for lines that got inserted. The color must not be opaque so as not to hide underlying decorations.",
-		"Background color for lines that got removed. The color must not be opaque so as not to hide underlying decorations.",
-		"Background color for the margin where lines got inserted.",
-		"Background color for the margin where lines got removed.",
-		"Diff overview ruler foreground for inserted content.",
-		"Diff overview ruler foreground for removed content.",
-		"Outline color for the text that got inserted.",
-		"Outline color for text that got removed.",
-		"Border color between the two text editors.",
-		"Color of the diff editor's diagonal fill. The diagonal fill is used in side-by-side diff views.",
-		"The background color of unchanged blocks in the diff editor.",
-		"The foreground color of unchanged blocks in the diff editor.",
-		"The background color of unchanged code in the diff editor.",
+		"Keybinding label border bottom color. The keybinding label is used to represent a keyboard shortcut."
+	],
+	"vs/platform/theme/common/colors/listColors": [
 		"List/Tree background color for the focused item when the list/tree is active. An active list/tree has keyboard focus, an inactive does not.",
 		"List/Tree foreground color for the focused item when the list/tree is active. An active list/tree has keyboard focus, an inactive does not.",
 		"List/Tree outline color for the focused item when the list/tree is active. An active list/tree has keyboard focus, an inactive does not.",
@@ -1811,7 +2064,8 @@ define("vs/editor/editor.main.nls", {
 		"List/Tree outline color for the focused item when the list/tree is inactive. An active list/tree has keyboard focus, an inactive does not.",
 		"List/Tree background when hovering over items using the mouse.",
 		"List/Tree foreground when hovering over items using the mouse.",
-		"List/Tree drag and drop background when moving items around using the mouse.",
+		"List/Tree drag and drop background when moving items over other items when using the mouse.",
+		"List/Tree drag and drop border color when moving items between items when using the mouse.",
 		"List/Tree foreground color of the match highlights when searching inside the list/tree.",
 		"List/Tree foreground color of the match highlights on actively focused items when searching inside the list/tree.",
 		"List/Tree foreground color for invalid items, for example an unresolved root in explorer.",
@@ -1823,72 +2077,59 @@ define("vs/editor/editor.main.nls", {
 		"Shadow color of the type filter widget in lists and trees.",
 		"Background color of the filtered match.",
 		"Border color of the filtered match.",
+		"List/Tree foreground color for items that are deemphasized.",
 		"Tree stroke color for the indentation guides.",
 		"Tree stroke color for the indentation guides that are not active.",
 		"Table border color between columns.",
-		"Background color for odd table rows.",
-		"List/Tree foreground color for items that are deemphasized. ",
-		"Background color of checkbox widget.",
-		"Background color of checkbox widget when the element it's in is selected.",
-		"Foreground color of checkbox widget.",
-		"Border color of checkbox widget.",
-		"Border color of checkbox widget when the element it's in is selected.",
-		"Please use quickInputList.focusBackground instead",
-		"Quick picker foreground color for the focused item.",
-		"Quick picker icon foreground color for the focused item.",
-		"Quick picker background color for the focused item.",
+		"Background color for odd table rows."
+	],
+	"vs/platform/theme/common/colors/menuColors": [
 		"Border color of menus.",
 		"Foreground color of menu items.",
 		"Background color of menu items.",
 		"Foreground color of the selected menu item in menus.",
 		"Background color of the selected menu item in menus.",
 		"Border color of the selected menu item in menus.",
-		"Color of a separator menu item in menus.",
-		"Toolbar background when hovering over actions using the mouse",
-		"Toolbar outline when hovering over actions using the mouse",
-		"Toolbar background when holding the mouse over actions",
-		"Highlight background color of a snippet tabstop.",
-		"Highlight border color of a snippet tabstop.",
-		"Highlight background color of the final tabstop of a snippet.",
-		"Highlight border color of the final tabstop of a snippet.",
-		"Color of focused breadcrumb items.",
-		"Background color of breadcrumb items.",
-		"Color of focused breadcrumb items.",
-		"Color of selected breadcrumb items.",
-		"Background color of breadcrumb item picker.",
-		"Current header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Current content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Incoming header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Incoming content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Common ancestor header background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Common ancestor content background in inline merge-conflicts. The color must not be opaque so as not to hide underlying decorations.",
-		"Border color on headers and the splitter in inline merge-conflicts.",
-		"Current overview ruler foreground for inline merge-conflicts.",
-		"Incoming overview ruler foreground for inline merge-conflicts.",
-		"Common ancestor overview ruler foreground for inline merge-conflicts.",
-		"Overview ruler marker color for find matches. The color must not be opaque so as not to hide underlying decorations.",
-		"Overview ruler marker color for selection highlights. The color must not be opaque so as not to hide underlying decorations.",
+		"Color of a separator menu item in menus."
+	],
+	"vs/platform/theme/common/colors/minimapColors": [
 		"Minimap marker color for find matches.",
 		"Minimap marker color for repeating editor selections.",
 		"Minimap marker color for the editor selection.",
-		"Minimap marker color for errors.",
+		"Minimap marker color for infos.",
 		"Minimap marker color for warnings.",
+		"Minimap marker color for errors.",
 		"Minimap background color.",
 		"Opacity of foreground elements rendered in the minimap. For example, \"#000000c0\" will render the elements with 75% opacity.",
 		"Minimap slider background color.",
 		"Minimap slider background color when hovering.",
-		"Minimap slider background color when clicked on.",
-		"The color used for the problems error icon.",
-		"The color used for the problems warning icon.",
-		"The color used for the problems info icon.",
-		"The foreground color used in charts.",
-		"The color used for horizontal lines in charts.",
-		"The red color used in chart visualizations.",
-		"The blue color used in chart visualizations.",
-		"The yellow color used in chart visualizations.",
-		"The orange color used in chart visualizations.",
-		"The green color used in chart visualizations.",
-		"The purple color used in chart visualizations."
+		"Minimap slider background color when clicked on."
+	],
+	"vs/platform/theme/common/colors/miscColors": [
+		"Border color of active sashes.",
+		"Badge background color. Badges are small information labels, e.g. for search results count.",
+		"Badge foreground color. Badges are small information labels, e.g. for search results count.",
+		"Scrollbar shadow to indicate that the view is scrolled.",
+		"Scrollbar slider background color.",
+		"Scrollbar slider background color when hovering.",
+		"Scrollbar slider background color when clicked on.",
+		"Background color of the progress bar that can show for long running operations."
+	],
+	"vs/platform/theme/common/colors/quickpickColors": [
+		"Quick picker background color. The quick picker widget is the container for pickers like the command palette.",
+		"Quick picker foreground color. The quick picker widget is the container for pickers like the command palette.",
+		"Quick picker title background color. The quick picker widget is the container for pickers like the command palette.",
+		"Quick picker color for grouping labels.",
+		"Quick picker color for grouping borders.",
+		"Please use quickInputList.focusBackground instead",
+		"Quick picker foreground color for the focused item.",
+		"Quick picker icon foreground color for the focused item.",
+		"Quick picker background color for the focused item."
+	],
+	"vs/platform/theme/common/colors/searchColors": [
+		"Color of the text in the search viewlet's completion message.",
+		"Color of the Search Editor query matches.",
+		"Border color of the Search Editor query matches."
 	],
 	"vs/platform/theme/common/iconRegistry": [
 		"The id of the font to use. If not set, the font that is defined first is used.",

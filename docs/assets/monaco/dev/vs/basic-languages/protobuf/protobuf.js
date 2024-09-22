@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/protobuf/protobuf", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -149,11 +149,13 @@ var moduleExports = (() => {
           ["string.quote", "string", { token: "string.quote", switchTo: "@topLevel.proto2" }]
         ],
         [
+          // If no `syntax` provided, regarded as proto2
           /.*?/,
           { token: "", switchTo: "@topLevel.proto2" }
         ]
       ],
       topLevel: [
+        // whitespace
         { include: "@whitespace" },
         { include: "@constant" },
         [/=/, "operators"],
@@ -403,6 +405,7 @@ var moduleExports = (() => {
       comment: [
         [/[^\/*]+/, "comment"],
         [/\/\*/, "comment", "@push"],
+        // nested comment
         ["\\*/", "comment", "@pop"],
         [/[\/*]/, "comment"]
       ],
@@ -425,6 +428,7 @@ var moduleExports = (() => {
         ["@decimalLit", "number"],
         ["@floatLit", "number.float"],
         [/("([^"\\]|\\.)*|'([^'\\]|\\.)*)$/, "string.invalid"],
+        // non-terminated string
         [/"/, { token: "string.quote", bracket: "@open", next: "@string" }],
         [/'/, { token: "string.quote", bracket: "@open", next: "@stringSingle" }],
         [/{/, { token: "@brackets", bracket: "@open", next: "@prototext" }],

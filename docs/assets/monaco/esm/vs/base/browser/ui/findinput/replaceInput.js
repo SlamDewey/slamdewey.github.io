@@ -10,18 +10,21 @@ import { Codicon } from '../../../common/codicons.js';
 import { Emitter } from '../../../common/event.js';
 import './findInput.css';
 import * as nls from '../../../../nls.js';
+import { getDefaultHoverDelegate } from '../hover/hoverDelegateFactory.js';
 const NLS_DEFAULT_LABEL = nls.localize('defaultLabel', "input");
 const NLS_PRESERVE_CASE_LABEL = nls.localize('label.preserveCaseToggle', "Preserve Case");
 class PreserveCaseToggle extends Toggle {
     constructor(opts) {
+        var _a;
         super({
             // TODO: does this need its own icon?
             icon: Codicon.preserveCase,
             title: NLS_PRESERVE_CASE_LABEL + opts.appendTitle,
             isChecked: opts.isChecked,
+            hoverDelegate: (_a = opts.hoverDelegate) !== null && _a !== void 0 ? _a : getDefaultHoverDelegate('element'),
             inputActiveOptionBorder: opts.inputActiveOptionBorder,
             inputActiveOptionForeground: opts.inputActiveOptionForeground,
-            inputActiveOptionBackground: opts.inputActiveOptionBackground
+            inputActiveOptionBackground: opts.inputActiveOptionBackground,
         });
     }
 }
@@ -64,7 +67,11 @@ export class ReplaceInput extends Widget {
             flexibleMaxHeight,
             inputBoxStyles: options.inputBoxStyles
         }));
-        this.preserveCase = this._register(new PreserveCaseToggle(Object.assign({ appendTitle: appendPreserveCaseLabel, isChecked: false }, options.toggleStyles)));
+        this.preserveCase = this._register(new PreserveCaseToggle({
+            appendTitle: appendPreserveCaseLabel,
+            isChecked: false,
+            ...options.toggleStyles
+        }));
         this._register(this.preserveCase.onChange(viaKeyboard => {
             this._onDidOptionChange.fire(viaKeyboard);
             if (!viaKeyboard && this.fixFocusOnOptionClickEnabled) {
@@ -85,7 +92,7 @@ export class ReplaceInput extends Widget {
         const indexes = [this.preserveCase.domNode];
         this.onkeydown(this.domNode, (event) => {
             if (event.equals(15 /* KeyCode.LeftArrow */) || event.equals(17 /* KeyCode.RightArrow */) || event.equals(9 /* KeyCode.Escape */)) {
-                const index = indexes.indexOf(document.activeElement);
+                const index = indexes.indexOf(this.domNode.ownerDocument.activeElement);
                 if (index >= 0) {
                     let newIndex = -1;
                     if (event.equals(17 /* KeyCode.RightArrow */)) {

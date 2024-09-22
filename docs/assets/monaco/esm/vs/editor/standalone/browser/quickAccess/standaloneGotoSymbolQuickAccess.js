@@ -17,7 +17,6 @@ import { AbstractGotoSymbolQuickAccessProvider } from '../../../contrib/quickAcc
 import { Registry } from '../../../../platform/registry/common/platform.js';
 import { Extensions } from '../../../../platform/quickinput/common/quickAccess.js';
 import { ICodeEditorService } from '../../../browser/services/codeEditorService.js';
-import { withNullAsUndefined } from '../../../../base/common/types.js';
 import { QuickOutlineNLS } from '../../../common/standaloneStrings.js';
 import { Event } from '../../../../base/common/event.js';
 import { EditorAction, registerEditorAction } from '../../../browser/editorExtensions.js';
@@ -25,14 +24,15 @@ import { EditorContextKeys } from '../../../common/editorContextKeys.js';
 import { IQuickInputService, ItemActivation } from '../../../../platform/quickinput/common/quickInput.js';
 import { IOutlineModelService } from '../../../contrib/documentSymbols/browser/outlineModel.js';
 import { ILanguageFeaturesService } from '../../../common/services/languageFeatures.js';
-export let StandaloneGotoSymbolQuickAccessProvider = class StandaloneGotoSymbolQuickAccessProvider extends AbstractGotoSymbolQuickAccessProvider {
+let StandaloneGotoSymbolQuickAccessProvider = class StandaloneGotoSymbolQuickAccessProvider extends AbstractGotoSymbolQuickAccessProvider {
     constructor(editorService, languageFeaturesService, outlineModelService) {
         super(languageFeaturesService, outlineModelService);
         this.editorService = editorService;
         this.onDidActiveTextEditorControlChange = Event.None;
     }
     get activeTextEditorControl() {
-        return withNullAsUndefined(this.editorService.getFocusedCodeEditor());
+        var _a;
+        return (_a = this.editorService.getFocusedCodeEditor()) !== null && _a !== void 0 ? _a : undefined;
     }
 };
 StandaloneGotoSymbolQuickAccessProvider = __decorate([
@@ -40,6 +40,7 @@ StandaloneGotoSymbolQuickAccessProvider = __decorate([
     __param(1, ILanguageFeaturesService),
     __param(2, IOutlineModelService)
 ], StandaloneGotoSymbolQuickAccessProvider);
+export { StandaloneGotoSymbolQuickAccessProvider };
 export class GotoSymbolAction extends EditorAction {
     constructor() {
         super({

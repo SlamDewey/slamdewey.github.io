@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/vscode/blob/main/LICENSE.txt
  *-----------------------------------------------------------*/
@@ -11,5 +11,34 @@
 define("vs/base/common/worker/simpleWorker.nls", {
 	"vs/base/common/platform": [
 		"_"
+	],
+	"vs/editor/common/languages": [
+		"array",
+		"boolean",
+		"class",
+		"constant",
+		"constructor",
+		"enumeration",
+		"enumeration member",
+		"event",
+		"field",
+		"file",
+		"function",
+		"interface",
+		"key",
+		"method",
+		"module",
+		"namespace",
+		"null",
+		"number",
+		"object",
+		"operator",
+		"package",
+		"property",
+		"string",
+		"struct",
+		"type parameter",
+		"variable",
+		"{0} ({1})"
 	]
 });

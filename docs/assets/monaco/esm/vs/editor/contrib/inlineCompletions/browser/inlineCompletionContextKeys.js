@@ -17,21 +17,22 @@ export class InlineCompletionContextKeys extends Disposable {
         this.inlineCompletionSuggestsIndentation = InlineCompletionContextKeys.inlineSuggestionHasIndentation.bindTo(this.contextKeyService);
         this.inlineCompletionSuggestsIndentationLessThanTabSize = InlineCompletionContextKeys.inlineSuggestionHasIndentationLessThanTabSize.bindTo(this.contextKeyService);
         this.suppressSuggestions = InlineCompletionContextKeys.suppressSuggestions.bindTo(this.contextKeyService);
-        this._register(autorun('update context key: inlineCompletionVisible, suppressSuggestions', (reader) => {
+        this._register(autorun(reader => {
+            /** @description update context key: inlineCompletionVisible, suppressSuggestions */
             const model = this.model.read(reader);
-            const suggestion = model === null || model === void 0 ? void 0 : model.selectedInlineCompletion.read(reader);
-            const ghostText = model === null || model === void 0 ? void 0 : model.ghostText.read(reader);
-            const selectedSuggestItem = model === null || model === void 0 ? void 0 : model.selectedSuggestItem.read(reader);
-            this.inlineCompletionVisible.set(selectedSuggestItem === undefined && ghostText !== undefined && !ghostText.isEmpty());
-            if (ghostText && suggestion) {
-                this.suppressSuggestions.set(suggestion.inlineCompletion.source.inlineCompletions.suppressSuggestions);
+            const state = model === null || model === void 0 ? void 0 : model.state.read(reader);
+            const isInlineCompletionVisible = !!(state === null || state === void 0 ? void 0 : state.inlineCompletion) && (state === null || state === void 0 ? void 0 : state.primaryGhostText) !== undefined && !(state === null || state === void 0 ? void 0 : state.primaryGhostText.isEmpty());
+            this.inlineCompletionVisible.set(isInlineCompletionVisible);
+            if ((state === null || state === void 0 ? void 0 : state.primaryGhostText) && (state === null || state === void 0 ? void 0 : state.inlineCompletion)) {
+                this.suppressSuggestions.set(state.inlineCompletion.inlineCompletion.source.inlineCompletions.suppressSuggestions);
             }
         }));
-        this._register(autorun('update context key: inlineCompletionSuggestsIndentation, inlineCompletionSuggestsIndentationLessThanTabSize', (reader) => {
+        this._register(autorun(reader => {
+            /** @description update context key: inlineCompletionSuggestsIndentation, inlineCompletionSuggestsIndentationLessThanTabSize */
             const model = this.model.read(reader);
             let startsWithIndentation = false;
             let startsWithIndentationLessThanTabSize = true;
-            const ghostText = model === null || model === void 0 ? void 0 : model.ghostText.read(reader);
+            const ghostText = model === null || model === void 0 ? void 0 : model.primaryGhostText.read(reader);
             if (!!(model === null || model === void 0 ? void 0 : model.selectedSuggestItem) && ghostText && ghostText.parts.length > 0) {
                 const { column, lines } = ghostText.parts[0];
                 const firstLine = lines[0];
