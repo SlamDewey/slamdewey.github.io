@@ -3,25 +3,18 @@
 $color-white: white;
 $color-black: black;
 
-.projects-component-container {
+.projects {
   color: $color-white;
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   padding-top: 10vh;
   justify-content: center;
   width: 60%;
 }
 
-.project-gallery-container {
+.projects__gallery {
   z-index: 1;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.project-gallery {
   margin-top: 5rem;
 
   display: grid;

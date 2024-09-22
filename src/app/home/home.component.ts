@@ -21,6 +21,10 @@ const GREETING_MESSAGES: string[] = [
   "what's that behind you?",
 ];
 
+function getRandomIndex(arr: string[]) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 @Component({
   selector: 'x-home',
   templateUrl: './home.component.html',
@@ -31,18 +35,12 @@ const GREETING_MESSAGES: string[] = [
 })
 export class HomeComponent implements OnInit {
   public bgAnimation: Backdrop = new UVColorCycleBackground();
-  public hello: string;
-  public greeting: string;
+  public hello: string = getRandomIndex(HELLOS);
+  public greeting: string = getRandomIndex(GREETING_MESSAGES);
 
   private readonly titleService = inject(Title);
 
   ngOnInit(): void {
     this.titleService.setTitle('Jared Massa | Software Engineer');
-
-    function getRandomIndex(arr: string[]) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-    this.hello = getRandomIndex(HELLOS);
-    this.greeting = getRandomIndex(GREETING_MESSAGES);
   }
 }
