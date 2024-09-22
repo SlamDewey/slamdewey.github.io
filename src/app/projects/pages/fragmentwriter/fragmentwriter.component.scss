@@ -39,7 +39,8 @@ $color-black: black;
 .editor-container {
   & .editor {
     width: 100%;
-    height: 85%;
+    height: 82.5%;
+    padding: none;
   }
 
   & .editor-controls {
