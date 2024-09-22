@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, inject, NO_ERRORS_SCHEMA, NgZone, ChangeDetectionStrategy } from '@angular/core';
 import { BackdropComponent } from 'src/app/components/backdrop/backdrop.component';
 import { ReactiveWebGLBackground } from './ReactiveWebGLBackground';
-import { DEFAULT_SHADER_PROGRAMS } from './shader-programs';
+import { DEFAULT_SHADER_PROGRAMS, SHADER_HEADER, UNIFORM_DEFS } from './shader-programs';
 import { ActivatedRoute } from '@angular/router';
 import {
   DropdownLinkData,
@@ -11,7 +11,7 @@ import { MonacoOptions } from 'src/app/types/fragment-writer';
 import { EditorComponent, NgxEditorModel } from 'ngx-monaco-editor-v2';
 
 const initialModel: NgxEditorModel = {
-  code: 'test',
+  code: SHADER_HEADER + UNIFORM_DEFS + DEFAULT_SHADER_PROGRAMS[0].fragmentShader,
   language: 'glsl',
   uri: '',
 };
@@ -22,7 +22,7 @@ export const defaultMonacoOptions: MonacoOptions = {
   autoIndent: true,
   formatOnPaste: true,
   formatOnType: true,
-  model: initialModel,
+  model: { ...initialModel },
 };
 
 @Component({
@@ -107,5 +107,6 @@ export class FragmentwriterComponent implements AfterViewInit {
         this.options.model!.code = value;
       });
     });
+    this.tryShaderUpdate();
   }
 }
