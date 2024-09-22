@@ -4,7 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import * as errors from './errors.js';
 import * as platform from './platform.js';
+import { equalsIgnoreCase, startsWithIgnoreCase } from './strings.js';
 import { URI } from './uri.js';
+import * as paths from './path.js';
 export var Schemas;
 (function (Schemas) {
     /**
@@ -47,6 +49,15 @@ export var Schemas;
     Schemas.vscodeSettings = 'vscode-settings';
     Schemas.vscodeWorkspaceTrust = 'vscode-workspace-trust';
     Schemas.vscodeTerminal = 'vscode-terminal';
+    /** Scheme used for code blocks in chat. */
+    Schemas.vscodeChatCodeBlock = 'vscode-chat-code-block';
+    /**
+     * Scheme used for backing documents created by copilot for chat.
+     */
+    Schemas.vscodeCopilotBackingChatCodeBlock = 'vscode-copilot-chat-code-block';
+    /** Scheme used for LHS of code compare (aka diff) blocks in chat. */
+    Schemas.vscodeChatCodeCompareBlock = 'vscode-chat-code-compare-block';
+    /** Scheme used for the chat input editor. */
     Schemas.vscodeChatSesssion = 'vscode-chat-editor';
     /**
      * Scheme used internally for webviews that aren't linked to a resource (i.e. not custom editors)
@@ -77,7 +88,26 @@ export var Schemas;
      * Scheme used for the Source Control commit input's text document
      */
     Schemas.vscodeSourceControl = 'vscode-scm';
+    /**
+     * Scheme used for input box for creating comments.
+     */
+    Schemas.commentsInput = 'comment';
+    /**
+     * Scheme used for special rendering of settings in the release notes
+     */
+    Schemas.codeSetting = 'code-setting';
 })(Schemas || (Schemas = {}));
+export function matchesScheme(target, scheme) {
+    if (URI.isUri(target)) {
+        return equalsIgnoreCase(target.scheme, scheme);
+    }
+    else {
+        return startsWithIgnoreCase(target, scheme + ':');
+    }
+}
+export function matchesSomeScheme(target, ...schemes) {
+    return schemes.some(scheme => matchesScheme(target, scheme));
+}
 export const connectionTokenQueryName = 'tkn';
 class RemoteAuthoritiesImpl {
     constructor() {
@@ -86,10 +116,13 @@ class RemoteAuthoritiesImpl {
         this._connectionTokens = Object.create(null);
         this._preferredWebSchema = 'http';
         this._delegate = null;
-        this._remoteResourcesPath = `/${Schemas.vscodeRemoteResource}`;
+        this._serverRootPath = '/';
     }
     setPreferredWebSchema(schema) {
         this._preferredWebSchema = schema;
+    }
+    get _remoteResourcesPath() {
+        return paths.posix.join(this._serverRootPath, Schemas.vscodeRemoteResource);
     }
     rewrite(uri) {
         if (this._delegate) {
@@ -121,6 +154,7 @@ class RemoteAuthoritiesImpl {
     }
 }
 export const RemoteAuthorities = new RemoteAuthoritiesImpl();
+export const VSCODE_AUTHORITY = 'vscode-app';
 class FileAccessImpl {
     /**
      * Returns a URI to use in contexts where the browser is responsible
@@ -141,7 +175,7 @@ class FileAccessImpl {
             // ...and we run in native environments
             platform.isNative ||
                 // ...or web worker extensions on desktop
-                (platform.isWebWorker && platform.globals.origin === `${Schemas.vscodeFileResource}://${FileAccessImpl.FALLBACK_AUTHORITY}`))) {
+                (platform.webWorkerOrigin === `${Schemas.vscodeFileResource}://${FileAccessImpl.FALLBACK_AUTHORITY}`))) {
             return uri.with({
                 scheme: Schemas.vscodeFileResource,
                 // We need to provide an authority here so that it can serve
@@ -156,7 +190,7 @@ class FileAccessImpl {
         return uri;
     }
 }
-FileAccessImpl.FALLBACK_AUTHORITY = 'vscode-app';
+FileAccessImpl.FALLBACK_AUTHORITY = VSCODE_AUTHORITY;
 export const FileAccess = new FileAccessImpl();
 export var COI;
 (function (COI) {

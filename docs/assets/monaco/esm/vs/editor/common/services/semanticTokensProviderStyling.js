@@ -16,7 +16,7 @@ import { IThemeService } from '../../../platform/theme/common/themeService.js';
 import { ILogService, LogLevel } from '../../../platform/log/common/log.js';
 import { SparseMultilineTokens } from '../tokens/sparseMultilineTokens.js';
 import { ILanguageService } from '../languages/language.js';
-export let SemanticTokensProviderStyling = class SemanticTokensProviderStyling {
+let SemanticTokensProviderStyling = class SemanticTokensProviderStyling {
     constructor(_legend, _themeService, _languageService, _logService) {
         this._legend = _legend;
         this._themeService = _themeService;
@@ -101,19 +101,19 @@ export let SemanticTokensProviderStyling = class SemanticTokensProviderStyling {
     warnOverlappingSemanticTokens(lineNumber, startColumn) {
         if (!this._hasWarnedOverlappingTokens) {
             this._hasWarnedOverlappingTokens = true;
-            console.warn(`Overlapping semantic tokens detected at lineNumber ${lineNumber}, column ${startColumn}`);
+            this._logService.warn(`Overlapping semantic tokens detected at lineNumber ${lineNumber}, column ${startColumn}`);
         }
     }
     warnInvalidLengthSemanticTokens(lineNumber, startColumn) {
         if (!this._hasWarnedInvalidLengthTokens) {
             this._hasWarnedInvalidLengthTokens = true;
-            console.warn(`Semantic token with invalid length detected at lineNumber ${lineNumber}, column ${startColumn}`);
+            this._logService.warn(`Semantic token with invalid length detected at lineNumber ${lineNumber}, column ${startColumn}`);
         }
     }
     warnInvalidEditStart(previousResultId, resultId, editIndex, editStart, maxExpectedStart) {
         if (!this._hasWarnedInvalidEditStart) {
             this._hasWarnedInvalidEditStart = true;
-            console.warn(`Invalid semantic tokens edit detected (previousResultId: ${previousResultId}, resultId: ${resultId}) at edit #${editIndex}: The provided start offset ${editStart} is outside the previous data (length ${maxExpectedStart}).`);
+            this._logService.warn(`Invalid semantic tokens edit detected (previousResultId: ${previousResultId}, resultId: ${resultId}) at edit #${editIndex}: The provided start offset ${editStart} is outside the previous data (length ${maxExpectedStart}).`);
         }
     }
 };
@@ -122,6 +122,7 @@ SemanticTokensProviderStyling = __decorate([
     __param(2, ILanguageService),
     __param(3, ILogService)
 ], SemanticTokensProviderStyling);
+export { SemanticTokensProviderStyling };
 export function toMultilineTokens2(tokens, styling, languageId) {
     const srcData = tokens.data;
     const tokenCount = (tokens.data.length / 5) | 0;

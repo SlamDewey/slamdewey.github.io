@@ -1,9 +1,10 @@
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
+
 
 // src/basic-languages/qsharp/qsharp.ts
 var conf = {
@@ -29,6 +30,7 @@ var conf = {
   ]
 };
 var language = {
+  // Set defaultToken to invalid to see what you do not tokenize yet
   keywords: [
     "namespace",
     "open",
@@ -235,8 +237,10 @@ var language = {
   namespaceFollows: ["namespace", "open"],
   symbols: /[=><!~?:&|+\-*\/\^%@._]+/,
   escapes: /\\[\s\S]/,
+  // The main tokenizer for our languages
   tokenizer: {
     root: [
+      // identifiers and keywords
       [
         /[a-zA-Z_$][\w$]*/,
         {
@@ -254,12 +258,18 @@ var language = {
           }
         }
       ],
+      // whitespace
       { include: "@whitespace" },
+      // delimiters and operators
       [/[{}()\[\]]/, "@brackets"],
       [/@symbols/, { cases: { "@operators": "operator", "@default": "" } }],
+      // numbers
       [/\d*\.\d+([eE][\-+]?\d+)?/, "number.float"],
       [/\d+/, "number"],
+      // delimiter: after number because of .\d floats
       [/[;,.]/, "delimiter"],
+      // strings
+      //[/"([^"\\]|\\.)*$/, 'string.invalid' ],  // non-teminated string
       [/"/, { token: "string.quote", bracket: "@open", next: "@string" }]
     ],
     string: [

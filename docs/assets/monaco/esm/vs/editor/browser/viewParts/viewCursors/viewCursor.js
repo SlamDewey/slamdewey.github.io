@@ -21,15 +21,21 @@ class ViewCursorRenderData {
         this.textContentClassName = textContentClassName;
     }
 }
+export var CursorPlurality;
+(function (CursorPlurality) {
+    CursorPlurality[CursorPlurality["Single"] = 0] = "Single";
+    CursorPlurality[CursorPlurality["MultiPrimary"] = 1] = "MultiPrimary";
+    CursorPlurality[CursorPlurality["MultiSecondary"] = 2] = "MultiSecondary";
+})(CursorPlurality || (CursorPlurality = {}));
 export class ViewCursor {
-    constructor(context) {
+    constructor(context, plurality) {
         this._context = context;
         const options = this._context.configuration.options;
-        const fontInfo = options.get(48 /* EditorOption.fontInfo */);
-        this._cursorStyle = options.get(26 /* EditorOption.cursorStyle */);
-        this._lineHeight = options.get(64 /* EditorOption.lineHeight */);
+        const fontInfo = options.get(50 /* EditorOption.fontInfo */);
+        this._cursorStyle = options.get(28 /* EditorOption.cursorStyle */);
+        this._lineHeight = options.get(67 /* EditorOption.lineHeight */);
         this._typicalHalfwidthCharacterWidth = fontInfo.typicalHalfwidthCharacterWidth;
-        this._lineCursorWidth = Math.min(options.get(29 /* EditorOption.cursorWidth */), this._typicalHalfwidthCharacterWidth);
+        this._lineCursorWidth = Math.min(options.get(31 /* EditorOption.cursorWidth */), this._typicalHalfwidthCharacterWidth);
         this._isVisible = true;
         // Create the dom node
         this._domNode = createFastDomNode(document.createElement('div'));
@@ -40,6 +46,8 @@ export class ViewCursor {
         applyFontInfo(this._domNode, fontInfo);
         this._domNode.setDisplay('none');
         this._position = new Position(1, 1);
+        this._pluralityClass = '';
+        this.setPlurality(plurality);
         this._lastRenderedContent = '';
         this._renderData = null;
     }
@@ -48,6 +56,20 @@ export class ViewCursor {
     }
     getPosition() {
         return this._position;
+    }
+    setPlurality(plurality) {
+        switch (plurality) {
+            default:
+            case CursorPlurality.Single:
+                this._pluralityClass = '';
+                break;
+            case CursorPlurality.MultiPrimary:
+                this._pluralityClass = 'cursor-primary';
+                break;
+            case CursorPlurality.MultiSecondary:
+                this._pluralityClass = 'cursor-secondary';
+                break;
+        }
     }
     show() {
         if (!this._isVisible) {
@@ -63,11 +85,11 @@ export class ViewCursor {
     }
     onConfigurationChanged(e) {
         const options = this._context.configuration.options;
-        const fontInfo = options.get(48 /* EditorOption.fontInfo */);
-        this._cursorStyle = options.get(26 /* EditorOption.cursorStyle */);
-        this._lineHeight = options.get(64 /* EditorOption.lineHeight */);
+        const fontInfo = options.get(50 /* EditorOption.fontInfo */);
+        this._cursorStyle = options.get(28 /* EditorOption.cursorStyle */);
+        this._lineHeight = options.get(67 /* EditorOption.lineHeight */);
         this._typicalHalfwidthCharacterWidth = fontInfo.typicalHalfwidthCharacterWidth;
-        this._lineCursorWidth = Math.min(options.get(29 /* EditorOption.cursorWidth */), this._typicalHalfwidthCharacterWidth);
+        this._lineCursorWidth = Math.min(options.get(31 /* EditorOption.cursorWidth */), this._typicalHalfwidthCharacterWidth);
         applyFontInfo(this._domNode, fontInfo);
         return true;
     }
@@ -101,16 +123,17 @@ export class ViewCursor {
                 // Outside viewport
                 return null;
             }
+            const window = dom.getWindow(this._domNode.domNode);
             let width;
             if (this._cursorStyle === TextEditorCursorStyle.Line) {
-                width = dom.computeScreenAwareSize(this._lineCursorWidth > 0 ? this._lineCursorWidth : 2);
+                width = dom.computeScreenAwareSize(window, this._lineCursorWidth > 0 ? this._lineCursorWidth : 2);
                 if (width > 2) {
                     textContent = nextGrapheme;
                     textContentClassName = this._getTokenClassName(position);
                 }
             }
             else {
-                width = dom.computeScreenAwareSize(1);
+                width = dom.computeScreenAwareSize(window, 1);
             }
             let left = visibleRange.left;
             let paddingLeft = 0;
@@ -168,7 +191,7 @@ export class ViewCursor {
             this._lastRenderedContent = this._renderData.textContent;
             this._domNode.domNode.textContent = this._lastRenderedContent;
         }
-        this._domNode.setClassName(`cursor ${MOUSE_CURSOR_TEXT_CSS_CLASS_NAME} ${this._renderData.textContentClassName}`);
+        this._domNode.setClassName(`cursor ${this._pluralityClass} ${MOUSE_CURSOR_TEXT_CSS_CLASS_NAME} ${this._renderData.textContentClassName}`);
         this._domNode.setDisplay('block');
         this._domNode.setTop(this._renderData.top);
         this._domNode.setLeft(this._renderData.left);

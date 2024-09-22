@@ -1,9 +1,10 @@
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
+
 
 // src/basic-languages/wgsl/wgsl.ts
 var conf = {
@@ -364,6 +365,7 @@ var language = {
     root: [
       [directive_re, "keyword", "@directive"],
       [
+        // Identifier-like things, but also include '_'
         ident_re,
         {
           cases: {
@@ -400,16 +402,25 @@ var language = {
       [/\/\/.*$/, "comment"]
     ],
     blockComment: [
+      // Soak up uninteresting text: anything except * or /
       [/[^\/*]+/, "comment"],
+      // Recognize the start of a nested block comment.
       [/\/\*/, "comment", "@push"],
+      // Recognize the end of a nested block comment.
       [/\*\//, "comment", "@pop"],
+      // Recognize insignificant * and /
       [/[\/*]/, "comment"]
     ],
     attribute: [
+      // For things like '@fragment' both '@' and 'fragment'
+      // are marked as annotations.  This should work even if
+      // there are spaces or comments between the two tokens.
       { include: "@commentOrSpace" },
       [/\w+/, "annotation", "@pop"]
     ],
     directive: [
+      // For things like 'enable f16;', 'enable' maps to 'meta'
+      // and 'f16' maps to 'meta.tag'.
       { include: "@commentOrSpace" },
       [/[()]/, "@brackets"],
       [/,/, "delimiter"],
@@ -417,17 +428,32 @@ var language = {
       [/;/, "delimiter", "@pop"]
     ],
     numbers: [
+      // Decimal float literals
+      // https://www.w3.org/TR/WGSL/#syntax-decimal_float_literal
+      // 0, with type-specifying suffix.
       [/0[fh]/, "number.float"],
+      // Other decimal integer, with type-specifying suffix.
       [/[1-9][0-9]*[fh]/, "number.float"],
+      // Has decimal point, at least one digit after decimal.
       [/[0-9]*\.[0-9]+([eE][+-]?[0-9]+)?[fh]?/, "number.float"],
+      // Has decimal point, at least one digit before decimal.
       [/[0-9]+\.[0-9]*([eE][+-]?[0-9]+)?[fh]?/, "number.float"],
+      // Has at least one digit, and has an exponent.
       [/[0-9]+[eE][+-]?[0-9]+[fh]?/, "number.float"],
+      // Hex float literals
+      // https://www.w3.org/TR/WGSL/#syntax-hex_float_literal
       [/0[xX][0-9a-fA-F]*\.[0-9a-fA-F]+(?:[pP][+-]?[0-9]+[fh]?)?/, "number.hex"],
       [/0[xX][0-9a-fA-F]+\.[0-9a-fA-F]*(?:[pP][+-]?[0-9]+[fh]?)?/, "number.hex"],
       [/0[xX][0-9a-fA-F]+[pP][+-]?[0-9]+[fh]?/, "number.hex"],
+      // Hexadecimal integer literals
+      // https://www.w3.org/TR/WGSL/#syntax-hex_int_literal
       [/0[xX][0-9a-fA-F]+[iu]?/, "number.hex"],
+      // Decimal integer literals
+      // https://www.w3.org/TR/WGSL/#syntax-decimal_int_literal
+      // We need two rules here because 01 is not valid.
       [/[1-9][0-9]*[iu]?/, "number"],
       [/0[iu]?/, "number"]
+      // Must match last
     ]
   }
 };

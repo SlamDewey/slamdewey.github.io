@@ -2,6 +2,7 @@ import { Codicon } from '../../base/common/codicons.js';
 import { URI } from '../../base/common/uri.js';
 import { Range } from './core/range.js';
 import { TokenizationRegistry as TokenizationRegistryImpl } from './tokenizationRegistry.js';
+import { localize } from '../../nls.js';
 export class Token {
     constructor(offset, type, language) {
         this.offset = offset;
@@ -40,6 +41,17 @@ export class EncodedTokenizationResult {
         this._encodedTokenizationResultBrand = undefined;
     }
 }
+export var HoverVerbosityAction;
+(function (HoverVerbosityAction) {
+    /**
+     * Increase the verbosity of the hover
+     */
+    HoverVerbosityAction[HoverVerbosityAction["Increase"] = 0] = "Increase";
+    /**
+     * Decrease the verbosity of the hover
+     */
+    HoverVerbosityAction[HoverVerbosityAction["Decrease"] = 1] = "Decrease";
+})(HoverVerbosityAction || (HoverVerbosityAction = {}));
 /**
  * @internal
  */
@@ -160,6 +172,14 @@ export class SelectedSuggestionInfo {
             && this.isSnippetText === other.isSnippetText;
     }
 }
+/**
+ * @internal
+ */
+export var DocumentPasteTriggerKind;
+(function (DocumentPasteTriggerKind) {
+    DocumentPasteTriggerKind[DocumentPasteTriggerKind["Automatic"] = 0] = "Automatic";
+    DocumentPasteTriggerKind[DocumentPasteTriggerKind["PasteAs"] = 1] = "PasteAs";
+})(DocumentPasteTriggerKind || (DocumentPasteTriggerKind = {}));
 export var SignatureHelpTriggerKind;
 (function (SignatureHelpTriggerKind) {
     SignatureHelpTriggerKind[SignatureHelpTriggerKind["Invoke"] = 1] = "Invoke";
@@ -192,6 +212,43 @@ export function isLocationLink(thing) {
         && URI.isUri(thing.uri)
         && Range.isIRange(thing.range)
         && (Range.isIRange(thing.originSelectionRange) || Range.isIRange(thing.targetSelectionRange));
+}
+/**
+ * @internal
+ */
+export const symbolKindNames = {
+    [17 /* SymbolKind.Array */]: localize('Array', "array"),
+    [16 /* SymbolKind.Boolean */]: localize('Boolean', "boolean"),
+    [4 /* SymbolKind.Class */]: localize('Class', "class"),
+    [13 /* SymbolKind.Constant */]: localize('Constant', "constant"),
+    [8 /* SymbolKind.Constructor */]: localize('Constructor', "constructor"),
+    [9 /* SymbolKind.Enum */]: localize('Enum', "enumeration"),
+    [21 /* SymbolKind.EnumMember */]: localize('EnumMember', "enumeration member"),
+    [23 /* SymbolKind.Event */]: localize('Event', "event"),
+    [7 /* SymbolKind.Field */]: localize('Field', "field"),
+    [0 /* SymbolKind.File */]: localize('File', "file"),
+    [11 /* SymbolKind.Function */]: localize('Function', "function"),
+    [10 /* SymbolKind.Interface */]: localize('Interface', "interface"),
+    [19 /* SymbolKind.Key */]: localize('Key', "key"),
+    [5 /* SymbolKind.Method */]: localize('Method', "method"),
+    [1 /* SymbolKind.Module */]: localize('Module', "module"),
+    [2 /* SymbolKind.Namespace */]: localize('Namespace', "namespace"),
+    [20 /* SymbolKind.Null */]: localize('Null', "null"),
+    [15 /* SymbolKind.Number */]: localize('Number', "number"),
+    [18 /* SymbolKind.Object */]: localize('Object', "object"),
+    [24 /* SymbolKind.Operator */]: localize('Operator', "operator"),
+    [3 /* SymbolKind.Package */]: localize('Package', "package"),
+    [6 /* SymbolKind.Property */]: localize('Property', "property"),
+    [14 /* SymbolKind.String */]: localize('String', "string"),
+    [22 /* SymbolKind.Struct */]: localize('Struct', "struct"),
+    [25 /* SymbolKind.TypeParameter */]: localize('TypeParameter', "type parameter"),
+    [12 /* SymbolKind.Variable */]: localize('Variable', "variable"),
+};
+/**
+ * @internal
+ */
+export function getAriaLabelForSymbol(symbolName, kind) {
+    return localize('symbolAriaLabel', '{0} ({1})', symbolName, symbolKindNames[kind]);
 }
 /**
  * @internal
@@ -238,6 +295,9 @@ export var SymbolKinds;
     }
     SymbolKinds.toIcon = toIcon;
 })(SymbolKinds || (SymbolKinds = {}));
+/** @internal */
+export class TextEdit {
+}
 export class FoldingRangeKind {
     /**
      * Returns a {@link FoldingRangeKind} for the given value.
@@ -274,6 +334,15 @@ FoldingRangeKind.Imports = new FoldingRangeKind('imports');
  * The value of the kind is 'region'.
  */
 FoldingRangeKind.Region = new FoldingRangeKind('region');
+export var NewSymbolNameTag;
+(function (NewSymbolNameTag) {
+    NewSymbolNameTag[NewSymbolNameTag["AIGenerated"] = 1] = "AIGenerated";
+})(NewSymbolNameTag || (NewSymbolNameTag = {}));
+export var NewSymbolNameTriggerKind;
+(function (NewSymbolNameTriggerKind) {
+    NewSymbolNameTriggerKind[NewSymbolNameTriggerKind["Invoke"] = 0] = "Invoke";
+    NewSymbolNameTriggerKind[NewSymbolNameTriggerKind["Automatic"] = 1] = "Automatic";
+})(NewSymbolNameTriggerKind || (NewSymbolNameTriggerKind = {}));
 /**
  * @internal
  */
@@ -324,3 +393,8 @@ export class LazyTokenizationSupport {
  * @internal
  */
 export const TokenizationRegistry = new TokenizationRegistryImpl();
+export var InlineEditTriggerKind;
+(function (InlineEditTriggerKind) {
+    InlineEditTriggerKind[InlineEditTriggerKind["Invoke"] = 0] = "Invoke";
+    InlineEditTriggerKind[InlineEditTriggerKind["Automatic"] = 1] = "Automatic";
+})(InlineEditTriggerKind || (InlineEditTriggerKind = {}));

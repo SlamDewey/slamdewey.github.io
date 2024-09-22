@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { isFirefox } from '../../browser.js';
 import { EventType as TouchEventType, Gesture } from '../../touch.js';
-import { $, addDisposableListener, append, clearNode, createStyleSheet, Dimension, EventHelper, EventType, getActiveElement, isAncestor, isInShadowDOM } from '../../dom.js';
+import { $, addDisposableListener, append, clearNode, createStyleSheet, Dimension, EventHelper, EventType, getActiveElement, getWindow, isAncestor, isInShadowDOM } from '../../dom.js';
 import { StandardKeyboardEvent } from '../../keyboardEvent.js';
 import { StandardMouseEvent } from '../../mouseEvent.js';
 import { ActionBar } from '../actionbar/actionbar.js';
@@ -13,7 +13,8 @@ import { layout } from '../contextview/contextview.js';
 import { DomScrollableElement } from '../scrollbar/scrollableElement.js';
 import { EmptySubmenuAction, Separator, SubmenuAction } from '../../../common/actions.js';
 import { RunOnceScheduler } from '../../../common/async.js';
-import { Codicon, getCodiconFontCharacters } from '../../../common/codicons.js';
+import { Codicon } from '../../../common/codicons.js';
+import { getCodiconFontCharacters } from '../../../common/codiconsUtil.js';
 import { ThemeIcon } from '../../../common/themables.js';
 import { stripIcons } from '../../../common/iconLabels.js';
 import { DisposableStore } from '../../../common/lifecycle.js';
@@ -21,11 +22,16 @@ import { isLinux, isMacintosh } from '../../../common/platform.js';
 import * as strings from '../../../common/strings.js';
 export const MENU_MNEMONIC_REGEX = /\(&([^\s&])\)|(^|[^&])&([^\s&])/;
 export const MENU_ESCAPED_MNEMONIC_REGEX = /(&amp;)?(&amp;)([^\s&])/g;
-export var Direction;
-(function (Direction) {
-    Direction[Direction["Right"] = 0] = "Right";
-    Direction[Direction["Left"] = 1] = "Left";
-})(Direction || (Direction = {}));
+export var HorizontalDirection;
+(function (HorizontalDirection) {
+    HorizontalDirection[HorizontalDirection["Right"] = 0] = "Right";
+    HorizontalDirection[HorizontalDirection["Left"] = 1] = "Left";
+})(HorizontalDirection || (HorizontalDirection = {}));
+export var VerticalDirection;
+(function (VerticalDirection) {
+    VerticalDirection[VerticalDirection["Above"] = 0] = "Above";
+    VerticalDirection[VerticalDirection["Below"] = 1] = "Below";
+})(VerticalDirection || (VerticalDirection = {}));
 export class Menu extends ActionBar {
     constructor(container, actions, options, menuStyles) {
         container.classList.add('monaco-menu-container');
@@ -46,18 +52,17 @@ export class Menu extends ActionBar {
         this.menuStyles = menuStyles;
         this.menuElement = menuElement;
         this.actionsList.tabIndex = 0;
-        this.menuDisposables = this._register(new DisposableStore());
         this.initializeOrUpdateStyleSheet(container, menuStyles);
         this._register(Gesture.addTarget(menuElement));
-        addDisposableListener(menuElement, EventType.KEY_DOWN, (e) => {
+        this._register(addDisposableListener(menuElement, EventType.KEY_DOWN, (e) => {
             const event = new StandardKeyboardEvent(e);
             // Stop tab navigation of menus
             if (event.equals(2 /* KeyCode.Tab */)) {
                 e.preventDefault();
             }
-        });
+        }));
         if (options.enableMnemonics) {
-            this.menuDisposables.add(addDisposableListener(menuElement, EventType.KEY_DOWN, (e) => {
+            this._register(addDisposableListener(menuElement, EventType.KEY_DOWN, (e) => {
                 const key = e.key.toLocaleLowerCase();
                 if (this.mnemonics.has(key)) {
                     EventHelper.stop(e, true);
@@ -163,12 +168,23 @@ export class Menu extends ActionBar {
             // We do this on the scroll element so the scroll bar doesn't dismiss the menu either
             e.preventDefault();
         }));
+        const window = getWindow(container);
         menuElement.style.maxHeight = `${Math.max(10, window.innerHeight - container.getBoundingClientRect().top - 35)}px`;
-        actions = actions.filter(a => {
+        actions = actions.filter((a, idx) => {
             var _a;
             if ((_a = options.submenuIds) === null || _a === void 0 ? void 0 : _a.has(a.id)) {
                 console.warn(`Found submenu cycle: ${a.id}`);
                 return false;
+            }
+            // Filter out consecutive or useless separators
+            if (a instanceof Separator) {
+                if (idx === actions.length - 1 || idx === 0) {
+                    return false;
+                }
+                const prevAction = actions[idx - 1];
+                if (prevAction instanceof Separator) {
+                    return false;
+                }
             }
             return true;
         });
@@ -244,7 +260,7 @@ export class Menu extends ActionBar {
             return new MenuSeparatorActionViewItem(options.context, action, { icon: true }, this.menuStyles);
         }
         else if (action instanceof SubmenuAction) {
-            const menuActionViewItem = new SubmenuMenuActionViewItem(action, action.actions, parentData, Object.assign(Object.assign({}, options), { submenuIds: new Set([...(options.submenuIds || []), action.id]) }), this.menuStyles);
+            const menuActionViewItem = new SubmenuMenuActionViewItem(action, action.actions, parentData, { ...options, submenuIds: new Set([...(options.submenuIds || []), action.id]) }, this.menuStyles);
             if (options.enableMnemonics) {
                 const mnemonic = menuActionViewItem.getMnemonic();
                 if (mnemonic && menuActionViewItem.isEnabled()) {
@@ -300,7 +316,7 @@ class BaseMenuActionViewItem extends BaseActionViewItem {
             if (label) {
                 const matches = MENU_MNEMONIC_REGEX.exec(label);
                 if (matches) {
-                    this.mnemonic = (matches[1] ? matches[1] : matches[3]).toLocaleLowerCase();
+                    this.mnemonic = (!!matches[1] ? matches[1] : matches[3]).toLocaleLowerCase();
                 }
             }
         }
@@ -322,7 +338,7 @@ class BaseMenuActionViewItem extends BaseActionViewItem {
                 // => to get the Copy and Paste context menu actions working on Firefox,
                 // there should be no timeout here
                 if (isFirefox) {
-                    const mouseEvent = new StandardMouseEvent(e);
+                    const mouseEvent = new StandardMouseEvent(getWindow(this.element), e);
                     // Allowing right click to trigger the event causes the issue described below,
                     // but since the solution below does not work in FF, we must disable right click
                     if (mouseEvent.rightButton) {
@@ -424,7 +440,7 @@ class BaseMenuActionViewItem extends BaseActionViewItem {
                     else {
                         this.label.innerText = replaceDoubleEscapes(label).trim();
                     }
-                    (_a = this.item) === null || _a === void 0 ? void 0 : _a.setAttribute('aria-keyshortcuts', (matches[1] ? matches[1] : matches[3]).toLocaleLowerCase());
+                    (_a = this.item) === null || _a === void 0 ? void 0 : _a.setAttribute('aria-keyshortcuts', (!!matches[1] ? matches[1] : matches[3]).toLocaleLowerCase());
                 }
                 else {
                     this.label.innerText = label.replace(/&&/g, '&').trim();
@@ -518,7 +534,7 @@ class SubmenuMenuActionViewItem extends BaseMenuActionViewItem {
         this.mysubmenu = null;
         this.submenuDisposables = this._register(new DisposableStore());
         this.mouseOver = false;
-        this.expandDirection = submenuOptions && submenuOptions.expandDirection !== undefined ? submenuOptions.expandDirection : Direction.Right;
+        this.expandDirection = submenuOptions && submenuOptions.expandDirection !== undefined ? submenuOptions.expandDirection : { horizontal: HorizontalDirection.Right, vertical: VerticalDirection.Below };
         this.showScheduler = new RunOnceScheduler(() => {
             if (this.mouseOver) {
                 this.cleanupExistingSubmenu(false);
@@ -610,7 +626,7 @@ class SubmenuMenuActionViewItem extends BaseMenuActionViewItem {
     calculateSubmenuMenuLayout(windowDimensions, submenu, entry, expandDirection) {
         const ret = { top: 0, left: 0 };
         // Start with horizontal
-        ret.left = layout(windowDimensions.width, submenu.width, { position: expandDirection === Direction.Right ? 0 /* LayoutAnchorPosition.Before */ : 1 /* LayoutAnchorPosition.After */, offset: entry.left, size: entry.width });
+        ret.left = layout(windowDimensions.width, submenu.width, { position: expandDirection.horizontal === HorizontalDirection.Right ? 0 /* LayoutAnchorPosition.Before */ : 1 /* LayoutAnchorPosition.After */, offset: entry.left, size: entry.width });
         // We don't have enough room to layout the menu fully, so we are overlapping the menu
         if (ret.left >= entry.left && ret.left < entry.left + entry.width) {
             if (entry.left + 10 + submenu.width <= windowDimensions.width) {
@@ -637,7 +653,7 @@ class SubmenuMenuActionViewItem extends BaseMenuActionViewItem {
             this.submenuContainer.classList.add('menubar-menu-items-holder', 'context-view');
             // Set the top value of the menu container before construction
             // This allows the menu constructor to calculate the proper max height
-            const computedStyles = getComputedStyle(this.parentData.parent.domNode);
+            const computedStyles = getWindow(this.parentData.parent.domNode).getComputedStyle(this.parentData.parent.domNode);
             const paddingTop = parseFloat(computedStyles.paddingTop || '0') || 0;
             // this.submenuContainer.style.top = `${this.element.offsetTop - this.parentData.parent.scrollOffset - paddingTop}px`;
             this.submenuContainer.style.zIndex = '1';
@@ -654,6 +670,7 @@ class SubmenuMenuActionViewItem extends BaseMenuActionViewItem {
                 width: entryBox.width
             };
             const viewBox = this.submenuContainer.getBoundingClientRect();
+            const window = getWindow(this.element);
             const { top, left } = this.calculateSubmenuMenuLayout(new Dimension(window.innerWidth, window.innerHeight), Dimension.lift(viewBox), entryBoxUpdated, this.expandDirection);
             // subtract offsets caused by transform parent
             this.submenuContainer.style.left = `${left - viewBox.left}px`;
@@ -776,10 +793,6 @@ ${formatRule(Codicon.menuSubmenu)}
 
 .monaco-menu .monaco-action-bar .action-item.disabled {
 	cursor: default;
-}
-
-.monaco-menu .monaco-action-bar.animated .action-item.active {
-	transform: scale(1.272019649, 1.272019649); /* 1.272019649 = √φ */
 }
 
 .monaco-menu .monaco-action-bar .action-item .icon,
@@ -996,6 +1009,7 @@ ${formatRule(Codicon.menuSubmenu)}
 .monaco-menu .monaco-action-bar.vertical .keybinding {
 	font-size: inherit;
 	padding: 0 2em;
+	max-height: 100%;
 }
 
 .monaco-menu .monaco-action-bar.vertical .menu-item-check {
@@ -1021,7 +1035,7 @@ ${formatRule(Codicon.menuSubmenu)}
 	padding: 0 1.8em;
 }
 
-.linux .monaco-menu .monaco-action-bar.vertical .submenu-indicator {
+.linux .monaco-menu .monaco-action-bar.vertical .submenu-indicator,
 :host-context(.linux) .monaco-menu .monaco-action-bar.vertical .submenu-indicator {
 	height: 100%;
 	mask-size: 10px 10px;

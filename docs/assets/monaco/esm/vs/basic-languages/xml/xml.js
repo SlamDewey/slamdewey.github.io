@@ -1,6 +1,6 @@
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
@@ -58,18 +58,24 @@ var language = {
   defaultToken: "",
   tokenPostfix: ".xml",
   ignoreCase: true,
+  // Useful regular expressions
   qualifiedName: /(?:[\w\.\-]+:)?[\w\.\-]+/,
   tokenizer: {
     root: [
       [/[^<&]+/, ""],
       { include: "@whitespace" },
+      // Standard opening tag
       [/(<)(@qualifiedName)/, [{ token: "delimiter" }, { token: "tag", next: "@tag" }]],
+      // Standard closing tag
       [
         /(<\/)(@qualifiedName)(\s*)(>)/,
         [{ token: "delimiter" }, { token: "tag" }, "", { token: "delimiter" }]
       ],
+      // Meta tags - instruction
       [/(<\?)(@qualifiedName)/, [{ token: "delimiter" }, { token: "metatag", next: "@tag" }]],
+      // Meta tags - declaration
       [/(<\!)(@qualifiedName)/, [{ token: "delimiter" }, { token: "metatag", next: "@tag" }]],
+      // CDATA
       [/<\!\[CDATA\[/, { token: "delimiter.cdata", next: "@cdata" }],
       [/&\w+;/, "string.escape"]
     ],

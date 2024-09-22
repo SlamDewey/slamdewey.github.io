@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/sb/sb", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -56,6 +56,7 @@ var moduleExports = (() => {
     brackets: [
       { token: "delimiter.array", open: "[", close: "]" },
       { token: "delimiter.parenthesis", open: "(", close: ")" },
+      // Special bracket statement pairs
       { token: "keyword.tag-if", open: "If", close: "EndIf" },
       { token: "keyword.tag-while", open: "While", close: "EndWhile" },
       { token: "keyword.tag-for", open: "For", close: "EndFor" },
@@ -79,13 +80,18 @@ var moduleExports = (() => {
     ],
     tagwords: ["If", "Sub", "While", "For"],
     operators: [">", "<", "<>", "<=", ">=", "And", "Or", "+", "-", "*", "/", "="],
+    // we include these common regular expressions
     identifier: /[a-zA-Z_][\w]*/,
     symbols: /[=><:+\-*\/%\.,]+/,
     escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+    // The main tokenizer for our languages
     tokenizer: {
       root: [
+        // whitespace
         { include: "@whitespace" },
+        // classes
         [/(@identifier)(?=[.])/, "type"],
+        // identifiers, tagwords, and keywords
         [
           /@identifier/,
           {
@@ -96,6 +102,7 @@ var moduleExports = (() => {
             }
           }
         ],
+        // methods, properties, and events
         [
           /([.])(@identifier)/,
           {
@@ -105,8 +112,10 @@ var moduleExports = (() => {
             }
           }
         ],
+        // numbers
         [/\d*\.\d+/, "number.float"],
         [/\d+/, "number"],
+        // delimiters and operators
         [/[()\[\]]/, "@brackets"],
         [
           /@symbols/,
@@ -117,7 +126,9 @@ var moduleExports = (() => {
             }
           }
         ],
+        // strings
         [/"([^"\\]|\\.)*$/, "string.invalid"],
+        // non-teminated string
         [/"/, "string", "@string"]
       ],
       whitespace: [

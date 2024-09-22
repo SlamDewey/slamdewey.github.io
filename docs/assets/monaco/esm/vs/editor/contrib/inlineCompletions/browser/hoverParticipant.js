@@ -20,7 +20,7 @@ import { ILanguageService } from '../../../common/languages/language.js';
 import { HoverForeignElementAnchor } from '../../hover/browser/hoverTypes.js';
 import { InlineCompletionsController } from './inlineCompletionsController.js';
 import { InlineSuggestionHintsContentWidget } from './inlineCompletionsHintsWidget.js';
-import { MarkdownRenderer } from '../../markdownRenderer/browser/markdownRenderer.js';
+import { MarkdownRenderer } from '../../../browser/widget/markdownRenderer/browser/markdownRenderer.js';
 import * as nls from '../../../../nls.js';
 import { IAccessibilityService } from '../../../../platform/accessibility/common/accessibility.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
@@ -38,7 +38,7 @@ export class InlineCompletionsHover {
             && this.range.endColumn >= anchor.range.endColumn);
     }
 }
-export let InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant {
+let InlineCompletionsHoverParticipant = class InlineCompletionsHoverParticipant {
     constructor(_editor, _languageService, _openerService, accessibilityService, _instantiationService, _telemetryService) {
         this._editor = _editor;
         this._languageService = _languageService;
@@ -77,7 +77,7 @@ export let InlineCompletionsHoverParticipant = class InlineCompletionsHoverParti
         return null;
     }
     computeSync(anchor, lineDecorations) {
-        if (this._editor.getOption(60 /* EditorOption.inlineSuggest */).showToolbar === 'always') {
+        if (this._editor.getOption(62 /* EditorOption.inlineSuggest */).showToolbar !== 'onHover') {
             return [];
         }
         const controller = InlineCompletionsController.get(this._editor);
@@ -90,11 +90,11 @@ export let InlineCompletionsHoverParticipant = class InlineCompletionsHoverParti
         const disposableStore = new DisposableStore();
         const part = hoverParts[0];
         this._telemetryService.publicLog2('inlineCompletionHover.shown');
-        if (this.accessibilityService.isScreenReaderOptimized()) {
+        if (this.accessibilityService.isScreenReaderOptimized() && !this._editor.getOption(8 /* EditorOption.screenReaderAnnounceInlineSuggestion */)) {
             this.renderScreenReaderText(context, part, disposableStore);
         }
         const model = part.controller.model.get();
-        const w = this._instantiationService.createInstance(InlineSuggestionHintsContentWidget, this._editor, false, constObservable(null), model.selectedInlineCompletionIndex, model.inlineCompletionsCount, model.selectedInlineCompletion.map(v => { var _a; return (_a = v === null || v === void 0 ? void 0 : v.inlineCompletion.source.inlineCompletions.commands) !== null && _a !== void 0 ? _a : []; }));
+        const w = this._instantiationService.createInstance(InlineSuggestionHintsContentWidget, this._editor, false, constObservable(null), model.selectedInlineCompletionIndex, model.inlineCompletionsCount, model.activeCommands);
         context.fragment.appendChild(w.getDomNode());
         model.triggerExplicitly();
         disposableStore.add(w);
@@ -114,9 +114,10 @@ export let InlineCompletionsHoverParticipant = class InlineCompletionsHoverParti
             const renderedContents = disposableStore.add(renderer.render(new MarkdownString().appendText(inlineSuggestionAvailable).appendCodeblock('text', code)));
             hoverContentsElement.replaceChildren(renderedContents.element);
         };
-        disposableStore.add(autorun('update hover', (reader) => {
+        disposableStore.add(autorun(reader => {
             var _a;
-            const ghostText = (_a = part.controller.model.read(reader)) === null || _a === void 0 ? void 0 : _a.ghostText.read(reader);
+            /** @description update hover */
+            const ghostText = (_a = part.controller.model.read(reader)) === null || _a === void 0 ? void 0 : _a.primaryGhostText.read(reader);
             if (ghostText) {
                 const lineText = this._editor.getModel().getLineContent(ghostText.lineNumber);
                 render(ghostText.renderForScreenReader(lineText));
@@ -135,3 +136,4 @@ InlineCompletionsHoverParticipant = __decorate([
     __param(4, IInstantiationService),
     __param(5, ITelemetryService)
 ], InlineCompletionsHoverParticipant);
+export { InlineCompletionsHoverParticipant };

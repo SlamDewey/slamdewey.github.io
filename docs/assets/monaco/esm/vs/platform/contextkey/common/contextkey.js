@@ -590,7 +590,7 @@ export class ContextKeyEqualsExpr {
     }
     evaluate(context) {
         // Intentional ==
-         
+        // eslint-disable-next-line eqeqeq
         return (context.getValue(this.key) == this.value);
     }
     serialize() {
@@ -736,7 +736,7 @@ export class ContextKeyNotEqualsExpr {
     }
     evaluate(context) {
         // Intentional !=
-         
+        // eslint-disable-next-line eqeqeq
         return (context.getValue(this.key) != this.value);
     }
     serialize() {
@@ -1433,7 +1433,7 @@ export class RawContextKey extends ContextKeyDefinedExpr {
         this._defaultValue = defaultValue;
         // collect all context keys into a central place
         if (typeof metaOrHide === 'object') {
-            RawContextKey._info.push(Object.assign(Object.assign({}, metaOrHide), { key }));
+            RawContextKey._info.push({ ...metaOrHide, key });
         }
         else if (metaOrHide !== true) {
             RawContextKey._info.push({ key, description: metaOrHide, type: defaultValue !== null && defaultValue !== undefined ? typeof defaultValue : undefined });

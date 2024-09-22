@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/r/r", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -197,6 +197,7 @@ var moduleExports = (() => {
           }
         ]
       ],
+      // Recognize Roxygen comments
       roxygen: [
         [
           /@\w+/,
@@ -219,10 +220,12 @@ var moduleExports = (() => {
         ],
         [/.*/, { token: "comment.doc", next: "@pop" }]
       ],
+      // Recognize positives, negatives, decimals, imaginaries, and scientific notation
       numbers: [
         [/0[xX][0-9a-fA-F]+/, "number.hex"],
         [/-?(\d*\.)?\d+([eE][+\-]?\d+)?/, "number"]
       ],
+      // Recognize operators
       operators: [
         [/<{1,2}-/, "operator"],
         [/->{1,2}/, "operator"],
@@ -235,6 +238,7 @@ var moduleExports = (() => {
         [/>>/, "operator"],
         [/[-+=&|!<>^~*/:$]/, "operator"]
       ],
+      // Recognize strings, including those broken across lines
       strings: [
         [/'/, "string.escape", "@stringBody"],
         [/"/, "string.escape", "@dblStringBody"]

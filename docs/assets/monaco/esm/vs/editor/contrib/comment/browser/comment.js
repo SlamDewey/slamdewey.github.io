@@ -24,7 +24,7 @@ class CommentLineAction extends EditorAction {
         const model = editor.getModel();
         const commands = [];
         const modelOptions = model.getOptions();
-        const commentsOptions = editor.getOption(21 /* EditorOption.comments */);
+        const commentsOptions = editor.getOption(23 /* EditorOption.comments */);
         const selections = editor.getSelections().map((selection, index) => ({ selection, index, ignoreFirstLine: false }));
         selections.sort((a, b) => Range.compareRangesUsingStarts(a.selection, b.selection));
         // Remove selections that would result in copying the same line
@@ -45,7 +45,7 @@ class CommentLineAction extends EditorAction {
             }
         }
         for (const selection of selections) {
-            commands.push(new LineCommentCommand(languageConfigurationService, selection.selection, modelOptions.tabSize, this._type, commentsOptions.insertSpace, commentsOptions.ignoreEmptyLines, selection.ignoreFirstLine));
+            commands.push(new LineCommentCommand(languageConfigurationService, selection.selection, modelOptions.indentSize, this._type, commentsOptions.insertSpace, commentsOptions.ignoreEmptyLines, selection.ignoreFirstLine));
         }
         editor.pushUndoStop();
         editor.executeCommands(this.id, commands);
@@ -129,7 +129,7 @@ class BlockCommentAction extends EditorAction {
         if (!editor.hasModel()) {
             return;
         }
-        const commentsOptions = editor.getOption(21 /* EditorOption.comments */);
+        const commentsOptions = editor.getOption(23 /* EditorOption.comments */);
         const commands = [];
         const selections = editor.getSelections();
         for (const selection of selections) {

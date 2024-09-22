@@ -11,22 +11,25 @@ import { SnippetParser } from '../../snippet/browser/snippetParser.js';
 import { SnippetSession } from '../../snippet/browser/snippetSession.js';
 import { SuggestController } from '../../suggest/browser/suggestController.js';
 import { observableValue, transaction } from '../../../../base/common/observable.js';
-import { SingleTextEdit } from './singleTextEdit.js';
-import { compareBy, findMaxBy, numberComparator } from '../../../../base/common/arrays.js';
+import { SingleTextEdit } from '../../../common/core/textEdit.js';
+import { compareBy, numberComparator } from '../../../../base/common/arrays.js';
+import { findFirstMax } from '../../../../base/common/arraysFind.js';
+import { singleTextEditAugments, singleTextRemoveCommonPrefix } from './singleTextEdit.js';
 export class SuggestWidgetAdaptor extends Disposable {
     get selectedItem() {
         return this._selectedItem;
     }
-    constructor(editor, suggestControllerPreselector, checkModelVersion) {
+    constructor(editor, suggestControllerPreselector, checkModelVersion, onWillAccept) {
         super();
         this.editor = editor;
         this.suggestControllerPreselector = suggestControllerPreselector;
         this.checkModelVersion = checkModelVersion;
+        this.onWillAccept = onWillAccept;
         this.isSuggestWidgetVisible = false;
         this.isShiftKeyPressed = false;
         this._isActive = false;
         this._currentSuggestItemInfo = undefined;
-        this._selectedItem = observableValue('suggestWidgetInlineCompletionProvider.selectedItem', undefined);
+        this._selectedItem = observableValue(this, undefined);
         // See the command acceptAlternativeSelectedSuggestion that is bound to shift+tab
         this._register(editor.onKeyDown(e => {
             if (e.shiftKey && !this.isShiftKeyPressed) {
@@ -45,14 +48,14 @@ export class SuggestWidgetAdaptor extends Disposable {
             this._register(suggestController.registerSelector({
                 priority: 100,
                 select: (model, pos, suggestItems) => {
-                    var _a;
                     transaction(tx => this.checkModelVersion(tx));
                     const textModel = this.editor.getModel();
                     if (!textModel) {
                         // Should not happen
                         return -1;
                     }
-                    const itemToPreselect = (_a = this.suggestControllerPreselector()) === null || _a === void 0 ? void 0 : _a.removeCommonPrefix(textModel);
+                    const i = this.suggestControllerPreselector();
+                    const itemToPreselect = i ? singleTextRemoveCommonPrefix(i, textModel) : undefined;
                     if (!itemToPreselect) {
                         return -1;
                     }
@@ -60,12 +63,12 @@ export class SuggestWidgetAdaptor extends Disposable {
                     const candidates = suggestItems
                         .map((suggestItem, index) => {
                         const suggestItemInfo = SuggestItemInfo.fromSuggestion(suggestController, textModel, position, suggestItem, this.isShiftKeyPressed);
-                        const suggestItemTextEdit = suggestItemInfo.toSingleTextEdit().removeCommonPrefix(textModel);
-                        const valid = itemToPreselect.augments(suggestItemTextEdit);
+                        const suggestItemTextEdit = singleTextRemoveCommonPrefix(suggestItemInfo.toSingleTextEdit(), textModel);
+                        const valid = singleTextEditAugments(itemToPreselect, suggestItemTextEdit);
                         return { index, valid, prefixLength: suggestItemTextEdit.text.length, suggestItem };
                     })
                         .filter(item => item && item.valid && item.prefixLength > 0);
-                    const result = findMaxBy(candidates, compareBy(s => s.prefixLength, numberComparator));
+                    const result = findFirstMax(candidates, compareBy(s => s.prefixLength, numberComparator));
                     return result ? result.index : -1;
                 }
             }));
@@ -91,6 +94,15 @@ export class SuggestWidgetAdaptor extends Disposable {
             this._register(Event.once(suggestController.model.onDidTrigger)(e => {
                 bindToSuggestWidget();
             }));
+            this._register(suggestController.onWillInsertSuggestItem(e => {
+                const position = this.editor.getPosition();
+                const model = this.editor.getModel();
+                if (!position || !model) {
+                    return undefined;
+                }
+                const suggestItemInfo = SuggestItemInfo.fromSuggestion(suggestController, model, position, e.item, this.isShiftKeyPressed);
+                this.onWillAccept(suggestItemInfo);
+            }));
         }
         this.update(this._isActive);
     }
@@ -100,6 +112,7 @@ export class SuggestWidgetAdaptor extends Disposable {
             this._isActive = newActive;
             this._currentSuggestItemInfo = newInlineCompletion;
             transaction(tx => {
+                /** @description Update state from suggest widget */
                 this.checkModelVersion(tx);
                 this._selectedItem.set(this._isActive ? this._currentSuggestItemInfo : undefined, tx);
             });

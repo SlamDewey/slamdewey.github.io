@@ -16,13 +16,13 @@ import { $, append, clearNode } from '../../../../base/browser/dom.js';
 import { ActionBar } from '../../../../base/browser/ui/actionbar/actionbar.js';
 import { Action } from '../../../../base/common/actions.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
-import { MarkdownRenderer } from '../../markdownRenderer/browser/markdownRenderer.js';
+import { MarkdownRenderer } from '../../../browser/widget/markdownRenderer/browser/markdownRenderer.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 import { Link } from '../../../../platform/opener/browser/link.js';
 import { widgetClose } from '../../../../platform/theme/common/iconRegistry.js';
 import { ThemeIcon } from '../../../../base/common/themables.js';
 const BANNER_ELEMENT_HEIGHT = 26;
-export let BannerController = class BannerController extends Disposable {
+let BannerController = class BannerController extends Disposable {
     constructor(_editor, instantiationService) {
         super();
         this._editor = _editor;
@@ -34,17 +34,21 @@ export let BannerController = class BannerController extends Disposable {
         this.banner.clear();
     }
     show(item) {
-        this.banner.show(Object.assign(Object.assign({}, item), { onClose: () => {
+        this.banner.show({
+            ...item,
+            onClose: () => {
                 var _a;
                 this.hide();
                 (_a = item.onClose) === null || _a === void 0 ? void 0 : _a.call(item);
-            } }));
+            }
+        });
         this._editor.setBanner(this.banner.element, BANNER_ELEMENT_HEIGHT);
     }
 };
 BannerController = __decorate([
     __param(1, IInstantiationService)
 ], BannerController);
+export { BannerController };
 // TODO@hediet: Investigate if this can be reused by the workspace banner (bannerPart.ts).
 let Banner = class Banner extends Disposable {
     constructor(instantiationService) {
@@ -96,7 +100,7 @@ let Banner = class Banner extends Disposable {
         this.messageActionsContainer = append(this.element, $('div.message-actions-container'));
         if (item.actions) {
             for (const action of item.actions) {
-                this._register(this.instantiationService.createInstance(Link, this.messageActionsContainer, Object.assign(Object.assign({}, action), { tabIndex: -1 }), {}));
+                this._register(this.instantiationService.createInstance(Link, this.messageActionsContainer, { ...action, tabIndex: -1 }, {}));
             }
         }
         // Action

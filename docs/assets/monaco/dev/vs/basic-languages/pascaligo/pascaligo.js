@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/pascaligo/pascaligo", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -129,9 +129,12 @@ var moduleExports = (() => {
       "^",
       "%"
     ],
+    // we include these common regular expressions
     symbols: /[=><:@\^&|+\-*\/\^%]+/,
+    // The main tokenizer for our languages
     tokenizer: {
       root: [
+        // identifiers and keywords
         [
           /[a-zA-Z_][\w]*/,
           {
@@ -141,7 +144,9 @@ var moduleExports = (() => {
             }
           }
         ],
+        // whitespace
         { include: "@whitespace" },
+        // delimiters and operators
         [/[{}()\[\]]/, "@brackets"],
         [/[<>](?!@symbols)/, "@brackets"],
         [
@@ -153,18 +158,25 @@ var moduleExports = (() => {
             }
           }
         ],
+        // numbers
         [/\d*\.\d+([eE][\-+]?\d+)?/, "number.float"],
         [/\$[0-9a-fA-F]{1,16}/, "number.hex"],
         [/\d+/, "number"],
+        // delimiter: after number because of .\d floats
         [/[;,.]/, "delimiter"],
+        // strings
         [/'([^'\\]|\\.)*$/, "string.invalid"],
+        // non-teminated string
         [/'/, "string", "@string"],
+        // characters
         [/'[^\\']'/, "string"],
         [/'/, "string.invalid"],
         [/\#\d+/, "string"]
       ],
+      /* */
       comment: [
         [/[^\(\*]+/, "comment"],
+        //[/\(\*/,    'comment', '@push' ],    // nested comment  not allowed :-(
         [/\*\)/, "comment", "@pop"],
         [/\(\*/, "comment"]
       ],

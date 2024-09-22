@@ -5,10 +5,13 @@
 import './iconlabel.css';
 import * as dom from '../../dom.js';
 import { HighlightedLabel } from '../highlightedlabel/highlightedLabel.js';
-import { setupCustomHover, setupNativeHover } from './iconLabelHover.js';
 import { Disposable } from '../../../common/lifecycle.js';
 import { equals } from '../../../common/objects.js';
 import { Range } from '../../../common/range.js';
+import { getDefaultHoverDelegate } from '../hover/hoverDelegateFactory.js';
+import { getBaseLayerHoverDelegate } from '../hover/hoverDelegate2.js';
+import { isString } from '../../../common/types.js';
+import { stripIcons } from '../../../common/iconLabels.js';
 class FastLabelNode {
     constructor(_element) {
         this._element = _element;
@@ -43,26 +46,29 @@ class FastLabelNode {
 }
 export class IconLabel extends Disposable {
     constructor(container, options) {
+        var _a;
         super();
         this.customHovers = new Map();
         this.creationOptions = options;
         this.domNode = this._register(new FastLabelNode(dom.append(container, dom.$('.monaco-icon-label'))));
         this.labelContainer = dom.append(this.domNode.element, dom.$('.monaco-icon-label-container'));
-        const nameContainer = dom.append(this.labelContainer, dom.$('span.monaco-icon-name-container'));
+        this.nameContainer = dom.append(this.labelContainer, dom.$('span.monaco-icon-name-container'));
         if ((options === null || options === void 0 ? void 0 : options.supportHighlights) || (options === null || options === void 0 ? void 0 : options.supportIcons)) {
-            this.nameNode = new LabelWithHighlights(nameContainer, !!options.supportIcons);
+            this.nameNode = this._register(new LabelWithHighlights(this.nameContainer, !!options.supportIcons));
         }
         else {
-            this.nameNode = new Label(nameContainer);
+            this.nameNode = new Label(this.nameContainer);
         }
-        this.hoverDelegate = options === null || options === void 0 ? void 0 : options.hoverDelegate;
+        this.hoverDelegate = (_a = options === null || options === void 0 ? void 0 : options.hoverDelegate) !== null && _a !== void 0 ? _a : getDefaultHoverDelegate('mouse');
     }
     get element() {
         return this.domNode.element;
     }
     setLabel(label, description, options) {
+        var _a;
         const labelClasses = ['monaco-icon-label'];
         const containerClasses = ['monaco-icon-label-container'];
+        let ariaLabel = '';
         if (options) {
             if (options.extraClasses) {
                 labelClasses.push(...options.extraClasses);
@@ -76,8 +82,32 @@ export class IconLabel extends Disposable {
             if (options.disabledCommand) {
                 containerClasses.push('disabled');
             }
+            if (options.title) {
+                if (typeof options.title === 'string') {
+                    ariaLabel += options.title;
+                }
+                else {
+                    ariaLabel += label;
+                }
+            }
+        }
+        const existingIconNode = this.domNode.element.querySelector('.monaco-icon-label-iconpath');
+        if (options === null || options === void 0 ? void 0 : options.iconPath) {
+            let iconNode;
+            if (!existingIconNode || !(dom.isHTMLElement(existingIconNode))) {
+                iconNode = dom.$('.monaco-icon-label-iconpath');
+                this.domNode.element.prepend(iconNode);
+            }
+            else {
+                iconNode = existingIconNode;
+            }
+            iconNode.style.backgroundImage = dom.asCSSUrl(options === null || options === void 0 ? void 0 : options.iconPath);
+        }
+        else if (existingIconNode) {
+            existingIconNode.remove();
         }
         this.domNode.className = labelClasses.join(' ');
+        this.domNode.element.setAttribute('aria-label', ariaLabel);
         this.labelContainer.className = containerClasses.join(' ');
         this.setupHover((options === null || options === void 0 ? void 0 : options.descriptionTitle) ? this.labelContainer : this.element, options === null || options === void 0 ? void 0 : options.title);
         this.nameNode.setLabel(label, options);
@@ -93,6 +123,10 @@ export class IconLabel extends Disposable {
                 descriptionNode.empty = !description;
             }
         }
+        if ((options === null || options === void 0 ? void 0 : options.suffix) || this.suffixNode) {
+            const suffixNode = this.getOrCreateSuffixNode();
+            suffixNode.textContent = (_a = options === null || options === void 0 ? void 0 : options.suffix) !== null && _a !== void 0 ? _a : '';
+        }
     }
     setupHover(htmlElement, tooltip) {
         const previousCustomHover = this.customHovers.get(htmlElement);
@@ -104,11 +138,23 @@ export class IconLabel extends Disposable {
             htmlElement.removeAttribute('title');
             return;
         }
-        if (!this.hoverDelegate) {
+        if (this.hoverDelegate.showNativeHover) {
+            function setupNativeHover(htmlElement, tooltip) {
+                if (isString(tooltip)) {
+                    // Icons don't render in the native hover so we strip them out
+                    htmlElement.title = stripIcons(tooltip);
+                }
+                else if (tooltip === null || tooltip === void 0 ? void 0 : tooltip.markdownNotSupportedFallback) {
+                    htmlElement.title = tooltip.markdownNotSupportedFallback;
+                }
+                else {
+                    htmlElement.removeAttribute('title');
+                }
+            }
             setupNativeHover(htmlElement, tooltip);
         }
         else {
-            const hoverDisposable = setupCustomHover(this.hoverDelegate, htmlElement, tooltip);
+            const hoverDisposable = getBaseLayerHoverDelegate().setupUpdatableHover(this.hoverDelegate, htmlElement, tooltip);
             if (hoverDisposable) {
                 this.customHovers.set(htmlElement, hoverDisposable);
             }
@@ -121,12 +167,19 @@ export class IconLabel extends Disposable {
         }
         this.customHovers.clear();
     }
+    getOrCreateSuffixNode() {
+        if (!this.suffixNode) {
+            const suffixContainer = this._register(new FastLabelNode(dom.after(this.nameContainer, dom.$('span.monaco-icon-suffix-container'))));
+            this.suffixNode = this._register(new FastLabelNode(dom.append(suffixContainer.element, dom.$('span.label-suffix'))));
+        }
+        return this.suffixNode;
+    }
     getOrCreateDescriptionNode() {
         var _a;
         if (!this.descriptionNode) {
             const descriptionContainer = this._register(new FastLabelNode(dom.append(this.labelContainer, dom.$('span.monaco-icon-description-container'))));
             if ((_a = this.creationOptions) === null || _a === void 0 ? void 0 : _a.supportDescriptionHighlights) {
-                this.descriptionNode = new HighlightedLabel(dom.append(descriptionContainer.element, dom.$('span.label-description')), { supportIcons: !!this.creationOptions.supportIcons });
+                this.descriptionNode = this._register(new HighlightedLabel(dom.append(descriptionContainer.element, dom.$('span.label-description')), { supportIcons: !!this.creationOptions.supportIcons }));
             }
             else {
                 this.descriptionNode = this._register(new FastLabelNode(dom.append(descriptionContainer.element, dom.$('span.label-description'))));
@@ -185,8 +238,9 @@ function splitMatches(labels, separator, matches) {
         return result;
     });
 }
-class LabelWithHighlights {
+class LabelWithHighlights extends Disposable {
     constructor(container, supportIcons) {
+        super();
         this.container = container;
         this.supportIcons = supportIcons;
         this.label = undefined;
@@ -202,7 +256,7 @@ class LabelWithHighlights {
             if (!this.singleLabel) {
                 this.container.innerText = '';
                 this.container.classList.remove('multiple');
-                this.singleLabel = new HighlightedLabel(dom.append(this.container, dom.$('a.label-name', { id: options === null || options === void 0 ? void 0 : options.domId })), { supportIcons: this.supportIcons });
+                this.singleLabel = this._register(new HighlightedLabel(dom.append(this.container, dom.$('a.label-name', { id: options === null || options === void 0 ? void 0 : options.domId })), { supportIcons: this.supportIcons }));
             }
             this.singleLabel.set(label, options === null || options === void 0 ? void 0 : options.matches, undefined, options === null || options === void 0 ? void 0 : options.labelEscapeNewLines);
         }
@@ -217,7 +271,7 @@ class LabelWithHighlights {
                 const m = matches ? matches[i] : undefined;
                 const id = (options === null || options === void 0 ? void 0 : options.domId) && `${options === null || options === void 0 ? void 0 : options.domId}_${i}`;
                 const name = dom.$('a.label-name', { id, 'data-icon-label-count': label.length, 'data-icon-label-index': i, 'role': 'treeitem' });
-                const highlightedLabel = new HighlightedLabel(dom.append(this.container, name), { supportIcons: this.supportIcons });
+                const highlightedLabel = this._register(new HighlightedLabel(dom.append(this.container, name), { supportIcons: this.supportIcons }));
                 highlightedLabel.set(l, m, undefined, options === null || options === void 0 ? void 0 : options.labelEscapeNewLines);
                 if (i < label.length - 1) {
                     dom.append(name, dom.$('span.label-separator', undefined, separator));

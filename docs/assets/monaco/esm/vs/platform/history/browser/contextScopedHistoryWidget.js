@@ -17,6 +17,7 @@ import { ContextKeyExpr, IContextKeyService, RawContextKey } from '../../context
 import { KeybindingsRegistry } from '../../keybinding/common/keybindingsRegistry.js';
 import { localize } from '../../../nls.js';
 import { DisposableStore, toDisposable } from '../../../base/common/lifecycle.js';
+import { isActiveElement } from '../../../base/browser/dom.js';
 export const historyNavigationVisible = new RawContextKey('suggestWidgetVisible', false, localize('suggestWidgetVisible', "Whether suggestion are visible"));
 const HistoryNavigationWidgetFocusContext = 'historyNavigationWidgetFocus';
 const HistoryNavigationForwardsEnablementContext = 'historyNavigationForwardsEnabled';
@@ -43,7 +44,7 @@ export function registerAndCreateHistoryNavigationContext(scopedContextKeyServic
         }
     };
     // Check for currently being focused
-    if (widget.element === document.activeElement) {
+    if (isActiveElement(widget.element)) {
         onDidFocus();
     }
     disposableStore.add(widget.onDidFocus(() => onDidFocus()));
@@ -60,7 +61,7 @@ export function registerAndCreateHistoryNavigationContext(scopedContextKeyServic
         }
     };
 }
-export let ContextScopedFindInput = class ContextScopedFindInput extends FindInput {
+let ContextScopedFindInput = class ContextScopedFindInput extends FindInput {
     constructor(container, contextViewProvider, options, contextKeyService) {
         super(container, contextViewProvider, options);
         const scopedContextKeyService = this._register(contextKeyService.createScoped(this.inputBox.element));
@@ -70,7 +71,8 @@ export let ContextScopedFindInput = class ContextScopedFindInput extends FindInp
 ContextScopedFindInput = __decorate([
     __param(3, IContextKeyService)
 ], ContextScopedFindInput);
-export let ContextScopedReplaceInput = class ContextScopedReplaceInput extends ReplaceInput {
+export { ContextScopedFindInput };
+let ContextScopedReplaceInput = class ContextScopedReplaceInput extends ReplaceInput {
     constructor(container, contextViewProvider, options, contextKeyService, showReplaceOptions = false) {
         super(container, contextViewProvider, showReplaceOptions, options);
         const scopedContextKeyService = this._register(contextKeyService.createScoped(this.inputBox.element));
@@ -80,10 +82,11 @@ export let ContextScopedReplaceInput = class ContextScopedReplaceInput extends R
 ContextScopedReplaceInput = __decorate([
     __param(3, IContextKeyService)
 ], ContextScopedReplaceInput);
+export { ContextScopedReplaceInput };
 KeybindingsRegistry.registerCommandAndKeybindingRule({
     id: 'history.showPrevious',
     weight: 200 /* KeybindingWeight.WorkbenchContrib */,
-    when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationBackwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
+    when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationBackwardsEnablementContext, true), ContextKeyExpr.not('isComposing'), historyNavigationVisible.isEqualTo(false)),
     primary: 16 /* KeyCode.UpArrow */,
     secondary: [512 /* KeyMod.Alt */ | 16 /* KeyCode.UpArrow */],
     handler: (accessor) => {
@@ -93,7 +96,7 @@ KeybindingsRegistry.registerCommandAndKeybindingRule({
 KeybindingsRegistry.registerCommandAndKeybindingRule({
     id: 'history.showNext',
     weight: 200 /* KeybindingWeight.WorkbenchContrib */,
-    when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationForwardsEnablementContext, true), historyNavigationVisible.isEqualTo(false)),
+    when: ContextKeyExpr.and(ContextKeyExpr.has(HistoryNavigationWidgetFocusContext), ContextKeyExpr.equals(HistoryNavigationForwardsEnablementContext, true), ContextKeyExpr.not('isComposing'), historyNavigationVisible.isEqualTo(false)),
     primary: 18 /* KeyCode.DownArrow */,
     secondary: [512 /* KeyMod.Alt */ | 18 /* KeyCode.DownArrow */],
     handler: (accessor) => {

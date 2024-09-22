@@ -338,9 +338,9 @@ export class ViewModelLinesFromProjectedModel {
     getViewLineInfosGroupedByModelRanges(viewStartLineNumber, viewEndLineNumber) {
         const startViewLine = this.getViewLineInfo(viewStartLineNumber);
         const endViewLine = this.getViewLineInfo(viewEndLineNumber);
-        const result = [];
+        const result = new Array();
         let lastVisibleModelPos = this.getModelStartPositionOfViewLine(startViewLine);
-        let viewLines = [];
+        let viewLines = new Array();
         for (let curModelLine = startViewLine.modelLineNumber; curModelLine <= endViewLine.modelLineNumber; curModelLine++) {
             const line = this.modelLineProjections[curModelLine - 1];
             if (line.isVisible()) {

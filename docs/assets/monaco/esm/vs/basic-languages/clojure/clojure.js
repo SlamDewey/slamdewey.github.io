@@ -1,9 +1,10 @@
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
+
 
 // src/basic-languages/clojure/clojure.ts
 var conf = {
@@ -38,9 +39,13 @@ var language = {
     { open: "{", close: "}", token: "delimiter.curly" }
   ],
   constants: ["true", "false", "nil"],
+  // delimiters: /[\\\[\]\s"#'(),;@^`{}~]|$/,
   numbers: /^(?:[+\-]?\d+(?:(?:N|(?:[eE][+\-]?\d+))|(?:\.?\d*(?:M|(?:[eE][+\-]?\d+))?)|\/\d+|[xX][0-9a-fA-F]+|r[0-9a-zA-Z]+)?(?=[\\\[\]\s"#'(),;@^`{}~]|$))/,
   characters: /^(?:\\(?:backspace|formfeed|newline|return|space|tab|o[0-7]{3}|u[0-9A-Fa-f]{4}|x[0-9A-Fa-f]{4}|.)?(?=[\\\[\]\s"(),;@^`{}~]|$))/,
   escapes: /^\\(?:["'\\bfnrt]|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+  // simple-namespace := /^[^\\\/\[\]\d\s"#'(),;@^`{}~][^\\\[\]\s"(),;@^`{}~]*/
+  // simple-symbol    := /^(?:\/|[^\\\/\[\]\d\s"#'(),;@^`{}~][^\\\[\]\s"(),;@^`{}~]*)/
+  // qualified-symbol := (<simple-namespace>(<.><simple-namespace>)*</>)?<simple-symbol>
   qualifiedSymbols: /^(?:(?:[^\\\/\[\]\d\s"#'(),;@^`{}~][^\\\[\]\s"(),;@^`{}~]*(?:\.[^\\\/\[\]\d\s"#'(),;@^`{}~][^\\\[\]\s"(),;@^`{}~]*)*\/)?(?:\/|[^\\\/\[\]\d\s"#'(),;@^`{}~][^\\\[\]\s"(),;@^`{}~]*)*(?=[\\\[\]\s"(),;@^`{}~]|$))/,
   specialForms: [
     ".",
@@ -713,18 +718,27 @@ var language = {
   ],
   tokenizer: {
     root: [
+      // whitespaces and comments
       { include: "@whitespace" },
+      // numbers
       [/@numbers/, "number"],
+      // characters
       [/@characters/, "string"],
+      // strings
       { include: "@string" },
+      // brackets
       [/[()\[\]{}]/, "@brackets"],
+      // regular expressions
       [/\/#"(?:\.|(?:")|[^"\n])*"\/g/, "regexp"],
+      // reader macro characters
       [/[#'@^`~]/, "meta"],
+      // symbols
       [
         /@qualifiedSymbols/,
         {
           cases: {
             "^:.+$": "constant",
+            // Clojure keywords (e.g., `:foo/bar`)
             "@specialForms": "keyword",
             "@coreSymbols": "keyword",
             "@constants": "constant",

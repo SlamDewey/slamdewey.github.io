@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/ini/ini", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -58,15 +58,24 @@ var moduleExports = (() => {
   var language = {
     defaultToken: "",
     tokenPostfix: ".ini",
+    // we include these common regular expressions
     escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
+    // The main tokenizer for our languages
     tokenizer: {
       root: [
+        // sections
         [/^\[[^\]]*\]/, "metatag"],
+        // keys
         [/(^\w+)(\s*)(\=)/, ["key", "", "delimiter"]],
+        // whitespace
         { include: "@whitespace" },
+        // numbers
         [/\d+/, "number"],
+        // strings: recover on non-terminated strings
         [/"([^"\\]|\\.)*$/, "string.invalid"],
+        // non-teminated string
         [/'([^'\\]|\\.)*$/, "string.invalid"],
+        // non-teminated string
         [/"/, "string", '@string."'],
         [/'/, "string", "@string.'"]
       ],

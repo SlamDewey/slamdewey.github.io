@@ -1,7 +1,7 @@
 import '../../editor/editor.api.js';
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
@@ -27,11 +27,8 @@ import * as monaco_editor_core_star from "../../editor/editor.api.js";
 
 // src/language/css/monaco.contribution.ts
 var LanguageServiceDefaultsImpl = class {
-  _onDidChange = new monaco_editor_core_exports.Emitter();
-  _options;
-  _modeConfiguration;
-  _languageId;
   constructor(languageId, options, modeConfiguration) {
+    this._onDidChange = new monaco_editor_core_exports.Emitter();
     this._languageId = languageId;
     this.setOptions(options);
     this.setModeConfiguration(modeConfiguration);
@@ -110,9 +107,21 @@ var modeConfigurationDefault = {
   documentFormattingEdits: true,
   documentRangeFormattingEdits: true
 };
-var cssDefaults = new LanguageServiceDefaultsImpl("css", optionsDefault, modeConfigurationDefault);
-var scssDefaults = new LanguageServiceDefaultsImpl("scss", optionsDefault, modeConfigurationDefault);
-var lessDefaults = new LanguageServiceDefaultsImpl("less", optionsDefault, modeConfigurationDefault);
+var cssDefaults = new LanguageServiceDefaultsImpl(
+  "css",
+  optionsDefault,
+  modeConfigurationDefault
+);
+var scssDefaults = new LanguageServiceDefaultsImpl(
+  "scss",
+  optionsDefault,
+  modeConfigurationDefault
+);
+var lessDefaults = new LanguageServiceDefaultsImpl(
+  "less",
+  optionsDefault,
+  modeConfigurationDefault
+);
 monaco_editor_core_exports.languages.css = { cssDefaults, lessDefaults, scssDefaults };
 function getMode() {
   if (false) {

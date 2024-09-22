@@ -18,14 +18,14 @@ import { ThemeIcon } from '../../../../base/common/themables.js';
 import { Emitter } from '../../../../base/common/event.js';
 import { MarkdownString } from '../../../../base/common/htmlContent.js';
 import { DisposableStore } from '../../../../base/common/lifecycle.js';
-import { MarkdownRenderer } from '../../markdownRenderer/browser/markdownRenderer.js';
+import { MarkdownRenderer } from '../../../browser/widget/markdownRenderer/browser/markdownRenderer.js';
 import { ResizableHTMLElement } from '../../../../base/browser/ui/resizable/resizable.js';
 import * as nls from '../../../../nls.js';
 import { IInstantiationService } from '../../../../platform/instantiation/common/instantiation.js';
 export function canExpandCompletionItem(item) {
     return !!item && Boolean(item.completion.documentation || item.completion.detail && item.completion.detail !== item.completion.label);
 }
-export let SuggestDetailsWidget = class SuggestDetailsWidget {
+let SuggestDetailsWidget = class SuggestDetailsWidget {
     constructor(_editor, instaService) {
         this._editor = _editor;
         this._onDidClose = new Emitter();
@@ -52,7 +52,7 @@ export let SuggestDetailsWidget = class SuggestDetailsWidget {
         this._docs = dom.append(this._body, dom.$('p.docs'));
         this._configureFont();
         this._disposables.add(this._editor.onDidChangeConfiguration(e => {
-            if (e.hasChanged(48 /* EditorOption.fontInfo */)) {
+            if (e.hasChanged(50 /* EditorOption.fontInfo */)) {
                 this._configureFont();
             }
         }));
@@ -63,10 +63,10 @@ export let SuggestDetailsWidget = class SuggestDetailsWidget {
     }
     _configureFont() {
         const options = this._editor.getOptions();
-        const fontInfo = options.get(48 /* EditorOption.fontInfo */);
+        const fontInfo = options.get(50 /* EditorOption.fontInfo */);
         const fontFamily = fontInfo.getMassagedFontFamily();
-        const fontSize = options.get(116 /* EditorOption.suggestFontSize */) || fontInfo.fontSize;
-        const lineHeight = options.get(117 /* EditorOption.suggestLineHeight */) || fontInfo.lineHeight;
+        const fontSize = options.get(119 /* EditorOption.suggestFontSize */) || fontInfo.fontSize;
+        const lineHeight = options.get(120 /* EditorOption.suggestLineHeight */) || fontInfo.lineHeight;
         const fontWeight = fontInfo.fontWeight;
         const fontSizePx = `${fontSize}px`;
         const lineHeightPx = `${lineHeight}px`;
@@ -79,7 +79,7 @@ export let SuggestDetailsWidget = class SuggestDetailsWidget {
         this._close.style.width = lineHeightPx;
     }
     getLayoutInfo() {
-        const lineHeight = this._editor.getOption(117 /* EditorOption.suggestLineHeight */) || this._editor.getOption(48 /* EditorOption.fontInfo */).lineHeight;
+        const lineHeight = this._editor.getOption(120 /* EditorOption.suggestLineHeight */) || this._editor.getOption(50 /* EditorOption.fontInfo */).lineHeight;
         const borderWidth = this._borderWidth;
         const borderHeight = borderWidth * 2;
         return {
@@ -168,6 +168,9 @@ export let SuggestDetailsWidget = class SuggestDetailsWidget {
         this._type.textContent = '';
         this._docs.textContent = '';
     }
+    get isEmpty() {
+        return this.domNode.classList.contains('no-docs');
+    }
     get size() {
         return this._size;
     }
@@ -207,10 +210,12 @@ export let SuggestDetailsWidget = class SuggestDetailsWidget {
 SuggestDetailsWidget = __decorate([
     __param(1, IInstantiationService)
 ], SuggestDetailsWidget);
+export { SuggestDetailsWidget };
 export class SuggestDetailsOverlay {
     constructor(widget, _editor) {
         this.widget = widget;
         this._editor = _editor;
+        this.allowEditorOverflow = true;
         this._disposables = new DisposableStore();
         this._added = false;
         this._preferAlignAtTop = true;
@@ -272,12 +277,11 @@ export class SuggestDetailsOverlay {
         return this._resizable.domNode;
     }
     getPosition() {
-        return null;
+        return this._topLeft ? { preference: this._topLeft } : null;
     }
     show() {
         if (!this._added) {
             this._editor.addOverlayWidget(this);
-            this.getDomNode().style.position = 'fixed';
             this._added = true;
         }
     }
@@ -303,7 +307,7 @@ export class SuggestDetailsOverlay {
     }
     _placeAtAnchor(anchorBox, size, preferAlignAtTop) {
         var _a;
-        const bodyBox = dom.getClientArea(document.body);
+        const bodyBox = dom.getClientArea(this.getDomNode().ownerDocument.body);
         const info = this.widget.getLayoutInfo();
         const defaultMinSize = new dom.Dimension(220, 2 * info.lineHeight);
         const defaultTop = anchorBox.top;
@@ -362,8 +366,18 @@ export class SuggestDetailsOverlay {
                 maxSize = placement.maxSizeTop;
             }
         }
-        this._applyTopLeft({ left: placement.left, top: alignAtTop ? placement.top : bottom - height });
-        this.getDomNode().style.position = 'fixed';
+        let { top, left } = placement;
+        if (!alignAtTop && height > anchorBox.height) {
+            top = bottom - height;
+        }
+        const editorDomNode = this._editor.getDomNode();
+        if (editorDomNode) {
+            // get bounding rectangle of the suggest widget relative to the editor
+            const editorBoundingBox = editorDomNode.getBoundingClientRect();
+            top -= editorBoundingBox.top;
+            left -= editorBoundingBox.left;
+        }
+        this._applyTopLeft({ left, top });
         this._resizable.enableSashes(!alignAtTop, placement === eastPlacement, alignAtTop, placement !== eastPlacement);
         this._resizable.minSize = placement.minSize;
         this._resizable.maxSize = maxSize;
@@ -372,7 +386,6 @@ export class SuggestDetailsOverlay {
     }
     _applyTopLeft(topLeft) {
         this._topLeft = topLeft;
-        this.getDomNode().style.left = `${this._topLeft.left}px`;
-        this.getDomNode().style.top = `${this._topLeft.top}px`;
+        this._editor.layoutOverlayWidget(this);
     }
 }

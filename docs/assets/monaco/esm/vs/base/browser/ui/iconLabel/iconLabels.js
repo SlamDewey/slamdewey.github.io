@@ -6,7 +6,7 @@ import * as dom from '../../dom.js';
 import { ThemeIcon } from '../../../common/themables.js';
 const labelWithIconsRegex = new RegExp(`(\\\\)?\\$\\((${ThemeIcon.iconNameExpression}(?:${ThemeIcon.iconModifierExpression})?)\\)`, 'g');
 export function renderLabelWithIcons(text) {
-    const elements = [];
+    const elements = new Array();
     let match;
     let textStart = 0, textStop = 0;
     while ((match = labelWithIconsRegex.exec(text)) !== null) {

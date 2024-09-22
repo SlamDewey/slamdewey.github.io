@@ -2,9 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { once } from '../../../../base/common/functional.js';
+import { createSingleCallFunction } from '../../../../base/common/functional.js';
 import { DisposableStore, MutableDisposable, toDisposable } from '../../../../base/common/lifecycle.js';
-import { withNullAsUndefined } from '../../../../base/common/types.js';
 import { getCodeEditor, isDiffEditor } from '../../../browser/editorBrowser.js';
 import { OverviewRulerLane } from '../../../common/model.js';
 import { overviewRulerRangeHighlight } from '../../../common/core/editorColorRegistry.js';
@@ -23,7 +22,7 @@ export class AbstractEditorNavigationQuickAccessProvider {
         this.rangeHighlightDecorationId = undefined;
     }
     //#region Provider methods
-    provide(picker, token) {
+    provide(picker, token, runOptions) {
         var _a;
         const disposables = new DisposableStore();
         // Apply options if any
@@ -32,7 +31,7 @@ export class AbstractEditorNavigationQuickAccessProvider {
         picker.matchOnLabel = picker.matchOnDescription = picker.matchOnDetail = picker.sortByLabel = false;
         // Provide based on current active editor
         const pickerDisposable = disposables.add(new MutableDisposable());
-        pickerDisposable.value = this.doProvide(picker, token);
+        pickerDisposable.value = this.doProvide(picker, token, runOptions);
         // Re-create whenever the active editor changes
         disposables.add(this.onDidActiveTextEditorControlChange(() => {
             // Clear old
@@ -42,7 +41,8 @@ export class AbstractEditorNavigationQuickAccessProvider {
         }));
         return disposables;
     }
-    doProvide(picker, token) {
+    doProvide(picker, token, runOptions) {
+        var _a;
         const disposables = new DisposableStore();
         // With text control
         const editor = this.activeTextEditorControl;
@@ -56,21 +56,22 @@ export class AbstractEditorNavigationQuickAccessProvider {
                 // changes even later because it could be that the user has
                 // configured quick access to remain open when focus is lost and
                 // we always want to restore the current location.
-                let lastKnownEditorViewState = withNullAsUndefined(editor.saveViewState());
+                let lastKnownEditorViewState = (_a = editor.saveViewState()) !== null && _a !== void 0 ? _a : undefined;
                 disposables.add(codeEditor.onDidChangeCursorPosition(() => {
-                    lastKnownEditorViewState = withNullAsUndefined(editor.saveViewState());
+                    var _a;
+                    lastKnownEditorViewState = (_a = editor.saveViewState()) !== null && _a !== void 0 ? _a : undefined;
                 }));
                 context.restoreViewState = () => {
                     if (lastKnownEditorViewState && editor === this.activeTextEditorControl) {
                         editor.restoreViewState(lastKnownEditorViewState);
                     }
                 };
-                disposables.add(once(token.onCancellationRequested)(() => { var _a; return (_a = context.restoreViewState) === null || _a === void 0 ? void 0 : _a.call(context); }));
+                disposables.add(createSingleCallFunction(token.onCancellationRequested)(() => { var _a; return (_a = context.restoreViewState) === null || _a === void 0 ? void 0 : _a.call(context); }));
             }
             // Clean up decorations on dispose
             disposables.add(toDisposable(() => this.clearDecorations(editor)));
             // Ask subclass for entries
-            disposables.add(this.provideWithTextEditor(context, picker, token));
+            disposables.add(this.provideWithTextEditor(context, picker, token, runOptions));
         }
         // Without text control
         else {
@@ -85,7 +86,7 @@ export class AbstractEditorNavigationQuickAccessProvider {
         return true;
     }
     gotoLocation({ editor }, options) {
-        editor.setSelection(options.range);
+        editor.setSelection(options.range, "code.jump" /* TextEditorSelectionSource.JUMP */);
         editor.revealRangeInCenter(options.range, 0 /* ScrollType.Smooth */);
         if (!options.preserveFocus) {
             editor.focus();

@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/pgsql/pgsql", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -65,6 +65,7 @@ var moduleExports = (() => {
       { open: "(", close: ")", token: "delimiter.parenthesis" }
     ],
     keywords: [
+      // This list is generated using `keywords.js`
       "ALL",
       "ANALYSE",
       "ANALYZE",
@@ -801,8 +802,12 @@ var moduleExports = (() => {
       "xpath",
       "xpath_exists"
     ],
-    builtinVariables: [],
-    pseudoColumns: [],
+    builtinVariables: [
+      // NOT SUPPORTED
+    ],
+    pseudoColumns: [
+      // NOT SUPPORTED
+    ],
     tokenizer: {
       root: [
         { include: "@comments" },
@@ -835,6 +840,9 @@ var moduleExports = (() => {
       ],
       comment: [
         [/[^*/]+/, "comment"],
+        // Not supporting nested comments, as nested comments seem to not be standard?
+        // i.e. http://stackoverflow.com/questions/728172/are-there-multiline-comment-delimiters-in-sql-that-are-vendor-agnostic
+        // [/\/\*/, { token: 'comment.quote', next: '@push' }],    // nested comment not allowed :-(
         [/\*\//, { token: "comment.quote", next: "@pop" }],
         [/./, "comment"]
       ],
@@ -866,7 +874,9 @@ var moduleExports = (() => {
         [/""/, "identifier"],
         [/"/, { token: "identifier.quote", next: "@pop" }]
       ],
-      scopes: []
+      scopes: [
+        // NOT SUPPORTED
+      ]
     }
   };
   return __toCommonJS(pgsql_exports);

@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { isFirefox } from '../../browser.js';
 import { DataTransfers } from '../../dnd.js';
-import { $, addDisposableListener, append, EventHelper, EventType } from '../../dom.js';
+import { addDisposableListener, EventHelper, EventType } from '../../dom.js';
 import { EventType as TouchEventType, Gesture } from '../../touch.js';
-import { setupCustomHover } from '../iconLabel/iconLabelHover.js';
+import { getDefaultHoverDelegate } from '../hover/hoverDelegateFactory.js';
 import { SelectBox } from '../selectBox/selectBox.js';
 import { Action, ActionRunner, Separator } from '../../../common/actions.js';
 import { Disposable } from '../../../common/lifecycle.js';
@@ -14,6 +14,7 @@ import * as platform from '../../../common/platform.js';
 import * as types from '../../../common/types.js';
 import './actionbar.css';
 import * as nls from '../../../../nls.js';
+import { getBaseLayerHoverDelegate } from '../hover/hoverDelegate2.js';
 export class BaseActionViewItem extends Disposable {
     get action() {
         return this._action;
@@ -151,26 +152,29 @@ export class BaseActionViewItem extends Disposable {
     updateLabel() {
         // implement in subclass
     }
+    getClass() {
+        return this.action.class;
+    }
     getTooltip() {
         return this.action.tooltip;
     }
     updateTooltip() {
-        var _a;
+        var _a, _b, _c;
         if (!this.element) {
             return;
         }
         const title = (_a = this.getTooltip()) !== null && _a !== void 0 ? _a : '';
         this.updateAriaLabel();
-        if (!this.options.hoverDelegate) {
+        if ((_b = this.options.hoverDelegate) === null || _b === void 0 ? void 0 : _b.showNativeHover) {
+            /* While custom hover is not inside custom hover */
             this.element.title = title;
         }
         else {
-            this.element.title = '';
-            if (!this.customHover) {
-                this.customHover = setupCustomHover(this.options.hoverDelegate, this.element, title);
-                this._store.add(this.customHover);
+            if (!this.customHover && title !== '') {
+                const hoverDelegate = (_c = this.options.hoverDelegate) !== null && _c !== void 0 ? _c : getDefaultHoverDelegate('element');
+                this.customHover = this._store.add(getBaseLayerHoverDelegate().setupUpdatableHover(hoverDelegate, this.element, title));
             }
-            else {
+            else if (this.customHover) {
                 this.customHover.update(title);
             }
         }
@@ -207,14 +211,17 @@ export class ActionViewItem extends BaseActionViewItem {
     }
     render(container) {
         super.render(container);
-        if (this.element) {
-            this.label = append(this.element, $('a.action-label'));
-        }
-        if (this.label) {
-            this.label.setAttribute('role', this.getDefaultAriaRole());
-        }
-        if (this.options.label && this.options.keybinding && this.element) {
-            append(this.element, $('span.keybinding')).textContent = this.options.keybinding;
+        types.assertType(this.element);
+        const label = document.createElement('a');
+        label.classList.add('action-label');
+        label.setAttribute('role', this.getDefaultAriaRole());
+        this.label = label;
+        this.element.appendChild(label);
+        if (this.options.label && this.options.keybinding) {
+            const kbLabel = document.createElement('span');
+            kbLabel.classList.add('keybinding');
+            kbLabel.textContent = this.options.keybinding;
+            this.element.appendChild(kbLabel);
         }
         this.updateClass();
         this.updateLabel();
@@ -277,7 +284,7 @@ export class ActionViewItem extends BaseActionViewItem {
             this.label.classList.remove(...this.cssClass.split(' '));
         }
         if (this.options.icon) {
-            this.cssClass = this.action.class;
+            this.cssClass = this.getClass();
             if (this.label) {
                 this.label.classList.add('codicon');
                 if (this.cssClass) {
@@ -323,7 +330,7 @@ export class ActionViewItem extends BaseActionViewItem {
             }
             else {
                 this.label.classList.remove('checked');
-                this.label.setAttribute('aria-checked', '');
+                this.label.removeAttribute('aria-checked');
                 this.label.setAttribute('role', this.getDefaultAriaRole());
             }
         }

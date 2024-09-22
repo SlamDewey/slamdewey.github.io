@@ -11,6 +11,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var ParameterHintsWidget_1;
 import * as dom from '../../../../base/browser/dom.js';
 import * as aria from '../../../../base/browser/ui/aria/aria.js';
 import { DomScrollableElement } from '../../../../base/browser/ui/scrollbar/scrollableElement.js';
@@ -21,7 +22,7 @@ import { escapeRegExpCharacters } from '../../../../base/common/strings.js';
 import { assertIsDefined } from '../../../../base/common/types.js';
 import './parameterHints.css';
 import { ILanguageService } from '../../../common/languages/language.js';
-import { MarkdownRenderer } from '../../markdownRenderer/browser/markdownRenderer.js';
+import { MarkdownRenderer } from '../../../browser/widget/markdownRenderer/browser/markdownRenderer.js';
 import { Context } from './provideSignatureHelp.js';
 import * as nls from '../../../../nls.js';
 import { IContextKeyService } from '../../../../platform/contextkey/common/contextkey.js';
@@ -29,14 +30,17 @@ import { IOpenerService } from '../../../../platform/opener/common/opener.js';
 import { listHighlightForeground, registerColor } from '../../../../platform/theme/common/colorRegistry.js';
 import { registerIcon } from '../../../../platform/theme/common/iconRegistry.js';
 import { ThemeIcon } from '../../../../base/common/themables.js';
+import { StopWatch } from '../../../../base/common/stopwatch.js';
+import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry.js';
 const $ = dom.$;
 const parameterHintsNextIcon = registerIcon('parameter-hints-next', Codicon.chevronDown, nls.localize('parameterHintsNextIcon', 'Icon for show next parameter hint.'));
 const parameterHintsPreviousIcon = registerIcon('parameter-hints-previous', Codicon.chevronUp, nls.localize('parameterHintsPreviousIcon', 'Icon for show previous parameter hint.'));
-export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable {
-    constructor(editor, model, contextKeyService, openerService, languageService) {
+let ParameterHintsWidget = ParameterHintsWidget_1 = class ParameterHintsWidget extends Disposable {
+    constructor(editor, model, contextKeyService, openerService, languageService, telemetryService) {
         super();
         this.editor = editor;
         this.model = model;
+        this.telemetryService = telemetryService;
         this.renderDisposeables = this._register(new DisposableStore());
         this.visible = false;
         this.announcedLabel = null;
@@ -89,14 +93,12 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
             if (!this.domNodes) {
                 return;
             }
-            const fontInfo = this.editor.getOption(48 /* EditorOption.fontInfo */);
+            const fontInfo = this.editor.getOption(50 /* EditorOption.fontInfo */);
             this.domNodes.element.style.fontSize = `${fontInfo.fontSize}px`;
             this.domNodes.element.style.lineHeight = `${fontInfo.lineHeight / fontInfo.fontSize}`;
         };
         updateFont();
-        this._register(Event.chain(this.editor.onDidChangeConfiguration.bind(this.editor))
-            .filter(e => e.hasChanged(48 /* EditorOption.fontInfo */))
-            .on(updateFont, null));
+        this._register(Event.chain(this.editor.onDidChangeConfiguration.bind(this.editor), $ => $.filter(e => e.hasChanged(50 /* EditorOption.fontInfo */)))(updateFont));
         this._register(this.editor.onDidLayoutChange(e => this.updateMaxHeight()));
         this.updateMaxHeight();
     }
@@ -152,7 +154,7 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
             return;
         }
         const code = dom.append(this.domNodes.signature, $('.code'));
-        const fontInfo = this.editor.getOption(48 /* EditorOption.fontInfo */);
+        const fontInfo = this.editor.getOption(50 /* EditorOption.fontInfo */);
         code.style.fontSize = `${fontInfo.fontSize}px`;
         code.style.fontFamily = fontInfo.fontFamily;
         const hasParameters = signature.parameters.length > 0;
@@ -217,6 +219,7 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
         this.domNodes.scrollbar.scanDomNode();
     }
     renderMarkdownDocs(markdown) {
+        const stopWatch = new StopWatch();
         const renderedContents = this.renderDisposeables.add(this.markdownRenderer.render(markdown, {
             asyncRenderCallback: () => {
                 var _a;
@@ -224,6 +227,12 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
             }
         }));
         renderedContents.element.classList.add('markdown-docs');
+        const renderDuration = stopWatch.elapsed();
+        if (renderDuration > 300) {
+            this.telemetryService.publicLog2('parameterHints.parseMarkdown', {
+                renderDuration
+            });
+        }
         return renderedContents;
     }
     hasDocs(signature, activeParameter) {
@@ -287,7 +296,7 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
         return this.domNodes.element;
     }
     getId() {
-        return ParameterHintsWidget.ID;
+        return ParameterHintsWidget_1.ID;
     }
     updateMaxHeight() {
         if (!this.domNodes) {
@@ -303,9 +312,11 @@ export let ParameterHintsWidget = class ParameterHintsWidget extends Disposable 
     }
 };
 ParameterHintsWidget.ID = 'editor.widget.parameterHintsWidget';
-ParameterHintsWidget = __decorate([
+ParameterHintsWidget = ParameterHintsWidget_1 = __decorate([
     __param(2, IContextKeyService),
     __param(3, IOpenerService),
-    __param(4, ILanguageService)
+    __param(4, ILanguageService),
+    __param(5, ITelemetryService)
 ], ParameterHintsWidget);
+export { ParameterHintsWidget };
 registerColor('editorHoverWidget.highlightForeground', { dark: listHighlightForeground, light: listHighlightForeground, hcDark: listHighlightForeground, hcLight: listHighlightForeground }, nls.localize('editorHoverWidgetHighlightForeground', 'Foreground color of the active item in the parameter hint.'));

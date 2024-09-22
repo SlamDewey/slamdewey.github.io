@@ -1,11 +1,11 @@
-"use strict";
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Version: 0.40.0(83b3cf23ca80c94cccca7c5b3e48351b220f8e35)
+ * Version: 0.50.0(c321d0fbecb50ab8a5365fa1965476b0ae63fc87)
  * Released under the MIT license
  * https://github.com/microsoft/monaco-editor/blob/main/LICENSE.txt
  *-----------------------------------------------------------------------------*/
 define("vs/basic-languages/tcl/tcl", ["require"],(require)=>{
+"use strict";
 var moduleExports = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -186,6 +186,7 @@ var moduleExports = (() => {
     variables: /(?:\$+(?:(?:\:\:?)?[a-zA-Z_]\w*)+)/,
     tokenizer: {
       root: [
+        // identifiers and keywords
         [
           /[a-zA-Z_]\w*/,
           {
@@ -201,15 +202,20 @@ var moduleExports = (() => {
           }
         ],
         [/\s+\-+(?!\d|\.)\w*|{\*}/, "metatag"],
+        // whitespace
         { include: "@whitespace" },
+        // delimiters and operators
         [/[{}()\[\]]/, "@brackets"],
         [/@symbols/, "operator"],
         [/\$+(?:\:\:)?\{/, { token: "identifier", next: "@nestedVariable" }],
         [/@variables/, "type.identifier"],
         [/\.(?!\d|\.)[\w\-]*/, "operator.sql"],
+        // numbers
         [/\d+(\.\d+)?/, "number"],
         [/\d+/, "number"],
+        // delimiter
         [/;/, "delimiter"],
+        // strings
         [/"/, { token: "string.quote", bracket: "@open", next: "@dstring" }],
         [/'/, { token: "string.quote", bracket: "@open", next: "@sstring" }]
       ],
