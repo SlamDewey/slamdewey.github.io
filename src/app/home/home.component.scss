@@ -1,8 +1,7 @@
 $color-white: white;
 $color-black: black;
 
-.home-component-container {
-  z-index: 1;
+.home {
   color: $color-white;
   display: flex;
   flex-direction: column;
@@ -11,13 +10,13 @@ $color-black: black;
   margin: auto;
 }
 
-.header-text {
+.home__greeting-message--big {
   z-index: 1;
   font-size: 15rem;
   margin-top: 20vh;
 }
 
-.secondary-text {
+.home__greeting-message--small {
   z-index: 1;
   font-size: 40px;
   margin-top: 5vh;

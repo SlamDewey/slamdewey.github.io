@@ -1,14 +1,14 @@
 <backdrop [backdrop]="bgAnimation"></backdrop>
 
-<div class="projects-component-container">
-  <div class="project-gallery-container">
-    <div class="project-gallery">
-      <x-backdrop-tile
-        [backdrop]="fragmentWriterTileBackdrop"
-        [routerLink]="'fragmentwriter'"
-        [linkText]="'Web Based GLSL Shader Editor'"
-      ></x-backdrop-tile>
-    </div>
+<div class="projects">
+  <!-- <div class="projects__gallery"> -->
+  <div class="projects__gallery">
+    <x-backdrop-tile
+      [backdrop]="fragmentWriterTileBackdrop"
+      [routerLink]="'fragmentwriter'"
+      [linkText]="'Web Based GLSL Shader Editor'"
+    ></x-backdrop-tile>
   </div>
+  <!-- </div> -->
 </div>
 <router-outlet></router-outlet>
