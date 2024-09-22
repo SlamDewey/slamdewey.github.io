@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, Event } from '@angular/router';
 import { routes } from '../app.routes';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class FaviconService implements OnDestroy {
 
   constructor(readonly router: Router) {
     this.routerSubscription = router.events.subscribe({
-      next: (e) => this.onRoute(e),
+      next: (e: Event) => this.onRoute(e),
     });
     this.faviconLinkElement = document.getElementById(faviconLinkId) as HTMLLinkElement;
   }
@@ -23,9 +23,10 @@ export class FaviconService implements OnDestroy {
     this.routerSubscription?.unsubscribe();
   }
 
-  private onRoute(e: any): void {
+  private onRoute(e: Event): void {
     if (e instanceof NavigationEnd) {
-      const route = routes.find((route) => '/' + route.path === e.url);
+      const navEnd = e as NavigationEnd;
+      const route = routes.find((route) => '/' + route.path === navEnd.url);
       if (route?.faviconPath) {
         this.setFavicon('assets/' + route.faviconPath);
       }

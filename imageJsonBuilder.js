@@ -1,10 +1,10 @@
-const fs = require("fs");
-const { exit } = require("process");
-var images = require("./src/app/images.json");
+const fs = require('fs');
+const { exit } = require('process');
+var images = require('./src/app/images.json');
 
 // does images.json exist?
 if (images === undefined) {
-  console.error("images.json not found");
+  console.error('images.json not found');
   exit(1);
 }
 
@@ -17,16 +17,14 @@ newImagesJson.img = {};
 var newlyFoundImages = [];
 
 images.directories.forEach((folder) => {
-  var srcFilenames = fs.readdirSync("./src/assets/img/" + folder + "/");
-  var placeholderFilenames = fs.readdirSync(
-    "./src/assets/placeholder/" + folder + "/",
-  );
+  var srcFilenames = fs.readdirSync('./src/assets/img/' + folder + '/');
+  var placeholderFilenames = fs.readdirSync('./src/assets/placeholder/' + folder + '/');
   // create empty image sets
   var imageSet = [];
 
   // loop through all images in folder
   srcFilenames.forEach((filename) => {
-    const relativeFilePath = folder + "/" + filename;
+    const relativeFilePath = folder + '/' + filename;
     imgEntry = undefined;
 
     // check if folder was already known:
@@ -44,63 +42,51 @@ images.directories.forEach((folder) => {
 
     // if the entry did not exist in previous json file
     if (imgEntry === undefined) {
-      let lastModified = fs.statSync(
-        "./src/assets/img/" + relativeFilePath,
-        undefined,
-      ).mtime;
+      let lastModified = fs.statSync('./src/assets/img/' + relativeFilePath, undefined).mtime;
 
       // create new entry data
       imgEntry = {
         img_src: images.img_path + relativeFilePath,
         placeholder_src: undefined,
-        title: "",
-        caption: "",
+        title: '',
+        caption: '',
         lastModified,
       };
       newlyFoundImages.push(relativeFilePath);
     }
 
     var matchingPlaceholderFilename = placeholderFilenames.find((val) => {
-      return val.startsWith(filename.substring(0, filename.indexOf(".")));
+      return val.startsWith(filename.substring(0, filename.indexOf('.')));
     });
-    imgEntry.placeholder_src =
-      images.placeholder_path + folder + "/" + matchingPlaceholderFilename;
+    imgEntry.placeholder_src = images.placeholder_path + folder + '/' + matchingPlaceholderFilename;
     console.log(imgEntry.placeholder_src);
     // add file to imageSet
     imageSet.push(imgEntry);
   });
 
   // sort files by date (most recent first)
-  imageSet = imageSet.sort((a, b) =>
-    new Date(a.lastModified) < new Date(b.lastModified) ? 1 : -1,
-  );
+  imageSet = imageSet.sort((a, b) => (new Date(a.lastModified) < new Date(b.lastModified) ? 1 : -1));
 
   newImagesJson.img[folder] = imageSet;
 });
 
-fs.writeFileSync(
-  "./src/app/images.json",
-  JSON.stringify(newImagesJson),
-  (err) => {
-    if (err) console.error(err);
-  },
-);
+fs.writeFileSync('./src/app/images.json', JSON.stringify(newImagesJson), (err) => {
+  if (err) console.error(err);
+});
 if (newlyFoundImages.length > 0) {
-  console.log("Added the following new images:");
+  console.log('Added the following new images:');
   newlyFoundImages.forEach((fileName) => {
-    console.log("\t" + fileName);
+    console.log('\t' + fileName);
   });
 }
 
-console.log("Successfully updated images.json");
+console.log('Successfully updated images.json');
 var totalImageCount = 0;
 
 for (const [folder, images] of Object.entries(newImagesJson.img)) {
   var imageCountInFolder = images.length;
-  console.log("\t" + folder + ": " + imageCountInFolder + " images");
+  console.log('\t' + folder + ': ' + imageCountInFolder + ' images');
   totalImageCount += imageCountInFolder;
 }
 
-console.log(
-  "images.json now tracks a total of " + totalImageCount + " images.",
-);
+console.log('images.json now tracks a total of ' + totalImageCount + ' images.');
