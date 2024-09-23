@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start:dev": "ng serve --watch --configuration=development",
-    "build": "ng build",
     "test": "ng test",
-    "deploy": "ng deploy",
-    "lint": "eslint --fix"
+    "build": "ng build",
+    "start:dev": "ng serve --watch --configuration=development",
+    "lint": "eslint --fix",
+    "deploy": "ng deploy"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +31,7 @@
     "@angular/build": "^18.0.7",
     "@angular/cli": "~18.0.7",
     "@angular/compiler-cli": "^18.0.6",
+    "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.11.0",
     "@types/jasmine": "~4.0.0",
     "angular-cli-ghpages": "^2.0.1",

@@ -25,7 +25,7 @@ images.directories.forEach((folder) => {
   // loop through all images in folder
   srcFilenames.forEach((filename) => {
     const relativeFilePath = folder + '/' + filename;
-    imgEntry = undefined;
+    var imgEntry = images.img[folder]?.find((existingImgEntry) => existingImgEntry.fileName === filename);
 
     // check if folder was already known:
     if (images.img[folder] !== undefined) {
