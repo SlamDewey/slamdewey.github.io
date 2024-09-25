@@ -13,6 +13,10 @@ src/assets
 npm-debug.log
 yarn-error.log
 
+# Angular
+.angular/
+/.angular/cache
+
 # IDEs and editors
 .idea/
 .project
@@ -29,8 +33,6 @@ yarn-error.log
 
 # Miscellaneous
 images.json
-.angular/
-/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
