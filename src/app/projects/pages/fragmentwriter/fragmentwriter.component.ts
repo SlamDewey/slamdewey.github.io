@@ -9,6 +9,7 @@ import {
 } from 'src/app/components/dropdown-link-selector/dropdown-link-selector.component';
 import { MonacoOptions } from 'src/app/types/fragment-writer';
 import { EditorComponent, NgxEditorModel } from 'ngx-monaco-editor-v2';
+import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skeleton-loader.component';
 
 const initialModel: NgxEditorModel = {
   code: SHADER_HEADER + UNIFORM_DEFS + DEFAULT_SHADER_PROGRAMS[0].fragmentShader,
@@ -31,12 +32,11 @@ export const defaultMonacoOptions: MonacoOptions = {
   styleUrls: ['./fragmentwriter.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [BackdropComponent, DropdownLinkSelectorComponent, EditorComponent],
+  imports: [SkeletonLoaderComponent, BackdropComponent, DropdownLinkSelectorComponent, EditorComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
 export class FragmentwriterComponent implements AfterViewInit {
   public bgAnimation = new ReactiveWebGLBackground();
-  public shouldHide: boolean = false;
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
   public defaultShaderLinks: DropdownLinkData[] = DEFAULT_SHADER_PROGRAMS.map((p) => {
     return {

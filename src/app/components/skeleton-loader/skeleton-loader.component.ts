@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'x-skeleton-loader',
@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
 })
-export class SkeletonLoaderComponent {}
+export class SkeletonLoaderComponent {
+  public loadingMessage = input<string>('');
+}

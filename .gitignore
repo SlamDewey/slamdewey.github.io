@@ -3,6 +3,7 @@ src/assets
 
 # Compiled output
 /dist
+/docs
 /tmp
 /out-tsc
 /bazel-out
@@ -27,6 +28,7 @@ yarn-error.log
 .history/
 
 # Miscellaneous
+images.json
 .angular/
 /.angular/cache
 .sass-cache/

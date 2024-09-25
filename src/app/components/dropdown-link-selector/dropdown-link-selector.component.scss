@@ -6,17 +6,17 @@ $color-black: black;
 .dropdown {
   position: relative;
   display: inline-block;
-  z-index: 1;
+  z-index: 6; // monaco editor has a z-index of 5!?
 
   &:hover .dropdown-content {
     display: block;
-    transition: all .45s;
+    transition: all 0.45s;
   }
 
   &:hover .dropdown-body {
     background-color: var(--highlight-color);
     color: var(--secondary-color);
-    transition: all .2s;
+    transition: all 0.2s;
   }
 
   & .dropdown-body {
@@ -25,7 +25,7 @@ $color-black: black;
     font-size: 2rem;
     border: none;
     cursor: pointer;
-    transition: all .45s;
+    transition: all 0.45s;
   }
 
   & .dropdown-content {
@@ -43,12 +43,12 @@ $color-black: black;
       flex-direction: column;
       text-decoration: none;
       display: flex;
-      transition: all .2s;
+      transition: all 0.2s;
 
       &:hover {
         color: var(--tertiary-color);
         background-color: $color-white;
-        transition: all .2s;
+        transition: all 0.2s;
       }
     }
   }
