@@ -12,7 +12,7 @@ import { EditorComponent, NgxEditorModel } from 'ngx-monaco-editor-v2';
 import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skeleton-loader.component';
 
 const initialModel: NgxEditorModel = {
-  code: SHADER_HEADER + UNIFORM_DEFS + DEFAULT_SHADER_PROGRAMS[0].fragmentShader,
+  value: SHADER_HEADER + UNIFORM_DEFS + DEFAULT_SHADER_PROGRAMS[0].fragmentShader,
   language: 'glsl',
   uri: '',
 };
@@ -58,7 +58,7 @@ export class FragmentwriterComponent implements AfterViewInit {
   private readonly zone = inject(NgZone);
 
   public tryShaderUpdate(): void {
-    this.bgAnimation.fragmentShaderOverride = this.options.model?.code;
+    this.bgAnimation.fragmentShaderOverride = this.options.model?.value;
     try {
       this.bgAnimation.attemptRecompileAndReinitialize();
     } catch (e) {
@@ -85,8 +85,8 @@ export class FragmentwriterComponent implements AfterViewInit {
       this.bgAnimation.fragmentShaderOverride = undefined;
       if (shaderProgram) {
         this.bgAnimation.shaderProgramData = shaderProgram;
-        this.options.model!.code = this.bgAnimation.getFragmentShader();
-        this.monacoEditorInstance?.setValue(this.options.model?.code);
+        this.options.model!.value = this.bgAnimation.getFragmentShader();
+        this.monacoEditorInstance?.setValue(this.options.model?.value);
         this.tryShaderUpdate();
       }
     });
@@ -99,12 +99,12 @@ export class FragmentwriterComponent implements AfterViewInit {
     };
   }) {
     this.monacoEditorInstance = editor;
-    this.monacoEditorInstance.setValue(this.options.model!.code);
+    this.monacoEditorInstance.setValue(this.options.model!.value);
     this.monacoEditorInstance.onDidChangeModelContent(() => {
       const value = this.monacoEditorInstance.getValue();
       // value is not propagated to parent when executing outside zone.
       this.zone.run(() => {
-        this.options.model!.code = value;
+        this.options.model!.value = value;
       });
     });
     this.tryShaderUpdate();
