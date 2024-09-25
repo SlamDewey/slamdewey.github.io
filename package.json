@@ -4,8 +4,12 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
-    "build": "ng build",
+    "build:dev": "ng build --configuration=development",
+    "build:prod": "ng build --configuration=production",
+    "prestart:dev": "npm i && npm build:dev",
+    "prestart:prod": "npm i && npm build:prod",
     "start:dev": "ng serve --watch --configuration=development",
+    "start:prod": "ng serve --watch --configuration=production",
     "lint": "eslint --fix",
     "deploy": "ng deploy"
   },

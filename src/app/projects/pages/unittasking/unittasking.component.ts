@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'x-unittasking',
@@ -6,8 +6,4 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./unittasking.component.scss'],
   standalone: true,
 })
-export class UnitTaskingComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class UnitTaskingComponent {}
