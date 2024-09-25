@@ -1,19 +1,24 @@
-<div class="component-container">
-  <div class="content-container">
-    <div class="editor-container">
+<div class="fragmentwriter">
+  <div class="fragmentwriter__ide">
+    <div class="fragmentwriter__ide__editor">
+      @defer {
       <ngx-monaco-editor
-        class="editor"
+        class="fragmentwriter__ide__editor__monaco"
         [insideNg]="true"
         [options]="options"
         [model]="options.model!"
         (onInit)="onMonacoInit($event)"
       ></ngx-monaco-editor>
-      <div class="editor-controls">
+      } @placeholder {
+      <div class="fragmentwriter__ide__editor__monaco">
+        <x-skeleton-loader [loadingMessage]="'Loading Monaco Editor...'"></x-skeleton-loader>
+      </div>
+      }
+      <div class="fragmentwriter__ide__editor__controls">
         <div class="control button" (click)="tryShaderUpdate()">
           <h1>Run</h1>
           <i>Ctrl + S</i>
         </div>
-        <div class="control"></div>
         <div class="control">
           <x-dropdown-link-selector
             [dropdownText]="'Load Example Shader'"
@@ -22,10 +27,14 @@
         </div>
       </div>
     </div>
-    <div class="canvas-container">
-      <backdrop class="canvas" [backdrop]="bgAnimation" [isServingAsBackdrop]="false"></backdrop>
+    <div class="fragmentwriter__ide__canvas">
+      <backdrop
+        class="fragmentwriter__ide__canvas__backdrop"
+        [backdrop]="bgAnimation"
+        [isServingAsBackdrop]="false"
+      ></backdrop>
       @if(compilationErrors) {
-      <div class="compilation-errors">
+      <div class="fragmentwriter__ide__canvas__overlay">
         <h3>A compilation error has occurred!</h3>
         <br />
         <h3>{{ compilationErrors }}</h3>

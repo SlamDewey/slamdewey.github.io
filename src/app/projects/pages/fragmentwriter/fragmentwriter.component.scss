@@ -3,18 +3,20 @@
 $color-white: white;
 $color-black: black;
 
-.component-container {
+.fragmentwriter {
   color: $color-white;
-  display: flex;
   margin-left: auto;
   margin-right: auto;
   margin-top: 2.5vh;
-  justify-content: center;
+
+  display: flex;
+  justify-content: space-evenly;
+
   width: 85%;
   height: 95vh;
 }
 
-.content-container {
+.fragmentwriter__ide {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -26,9 +28,13 @@ $color-black: black;
   }
 }
 
-.editor-container {
+.fragmentwriter__ide__editor {
   width: 50%;
   height: 100%;
+  justify-content: space-evenly;
+  display: flex;
+
+  flex-direction: column;
 
   @media only screen and (max-width: 1200px) {
     height: 50%;
@@ -36,87 +42,83 @@ $color-black: black;
   }
 }
 
-.editor-container {
-  & .editor {
-    width: 100%;
-    height: 82.5%;
-    padding: none;
-  }
+.fragmentwriter__ide__editor__monaco {
+  width: 100%;
+  height: 82.5%;
+  padding: none;
+}
 
-  & .editor-controls {
+.fragmentwriter__ide__editor__controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 15%;
+
+  & .control {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 15%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--highlight-color);
+    flex-grow: 1;
+  }
 
-    & .control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: var(--highlight-color);
-      flex-grow: 1;
+  & .button {
+    background-color: rgb(31, 31, 31);
+    border-width: 1rem;
+    border-style: outset;
+    border-color: rgb(34, 34, 34);
+    border-radius: 0.25rem;
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+
+    &:active {
+      border-style: inset;
     }
 
-    & .button {
-      background-color: rgb(31, 31, 31);
-      border-width: 1rem;
-      border-style: outset;
-      border-color: rgb(34, 34, 34);
-      border-radius: 0.25rem;
-      flex-direction: column;
-      justify-content: center;
-      display: flex;
-      cursor: pointer;
-      user-select: none;
-
-      &:active {
-        border-style: inset;
-      }
-
-      & h1 {
-        margin: 0;
-        font-size: 2rem;
-      }
+    & h1 {
+      margin: 0;
+      font-size: 2rem;
     }
   }
 }
 
-.canvas-container {
+.fragmentwriter__ide__canvas {
   width: 50%;
   height: 100%;
-
-  @media only screen and (max-width: 1200px) {
-    height: 50%;
-    width: 100%;
-  }
-}
-
-.canvas-container {
   position: relative;
   display: flex;
   justify-content: center;
 
-  & .canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-
-  & .compilation-errors {
-    position: absolute;
+  @media only screen and (max-width: 1200px) {
+    height: 50%;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
 
-    & h3 {
-      white-space: pre-line;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: 100;
-      font-size: 1rem;
-      margin: 1rem;
-    }
+.fragmentwriter__ide__canvas__backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.fragmentwriter__ide__canvas__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  & h3 {
+    white-space: pre-line;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 100;
+    font-size: 1rem;
+    margin: 1rem;
   }
 }
