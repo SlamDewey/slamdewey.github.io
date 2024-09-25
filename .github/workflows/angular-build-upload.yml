@@ -38,17 +38,11 @@ jobs:
 
       - name: Build
         run: npm run build:prod
-        
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./docs
-          destination: ./_site
-      - name: Upload artifact
+
+      - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.2.1-node20
+        with:
+          path: docs
 
   # Deployment job
   deploy:
