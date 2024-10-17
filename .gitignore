@@ -31,7 +31,6 @@ yarn-error.log
 .history/
 
 # Miscellaneous
-images.json
 .sass-cache/
 /connect.lock
 /coverage
