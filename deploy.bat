@@ -1,3 +1,7 @@
+:: Gh-Pages is reading the static files from the docs/ folder in this repo and
+:: serving this at https://slamdewey.github.io/
+:: This .bat file serves as a script to create, commit, and push new build artifact.
+
 @echo off
 echo Building project...
 call npm run build:prod
@@ -8,7 +12,7 @@ type "%CD%\docs\index.html" >> "%CD%\docs\404.html"
 
 echo Staging Commits...
 call git add docs/*
-call git commit -m "rebuilding"
+call git commit -m "build (auto-rebuild): deploy.bat is creating this new build artifact"
 echo Pushing...
 call git push
 echo Manual Deploy Succesful
