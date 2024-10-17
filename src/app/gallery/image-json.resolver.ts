@@ -1,5 +1,5 @@
 import { Resolve } from '@angular/router';
-import { ImageJson } from '../types/gallery';
+import { ImageJson } from '../shapes/gallery';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, of } from 'rxjs';

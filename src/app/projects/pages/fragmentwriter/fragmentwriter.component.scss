@@ -14,21 +14,14 @@ $color-black: black;
 
   width: 85%;
   height: 95vh;
-}
-
-.fragmentwriter__ide {
-  display: flex;
   flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
 
   @media only screen and (max-width: 1200px) {
     flex-direction: column;
   }
 }
 
-.fragmentwriter__ide__editor {
+.fragmentwriter__editor {
   width: 50%;
   height: 100%;
   justify-content: space-evenly;
@@ -42,13 +35,13 @@ $color-black: black;
   }
 }
 
-.fragmentwriter__ide__editor__monaco {
+.fragmentwriter__editor__monaco {
   width: 100%;
   height: 82.5%;
   padding: none;
 }
 
-.fragmentwriter__ide__editor__controls {
+.fragmentwriter__editor__controls {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -87,7 +80,7 @@ $color-black: black;
   }
 }
 
-.fragmentwriter__ide__canvas {
+.fragmentwriter__canvas {
   width: 50%;
   height: 100%;
   position: relative;
@@ -100,7 +93,7 @@ $color-black: black;
   }
 }
 
-.fragmentwriter__ide__canvas__backdrop {
+.fragmentwriter__canvas__backdrop {
   position: absolute;
   top: 0;
   left: 0;
@@ -108,7 +101,7 @@ $color-black: black;
   right: 0;
 }
 
-.fragmentwriter__ide__canvas__overlay {
+.fragmentwriter__canvas__overlay {
   position: absolute;
   width: 100%;
   height: 100%;

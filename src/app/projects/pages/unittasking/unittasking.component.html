@@ -1,1 +1,13 @@
-<p>unittasking works!</p>
+<div class="unittasking">
+  <div class="unittasking__units"></div>
+  <div class="unittasking__canvas">
+    <backdrop class="unittasking__canvas__backdrop" [backdrop]="backdrop" [isServingAsBackdrop]="false"></backdrop>
+    @if(false) {
+    <div class="unittasking__canvas__overlay">
+      <h3>A compilation error has occurred!</h3>
+      <br />
+      <h3>{{ false }}</h3>
+    </div>
+    }
+  </div>
+</div>

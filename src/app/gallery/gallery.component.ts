@@ -9,7 +9,7 @@ import {
   DropdownLinkSelectorComponent,
 } from '../components/dropdown-link-selector/dropdown-link-selector.component';
 import { WalkingNoiseBackdrop } from '../components/backdrop/WalkingNosieBackdrop';
-import { GalleryImageData, GalleryRouteQueryParams, ImageJson } from '../types/gallery';
+import { GalleryImageData, GalleryRouteQueryParams, ImageJson } from '../shapes/gallery';
 import { env } from '../../environments/environment';
 import { BackdropComponent } from '../components/backdrop/backdrop.component';
 import { InfoBannerComponent } from '../components/info-banner/info-banner.component';

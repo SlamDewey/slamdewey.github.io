@@ -1,12 +1,4 @@
-export class Vector2 {
-  public x: number;
-  public y: number;
-
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-}
+import { Vector2 } from 'src/app/shapes/coordinate';
 
 export abstract class Backdrop {
   public contextString(): string {
@@ -22,6 +14,9 @@ export abstract class Backdrop {
   public mouseOffset: Vector2 = new Vector2(0, 0);
   protected lastUpdate: number;
 
+  /**
+   * Final Init Step
+   */
   protected init(): void {}
   protected abstract update(deltaTime: number): void;
   protected abstract draw(deltaTime: number): void;
@@ -30,7 +25,6 @@ export abstract class Backdrop {
 
   public initializeContext(ctx: RenderingContext) {
     this.ctx = ctx as CanvasRenderingContext2D;
-    this.setupListeners();
   }
 
   public setSize(width: number, height: number): void {
@@ -42,23 +36,11 @@ export abstract class Backdrop {
   public reInitialize(): void {
     this.initializeContext(this.ctx);
   }
-
   public initialize(): void {
     this.lastUpdate = Date.now();
     this.init();
     this.isInitialized = true;
     this.clear();
-  }
-
-  protected setupListeners(): void {
-    document.addEventListener('scroll', () => {
-      const deltaOffset = new Vector2(window.scrollX - this.mouseOffset.x, window.scrollY - this.mouseOffset.y);
-      this.mouseOffset.x = window.scrollX;
-      this.mouseOffset.y = window.scrollY;
-
-      this.mousePosition.x += deltaOffset.x;
-      this.mousePosition.y += deltaOffset.y;
-    });
   }
 
   public clear(): void {
@@ -75,7 +57,7 @@ export abstract class Backdrop {
   }
 }
 
-type Uniform = {
+type glUniform = {
   name: string;
   value: () => [number] | [number, number];
   location: WebGLUniformLocation | undefined;
@@ -92,7 +74,7 @@ export abstract class WebGLBackdrop extends Backdrop {
 
   public totalTime = 0;
 
-  private standardUniforms: Uniform[] = [
+  private standardUniforms: glUniform[] = [
     {
       name: 'screenSize',
       value: () => [this.width, this.height],
@@ -167,7 +149,6 @@ void main() {
   public override initializeContext(ctx: RenderingContext): void {
     this.gl = ctx as WebGLRenderingContext;
     this.initWebGL(this.gl);
-    super.setupListeners();
   }
 
   public override reInitialize(): void {
