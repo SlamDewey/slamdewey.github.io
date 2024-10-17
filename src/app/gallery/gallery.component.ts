@@ -9,10 +9,13 @@ import {
   DropdownLinkSelectorComponent,
 } from '../components/dropdown-link-selector/dropdown-link-selector.component';
 import { WalkingNoiseBackdrop } from '../components/backdrop/WalkingNosieBackdrop';
-import { GalleryImageData, GalleryRouteQueryParams, ImageJson } from '../shapes/gallery';
+import { GalleryImageData, GalleryRouteQueryParams, ImagesJson } from '../shapes/gallery';
 import { env } from '../../environments/environment';
 import { BackdropComponent } from '../components/backdrop/backdrop.component';
 import { InfoBannerComponent } from '../components/info-banner/info-banner.component';
+import * as imagesJsonModule from '../../../images.json';
+
+const imagesJson = (imagesJsonModule as any).default as ImagesJson;
 
 @Component({
   selector: 'x-gallery',
@@ -33,7 +36,6 @@ export class GalleryComponent implements OnInit {
 
   public bgAnimation: Backdrop = new WalkingNoiseBackdrop();
 
-  public imageDataJSON: ImageJson;
   public imageFolders: string[];
   public imageFolderLinks: DropdownLinkData[];
   public imageTileDataSet: Map<string, ImageTileData[]>;
@@ -49,26 +51,16 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Gallery');
 
-    this.activatedRoute.data.subscribe({
-      next: ({ imageJson }) => {
-        this.imageDataJSON = imageJson;
-        this.imageFolders = imageJson.directories;
-        this.imageFolderLinks = this.imageFolders.map((f) => {
-          return {
-            text: this.formatFolderName(f),
-            url: '/gallery',
-            queryParams: {
-              folder: f,
-            },
-          };
-        });
-        this.currentImageFolder = this.imageFolders[0];
-        this.parseImageDataSet();
+    this.imageFolders = imagesJson.directories;
+    this.imageFolderLinks = imagesJson.directories.map((f) => ({
+      text: this.formatFolderName(f),
+      url: '/gallery',
+      queryParams: {
+        folder: f,
       },
-      error: (e) => {
-        console.error(e);
-      },
-    });
+    }));
+    this.currentImageFolder = this.imageFolders[0];
+    this.parseImageDataSet();
 
     this.activatedRoute.queryParams.subscribe((params) => {
       const { folder } = params as GalleryRouteQueryParams;
@@ -83,7 +75,7 @@ export class GalleryComponent implements OnInit {
   }
 
   private parseImageDataSet(): void {
-    const imageSet = this.imageDataJSON.img;
+    const imageSet = imagesJson.img;
     const imageTileData = new Map<string, ImageTileData[]>();
 
     this.imageFolders.forEach((folder: string) => {

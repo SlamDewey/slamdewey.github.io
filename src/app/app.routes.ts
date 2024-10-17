@@ -3,7 +3,6 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { FragmentwriterComponent } from './projects/pages/fragmentwriter/fragmentwriter.component';
-import { ImageJsonResolver } from './gallery/image-json.resolver';
 import { UnitTaskingComponent } from './projects/pages/unittasking/unittasking.component';
 
 export type FaviconStorage = {
@@ -20,9 +19,6 @@ export const routes: (Route & FaviconStorage)[] = [
     path: 'gallery',
     component: GalleryComponent,
     faviconPath: 'photo-favicon.ico',
-    resolve: {
-      imageJson: ImageJsonResolver,
-    },
   },
   {
     path: 'projects',
