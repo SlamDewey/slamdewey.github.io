@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, ElementRef, ViewChild, Input, HostListener, OnDestroy } from '@angular/core';
 import { Backdrop } from './backdrop';
+import { Vector2 } from 'src/app/shapes/coordinate';
 
 @Component({
   selector: 'backdrop',
@@ -17,7 +18,7 @@ export class BackdropComponent implements OnDestroy {
 
   public static isWebGlEnabled: boolean;
 
-  public InternalCanvasRenderSize: { X: number; Y: number };
+  public InternalCanvasRenderSize = new Vector2();
 
   private canvasElement: HTMLCanvasElement;
   private ctx: RenderingContext;
@@ -52,6 +53,7 @@ export class BackdropComponent implements OnDestroy {
 
     this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
     this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);
+
     // schedule first animation frame
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
   }
@@ -61,6 +63,19 @@ export class BackdropComponent implements OnDestroy {
     const rect = this.canvasElement.getBoundingClientRect();
     this.backdrop.mousePosition.x = e.clientX - rect.left;
     this.backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(e: Event) {
+    const deltaOffset = new Vector2(
+      window.scrollX - this.backdrop.mouseOffset.x,
+      window.scrollY - this.backdrop.mouseOffset.y
+    );
+    this.backdrop.mouseOffset.x = window.scrollX;
+    this.backdrop.mouseOffset.y = window.scrollY;
+
+    this.backdrop.mousePosition.x += deltaOffset.x;
+    this.backdrop.mousePosition.y += deltaOffset.y;
   }
 
   public renderLoop(): void {
@@ -74,20 +89,19 @@ export class BackdropComponent implements OnDestroy {
 
   private onResize(entries: ResizeObserverEntry[]) {
     if (this.isServingAsBackdrop) {
-      this.InternalCanvasRenderSize = {
-        X: entries[0].target.clientWidth,
-        Y: Math.max(entries[0].target.clientHeight, window.innerHeight),
-      };
+      this.InternalCanvasRenderSize.set([
+        entries[0].target.clientWidth,
+        Math.max(entries[0].target.clientHeight, window.innerHeight),
+      ]);
     } else {
-      this.InternalCanvasRenderSize = {
-        X: entries[0].contentRect.width,
-        Y: entries[0].contentRect.height,
-      };
+      this.InternalCanvasRenderSize.set([entries[0].contentRect.width, entries[0].contentRect.height]);
     }
-    this.ctx.canvas.width = this.InternalCanvasRenderSize.X;
-    this.ctx.canvas.height = this.InternalCanvasRenderSize.Y;
+    [this.ctx.canvas.width, this.ctx.canvas.height] = [
+      this.InternalCanvasRenderSize.x,
+      this.InternalCanvasRenderSize.y,
+    ];
 
-    this.backdrop.setSize(this.InternalCanvasRenderSize.X, this.InternalCanvasRenderSize.Y);
+    this.backdrop.setSize(this.InternalCanvasRenderSize.x, this.InternalCanvasRenderSize.y);
     this.backdrop.initialize();
   }
 }

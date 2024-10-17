@@ -326,27 +326,26 @@ export const MANDELBROT_SET_SHADER: ShaderProgramData = {
   fragmentShader: `
 const int MAX_ITERATIONS = 500;
 const int iterationCountDelta = 10;
-const float o = .000000000001;
 
 /*
-  * input = float [0, 1]
-  * output = rgb color
-  * this is a simple hsv to rgb function for 1 dimensional input
-*/
+ * input = float [0, 1]
+ * output = rgb color
+ * this is a simple hsv to rgb function for 1 dimensional input
+ */
 vec3 colorWheel(float c) {
     vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
     vec3 p = abs(fract(vec3(c + K.x, c + K.y, c + K.z)) * 6.0 - K.www);
     return 1. * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), 1.);
 }
 /*
-  * the mandelbrot set is the set of all complex numbers which stay bounded
-  * (aka they do not fly off to infinity) as you iterate them in the
-  * given function:
-  * Z[n+1] = Z[n]^2 + c
-  * where Z[0] = 0 + 0i
-*/
+ * the mandelbrot set is the set of all complex numbers which stay bounded
+ * (aka they do not fly off to infinity) as you iterate them in the
+ * given function:
+ * Z[n+1] = Z[n]^2 + c
+ * where Z[0] = 0 + 0i
+ */
 vec4 mandelbrotColorizor(vec2 c, int allottedIterations) {
-\t// initial Z = 0 + 0i 
+\t// initial Z = 0 + 0i
 \tvec2 z = vec2(0, 0);
 \t// iterate mandelbrot
 \tfor(int i = 0; i < MAX_ITERATIONS; i++){
@@ -376,7 +375,7 @@ void main() {
 \t// center of the screen
 \tvec2 cuv = gl_FragCoord.xy / screenSize.xy - vec2(.5, .5);
 \t// calc zoom; we are just zooming in forever
-\tfloat zoomScalar = 4. * (1. / pow(totalTime, 3.));
+\tfloat zoomScalar = min(8., (1. / pow(totalTime, 3.)));
 \t// calculate this pixel's input location for mandelbrot
 \tvec2 locationInput = origin + cuv * zoomScalar;
 \t// increase the amount of iterations as time increases, so we can see it
@@ -384,18 +383,9 @@ void main() {
 
 \t// get color for this coord
 \tfragColor = mandelbrotColorizor(locationInput, allottedIterations);
-\t// crude antialiasing ahead, if this runs slow for you then delete these next four lines:
-\tfragColor += mandelbrotColorizor(locationInput + vec2(o, 0.), allottedIterations);
-\tfragColor += mandelbrotColorizor(locationInput + vec2(0., o), allottedIterations);
-\tfragColor += mandelbrotColorizor(locationInput + vec2(o, o), allottedIterations);
-\tfragColor /= 4.;
 }
 
-// Assuming you have now read the shader code, if you are still having trouble
-// understanding what you're looking at here, I can say explicitly:
-// The colored bands represent a graph of how many iterations it takes to remove
-// a given coordinate from the mandelbrot set.
-// In other words, it shows a glimpse of how the mandelbrot set is carved out
+// it shows a glimpse of how the mandelbrot set is carved out
 // from the infinite set of all numbers.
 `,
 };

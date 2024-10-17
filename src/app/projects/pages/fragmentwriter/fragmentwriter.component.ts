@@ -7,7 +7,7 @@ import {
   DropdownLinkData,
   DropdownLinkSelectorComponent,
 } from 'src/app/components/dropdown-link-selector/dropdown-link-selector.component';
-import { MonacoOptions } from 'src/app/types/fragment-writer';
+import { MonacoOptions } from 'src/app/shapes/fragment-writer';
 import { EditorComponent, NgxEditorModel } from 'ngx-monaco-editor-v2';
 import { SkeletonLoaderComponent } from 'src/app/components/skeleton-loader/skeleton-loader.component';
 

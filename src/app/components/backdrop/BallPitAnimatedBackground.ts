@@ -1,4 +1,5 @@
-import { Backdrop, Vector2 } from './backdrop';
+import { Vector2 } from 'src/app/shapes/coordinate';
+import { Backdrop } from './backdrop';
 
 const COLORS = [
   //'#fb8537',
@@ -84,7 +85,7 @@ export class BallPitAnimatedBackground extends Backdrop {
   }
 
   update(deltaTime: number): void {
-    const swappedAxisMousePosition = { x: this.mousePosition.x, y: this.height - this.mousePosition.y };
+    const swappedAxisMousePosition = new Vector2(this.mousePosition.x, this.height - this.mousePosition.y);
     this.circles.forEach((circle) => {
       circle.update(deltaTime, swappedAxisMousePosition);
       if (

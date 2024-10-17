@@ -6,7 +6,7 @@
     "test": "ng test",
     "build:dev": "ng build --configuration=development",
     "build:prod": "ng build --configuration=production",
-    "prestart:dev": "npm i && npm build:dev",
+    "prestart:dev": "npm i",
     "start:dev": "ng serve --watch --configuration=development",
     "serve:prod": "ng serve --watch --configuration=production",
     "lint": "eslint --fix",
@@ -31,12 +31,12 @@
     "zone.js": "0.14.7"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "18.2.7",
     "@angular/build": "^18.0.7",
     "@angular/cli": "~18.0.7",
     "@angular/compiler-cli": "^18.0.6",
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.11.0",
-    "@rollup/rollup-linux-x64-gnu": "4.22.4",
     "@types/jasmine": "~4.0.0",
     "angular-cli-ghpages": "^2.0.1",
     "eslint": "^9.11.0",
