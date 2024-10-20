@@ -25,13 +25,13 @@ export abstract class Coordinate {
   }
 
   public static operate<T extends Coordinate>(
-    a: T,
-    b: T,
+    x0: T,
+    x1: T,
     operator: (x0: number, x1: number) => number,
     type: new (...args: any[]) => T
   ): T {
-    const aCoords = a.toArray();
-    const bCoords = b.toArray();
+    const aCoords = x0.toArray();
+    const bCoords = x1.toArray();
     const result: number[] = [];
     for (let i = 0; i < aCoords.length; i++) {
       result.push(operator(aCoords[i], bCoords[i]));
@@ -58,20 +58,20 @@ export class Vector2 extends Coordinate {
     return this;
   }
 
-  public static plus<T extends Vector2>(a: T, b: T) {
-    return Coordinate.operate(a, b, (a, b) => a + b, Vector2) as T;
+  public static plus<T extends Vector2>(x0: T, x1: T) {
+    return Coordinate.operate(x0, x1, (a, b) => a + b, Vector2) as T;
   }
 
-  public static minus<T extends Vector2>(a: T, b: T) {
-    return Coordinate.operate(a, b, (a, b) => a - b, Vector2) as T;
+  public static minus<T extends Vector2>(x0: T, x1: T) {
+    return Coordinate.operate(x0, x1, (a, b) => a - b, Vector2) as T;
   }
 
-  public static scale<T extends Vector2>(a: T, b: number) {
-    return new Vector2().set([a.x * b, a.y * b]);
+  public static scale<T extends Vector2>(x0: T, scalar: number) {
+    return new Vector2().set([x0.x * scalar, x0.y * scalar]);
   }
 
-  public static times<T extends Vector2>(a: T, b: T) {
-    return Coordinate.operate(a, b, (a, b) => a * b, Vector2) as T;
+  public static times<T extends Vector2>(x0: T, x1: T) {
+    return Coordinate.operate(x0, x1, (a, b) => a * b, Vector2) as T;
   }
 }
 
@@ -94,11 +94,11 @@ export class AxialCoordinate extends Coordinate {
     return this;
   }
 
-  public static plus<T extends AxialCoordinate>(a: T, b: T) {
-    return Coordinate.operate(a, b, (a, b) => a + b, AxialCoordinate) as T;
+  public static plus<T extends AxialCoordinate>(x0: T, x1: T) {
+    return Coordinate.operate(x0, x1, (a, b) => a + b, AxialCoordinate) as T;
   }
 
-  public static minus<T extends AxialCoordinate>(a: T, b: T) {
-    return Coordinate.operate(a, b, (a, b) => a - b, AxialCoordinate) as T;
+  public static minus<T extends AxialCoordinate>(x0: T, x1: T) {
+    return Coordinate.operate(x0, x1, (a, b) => a - b, AxialCoordinate) as T;
   }
 }

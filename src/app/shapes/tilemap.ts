@@ -44,8 +44,8 @@ export class SquareTile implements Tile<Vector2> {
 }
 
 export class HexTile implements Tile<AxialCoordinate> {
-  public static readonly graphicalWidth = 15;
-  public static readonly graphicalHeight = 13;
+  public static readonly graphicalWidth = 20;
+  public static readonly graphicalHeight = Math.floor((this.graphicalWidth * 13) / 15);
   private static readonly tileCenterOffset: Vector2 = new Vector2(
     HexTile.graphicalWidth / 2,
     HexTile.graphicalHeight / 2
@@ -70,9 +70,10 @@ export class HexTile implements Tile<AxialCoordinate> {
   }
 
   public static TileToWorld(coord: AxialCoordinate, getTileCenter: boolean = true) {
+    const middleOfCoord = AxialCoordinate.plus(coord, new AxialCoordinate(0.5, 0.5));
     const pos = new Vector2().set([
-      ((coord.q * HexTile.graphicalWidth) / 2) * (3 / 2),
-      (coord.q * HexTile.graphicalHeight) / 2 + (coord.r + 0.5) * HexTile.graphicalHeight,
+      ((middleOfCoord.q * HexTile.graphicalWidth) / 2) * (3 / 2),
+      (middleOfCoord.q * HexTile.graphicalHeight) / 2 + middleOfCoord.r * HexTile.graphicalHeight,
     ]);
     return getTileCenter ? Vector2.plus(pos, HexTile.tileCenterOffset) : pos;
   }
@@ -101,8 +102,6 @@ export abstract class TileMap<C extends Coordinate> extends EcsRenderableCompone
 }
 
 export class HexTileMap extends TileMap<AxialCoordinate> {
-  private readonly graphicalWidth: number;
-  private readonly graphicalHeight: number;
   private readonly hexTilePolygon: Vector2[];
 
   private tileSet: Set<HexTile>;
@@ -110,8 +109,6 @@ export class HexTileMap extends TileMap<AxialCoordinate> {
 
   constructor(columns: number, columnHeight: number) {
     super(columns, columnHeight);
-    this.graphicalWidth = ((columns * 3 + 1) * HexTile.graphicalWidth) / 4;
-    this.graphicalHeight = (columnHeight * 2 + 1) * (HexTile.graphicalHeight / 2);
     this.hexTilePolygon = this.createHexTilePolygon();
 
     this.tileSet = new Set();

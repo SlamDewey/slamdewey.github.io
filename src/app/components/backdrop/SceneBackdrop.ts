@@ -62,7 +62,7 @@ export class EcsSceneBackdrop extends Backdrop {
     uvGradient.addColorStop(1, 'red');
     for (let x = -dimension; x < dimension; x++) {
       this.ctx.beginPath();
-      this.ctx.strokeStyle = uvGradient;
+      this.ctx.strokeStyle = x == 0 ? 'white' : uvGradient;
       this.ctx.lineWidth = 1;
       this.ctx.moveTo(x * interval, -dimension * interval);
       this.ctx.lineTo(x * interval, dimension * interval);
@@ -71,7 +71,7 @@ export class EcsSceneBackdrop extends Backdrop {
 
     for (let y = -dimension; y < dimension; y++) {
       this.ctx.beginPath();
-      this.ctx.strokeStyle = uvGradient;
+      this.ctx.strokeStyle = y == 0 ? 'white' : uvGradient;
       this.ctx.lineWidth = 1;
       this.ctx.moveTo(-dimension * interval, y * interval);
       this.ctx.lineTo(dimension * interval, y * interval);

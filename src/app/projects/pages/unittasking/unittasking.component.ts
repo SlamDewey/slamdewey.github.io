@@ -46,6 +46,7 @@ export class UnitTaskingComponent implements AfterViewInit {
 
   @HostListener('mousewheel', ['$event'])
   public onSroll(e: WheelEvent) {
+    e.preventDefault();
     this.backdrop.scene.camera?.updateZoom((zoom) => zoom - e.deltaY / ZoomScalar);
   }
 
