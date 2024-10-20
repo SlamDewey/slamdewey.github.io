@@ -41,12 +41,6 @@ export class BackdropComponent implements OnDestroy {
       !!window.WebGLRenderingContext || !!e.getContext('webgl') || !!e.getContext('experimental-webgl');
   }
 
-  ngOnDestroy() {
-    window.cancelAnimationFrame(this.renderInterval);
-    this.backdrop().onDestroy();
-    this.resizeObserver?.disconnect();
-  }
-
   ngAfterViewInit(): void {
     const backdrop = this.backdrop();
     const contextString = backdrop.contextString();
@@ -67,6 +61,12 @@ export class BackdropComponent implements OnDestroy {
 
     // schedule first animation frame
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.cancelAnimationFrame(this.renderInterval);
+    this.backdrop().onDestroy();
+    this.resizeObserver?.disconnect();
   }
 
   @HostListener('document:mousemove', ['$event'])

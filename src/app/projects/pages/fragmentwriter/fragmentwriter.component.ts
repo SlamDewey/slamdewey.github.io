@@ -1,4 +1,12 @@
-import { Component, AfterViewInit, inject, NO_ERRORS_SCHEMA, NgZone, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  inject,
+  NO_ERRORS_SCHEMA,
+  NgZone,
+  ChangeDetectionStrategy,
+  OnDestroy,
+} from '@angular/core';
 import { BackdropComponent } from 'src/app/components/backdrop/backdrop.component';
 import { ReactiveWebGLBackground } from './ReactiveWebGLBackground';
 import { DEFAULT_SHADER_PROGRAMS, SHADER_HEADER, UNIFORM_DEFS } from './shader-programs';
@@ -35,7 +43,7 @@ export const defaultMonacoOptions: MonacoOptions = {
   imports: [SkeletonLoaderComponent, BackdropComponent, DropdownLinkSelectorComponent, EditorComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class FragmentwriterComponent implements AfterViewInit {
+export class FragmentwriterComponent implements AfterViewInit, OnDestroy {
   public bgAnimation = new ReactiveWebGLBackground();
   public isWebGlEnabled: boolean = BackdropComponent.isWebGlEnabled;
   public defaultShaderLinks: DropdownLinkData[] = DEFAULT_SHADER_PROGRAMS.map((p) => {
@@ -91,6 +99,10 @@ export class FragmentwriterComponent implements AfterViewInit {
       }
     });
     window.onkeydown = this.onKeyPress.bind(this);
+  }
+
+  ngOnDestroy() {
+    window.onkeydown = null;
   }
 
   onMonacoInit(editor: {
