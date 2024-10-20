@@ -65,6 +65,14 @@ export class Vector2 extends Coordinate {
   public static minus<T extends Vector2>(a: T, b: T) {
     return Coordinate.operate(a, b, (a, b) => a - b, Vector2) as T;
   }
+
+  public static scale<T extends Vector2>(a: T, b: number) {
+    return new Vector2().set([a.x * b, a.y * b]);
+  }
+
+  public static times<T extends Vector2>(a: T, b: T) {
+    return Coordinate.operate(a, b, (a, b) => a * b, Vector2) as T;
+  }
 }
 
 export class AxialCoordinate extends Coordinate {

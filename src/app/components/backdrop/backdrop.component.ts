@@ -1,4 +1,14 @@
-import { Component, ViewEncapsulation, ElementRef, ViewChild, Input, HostListener, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ViewEncapsulation,
+  ElementRef,
+  ViewChild,
+  Input,
+  HostListener,
+  OnDestroy,
+  output,
+  input,
+} from '@angular/core';
 import { Backdrop } from './backdrop';
 import { Vector2 } from 'src/app/shapes/coordinate';
 
@@ -12,9 +22,9 @@ import { Vector2 } from 'src/app/shapes/coordinate';
 export class BackdropComponent implements OnDestroy {
   @ViewChild('bgCanvas') bgCanvas: ElementRef;
 
-  @Input() backdrop: Backdrop;
-  @Input() shouldPauseAnimation: boolean;
-  @Input() isServingAsBackdrop: boolean = true;
+  backdrop = input.required<Backdrop>();
+  shouldPauseAnimation = input<boolean>(false);
+  isServingAsBackdrop = input<boolean>(true);
 
   public static isWebGlEnabled: boolean;
 
@@ -33,13 +43,14 @@ export class BackdropComponent implements OnDestroy {
 
   ngOnDestroy() {
     window.cancelAnimationFrame(this.renderInterval);
-    this.backdrop.onDestroy();
+    this.backdrop().onDestroy();
     this.resizeObserver?.disconnect();
   }
 
   ngAfterViewInit(): void {
+    const backdrop = this.backdrop();
+    const contextString = backdrop.contextString();
     this.canvasElement = this.bgCanvas.nativeElement;
-    const contextString = this.backdrop.contextString();
 
     const context = this.canvasElement.getContext(contextString);
     if (!context) {
@@ -47,12 +58,12 @@ export class BackdropComponent implements OnDestroy {
     }
     this.ctx = context;
 
-    this.backdrop.initializeContext(this.ctx);
-    this.backdrop.setSize(this.canvasElement.width, this.canvasElement.height);
-    this.backdrop.initialize();
+    backdrop.initializeContext(this.ctx);
+    backdrop.setSize(this.canvasElement.width, this.canvasElement.height);
+    backdrop.initialize();
 
     this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
-    this.resizeObserver.observe(this.isServingAsBackdrop ? document.body : this.canvasElement);
+    this.resizeObserver.observe(this.isServingAsBackdrop() ? document.body : this.canvasElement);
 
     // schedule first animation frame
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
@@ -60,35 +71,36 @@ export class BackdropComponent implements OnDestroy {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
+    const backdrop = this.backdrop();
     const rect = this.canvasElement.getBoundingClientRect();
-    this.backdrop.mousePosition.x = e.clientX - rect.left;
-    this.backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
+    backdrop.mousePosition.x = e.clientX - rect.left;
+    backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
   }
 
   @HostListener('window:scroll', ['$event'])
-  onScroll(e: Event) {
-    const deltaOffset = new Vector2(
-      window.scrollX - this.backdrop.mouseOffset.x,
-      window.scrollY - this.backdrop.mouseOffset.y
-    );
-    this.backdrop.mouseOffset.x = window.scrollX;
-    this.backdrop.mouseOffset.y = window.scrollY;
+  onScroll() {
+    const backdrop = this.backdrop();
+    const deltaOffset = new Vector2(window.scrollX - backdrop.mouseOffset.x, window.scrollY - backdrop.mouseOffset.y);
+    backdrop.mouseOffset.x = window.scrollX;
+    backdrop.mouseOffset.y = window.scrollY;
 
-    this.backdrop.mousePosition.x += deltaOffset.x;
-    this.backdrop.mousePosition.y += deltaOffset.y;
+    backdrop.mousePosition.x += deltaOffset.x;
+    backdrop.mousePosition.y += deltaOffset.y;
   }
 
   public renderLoop(): void {
+    const backdrop = this.backdrop();
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
 
-    if (this.shouldPauseAnimation || !this.backdrop.isInitialized) return;
+    if (this.shouldPauseAnimation() || !backdrop.isInitialized) return;
 
-    this.backdrop.clear();
-    this.backdrop.tick();
+    backdrop.clear();
+    backdrop.tick();
   }
 
   private onResize(entries: ResizeObserverEntry[]) {
-    if (this.isServingAsBackdrop) {
+    const backdrop = this.backdrop();
+    if (this.isServingAsBackdrop()) {
       this.InternalCanvasRenderSize.set([
         entries[0].target.clientWidth,
         Math.max(entries[0].target.clientHeight, window.innerHeight),
@@ -100,8 +112,7 @@ export class BackdropComponent implements OnDestroy {
       this.InternalCanvasRenderSize.x,
       this.InternalCanvasRenderSize.y,
     ];
-
-    this.backdrop.setSize(this.InternalCanvasRenderSize.x, this.InternalCanvasRenderSize.y);
-    this.backdrop.initialize();
+    backdrop.setSize(this.InternalCanvasRenderSize.x, this.InternalCanvasRenderSize.y);
+    backdrop.initialize();
   }
 }

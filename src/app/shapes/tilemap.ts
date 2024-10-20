@@ -2,10 +2,10 @@ import { drawPolygon, FillStyleFn, TileTerrainFillStyles } from '../util/renderi
 import { AxialCoordinate, Coordinate, Vector2 } from './coordinate';
 import { EcsRenderableComponent } from './ecs';
 
-export const ALL_TILE_TERRAINS = ['void', 'test'] as const;
+export const ALL_TILE_TERRAINS = ['void', 'test', 'ocean', 'ocean_shelf', 'shore', 'grass'] as const;
 export type TileTerrain = (typeof ALL_TILE_TERRAINS)[number];
 
-export const ALL_TILE_FEATURES = ['none', 'rock'];
+export const ALL_TILE_FEATURES = ['none', 'hill'];
 export type TileFeature = (typeof ALL_TILE_FEATURES)[number];
 
 export interface Tile<C extends Coordinate> {
@@ -107,7 +107,6 @@ export class HexTileMap extends TileMap<AxialCoordinate> {
 
   private tileSet: Set<HexTile>;
   private tileLookupByCoordinateHash: Map<number, HexTile>;
-  private mapImageData: ImageData | undefined;
 
   constructor(columns: number, columnHeight: number) {
     super(columns, columnHeight);
@@ -128,7 +127,6 @@ export class HexTileMap extends TileMap<AxialCoordinate> {
     this.tileSet?.forEach((tile) => {
       this.tileLookupByCoordinateHash.set(tile.position.getHashCode(), tile);
     });
-    this.mapImageData = undefined;
   }
 
   getTileAt(coordinate: AxialCoordinate): HexTile | undefined {
@@ -148,22 +146,13 @@ export class HexTileMap extends TileMap<AxialCoordinate> {
     return points;
   }
 
-  private redrawMap(ctx: CanvasRenderingContext2D) {
-    this.tileSet.forEach((tile: HexTile) => {
-      const fillStyleFn = TileTerrainFillStyles.get(tile.terrainType)!;
-      // draw tile
-      drawPolygon(ctx, this.hexTilePolygon, fillStyleFn(ctx), HexTile.TileToWorld(tile.position, true));
-      // draw feature
-      // ?
-    });
-    this.mapImageData = ctx.getImageData(0, 0, this.graphicalWidth, this.graphicalHeight, {});
-  }
-
   public render(ctx: CanvasRenderingContext2D): void {
-    if (!this.mapImageData) {
-      this.redrawMap(ctx);
-    }
-    const position = this.transform?.position || new Vector2();
-    ctx.putImageData(this.mapImageData!, position.x, position.y);
+    this.tileSet.forEach((tile: HexTile) => {
+      const fillStyleFn: FillStyleFn = TileTerrainFillStyles.get(tile.terrainType)!;
+      const fillStyle = fillStyleFn(ctx);
+      const position = HexTile.TileToWorld(tile.position, true);
+      drawPolygon(ctx, this.hexTilePolygon, fillStyle, position);
+      // draw feature?
+    });
   }
 }
