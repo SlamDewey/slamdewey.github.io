@@ -5,8 +5,8 @@
 @echo off
 call npm run build:prod
 
-:: we need to create this 404.html for ghpages to work with angular router
-echo Duplicating index.html into 404.html
+:: gh-pages & angular router = lots of 404's.
+:: easiest (and recommended) fix is to duplicate index into 404
 type "%CD%\docs\index.html" >> "%CD%\docs\404.html"
 
 call git add docs/*
