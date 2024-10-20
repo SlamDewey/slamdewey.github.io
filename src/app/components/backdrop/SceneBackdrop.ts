@@ -6,39 +6,26 @@ import { EcsCamera, EcsEntity, EcsScene } from 'src/app/shapes/ecs';
 
 class Canvas2DEcsScene extends EcsScene<CanvasRenderingContext2D> {
   public override render(ctx: CanvasRenderingContext2D): void {
+    const cameraTransform = ctx.getTransform();
+    ctx.save();
     this.renderables.forEach((c) => {
-      ctx.save();
-      if (c.transform) {
-        ctx.setTransform(c.transform.getTransformationMatrix());
-        // TODO: what is going on with the way the tilemap renders?
-      }
+      const componentTransform = c.transform?.getTransformationMatrix() ?? new DOMMatrix();
+      ctx.setTransform(cameraTransform.multiply(componentTransform));
       c.render(ctx);
       ctx.restore();
     });
   }
 }
 
-export class MapAndUnitBackdrop<C extends Coordinate> extends Backdrop {
-  private scene: Canvas2DEcsScene;
-  private tileMap: TileMap<C>;
-  private units: Unit[];
+export class EcsSceneBackdrop extends Backdrop {
+  public scene: Canvas2DEcsScene;
+  public cameraEntity: EcsEntity;
+  private activeCamera: EcsCamera | undefined;
 
   constructor() {
     super();
-    this.scene = new Canvas2DEcsScene('test scene');
-  }
-
-  public setTileMap(newTileMap: TileMap<C>) {
-    let entity;
-    if (this.tileMap && this.tileMap.entity) {
-      entity = this.tileMap.entity;
-      entity.removeComponent(this.tileMap);
-      entity.addComponent(newTileMap);
-    } else {
-      entity = new EcsEntity('Map Entity').addComponent(newTileMap);
-      this.scene.add(entity);
-    }
-    this.tileMap = newTileMap;
+    this.scene = new Canvas2DEcsScene('EcsSceneBackdrop Scene');
+    this.cameraEntity = new EcsEntity('Main Camera');
   }
 
   override init(): void {
@@ -48,26 +35,18 @@ export class MapAndUnitBackdrop<C extends Coordinate> extends Backdrop {
      */
     const viewport = new Vector2(this.width, this.height);
     const newCamera = new EcsCamera(viewport);
-    const activeCamera = this.scene.camera;
-    let activeCameraEntity = activeCamera?.entity;
-    if (activeCamera && activeCameraEntity) {
-      activeCameraEntity.removeComponent(activeCamera);
-      activeCameraEntity.addComponent(newCamera);
-    } else {
-      activeCameraEntity = new EcsEntity('Main Camera').addComponent(newCamera);
-      this.scene.add(activeCameraEntity);
+
+    if (this.activeCamera) {
+      this.cameraEntity.removeComponent(this.activeCamera);
     }
-    // start using new camera:
+    this.cameraEntity.addComponent(newCamera);
+    this.activeCamera = newCamera;
     this.scene.camera = newCamera;
   }
 
   update(deltaTime: number): void {
     this.scene.update(deltaTime);
     this.scene.lateUpdate();
-    if (this.scene.camera?.transform?.position) {
-      const t = 0.05;
-      this.scene.camera.transform.position = Vector2.plus(this.scene.camera.transform.position, new Vector2(t, t));
-    }
   }
 
   private renderGrid() {
@@ -117,8 +96,7 @@ export class MapAndUnitBackdrop<C extends Coordinate> extends Backdrop {
     if (this.scene.camera) {
       this.ctx.setTransform(this.scene.camera.getViewMatrix());
     }
-    this.scene.render(this.ctx);
-
     this.renderGrid();
+    this.scene.render(this.ctx);
   }
 }

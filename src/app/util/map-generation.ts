@@ -1,6 +1,6 @@
 import { AxialCoordinate } from '../shapes/coordinate';
 import { MapGenerationRequest } from '../shapes/map-generation';
-import { HexTile, HexTileMap, ALL_TILE_TERRAINS, TileTerrain } from '../shapes/tilemap';
+import { HexTile, HexTileMap, ALL_TILE_TERRAINS } from '../shapes/tilemap';
 
 export async function SpecularHexMapGenerator(request: MapGenerationRequest<AxialCoordinate>): Promise<void> {
   request.onStatusChange?.('Initializing');

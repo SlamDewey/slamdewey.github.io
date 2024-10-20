@@ -176,6 +176,10 @@ export class EcsCamera extends EcsComponent {
     return this._zoom;
   }
 
+  public updateZoom(updateFn: (currentZoom: number) => number) {
+    this.setZoom(updateFn(this._zoom));
+  }
+
   public setZoom(zoom: number): void {
     zoom = Math.max(zoom, this.MinZoom);
     this._zoom = zoom;

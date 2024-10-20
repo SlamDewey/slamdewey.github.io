@@ -7,6 +7,10 @@ export type FillStyleFn = (ctx: CanvasRenderingContext2D) => FillStyle;
 export const TileTerrainFillStyles: Map<TileTerrain, FillStyleFn> = new Map([
   ['void', () => 'rgb(0, 0, 0, 0)'],
   ['test', () => 'red'],
+  ['ocean', () => 'blue'],
+  ['ocean_shelf', () => 'rgb(0, 127, 255, 255)'],
+  ['shore', () => 'tan'],
+  ['grass', () => 'green'],
 ]);
 
 export const drawPolygon = (
@@ -18,7 +22,7 @@ export const drawPolygon = (
   ctx.save();
   ctx.fillStyle = fillStyle;
   ctx.translate(position.x, position.y);
-  ctx.moveTo(vertices[0].x, vertices[0].y);
+  ctx.translate(vertices[0].x, vertices[0].y);
   ctx.beginPath();
   vertices.forEach((vertex) => {
     ctx.lineTo(vertex.x, vertex.y);
