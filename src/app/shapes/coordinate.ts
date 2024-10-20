@@ -81,8 +81,7 @@ export class AxialCoordinate extends Coordinate {
 
   constructor(q?: number, r?: number) {
     super();
-    this.q = Math.floor(q ?? 0);
-    this.r = Math.floor(r ?? 0);
+    [this.q, this.r] = [q ?? 0, r ?? 0];
   }
 
   public toArray() {
