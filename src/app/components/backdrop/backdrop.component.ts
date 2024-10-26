@@ -7,7 +7,6 @@ import {
   input,
   viewChild,
   ChangeDetectionStrategy,
-  effect,
 } from '@angular/core';
 import { Backdrop } from './backdrop';
 import { Vector2 } from 'src/app/shapes/coordinate';
@@ -82,11 +81,11 @@ export class BackdropComponent implements OnDestroy {
   onScroll() {
     const backdrop = this.backdrop();
     const deltaOffset = new Vector2(
-      window.scrollX - backdrop.mouseOffset.x,
-      window.scrollY - backdrop.mouseOffset.y
+      window.scrollX - backdrop.scrollOffset.x,
+      window.scrollY - backdrop.scrollOffset.y
     );
     backdrop.mousePosition = Vector2.minus(backdrop.mousePosition, deltaOffset);
-    backdrop.mouseOffset.set([window.scrollX, window.scrollY]);
+    backdrop.scrollOffset.set([window.scrollX, window.scrollY]);
   }
 
   public renderLoop(): void {
@@ -97,6 +96,9 @@ export class BackdropComponent implements OnDestroy {
     this.backdrop().clear();
     this.backdrop().tick();
   }
+
+  @HostListener('mousewheel', ['$event'])
+  public onSroll(e: WheelEvent) {}
 
   private onResize(entries: ResizeObserverEntry[]) {
     const backdrop = this.backdrop();
