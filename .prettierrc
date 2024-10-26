@@ -2,7 +2,7 @@
   "semi": true,
   "singleQuote": true,
   "proseWrap": "never",
-  "printWidth": 120,
+  "printWidth": 100,
   "overrides": [
     {
       "files": ["*.rc"],

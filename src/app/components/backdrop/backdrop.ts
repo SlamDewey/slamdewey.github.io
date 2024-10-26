@@ -1,18 +1,16 @@
 import { Vector2 } from 'src/app/shapes/coordinate';
 
 export abstract class Backdrop {
-  public contextString(): string {
+  public contextId(): string {
     return '2d';
   }
-
-  public isInitialized: boolean = false;
 
   protected width: number;
   protected height: number;
   protected ctx: CanvasRenderingContext2D;
   public mousePosition: Vector2 = new Vector2(-1000, -1000);
   public mouseOffset: Vector2 = new Vector2(0, 0);
-  protected lastUpdate: number;
+  protected lastUpdate: number = Date.now();
 
   /**
    * Final Init Step
@@ -37,9 +35,7 @@ export abstract class Backdrop {
     this.initializeContext(this.ctx);
   }
   public initialize(): void {
-    this.lastUpdate = Date.now();
     this.init();
-    this.isInitialized = true;
     this.clear();
   }
 
@@ -92,7 +88,7 @@ export abstract class WebGLBackdrop extends Backdrop {
     },
   ];
 
-  public override contextString(): string {
+  public override contextId(): string {
     return 'webgl2';
   }
 
@@ -188,7 +184,11 @@ void main() {
     if (this.frag) {
       gl.deleteShader(this.frag);
     }
-    [this.vert, this.frag] = this.compileWebGLShaders(gl, this.getVertexShader(), this.getFragmentShader());
+    [this.vert, this.frag] = this.compileWebGLShaders(
+      gl,
+      this.getVertexShader(),
+      this.getFragmentShader()
+    );
 
     this.createAndBindShaderProgram(gl, this.vert, this.frag);
 
@@ -227,7 +227,11 @@ void main() {
     return [vertShader, fragShader];
   }
 
-  private createAndBindShaderProgram(gl: WebGLRenderingContext, vert: WebGLShader, frag: WebGLShader) {
+  private createAndBindShaderProgram(
+    gl: WebGLRenderingContext,
+    vert: WebGLShader,
+    frag: WebGLShader
+  ) {
     const shaderProgram = gl.createProgram();
     if (shaderProgram === null) {
       throw new Error('Failed To Create Shader Program!');

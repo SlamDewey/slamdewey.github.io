@@ -78,7 +78,7 @@ export class FragmentwriterComponent implements AfterViewInit, OnDestroy {
     this.compilationErrors = '';
   }
 
-  onKeyPress(e: KeyboardEvent) {
+  onkeydown(e: KeyboardEvent) {
     if (e.ctrlKey && e.key == 's') {
       e.preventDefault();
       this.tryShaderUpdate();
@@ -98,7 +98,7 @@ export class FragmentwriterComponent implements AfterViewInit, OnDestroy {
         this.tryShaderUpdate();
       }
     });
-    window.onkeydown = this.onKeyPress.bind(this);
+    window.onkeydown = this.onkeydown.bind(this);
   }
 
   ngOnDestroy() {

@@ -14,6 +14,7 @@ import { env } from '../../environments/environment';
 import { BackdropComponent } from '../components/backdrop/backdrop.component';
 import { InfoBannerComponent } from '../components/info-banner/info-banner.component';
 import * as imagesJsonModule from '../../../images.json';
+import { SkeletonLoaderComponent } from '../components/skeleton-loader/skeleton-loader.component';
 
 const imagesJson = (imagesJsonModule as any).default as ImagesJson;
 
@@ -28,6 +29,7 @@ const imagesJson = (imagesJsonModule as any).default as ImagesJson;
     DropdownLinkSelectorComponent,
     ImageTileComponent,
     ImageViewerModalComponent,
+    SkeletonLoaderComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA],
 })
@@ -48,9 +50,7 @@ export class GalleryComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly titleService = inject(Title);
 
-  ngOnInit() {
-    this.titleService.setTitle('Gallery');
-
+  constructor() {
     this.imageFolders = imagesJson.directories;
     this.imageFolderLinks = imagesJson.directories.map((f) => ({
       text: this.formatFolderName(f),
@@ -61,6 +61,10 @@ export class GalleryComponent implements OnInit {
     }));
     this.currentImageFolder = this.imageFolders[0];
     this.parseImageDataSet();
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle('Gallery');
 
     this.activatedRoute.queryParams.subscribe((params) => {
       const { folder } = params as GalleryRouteQueryParams;

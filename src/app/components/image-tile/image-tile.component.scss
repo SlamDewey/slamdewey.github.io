@@ -1,65 +1,51 @@
-$color-white: white;
+@import url('../../../styles.scss');
 
-.image-tile {
-  justify-content: center;
+$max-any-dimension: 225px;
+$animation-duration: 1s;
+
+.tile {
   margin: 0.5rem;
-  display: block;
+  cursor: pointer;
+  color: white;
 
-  & a {
-    color: $color-white;
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    height: 200px;
+  display: flex;
+  flex: auto;
+  flex-direction: row;
+  justify-content: center;
 
-    &:hover {
-      box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
-    }
+  max-width: $max-any-dimension;
 
-    &:hover .image-hover-data {
-      opacity: 1;
-      background-color: rgba(0, 0, 0, 0.5);
-
-      transition: all 0s;
-    }
-
-    & .image-hover-data {
-      border-radius: 0.25rem;
-      position: absolute;
-
-      width: 300px;
-      height: 200px;
-      overflow: wrap;
-
-      transition: all 0.2s;
-      opacity: 0;
-
-      & h1 {
-        font-weight: 700;
-        font-size: 2rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-bottom: 0.5rem;
-      }
-
-      & p {
-        font-weight: 300;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-    }
+  &:hover {
+    box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
   }
+}
 
-  & img {
-    max-width: 300px;
-    max-height: 200px;
-    margin: auto;
+.tile__image {
+  border-radius: 5px;
+  margin: auto;
 
-    transition: all 0.2s;
-    opacity: 1;
+  max-width: $max-any-dimension;
+  max-height: $max-any-dimension;
 
-    border-radius: 0.25rem;
-  }
+  display: flex;
+  justify-content: center;
+
+  opacity: 0;
+  transition: visibility 0s, opacity $animation-duration ease-in;
+}
+
+.tile-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.tile-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tile__loader {
+  width: $max-any-dimension;
+  height: $max-any-dimension;
+  transition: visibility $animation-duration, opacity $animation-duration ease-in-out;
 }

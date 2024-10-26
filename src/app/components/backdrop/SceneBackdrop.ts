@@ -1,8 +1,6 @@
-import { TileMap } from 'src/app/shapes/tilemap';
 import { Backdrop } from './backdrop';
-import { Coordinate, Vector2 } from 'src/app/shapes/coordinate';
-import { Unit } from 'src/app/shapes/unit-tasking';
-import { EcsCamera, EcsEntity, EcsScene } from 'src/app/shapes/ecs';
+import { Vector2 } from 'src/app/shapes/coordinate';
+import { EcsCamera, EcsEntity, EcsScene, VirtualAxis } from 'src/app/shapes/ecs';
 
 class Canvas2DEcsScene extends EcsScene<CanvasRenderingContext2D> {
   public override render(ctx: CanvasRenderingContext2D): void {
@@ -16,6 +14,25 @@ class Canvas2DEcsScene extends EcsScene<CanvasRenderingContext2D> {
     });
   }
 }
+class ControllableCamera extends EcsCamera {
+  private readonly cameraMoveSpeed = 10;
+  private downUpInput: VirtualAxis;
+  private leftRightInput: VirtualAxis;
+
+  public override onAddedToScene(): void {
+    const scene = this.scene!;
+    // positive y axis goes downward, so I simply invert input
+    this.downUpInput = scene.registerVirtualAxis('w', 's');
+    this.leftRightInput = scene.registerVirtualAxis('a', 'd');
+  }
+
+  public override update(deltaTime: number): void {
+    const transform = this.transform!;
+    const rawInput = new Vector2(this.leftRightInput.rawValue, this.downUpInput.rawValue);
+    const moveDelta = Vector2.scale(rawInput, this.cameraMoveSpeed);
+    transform.position = Vector2.plus(transform.position, moveDelta);
+  }
+}
 
 export class EcsSceneBackdrop extends Backdrop {
   public scene: Canvas2DEcsScene;
@@ -26,6 +43,7 @@ export class EcsSceneBackdrop extends Backdrop {
     super();
     this.scene = new Canvas2DEcsScene('EcsSceneBackdrop Scene');
     this.cameraEntity = new EcsEntity('Main Camera');
+    this.scene.add(this.cameraEntity);
   }
 
   override init(): void {
@@ -34,7 +52,7 @@ export class EcsSceneBackdrop extends Backdrop {
      * View port change is actually the most likely scenario to re-call this init.
      */
     const viewport = new Vector2(this.width, this.height);
-    const newCamera = new EcsCamera(viewport);
+    const newCamera = new ControllableCamera(viewport);
 
     if (this.activeCamera) {
       this.cameraEntity.removeComponent(this.activeCamera);

@@ -1,12 +1,16 @@
-<backdrop [backdrop]="bgAnimation"></backdrop>
-
 <div class="projects">
+  <backdrop [backdrop]="bgAnimation" [fullscreen]="true"></backdrop>
   <div class="projects__gallery">
-    <x-backdrop-tile
-      [backdrop]="fragmentWriterTileBackdrop"
-      [routerLink]="'fragmentwriter'"
-      [linkText]="'Web Based GLSL Shader Editor'"
-    ></x-backdrop-tile>
+    @for(project of projects; track project.routerLink) {
+    <a class="projects__gallery__item" [routerLink]="project.routerLink">
+      <backdrop [backdrop]="project.backdrop"></backdrop>
+      <div class="projects__gallery__item__hover">
+        <div class="projects__gallery__item__hover-content">
+          {{ project.labelText }}
+        </div>
+      </div>
+    </a>
+    }
   </div>
 </div>
 <router-outlet></router-outlet>

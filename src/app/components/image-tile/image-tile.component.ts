@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 export class ImageTileData {
@@ -18,5 +18,10 @@ export class ImageTileData {
   imports: [SkeletonLoaderComponent],
 })
 export class ImageTileComponent {
-  @Input() imageTileData: ImageTileData;
+  public imageTileData = input.required<ImageTileData>();
+  public isLoaded = signal<boolean>(false);
+
+  public onImageLoad() {
+    this.isLoaded.set(true);
+  }
 }

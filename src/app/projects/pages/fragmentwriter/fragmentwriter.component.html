@@ -27,11 +27,7 @@
     </div>
   </div>
   <div class="fragmentwriter__canvas">
-    <backdrop
-      class="fragmentwriter__canvas__backdrop"
-      [backdrop]="bgAnimation"
-      [isServingAsBackdrop]="false"
-    ></backdrop>
+    <backdrop [backdrop]="bgAnimation"></backdrop>
     @if(compilationErrors) {
     <div class="fragmentwriter__canvas__overlay">
       <h3>A compilation error has occurred!</h3>

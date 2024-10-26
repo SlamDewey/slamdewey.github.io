@@ -1,18 +1,15 @@
-<!-- image urls are based on how they access files after building, consider the file structure of ./dist -->
-<div class="image-tile">
-  <a (click)="imageTileData.onClick($event)" [attr.target]="'_blank'">
-    @defer {
-    <div style="display: flex; justify-content: center">
-      <img loading="eager" alt="{{ imageTileData.title }}" [attr.src]="imageTileData.placeholder_src" />
-    </div>
-    } @placeholder (minimum 0.3s){
-    <div style="width: 300px; height: 200px">
-      <x-skeleton-loader></x-skeleton-loader>
-    </div>
-    }
-    <div class="image-hover-data">
-      <h1>{{ imageTileData.title }}</h1>
-      <p>{{ imageTileData.caption }}</p>
-    </div>
-  </a>
+<div class="tile" (click)="imageTileData().onClick($event)">
+  @if (!isLoaded()){
+  <div class="tile__loader" [class]="isLoaded() ? 'tile-hidden' : 'tile-visible'">
+    <x-skeleton-loader></x-skeleton-loader>
+  </div>
+  }
+  <img
+    class="tile__image"
+    [class]="isLoaded() ? 'tile-visible' : 'tile-hidden'"
+    (load)="onImageLoad()"
+    loading="eager"
+    alt="{{ imageTileData().title }}"
+    [attr.src]="imageTileData().placeholder_src"
+  />
 </div>
