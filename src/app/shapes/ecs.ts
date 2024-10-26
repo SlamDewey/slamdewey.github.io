@@ -2,7 +2,22 @@
  * this is a simple ts port of my custom ECS
  */
 
+import { input } from '@angular/core';
 import { Vector2 } from './coordinate';
+
+export type InputCallback = (e: KeyboardEvent) => void;
+export type KeyEventType = 'down' | 'up';
+export type VirtualAxis = {
+  negativeKey: string;
+  positiveKey: string;
+  rawValue: number;
+  incrementRawValue: () => void;
+  decrementRawValue: () => void;
+};
+
+const buildInputCode = (key: string, type: KeyEventType) => {
+  return `${key}-${type}`;
+};
 
 export class EcsTransform {
   public parent: EcsTransform | undefined;
@@ -40,6 +55,7 @@ export class EcsTransform {
 
 export class EcsComponent {
   private _isActive: boolean = true;
+  public scene: EcsScene<RenderingContext> | undefined;
   public entity: EcsEntity | undefined;
   public transform: EcsTransform | undefined;
 
@@ -63,13 +79,13 @@ export class EcsComponent {
   public onRemovedFromEntity(): void {}
 
   public onDrawGizmos(): void {}
-  public update(_deltaTime: number): void {}
+  public update(deltaTime: number): void {}
   public lateUpdate(): void {}
   public onDestroy(): void {}
 }
 
 export abstract class EcsRenderableComponent extends EcsComponent {
-  public abstract render(_ctx: RenderingContext): void;
+  public abstract render(ctx: RenderingContext): void;
 }
 
 export class EcsEntity {
@@ -166,10 +182,10 @@ export class EcsCamera extends EcsComponent {
       return identity;
     }
     return identity
-      .translate(-this.transform.position.x, -this.transform.position.y)
       .translate(this.origin.x, this.origin.y)
-      .rotate(0, 0, this.transform.rotation)
-      .scale(this._zoom, this._zoom, this._zoom);
+      .scale(this._zoom, this._zoom)
+      .translate(-this.transform.position.x, -this.transform.position.y)
+      .rotate(0, 0, this.transform.rotation);
   }
 
   public getZoom(): number {
@@ -199,9 +215,73 @@ export abstract class EcsScene<ctx extends RenderingContext> {
   protected readonly entities: Set<EcsEntity> = new Set();
   protected readonly components: Set<EcsComponent> = new Set();
   protected readonly renderables: Set<EcsRenderableComponent> = new Set();
+  protected readonly inputMap = new Map<string, InputCallback[]>();
+  protected readonly keyStateMap = new Map<string, KeyEventType>();
+  protected readonly virtualAxes = new Set<VirtualAxis>();
 
   constructor(name: string) {
     this.name = name;
+  }
+
+  public registerInputCallback(key: string, type: KeyEventType, callback: InputCallback): void {
+    const inputCode = buildInputCode(key, type);
+    if (!this.inputMap.has(inputCode)) {
+      this.inputMap.set(inputCode, []);
+    }
+    this.inputMap.get(inputCode)!.push(callback);
+  }
+
+  public deleteInputCallback(key: string, type: KeyEventType, callback: InputCallback): void {
+    const inputCode = buildInputCode(key, type);
+    if (this.inputMap.has(inputCode)) {
+      this.inputMap.get(inputCode)!.filter((cb) => cb !== callback);
+    }
+  }
+
+  public registerVirtualAxis(negativeKey: string, positiveKey: string): VirtualAxis {
+    const virtualAxis: VirtualAxis = {
+      negativeKey,
+      positiveKey,
+      rawValue: 0,
+      incrementRawValue: () => {
+        virtualAxis.rawValue++;
+      },
+      decrementRawValue: () => {
+        virtualAxis.rawValue--;
+      },
+    };
+    this.virtualAxes.add(virtualAxis);
+    this.registerInputCallback(negativeKey, 'down', virtualAxis.decrementRawValue);
+    this.registerInputCallback(negativeKey, 'up', virtualAxis.incrementRawValue);
+    this.registerInputCallback(positiveKey, 'down', virtualAxis.incrementRawValue);
+    this.registerInputCallback(positiveKey, 'up', virtualAxis.decrementRawValue);
+
+    return virtualAxis;
+  }
+
+  public deleteVirtualAxis(virtualAxis: VirtualAxis) {
+    this.deleteInputCallback(virtualAxis.negativeKey, 'down', virtualAxis.decrementRawValue);
+    this.deleteInputCallback(virtualAxis.negativeKey, 'up', virtualAxis.incrementRawValue);
+    this.deleteInputCallback(virtualAxis.positiveKey, 'down', virtualAxis.incrementRawValue);
+    this.deleteInputCallback(virtualAxis.positiveKey, 'up', virtualAxis.decrementRawValue);
+  }
+
+  public handleInput(e: KeyboardEvent, type: KeyEventType) {
+    const inputCode = buildInputCode(e.key, type);
+    // do we have a callback for this event type?
+    if (!this.inputMap.has(inputCode)) {
+      return;
+    }
+    // we have input for this event, so ignore default
+    e.preventDefault();
+    // now we check if we should actually process this event
+    if (this.keyStateMap.has(e.key) && this.keyStateMap.get(e.key) === type) {
+      // this key is being held down; ignore this event
+      return;
+    }
+    // update keystate and execute callbacks
+    this.keyStateMap.set(e.key, type);
+    this.inputMap.get(inputCode)!.forEach((cb) => cb(e));
   }
 
   public update(deltaTime: number): void {
@@ -231,6 +311,7 @@ export abstract class EcsScene<ctx extends RenderingContext> {
 
   private addComponent<T extends EcsComponent>(c: T): void {
     this.components.add(c);
+    c.scene = this;
     if (c instanceof EcsRenderableComponent) {
       this.renderables.add(c);
     }
@@ -244,6 +325,7 @@ export abstract class EcsScene<ctx extends RenderingContext> {
 
   private removeComponent<T extends EcsComponent>(c: T): void {
     this.components.delete(c);
+    c.scene = undefined;
     if (c instanceof EcsRenderableComponent) {
       this.renderables.delete(c);
     }

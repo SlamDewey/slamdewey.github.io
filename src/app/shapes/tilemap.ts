@@ -2,7 +2,16 @@ import { drawPolygon, FillStyleFn, TileTerrainFillStyles } from '../util/renderi
 import { AxialCoordinate, Coordinate, Vector2 } from './coordinate';
 import { EcsRenderableComponent } from './ecs';
 
-export const ALL_TILE_TERRAINS = ['void', 'test', 'ocean', 'ocean_shelf', 'shore', 'grass'] as const;
+export const ALL_TILE_TERRAINS = [
+  'void',
+  'test',
+  'ocean',
+  'ocean_shelf',
+  'shore',
+  'grass',
+  'tundra',
+  'arctic',
+] as const;
 export type TileTerrain = (typeof ALL_TILE_TERRAINS)[number];
 
 export const ALL_TILE_FEATURES = ['none', 'hill'];

@@ -58,6 +58,10 @@ export class Vector2 extends Coordinate {
     return this;
   }
 
+  public magnitude(): number {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+
   public static plus<T extends Vector2>(x0: T, x1: T) {
     return Coordinate.operate(x0, x1, (a, b) => a + b, Vector2) as T;
   }
