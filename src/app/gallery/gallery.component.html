@@ -1,30 +1,34 @@
-<backdrop [backdrop]="bgAnimation" [shouldPauseAnimation]="isModalOpen"></backdrop>
-
-<div class="gallery-component-container" (style)="(isModalOpen ? 'overflow: hidden;' : 'overflow: auto;')">
+<x-backdrop
+  [backdrop]="bgAnimation"
+  [shouldPauseAnimation]="isModalOpen"
+  [fullscreen]="true"
+></x-backdrop>
+<div class="gallery" [style]="isModalOpen ? 'overflow: hidden;' : 'overflow: auto;'">
   <x-info-banner [variant]="'basic'">
     <p style="font-size: 1rem; margin: 1rem">
-      Some images are very large. Even if the image displays, the zoom tools may be jumpy while everything finishes
-      loading
+      Some images are very large. Even if the image displays, the zoom tools may be jumpy while
+      everything finishes loading
     </p>
   </x-info-banner>
 
-  <div class="gallery-folder-selector">
+  <div class="gallery__dropdown">
     @if (imageFolderLinks) {
-    <x-dropdown-link-selector [dropdownText]="'Select Folder'" [items]="imageFolderLinks"></x-dropdown-link-selector>
+    <x-dropdown-link-selector
+      [dropdownText]="'Select Folder'"
+      [items]="imageFolderLinks"
+    ></x-dropdown-link-selector>
     } @else {
     <spinner [shouldDisplaySpinner]="true"></spinner>
     }
   </div>
 
-  <div class="gallery-container">
-    @if (imageTileDataSet && currentImageFolder) {
-    <div class="gallery">
-      @for (image of imageTileDataSet.get(currentImageFolder); track $index) {
-      <x-image-tile [imageTileData]="image"></x-image-tile>
-      }
-    </div>
+  @if (imageTileDataSet && currentImageFolder) {
+  <div class="gallery__images">
+    @for (image of imageTileDataSet.get(currentImageFolder); track image.img_src) {
+    <x-image-tile class="gallery__images__tile" [imageTileData]="image"></x-image-tile>
     }
   </div>
+  }
 
   <x-image-viewer-modal
     #imageViewerModal

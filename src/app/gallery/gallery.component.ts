@@ -1,4 +1,11 @@
-import { Component, inject, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  NO_ERRORS_SCHEMA,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Backdrop } from '../components/backdrop/backdrop';
@@ -14,6 +21,7 @@ import { env } from '../../environments/environment';
 import { BackdropComponent } from '../components/backdrop/backdrop.component';
 import { InfoBannerComponent } from '../components/info-banner/info-banner.component';
 import * as imagesJsonModule from '../../../images.json';
+import { SkeletonLoaderComponent } from '../components/skeleton-loader/skeleton-loader.component';
 
 const imagesJson = (imagesJsonModule as any).default as ImagesJson;
 
@@ -28,8 +36,10 @@ const imagesJson = (imagesJsonModule as any).default as ImagesJson;
     DropdownLinkSelectorComponent,
     ImageTileComponent,
     ImageViewerModalComponent,
+    SkeletonLoaderComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent implements OnInit {
   @ViewChild('imageViewerModal') imageViewerModal: ImageViewerModalComponent;
@@ -48,9 +58,7 @@ export class GalleryComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly titleService = inject(Title);
 
-  ngOnInit() {
-    this.titleService.setTitle('Gallery');
-
+  constructor() {
     this.imageFolders = imagesJson.directories;
     this.imageFolderLinks = imagesJson.directories.map((f) => ({
       text: this.formatFolderName(f),
@@ -61,6 +69,10 @@ export class GalleryComponent implements OnInit {
     }));
     this.currentImageFolder = this.imageFolders[0];
     this.parseImageDataSet();
+  }
+
+  ngOnInit() {
+    this.titleService.setTitle('Gallery');
 
     this.activatedRoute.queryParams.subscribe((params) => {
       const { folder } = params as GalleryRouteQueryParams;
@@ -99,7 +111,9 @@ export class GalleryComponent implements OnInit {
 
   public formatFolderName(folderName: string): string {
     const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
-    if (noSpecialChar.length < 1) return noSpecialChar.charAt(0).toUpperCase();
+    if (noSpecialChar.length < 1) {
+      return noSpecialChar;
+    }
     return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }
 }

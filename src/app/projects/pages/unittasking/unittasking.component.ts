@@ -1,13 +1,20 @@
-import { AfterViewInit, Component, HostListener, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { BackdropComponent, EcsSceneBackdrop } from 'src/app/components/backdrop';
 import { MapGeneratorService } from 'src/app/services/map-generator.service';
 import { AxialCoordinate, Vector2 } from 'src/app/shapes/coordinate';
 import { EcsEntity } from 'src/app/shapes/ecs';
-import { MapGenerationRequest, MapGenerationResponse, NoiseVariables } from 'src/app/shapes/map-generation';
+import {
+  MapGenerationRequest,
+  MapGenerationResponse,
+  NoiseVariables,
+} from 'src/app/shapes/map-generation';
 import { HexTileMap } from 'src/app/shapes/tilemap';
 import { Unit } from 'src/app/shapes/unit-tasking';
 import { SpecularHexMapGenerator } from 'src/app/util/map-generation';
 
+/**
+ * Scroll events are for some reason in delta intervals of 100
+ */
 export const ZoomScalar = 100;
 
 @Component({
@@ -17,22 +24,22 @@ export const ZoomScalar = 100;
   standalone: true,
   imports: [BackdropComponent],
 })
-export class UnitTaskingComponent implements AfterViewInit {
+export class UnitTaskingComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapGeneratorService);
 
   public units: Unit[];
-  public backdrop = new EcsSceneBackdrop();
+  public sceneBackdrop = new EcsSceneBackdrop();
   public tileMapEntity = new EcsEntity('HexMap');
   public tileMap: HexTileMap | undefined;
 
   constructor() {
-    this.backdrop.scene.add(this.tileMapEntity);
+    this.sceneBackdrop.scene.add(this.tileMapEntity);
   }
 
   ngAfterViewInit() {
     const req = {
-      columns: 10,
-      columnHeight: 10,
+      columns: 50,
+      columnHeight: 50,
       algorithm: SpecularHexMapGenerator,
       noiseVariables: {} as NoiseVariables,
       waterPercentage: 0.5,
@@ -42,11 +49,27 @@ export class UnitTaskingComponent implements AfterViewInit {
     } as MapGenerationRequest<AxialCoordinate>;
 
     this.mapService.generateTileMap(req);
+
+    window.onkeydown = this.onkeydown.bind(this);
+    window.onkeyup = this.onkeyup.bind(this);
+  }
+
+  ngOnDestroy(): void {
+    window.onkeydown = window.onkeyup = null;
+  }
+
+  onkeydown(e: KeyboardEvent) {
+    this.sceneBackdrop.scene.handleInput(e, 'down');
+  }
+
+  onkeyup(e: KeyboardEvent) {
+    this.sceneBackdrop.scene.handleInput(e, 'up');
   }
 
   @HostListener('mousewheel', ['$event'])
   public onSroll(e: WheelEvent) {
-    this.backdrop.scene.camera?.updateZoom((zoom) => zoom - e.deltaY / ZoomScalar);
+    e.preventDefault();
+    this.sceneBackdrop.scene.camera?.updateZoom((zoom) => zoom - e.deltaY / ZoomScalar);
   }
 
   setTileMap(res: MapGenerationResponse<AxialCoordinate>) {

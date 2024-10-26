@@ -1,5 +1,5 @@
-<backdrop [backdrop]="bgAnimation"></backdrop>
 <div class="home">
-  <div class="home__greeting-message--big">{{ hello }}</div>
-  <div class="home__greeting-message--small">{{ greeting }}</div>
+  <x-backdrop [backdrop]="bgAnimation" [fullscreen]="true"></x-backdrop>
+  <div class="home__hello">{{ hello }}</div>
+  <div class="home__greeting">{{ greeting }}</div>
 </div>

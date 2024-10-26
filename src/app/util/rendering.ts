@@ -1,16 +1,27 @@
 import { Vector2 } from '../shapes/coordinate';
-import { TileTerrain } from '../shapes/tilemap';
+import { HexTile, TileTerrain } from '../shapes/tilemap';
 
 export type FillStyle = string | CanvasGradient | CanvasPattern;
 export type FillStyleFn = (ctx: CanvasRenderingContext2D) => FillStyle;
 
 export const TileTerrainFillStyles: Map<TileTerrain, FillStyleFn> = new Map([
   ['void', () => 'rgb(0, 0, 0, 0)'],
-  ['test', () => 'red'],
+  [
+    'test',
+    (ctx: CanvasRenderingContext2D) => {
+      const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, HexTile.graphicalWidth / 2);
+      grad.addColorStop(0, 'white');
+      grad.addColorStop(0.5, 'red');
+      grad.addColorStop(1, 'yellow');
+      return grad as FillStyle;
+    },
+  ],
   ['ocean', () => 'blue'],
   ['ocean_shelf', () => 'rgb(0, 127, 255, 255)'],
   ['shore', () => 'tan'],
   ['grass', () => 'green'],
+  ['tundra', () => 'gray'],
+  ['arctic', () => 'rgb(230, 230, 230)'],
 ]);
 
 export const drawPolygon = (

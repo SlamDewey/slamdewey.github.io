@@ -8,6 +8,7 @@ export class WalkingNoiseBackdrop extends WebGLBackdrop {
 precision mediump float;
 
 uniform vec2 screenSize;
+uniform vec2 scrollOffset;
 uniform float totalTime;
 
 out vec4 fragColor;
@@ -41,7 +42,7 @@ float lerp(float a, float b, float w)
 {
   return a + w*(b-a);
 }
-
+  
 float noise(vec3 x)
 {
     // The noise function returns a value in the range -1.0f -> 1.0f
@@ -81,6 +82,7 @@ float fractal_noise(vec3 x3) {
 void main() {
   vec2 uv = gl_FragCoord.xy / screenSize.xy;
   uv.x *= screenSize.x / screenSize.y;
+  uv -= scrollOffset / ${this.BACKGROUND_SHADER_SCROLL_SCALAR}.;
   
   uv += vec2(${Math.random()} * OFFSET_SCALAR, ${Math.random()} * OFFSET_SCALAR);
   

@@ -2,34 +2,33 @@ import {
   Component,
   ViewEncapsulation,
   ElementRef,
-  ViewChild,
-  Input,
   HostListener,
   OnDestroy,
-  output,
   input,
+  viewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Backdrop } from './backdrop';
 import { Vector2 } from 'src/app/shapes/coordinate';
 
 @Component({
-  selector: 'backdrop',
+  selector: 'x-backdrop',
   templateUrl: './backdrop.component.html',
   styleUrls: ['./backdrop.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackdropComponent implements OnDestroy {
-  @ViewChild('bgCanvas') bgCanvas: ElementRef;
-
   backdrop = input.required<Backdrop>();
   shouldPauseAnimation = input<boolean>(false);
-  isServingAsBackdrop = input<boolean>(true);
+  fullscreen = input<boolean>(false);
+
+  bgCanvas = viewChild.required<ElementRef>('bgCanvas');
 
   public static isWebGlEnabled: boolean;
 
-  public InternalCanvasRenderSize = new Vector2();
-
+  private canvasBufferSize = new Vector2();
   private canvasElement: HTMLCanvasElement;
   private ctx: RenderingContext;
   private renderInterval: number;
@@ -38,23 +37,20 @@ export class BackdropComponent implements OnDestroy {
   constructor() {
     const e = document.createElement('canvas');
     BackdropComponent.isWebGlEnabled =
-      !!window.WebGLRenderingContext || !!e.getContext('webgl') || !!e.getContext('experimental-webgl');
-  }
-
-  ngOnDestroy() {
-    window.cancelAnimationFrame(this.renderInterval);
-    this.backdrop().onDestroy();
-    this.resizeObserver?.disconnect();
+      !!window.WebGLRenderingContext ||
+      !!e.getContext('webgl') ||
+      !!e.getContext('experimental-webgl');
+    e.remove();
   }
 
   ngAfterViewInit(): void {
     const backdrop = this.backdrop();
-    const contextString = backdrop.contextString();
-    this.canvasElement = this.bgCanvas.nativeElement;
+    const contextId = backdrop.contextId();
+    this.canvasElement = this.bgCanvas().nativeElement;
 
-    const context = this.canvasElement.getContext(contextString);
+    const context = this.canvasElement.getContext(contextId);
     if (!context) {
-      throw new Error(`Failed to create context: ${contextString}`);
+      throw new Error(`Failed to create context: ${contextId}`);
     }
     this.ctx = context;
 
@@ -62,57 +58,69 @@ export class BackdropComponent implements OnDestroy {
     backdrop.setSize(this.canvasElement.width, this.canvasElement.height);
     backdrop.initialize();
 
-    this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
-    this.resizeObserver.observe(this.isServingAsBackdrop() ? document.body : this.canvasElement);
+    this.resizeObserver = new ResizeObserver(this.onResize.bind(this));
+    this.resizeObserver.observe(this.canvasElement);
 
-    // schedule first animation frame
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
+  }
+
+  ngOnDestroy() {
+    window.cancelAnimationFrame(this.renderInterval);
+    this.resizeObserver?.disconnect();
+    this.backdrop().onDestroy();
   }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
     const backdrop = this.backdrop();
     const rect = this.canvasElement.getBoundingClientRect();
-    backdrop.mousePosition.x = e.clientX - rect.left;
-    backdrop.mousePosition.y = rect.height - (e.clientY - rect.top);
+    backdrop.mousePosition.set([e.clientX - rect.left, rect.height - (e.clientY - rect.top)]);
   }
 
   @HostListener('window:scroll', ['$event'])
   onScroll() {
     const backdrop = this.backdrop();
-    const deltaOffset = new Vector2(window.scrollX - backdrop.mouseOffset.x, window.scrollY - backdrop.mouseOffset.y);
-    backdrop.mouseOffset.x = window.scrollX;
-    backdrop.mouseOffset.y = window.scrollY;
-
-    backdrop.mousePosition.x += deltaOffset.x;
-    backdrop.mousePosition.y += deltaOffset.y;
+    const deltaOffset = new Vector2(
+      window.scrollX - backdrop.scrollOffset.x,
+      window.scrollY - backdrop.scrollOffset.y
+    );
+    backdrop.mousePosition = Vector2.minus(backdrop.mousePosition, deltaOffset);
+    backdrop.scrollOffset.set([window.scrollX, window.scrollY]);
   }
 
   public renderLoop(): void {
-    const backdrop = this.backdrop();
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
-
-    if (this.shouldPauseAnimation() || !backdrop.isInitialized) return;
-
-    backdrop.clear();
-    backdrop.tick();
+    if (this.shouldPauseAnimation()) {
+      return;
+    }
+    this.backdrop().clear();
+    this.backdrop().tick();
   }
+
+  @HostListener('mousewheel', ['$event'])
+  public onSroll(e: WheelEvent) {}
 
   private onResize(entries: ResizeObserverEntry[]) {
     const backdrop = this.backdrop();
-    if (this.isServingAsBackdrop()) {
-      this.InternalCanvasRenderSize.set([
-        entries[0].target.clientWidth,
-        Math.max(entries[0].target.clientHeight, window.innerHeight),
-      ]);
+    const canvas = this.ctx.canvas;
+    let newWidth: number, newHeight: number;
+
+    if (this.fullscreen()) {
+      newWidth = window.innerWidth;
+      newHeight = window.innerHeight;
     } else {
-      this.InternalCanvasRenderSize.set([entries[0].contentRect.width, entries[0].contentRect.height]);
+      newWidth = entries[0].contentRect.width;
+      newHeight = entries[0].contentRect.height;
     }
-    [this.ctx.canvas.width, this.ctx.canvas.height] = [
-      this.InternalCanvasRenderSize.x,
-      this.InternalCanvasRenderSize.y,
-    ];
-    backdrop.setSize(this.InternalCanvasRenderSize.x, this.InternalCanvasRenderSize.y);
+
+    if (newWidth === this.canvasBufferSize.x && newHeight === this.canvasBufferSize.y) {
+      return;
+    }
+
+    this.canvasBufferSize.set([newWidth, newHeight]);
+
+    [canvas.width, canvas.height] = [newWidth, newHeight];
+    backdrop.setSize(newWidth, newHeight);
     backdrop.initialize();
   }
 }

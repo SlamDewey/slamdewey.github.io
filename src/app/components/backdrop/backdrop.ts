@@ -1,31 +1,19 @@
 import { Vector2 } from 'src/app/shapes/coordinate';
 
 export abstract class Backdrop {
-  public contextString(): string {
+  public contextId(): string {
     return '2d';
   }
-
-  public isInitialized: boolean = false;
 
   protected width: number;
   protected height: number;
   protected ctx: CanvasRenderingContext2D;
   public mousePosition: Vector2 = new Vector2(-1000, -1000);
-  public mouseOffset: Vector2 = new Vector2(0, 0);
-  protected lastUpdate: number;
+  public scrollOffset: Vector2 = new Vector2(0, 0);
+  protected lastUpdate: number = Date.now();
 
-  /**
-   * Final Init Step
-   */
-  protected init(): void {}
   protected abstract update(deltaTime: number): void;
   protected abstract draw(deltaTime: number): void;
-
-  public onDestroy(): void {}
-
-  public initializeContext(ctx: RenderingContext) {
-    this.ctx = ctx as CanvasRenderingContext2D;
-  }
 
   public setSize(width: number, height: number): void {
     this.width = width;
@@ -33,15 +21,20 @@ export abstract class Backdrop {
     this.clear();
   }
 
+  public initializeContext(ctx: RenderingContext) {
+    this.ctx = ctx as CanvasRenderingContext2D;
+  }
   public reInitialize(): void {
     this.initializeContext(this.ctx);
   }
   public initialize(): void {
-    this.lastUpdate = Date.now();
     this.init();
-    this.isInitialized = true;
     this.clear();
   }
+  /**
+   * Final Init Step
+   */
+  protected init(): void {}
 
   public clear(): void {
     (this.ctx as CanvasRenderingContext2D).clearRect(0, 0, this.width, this.height);
@@ -55,15 +48,18 @@ export abstract class Backdrop {
     this.update(deltaTime);
     this.draw(deltaTime);
   }
+
+  public onDestroy(): void {}
 }
 
 type glUniform = {
   name: string;
   value: () => [number] | [number, number];
-  location: WebGLUniformLocation | undefined;
+  location: WebGLUniformLocation | null;
 };
 
 export abstract class WebGLBackdrop extends Backdrop {
+  protected readonly BACKGROUND_SHADER_SCROLL_SCALAR = 5000;
   // vertices for a quad (two triangles)
   private readonly vertices: number[] = [-1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1, 1];
 
@@ -78,21 +74,26 @@ export abstract class WebGLBackdrop extends Backdrop {
     {
       name: 'screenSize',
       value: () => [this.width, this.height],
-      location: undefined,
+      location: null,
     },
     {
       name: 'totalTime',
       value: () => [this.totalTime],
-      location: undefined,
+      location: null,
     },
     {
       name: 'mousePosition',
       value: () => [this.mousePosition.x, this.mousePosition.y],
-      location: undefined,
+      location: null,
+    },
+    {
+      name: 'scrollOffset',
+      value: () => [this.scrollOffset.x, this.scrollOffset.y],
+      location: null,
     },
   ];
 
-  public override contextString(): string {
+  public override contextId(): string {
     return 'webgl2';
   }
 
@@ -120,7 +121,7 @@ void main() {
     this.standardUniforms = this.standardUniforms.map((uniform) => {
       return {
         ...uniform,
-        location: gl.getUniformLocation(shaderProgram, uniform.name)!,
+        location: gl.getUniformLocation(shaderProgram, uniform.name),
       };
     });
   }
@@ -157,8 +158,7 @@ void main() {
   }
 
   public override setSize(width: number, height: number): void {
-    this.width = width;
-    this.height = height;
+    super.setSize(width, height);
     if (this.gl) {
       this.gl.viewport(0, 0, this.width, this.height);
     }
@@ -188,7 +188,11 @@ void main() {
     if (this.frag) {
       gl.deleteShader(this.frag);
     }
-    [this.vert, this.frag] = this.compileWebGLShaders(gl, this.getVertexShader(), this.getFragmentShader());
+    [this.vert, this.frag] = this.compileWebGLShaders(
+      gl,
+      this.getVertexShader(),
+      this.getFragmentShader()
+    );
 
     this.createAndBindShaderProgram(gl, this.vert, this.frag);
 
@@ -227,7 +231,11 @@ void main() {
     return [vertShader, fragShader];
   }
 
-  private createAndBindShaderProgram(gl: WebGLRenderingContext, vert: WebGLShader, frag: WebGLShader) {
+  private createAndBindShaderProgram(
+    gl: WebGLRenderingContext,
+    vert: WebGLShader,
+    frag: WebGLShader
+  ) {
     const shaderProgram = gl.createProgram();
     if (shaderProgram === null) {
       throw new Error('Failed To Create Shader Program!');

@@ -2,7 +2,16 @@ import { drawPolygon, FillStyleFn, TileTerrainFillStyles } from '../util/renderi
 import { AxialCoordinate, Coordinate, Vector2 } from './coordinate';
 import { EcsRenderableComponent } from './ecs';
 
-export const ALL_TILE_TERRAINS = ['void', 'test', 'ocean', 'ocean_shelf', 'shore', 'grass'] as const;
+export const ALL_TILE_TERRAINS = [
+  'void',
+  'test',
+  'ocean',
+  'ocean_shelf',
+  'shore',
+  'grass',
+  'tundra',
+  'arctic',
+] as const;
 export type TileTerrain = (typeof ALL_TILE_TERRAINS)[number];
 
 export const ALL_TILE_FEATURES = ['none', 'hill'];
@@ -44,12 +53,8 @@ export class SquareTile implements Tile<Vector2> {
 }
 
 export class HexTile implements Tile<AxialCoordinate> {
-  public static readonly graphicalWidth = 15;
-  public static readonly graphicalHeight = 13;
-  private static readonly tileCenterOffset: Vector2 = new Vector2(
-    HexTile.graphicalWidth / 2,
-    HexTile.graphicalHeight / 2
-  );
+  public static readonly graphicalWidth = 20;
+  public static readonly graphicalHeight = Math.floor((this.graphicalWidth * 13) / 15);
   private static readonly neighborOffsets = [
     { q: 1, r: 0 },
     { q: 1, r: -1 },
@@ -70,11 +75,12 @@ export class HexTile implements Tile<AxialCoordinate> {
   }
 
   public static TileToWorld(coord: AxialCoordinate, getTileCenter: boolean = true) {
-    const pos = new Vector2().set([
-      ((coord.q * HexTile.graphicalWidth) / 2) * (3 / 2),
-      (coord.q * HexTile.graphicalHeight) / 2 + (coord.r + 0.5) * HexTile.graphicalHeight,
+    const tileCenterOffset = new AxialCoordinate(-2 / 3, 1 / 3);
+    const offsetCoord = getTileCenter ? AxialCoordinate.plus(coord, tileCenterOffset) : coord;
+    return new Vector2().set([
+      ((offsetCoord.q * HexTile.graphicalWidth) / 2) * (3 / 2),
+      (offsetCoord.q * HexTile.graphicalHeight) / 2 + offsetCoord.r * HexTile.graphicalHeight,
     ]);
-    return getTileCenter ? Vector2.plus(pos, HexTile.tileCenterOffset) : pos;
   }
 
   position: AxialCoordinate;
@@ -101,17 +107,15 @@ export abstract class TileMap<C extends Coordinate> extends EcsRenderableCompone
 }
 
 export class HexTileMap extends TileMap<AxialCoordinate> {
-  private readonly graphicalWidth: number;
-  private readonly graphicalHeight: number;
   private readonly hexTilePolygon: Vector2[];
+  // this offset aligns the map to the edge of the fourth quadrant of worldspace
+  private readonly tilePositionOffset = new AxialCoordinate(2 / 3, 2 / 3);
 
   private tileSet: Set<HexTile>;
   private tileLookupByCoordinateHash: Map<number, HexTile>;
 
   constructor(columns: number, columnHeight: number) {
     super(columns, columnHeight);
-    this.graphicalWidth = ((columns * 3 + 1) * HexTile.graphicalWidth) / 4;
-    this.graphicalHeight = (columnHeight * 2 + 1) * (HexTile.graphicalHeight / 2);
     this.hexTilePolygon = this.createHexTilePolygon();
 
     this.tileSet = new Set();
@@ -150,7 +154,8 @@ export class HexTileMap extends TileMap<AxialCoordinate> {
     this.tileSet.forEach((tile: HexTile) => {
       const fillStyleFn: FillStyleFn = TileTerrainFillStyles.get(tile.terrainType)!;
       const fillStyle = fillStyleFn(ctx);
-      const position = HexTile.TileToWorld(tile.position, true);
+      const offsetTilePosition = AxialCoordinate.plus(tile.position, this.tilePositionOffset);
+      const position = HexTile.TileToWorld(offsetTilePosition, true);
       drawPolygon(ctx, this.hexTilePolygon, fillStyle, position);
       // draw feature?
     });
