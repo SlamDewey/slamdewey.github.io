@@ -1,9 +1,9 @@
-<backdrop
+<x-backdrop
   [backdrop]="bgAnimation"
   [shouldPauseAnimation]="isModalOpen"
   [fullscreen]="true"
-></backdrop>
-<div class="gallery" (style)="(isModalOpen ? 'overflow: hidden;' : 'overflow: auto;')">
+></x-backdrop>
+<div class="gallery" [style]="isModalOpen ? 'overflow: hidden;' : 'overflow: auto;'">
   <x-info-banner [variant]="'basic'">
     <p style="font-size: 1rem; margin: 1rem">
       Some images are very large. Even if the image displays, the zoom tools may be jumpy while

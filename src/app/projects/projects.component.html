@@ -1,9 +1,9 @@
 <div class="projects">
-  <backdrop [backdrop]="bgAnimation" [fullscreen]="true"></backdrop>
+  <x-backdrop [backdrop]="bgAnimation" [fullscreen]="true"></x-backdrop>
   <div class="projects__gallery">
     @for(project of projects; track project.routerLink) {
     <a class="projects__gallery__item" [routerLink]="project.routerLink">
-      <backdrop [backdrop]="project.backdrop"></backdrop>
+      <x-backdrop [backdrop]="project.backdrop"></x-backdrop>
       <div class="projects__gallery__item__hover">
         <div class="projects__gallery__item__hover-content">
           {{ project.labelText }}

@@ -1,4 +1,11 @@
-import { Component, inject, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  NO_ERRORS_SCHEMA,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Backdrop } from '../components/backdrop/backdrop';
@@ -32,6 +39,7 @@ const imagesJson = (imagesJsonModule as any).default as ImagesJson;
     SkeletonLoaderComponent,
   ],
   schemas: [NO_ERRORS_SCHEMA],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GalleryComponent implements OnInit {
   @ViewChild('imageViewerModal') imageViewerModal: ImageViewerModalComponent;
@@ -103,7 +111,9 @@ export class GalleryComponent implements OnInit {
 
   public formatFolderName(folderName: string): string {
     const noSpecialChar = folderName.replace(/[^a-zA-Z0-9]/g, ' ');
-    if (noSpecialChar.length < 1) return noSpecialChar.charAt(0).toUpperCase();
+    if (noSpecialChar.length < 1) {
+      return noSpecialChar;
+    }
     return noSpecialChar.charAt(0).toUpperCase() + noSpecialChar.slice(1);
   }
 }

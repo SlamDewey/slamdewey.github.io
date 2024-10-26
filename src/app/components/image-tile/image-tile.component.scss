@@ -1,23 +1,21 @@
 @import url('../../../styles.scss');
 
 $max-any-dimension: 225px;
-$animation-duration: 1s;
+$animation-duration: 0.5s;
+$box-shadow-color: var(--highlight-color);
 
 .tile {
+  border-radius: 5px;
   margin: 0.5rem;
   cursor: pointer;
-  color: white;
 
   display: flex;
-  flex: auto;
   flex-direction: row;
   justify-content: center;
 
   max-width: $max-any-dimension;
 
-  &:hover {
-    box-shadow: 0 4px 8px 0 black, 0 6px 20px 0 black;
-  }
+  transition: width $animation-duration, height $animation-duration ease-in-out;
 }
 
 .tile__image {
@@ -27,11 +25,13 @@ $animation-duration: 1s;
   max-width: $max-any-dimension;
   max-height: $max-any-dimension;
 
-  display: flex;
-  justify-content: center;
-
   opacity: 0;
   transition: visibility 0s, opacity $animation-duration ease-in;
+
+  &:hover {
+    -webkit-box-shadow: 0 0 10px $box-shadow-color;
+    box-shadow: 0 0 10px $box-shadow-color;
+  }
 }
 
 .tile-hidden {
@@ -45,7 +45,13 @@ $animation-duration: 1s;
 }
 
 .tile__loader {
+  display: block;
   width: $max-any-dimension;
   height: $max-any-dimension;
-  transition: visibility $animation-duration, opacity $animation-duration ease-in-out;
+  transition: visibility 0s, opacity $animation-duration ease-in;
+
+  &.tile-hidden {
+    width: 0;
+    height: 0;
+  }
 }

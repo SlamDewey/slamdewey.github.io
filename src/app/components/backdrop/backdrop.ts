@@ -153,8 +153,7 @@ void main() {
   }
 
   public override setSize(width: number, height: number): void {
-    this.width = width;
-    this.height = height;
+    super.setSize(width, height);
     if (this.gl) {
       this.gl.viewport(0, 0, this.width, this.height);
     }

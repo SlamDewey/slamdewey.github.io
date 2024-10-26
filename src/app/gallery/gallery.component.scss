@@ -8,8 +8,9 @@
   margin: auto;
   margin-bottom: 10rem;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
+  min-height: 600px;
 }
 
 .gallery__dropdown {

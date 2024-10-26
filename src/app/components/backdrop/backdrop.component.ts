@@ -6,16 +6,19 @@ import {
   OnDestroy,
   input,
   viewChild,
+  ChangeDetectionStrategy,
+  effect,
 } from '@angular/core';
 import { Backdrop } from './backdrop';
 import { Vector2 } from 'src/app/shapes/coordinate';
 
 @Component({
-  selector: 'backdrop',
+  selector: 'x-backdrop',
   templateUrl: './backdrop.component.html',
   styleUrls: ['./backdrop.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackdropComponent implements OnDestroy {
   backdrop = input.required<Backdrop>();
@@ -56,7 +59,7 @@ export class BackdropComponent implements OnDestroy {
     backdrop.setSize(this.canvasElement.width, this.canvasElement.height);
     backdrop.initialize();
 
-    this.resizeObserver = new ResizeObserver((entries) => this.onResize(entries));
+    this.resizeObserver = new ResizeObserver(this.onResize.bind(this));
     this.resizeObserver.observe(this.canvasElement);
 
     this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
@@ -87,12 +90,12 @@ export class BackdropComponent implements OnDestroy {
   }
 
   public renderLoop(): void {
+    this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
     if (this.shouldPauseAnimation()) {
       return;
     }
     this.backdrop().clear();
     this.backdrop().tick();
-    this.renderInterval = window.requestAnimationFrame(this.renderLoop.bind(this));
   }
 
   private onResize(entries: ResizeObserverEntry[]) {
@@ -101,11 +104,15 @@ export class BackdropComponent implements OnDestroy {
     let newWidth: number, newHeight: number;
 
     if (this.fullscreen()) {
-      newWidth = entries[0].target.clientWidth;
-      newHeight = Math.max(entries[0].target.clientHeight, window.innerHeight);
+      newWidth = window.innerWidth;
+      newHeight = window.innerHeight;
     } else {
       newWidth = entries[0].contentRect.width;
       newHeight = entries[0].contentRect.height;
+    }
+
+    if (newWidth === this.canvasBufferSize.x && newHeight === this.canvasBufferSize.y) {
+      return;
     }
 
     this.canvasBufferSize.set([newWidth, newHeight]);
